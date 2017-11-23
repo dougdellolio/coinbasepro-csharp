@@ -80,11 +80,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication\Authenticator.cs" />
+    <Compile Include="GDAXClient.cs" />
     <Compile Include="HttpClient\HttpClient.cs" />
     <Compile Include="HttpClient\IHttpClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Accounts\Account.cs" />
     <Compile Include="Services\Accounts\AccountsService.cs" />
+    <Compile Include="Authentication\IAuthenticator.cs" />
     <Compile Include="Services\HttpRequest\HttpRequestMessageService.cs" />
     <Compile Include="Services\HttpRequest\IHttpRequestMessageService.cs" />
     <Compile Include="Utilities\Clock.cs" />

@@ -1,4 +1,5 @@
 ﻿using GDAXClient.Authentication;
+using GDAXClient.Services.Accounts;
 using GDAXClient.Utilities;
 using GDAXClient.Utilities.Extensions;
 using System;
@@ -19,7 +20,7 @@ namespace GDAXClient.Services.HttpRequest
             this.clock = clock;
         }
 
-        public HttpRequestMessage CreateHttpRequestMessage(HttpMethod httpMethod, Authenticator authenticator, string requestUri, string contentBody = "")
+        public HttpRequestMessage CreateHttpRequestMessage(HttpMethod httpMethod, IAuthenticator authenticator, string requestUri, string contentBody = "")
         {
             var requestMessage = new HttpRequestMessage(httpMethod, new Uri(new Uri(apiUri), requestUri));
             var timeStamp = clock.GetTime().ToTimeStamp();
@@ -45,7 +46,7 @@ namespace GDAXClient.Services.HttpRequest
             }
         }
 
-        private void AddHeaders(HttpRequestMessage httpRequestMessage, Authenticator authenticator, string signedSignature, double timeStamp)
+        private void AddHeaders(HttpRequestMessage httpRequestMessage, IAuthenticator authenticator, string signedSignature, double timeStamp)
         {
             httpRequestMessage.Headers.Add("User-Agent", "GDax-Client");
             httpRequestMessage.Headers.Add("CB-ACCESS-KEY", authenticator.ApiKey);
