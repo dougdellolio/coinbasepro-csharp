@@ -37,5 +37,17 @@ namespace GDAXClient.Services.Accounts
 
             return accountList;
         }
+
+        public async Task<Account> GetAccountById(string id)
+        {
+            var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Get, authenticator, $"/accounts/{id}");
+
+            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage);
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
+
+            var account = JsonConvert.DeserializeObject<Account>(contentBody);
+
+            return account;
+        }
     }
 }

@@ -20,6 +20,7 @@ var allAccounts = await gdaxClient.accountsService.GetAllAccounts();
 
 | Service  | Methods                   |
 |----------|---------------------------|
-| Accounts | <li>GetAllAccounts()</li> |
+| Accounts | <li>GetAllAccounts()</li> 
+             <li>GetAllAccounts()</li> 
 
 
