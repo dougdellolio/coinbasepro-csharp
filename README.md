@@ -18,9 +18,9 @@ var allAccounts = await gdaxClient.accountsService.GetAllAccounts();
 
 <h1>What services are provided?</h1>
 
-| Service  | Methods                   |
-|----------|---------------------------|
-| Accounts | <li>GetAllAccounts()</li> 
-             <li>GetAllAccounts()</li> 
+| Accounts		   |
+|--------------------------|
+| GetAllAccounts()	   |
+| GetAccountById(id)	   | 
 
 
