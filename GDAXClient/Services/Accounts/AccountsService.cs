@@ -26,8 +26,8 @@ namespace GDAXClient.Services.Accounts
         {
             var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Get, authenticator, "/accounts");
 
-            var httpResponseMessage = httpClient.SendASync(httpRequestMessage);
-            var contentBody = await httpResponseMessage.Result.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage);
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
             var accountList = JsonConvert.DeserializeObject<List<Account>>(contentBody);
 

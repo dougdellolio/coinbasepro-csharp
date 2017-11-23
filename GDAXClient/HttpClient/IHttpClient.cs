@@ -6,5 +6,7 @@ namespace GDAXClient.HttpClient
     public interface IHttpClient
     {
         Task<HttpResponseMessage> SendASync(HttpRequestMessage httpRequestMessage);
+
+        Task<string> ReadAsStringAsync(HttpResponseMessage httpRequestMessage);
     }
 }

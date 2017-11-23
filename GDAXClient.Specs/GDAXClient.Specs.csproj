@@ -61,8 +61,11 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JsonFixtures\AccountFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\HttpRequest\HttpRequestMessageService.cs" />
+    <Compile Include="Services\Accounts\AccountsServiceSpecs.cs" />
+    <Compile Include="Services\HttpRequest\HttpRequestMessageServiceSpecs.cs" />
+    <Compile Include="Utilities\Extensions\DateExtensionSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
