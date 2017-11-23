@@ -14,15 +14,19 @@ namespace GDAXClient.Services.Accounts
 
         private readonly IHttpClient httpClient;
 
+        private readonly IAuthenticator authenticator;
+
         public AccountsService(
             IHttpClient httpClient,
-            IHttpRequestMessageService httpRequestMessageService)
+            IHttpRequestMessageService httpRequestMessageService,
+            IAuthenticator authenticator)
         {
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
+            this.authenticator = authenticator;
         }
 
-        public async Task<IEnumerable<Account>> GetAllAccounts(Authenticator authenticator)
+        public async Task<IEnumerable<Account>> GetAllAccounts()
         {
             var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Get, authenticator, "/accounts");
 

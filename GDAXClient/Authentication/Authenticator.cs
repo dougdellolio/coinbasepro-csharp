@@ -1,6 +1,8 @@
-﻿namespace GDAXClient.Authentication
+﻿using GDAXClient.Services.Accounts;
+
+namespace GDAXClient.Authentication
 {
-    public class Authenticator
+    public class Authenticator : IAuthenticator
     {
         public Authenticator(
             string apiKey,

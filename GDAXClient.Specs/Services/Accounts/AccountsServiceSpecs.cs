@@ -34,7 +34,7 @@ namespace GDAXClient.Specs.Services.Accounts
         };
 
         Because of = () =>
-            result = Subject.GetAllAccounts(authenticator).Result;
+            result = Subject.GetAllAccounts().Result;
 
         It should_have_correct_count = () =>
             result.Count().ShouldEqual(1);
