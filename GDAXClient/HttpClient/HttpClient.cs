@@ -7,10 +7,17 @@ namespace GDAXClient.HttpClient
     {
         public async Task<HttpResponseMessage> SendASync(HttpRequestMessage httpRequestMessage)
         {
-            var httpClient = new System.Net.Http.HttpClient();
-            var response = await httpClient.SendAsync(httpRequestMessage);
+            using (var httpClient = new System.Net.Http.HttpClient())
+            {
+                var result = await httpClient.SendAsync(httpRequestMessage);
+                return result;
+            }
+        }
 
-            return response;
+        public async Task<string> ReadAsStringAsync(HttpResponseMessage httpRequestMessage)
+        {
+            var result = await httpRequestMessage.Content.ReadAsStringAsync();
+            return result;
         }
     }
 }
