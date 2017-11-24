@@ -1,9 +1,9 @@
 ﻿namespace GDAXClient.Services.Orders
 {
-    public enum ProductType
+    public enum OrderType
     {
-        BtcUsd,
-        EthUsd,
-        LtcUsd
+        Limit,
+        Market,
+        Stop
     }
 }

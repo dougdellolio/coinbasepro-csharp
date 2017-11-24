@@ -26,13 +26,33 @@ namespace GDAXClient.Services.Orders
             this.authenticator = authenticator;
         }
 
-        public async Task<OrderResponse> PlaceOrderAsync(OrderSide side, ProductType productId, string type, decimal price, decimal size)
+        public async Task<OrderResponse> PlaceMarketOrderAsync(OrderSide side, ProductType productId, decimal size)
         {
             var newOrder = JsonConvert.SerializeObject(new Order
             {
                 side = side.ToString().ToLower(),
                 product_id = productId.ToDasherizedUpper(),
-                type = type,
+                type = OrderType.Market.ToString().ToLower(),
+                size = size
+            });
+
+            var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Post, authenticator, "/orders", newOrder);
+
+            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
+
+            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
+
+            return orderResponse;
+        }
+
+        public async Task<OrderResponse> PlaceLimitOrderAsync(OrderSide side, ProductType productId, decimal size, decimal price)
+        {
+            var newOrder = JsonConvert.SerializeObject(new Order
+            {
+                side = side.ToString().ToLower(),
+                product_id = productId.ToDasherizedUpper(),
+                type = OrderType.Limit.ToString().ToLower(),
                 price = price,
                 size = size
             });

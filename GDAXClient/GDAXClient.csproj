@@ -94,6 +94,7 @@
     <Compile Include="Services\Orders\OrderSide.cs" />
     <Compile Include="Services\Orders\OrdersService.cs" />
     <Compile Include="Services\Orders\OrderType.cs" />
+    <Compile Include="Services\Orders\ProductType.cs" />
     <Compile Include="Utilities\Clock.cs" />
     <Compile Include="Utilities\Extensions\DateExtensions.cs" />
     <Compile Include="Utilities\Extensions\ProductTypeExtensions.cs" />

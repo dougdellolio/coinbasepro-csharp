@@ -16,8 +16,6 @@ namespace GDAXClient.Specs.Services.Accounts
     [Subject("AccountsService")]
     public class AccountsServiceSpecs : WithSubject<AccountsService>
     {
-        static IEnumerable<Account> result;
-
         static Authenticator authenticator;
 
         Establish context = () =>
