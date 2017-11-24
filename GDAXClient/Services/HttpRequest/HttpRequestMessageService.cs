@@ -1,5 +1,4 @@
-﻿using GDAXClient.Authentication;
-using GDAXClient.Services.Accounts;
+﻿using GDAXClient.Services.Accounts;
 using GDAXClient.Utilities;
 using GDAXClient.Utilities.Extensions;
 using System;
@@ -13,27 +12,42 @@ namespace GDAXClient.Services.HttpRequest
     {
         private const string apiUri = "https://api.gdax.com";
 
+        private const string sandBoxApiUri = "https://api-public.sandbox.gdax.com";
+
         private readonly IClock clock;
 
-        public HttpRequestMessageService(IClock clock)
+        private readonly bool sandBox;
+
+        public HttpRequestMessageService(IClock clock, bool sandBox)
         {
             this.clock = clock;
+            this.sandBox = sandBox;
         }
 
         public HttpRequestMessage CreateHttpRequestMessage(HttpMethod httpMethod, IAuthenticator authenticator, string requestUri, string contentBody = "")
         {
-            var requestMessage = new HttpRequestMessage(httpMethod, new Uri(new Uri(apiUri), requestUri));
+            var baseUri = sandBox == true
+                ? sandBoxApiUri
+                : apiUri;
+
+            var requestMessage = new HttpRequestMessage(httpMethod, new Uri(new Uri(baseUri), requestUri))
+            {
+                Content = contentBody == string.Empty
+                ? null
+                : new StringContent(contentBody, Encoding.UTF8, "application/json")
+            };
+
             var timeStamp = clock.GetTime().ToTimeStamp();
-            var signedSignature = ComputeSignature(authenticator.UnsignedSignature, timeStamp, requestUri);
+            var signedSignature = ComputeSignature(httpMethod, authenticator.UnsignedSignature, timeStamp, requestUri, contentBody);
 
             AddHeaders(requestMessage, authenticator, signedSignature, timeStamp);
             return requestMessage;
         }
 
-        private string ComputeSignature(string secret, double timestamp, string requestUri, string contentBody = "")
+        private string ComputeSignature(HttpMethod httpMethod, string secret, double timestamp, string requestUri, string contentBody = "")
         {
             var data = Convert.FromBase64String(secret);
-            var prehash = timestamp + HttpMethod.Get.ToString().ToUpper() + requestUri + contentBody;
+            var prehash = timestamp + httpMethod.ToString().ToUpper() + requestUri + contentBody;
             return HashString(prehash, data);
         }
 

@@ -42,7 +42,7 @@ namespace GDAXClient.Specs.Services.Accounts
             };
 
             Because of = () =>
-                result = Subject.GetAllAccounts().Result;
+                result = Subject.GetAllAccountsAsync().Result;
 
             It should_have_correct_count = () =>
                 result.Count().ShouldEqual(1);
@@ -77,7 +77,7 @@ namespace GDAXClient.Specs.Services.Accounts
             };
 
             Because of = () =>
-                result = Subject.GetAccountById("a1b2c3d4").Result;
+                result = Subject.GetAccountByIdAsync("a1b2c3d4").Result;
 
             It should_have_correct_account_information = () =>
             {

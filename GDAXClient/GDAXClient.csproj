@@ -89,8 +89,14 @@
     <Compile Include="Authentication\IAuthenticator.cs" />
     <Compile Include="Services\HttpRequest\HttpRequestMessageService.cs" />
     <Compile Include="Services\HttpRequest\IHttpRequestMessageService.cs" />
+    <Compile Include="Services\Orders\Order.cs" />
+    <Compile Include="Services\Orders\OrderResponse.cs" />
+    <Compile Include="Services\Orders\OrderSide.cs" />
+    <Compile Include="Services\Orders\OrdersService.cs" />
+    <Compile Include="Services\Orders\OrderType.cs" />
     <Compile Include="Utilities\Clock.cs" />
     <Compile Include="Utilities\Extensions\DateExtensions.cs" />
+    <Compile Include="Utilities\Extensions\ProductTypeExtensions.cs" />
     <Compile Include="Utilities\IClock.cs" />
   </ItemGroup>
   <ItemGroup>
