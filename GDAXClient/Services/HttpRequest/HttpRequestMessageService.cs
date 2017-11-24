@@ -33,8 +33,8 @@ namespace GDAXClient.Services.HttpRequest
             var requestMessage = new HttpRequestMessage(httpMethod, new Uri(new Uri(baseUri), requestUri))
             {
                 Content = contentBody == string.Empty
-                ? null
-                : new StringContent(contentBody, Encoding.UTF8, "application/json")
+                    ? null
+                    : new StringContent(contentBody, Encoding.UTF8, "application/json")
             };
 
             var timeStamp = clock.GetTime().ToTimeStamp();
