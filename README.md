@@ -18,10 +18,13 @@ var allAccounts = await gdaxClient.accountsService.GetAllAccountsAsync();
 
 <h1>What services are provided?</h1>
 
-| Accounts                | Orders                                                    | Fills | Funding | Position | Deposits | Withdrawals |
-|-------------------------|-----------------------------------------------------------|-------|---------|----------|----------|-------------|
-| GetAllAccountsAsync()   | PlaceMarketOrderAsync(orderSide, productType, size)       |       |         |          |          |             |
-| GetAccountByIdAsync(id) | PlaceLimitOrderAsync(orderSide, productType, size, price) |       |         |          |          |             |
+###### Accounts ######
+- Retrieve all accounts - GetAllAccountsAsync()
+- Retrieve account by id - GetAccountByIdAsync(id)
+
+###### Orders ######
+- Place a market order - PlaceMarketOrderAsync(orderSide, productType, size)
+- Place a limit order - PlaceLimitOrderAsync(orderSide, productType, size, price)
 
 <h1>Sandbox Support</h1>
 
@@ -35,17 +38,17 @@ var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>")
 var gdaxClient = new GDAXClient.GDAXClient(authenticator, true);
 
 //use one of the services 
-var orderResponse = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1));
+var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1));
 ````
 
 <h1>Examples</h1>
 
 ###### Place a market order ######
 
-`var orderResponse = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1));`
+`var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1));`
 
 ###### Place a limit order ######
 
-`var orderResponse = await gdaxClient.OrdersService.PlaceLimitOrderAsync(OrderSide.Sell, ProductType.EthUsd, 1, 400.0M));`
+`var response = await gdaxClient.OrdersService.PlaceLimitOrderAsync(OrderSide.Sell, ProductType.EthUsd, 1, 400.0M));`
 
 
