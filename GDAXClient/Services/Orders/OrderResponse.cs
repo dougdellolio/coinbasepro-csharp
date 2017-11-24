@@ -4,7 +4,7 @@ namespace GDAXClient.Services.Orders
 {
     public class OrderResponse
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         public decimal Price { get; set; }
 

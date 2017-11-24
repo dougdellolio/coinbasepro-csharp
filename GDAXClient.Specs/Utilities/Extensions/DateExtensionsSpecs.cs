@@ -5,7 +5,7 @@ using System;
 namespace GDAXClient.Specs.Utilities.Extensions
 {
     [Subject("DateExtensions")]
-    public class DateExtensionSpecs
+    public class DateExtensionsSpecs
     {
         static DateTime date;
 

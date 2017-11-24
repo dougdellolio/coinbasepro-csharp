@@ -37,8 +37,6 @@ namespace GDAXClient.Specs.Services.Accounts
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(AllAccountsFixture.Create()));
-
-                authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
             };
 
             Because of = () =>
@@ -72,8 +70,6 @@ namespace GDAXClient.Specs.Services.Accounts
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(AccountByIdFixture.Create()));
-
-                authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
             };
 
             Because of = () =>
