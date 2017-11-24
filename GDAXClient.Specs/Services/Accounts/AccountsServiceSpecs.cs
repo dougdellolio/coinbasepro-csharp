@@ -16,8 +16,6 @@ namespace GDAXClient.Specs.Services.Accounts
     [Subject("AccountsService")]
     public class AccountsServiceSpecs : WithSubject<AccountsService>
     {
-        static IEnumerable<Account> result;
-
         static Authenticator authenticator;
 
         Establish context = () =>
@@ -37,12 +35,10 @@ namespace GDAXClient.Specs.Services.Accounts
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(AllAccountsFixture.Create()));
-
-                authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
             };
 
             Because of = () =>
-                result = Subject.GetAllAccounts().Result;
+                result = Subject.GetAllAccountsAsync().Result;
 
             It should_have_correct_count = () =>
                 result.Count().ShouldEqual(1);
@@ -72,12 +68,10 @@ namespace GDAXClient.Specs.Services.Accounts
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(AccountByIdFixture.Create()));
-
-                authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
             };
 
             Because of = () =>
-                result = Subject.GetAccountById("a1b2c3d4").Result;
+                result = Subject.GetAccountByIdAsync("a1b2c3d4").Result;
 
             It should_have_correct_account_information = () =>
             {
