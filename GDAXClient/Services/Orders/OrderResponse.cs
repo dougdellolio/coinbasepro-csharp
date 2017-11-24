@@ -24,6 +24,10 @@ namespace GDAXClient.Services.Orders
 
         public DateTime Created_at { get; set; }
 
+        public DateTime Done_at { get; set; }
+
+        public string Done_reason { get; set; }
+
         public decimal Fill_fees { get; set; }
 
         public decimal Filled_size { get; set; }
@@ -33,5 +37,7 @@ namespace GDAXClient.Services.Orders
         public string Status { get; set; }
 
         public bool Settled { get; set; }
+
+        public decimal Specified_funds { get; set; }
     }
 }

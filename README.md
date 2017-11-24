@@ -25,6 +25,10 @@ var allAccounts = await gdaxClient.accountsService.GetAllAccountsAsync();
 ###### Orders ######
 - PlaceMarketOrderAsync(orderSide, productType, size) - place market order
 - PlaceLimitOrderAsync(orderSide, productType, size, price) - place limit order
+- CancelAllOrdersAsync() - cancel all orders
+- CancelOrderByIdAsync(string id) - cancel order by id
+- GetAllOrdersAsync() - get all orders (only open or un-settled orders)
+- GetOrderByIdAsync(string id) - get order by id
 
 <h1>Sandbox Support</h1>
 
@@ -50,5 +54,9 @@ var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Bu
 ###### Place a limit order ######
 
 `var response = await gdaxClient.OrdersService.PlaceLimitOrderAsync(OrderSide.Sell, ProductType.EthUsd, 1, 400.0M));`
+
+###### Cancel all open or un-settled orders ######
+
+`var response = await gdaxClient.OrdersService.CancelAllOrdersAsync();`
 
 
