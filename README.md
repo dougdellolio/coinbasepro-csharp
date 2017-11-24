@@ -1,7 +1,7 @@
 # GDAXClient
 GDAX C# API Client Library - https://docs.gdax.com/
 
-<h1>How to Install<h1>
+<h1>How to Install</h1>
 
 `PM> Install-Package GDAX.Api.ClientLibrary`
 
