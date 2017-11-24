@@ -40,11 +40,11 @@ var orderResponse = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSi
 
 <h1>Examples</h1>
 
-# Place a market order
+###### Place a market order ######
 
 `var orderResponse = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1));`
 
-# Place a limit order
+###### Place a limit order ######
 
 `var orderResponse = await gdaxClient.OrdersService.PlaceLimitOrderAsync(OrderSide.Sell, ProductType.EthUsd, 1, 400.0M));`
 
