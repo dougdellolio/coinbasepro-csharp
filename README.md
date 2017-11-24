@@ -19,8 +19,8 @@ var allAccounts = await gdaxClient.accountsService.GetAllAccountsAsync();
 <h1>What services are provided?</h1>
 
 ###### Accounts ######
-- GetAllAccountsAsync() - retrieve all accounts
-- GetAccountByIdAsync(id) - retrieve account by id
+- GetAllAccountsAsync() - get all accounts
+- GetAccountByIdAsync(id) - get account by id
 
 ###### Orders ######
 - PlaceMarketOrderAsync(orderSide, productType, size) - place market order
