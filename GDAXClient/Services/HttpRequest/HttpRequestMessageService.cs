@@ -46,9 +46,9 @@ namespace GDAXClient.Services.HttpRequest
 
         private string ComputeSignature(HttpMethod httpMethod, string secret, double timestamp, string requestUri, string contentBody = "")
         {
-            var data = Convert.FromBase64String(secret);
+            var convertedString = Convert.FromBase64String(secret);
             var prehash = timestamp + httpMethod.ToString().ToUpper() + requestUri + contentBody;
-            return HashString(prehash, data);
+            return HashString(prehash, convertedString);
         }
 
         private string HashString(string str, byte[] secret)
@@ -62,7 +62,7 @@ namespace GDAXClient.Services.HttpRequest
 
         private void AddHeaders(HttpRequestMessage httpRequestMessage, IAuthenticator authenticator, string signedSignature, double timeStamp)
         {
-            httpRequestMessage.Headers.Add("User-Agent", "GDax-Client");
+            httpRequestMessage.Headers.Add("User-Agent", "GDAXClient");
             httpRequestMessage.Headers.Add("CB-ACCESS-KEY", authenticator.ApiKey);
             httpRequestMessage.Headers.Add("CB-ACCESS-TIMESTAMP", timeStamp.ToString());
             httpRequestMessage.Headers.Add("CB-ACCESS-SIGN", signedSignature);

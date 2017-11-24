@@ -23,8 +23,8 @@ var allAccounts = await gdaxClient.accountsService.GetAllAccountsAsync();
 - Retrieve account by id - GetAccountByIdAsync(id)
 
 ###### Orders ######
-- Place a market order - PlaceMarketOrderAsync(orderSide, productType, size)
-- Place a limit order - PlaceLimitOrderAsync(orderSide, productType, size, price)
+- PlaceMarketOrderAsync(orderSide, productType, size)
+- PlaceLimitOrderAsync(orderSide, productType, size, price)
 
 <h1>Sandbox Support</h1>
 
