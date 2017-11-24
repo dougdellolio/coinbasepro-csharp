@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="JsonFixtures\Accounts\AccountByIdFixture.cs" />
     <Compile Include="JsonFixtures\Accounts\AllAccountsFixture.cs" />
+    <Compile Include="JsonFixtures\Orders\CancelOrderResponseFixture.cs" />
     <Compile Include="JsonFixtures\Orders\OrderResponseFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Accounts\AccountsServiceSpecs.cs" />

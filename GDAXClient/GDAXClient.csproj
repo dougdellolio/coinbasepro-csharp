@@ -89,6 +89,7 @@
     <Compile Include="Authentication\IAuthenticator.cs" />
     <Compile Include="Services\HttpRequest\HttpRequestMessageService.cs" />
     <Compile Include="Services\HttpRequest\IHttpRequestMessageService.cs" />
+    <Compile Include="Services\Orders\CancelOrderResponse.cs" />
     <Compile Include="Services\Orders\Order.cs" />
     <Compile Include="Services\Orders\OrderResponse.cs" />
     <Compile Include="Services\Orders\OrderSide.cs" />
