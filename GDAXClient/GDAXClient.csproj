@@ -59,6 +59,7 @@
     <Compile Include="Services\Accounts\Account.cs" />
     <Compile Include="Services\Accounts\AccountsService.cs" />
     <Compile Include="Authentication\IAuthenticator.cs" />
+    <Compile Include="Services\Currency.cs" />
     <Compile Include="Services\HttpRequest\HttpRequestMessageService.cs" />
     <Compile Include="Services\HttpRequest\IHttpRequestMessageService.cs" />
     <Compile Include="Services\Orders\CancelOrderResponse.cs" />
@@ -68,6 +69,11 @@
     <Compile Include="Services\Orders\OrdersService.cs" />
     <Compile Include="Services\Orders\OrderType.cs" />
     <Compile Include="Services\Orders\ProductType.cs" />
+    <Compile Include="Services\Payments\PaymentMethod.cs" />
+    <Compile Include="Services\Payments\PaymentsService.cs" />
+    <Compile Include="Services\Withdrawals\Withdrawal.cs" />
+    <Compile Include="Services\Withdrawals\WithdrawalResponse.cs" />
+    <Compile Include="Services\Withdrawals\WithdrawalsService.cs" />
     <Compile Include="Utilities\Clock.cs" />
     <Compile Include="Utilities\Extensions\DateExtensions.cs" />
     <Compile Include="Utilities\Extensions\ProductTypeExtensions.cs" />
