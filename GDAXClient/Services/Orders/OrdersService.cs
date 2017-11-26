@@ -83,13 +83,13 @@ namespace GDAXClient.Services.Orders
             {
                 return new CancelOrderResponse
                 {
-                    OrderIds = new List<Guid> { new Guid(id) }
+                    OrderIds = Enumerable.Empty<Guid>()
                 };
             }
 
             return new CancelOrderResponse
             {
-                OrderIds = Enumerable.Empty<Guid>()
+                OrderIds = new List<Guid> { new Guid(id) }
             };
         }
 

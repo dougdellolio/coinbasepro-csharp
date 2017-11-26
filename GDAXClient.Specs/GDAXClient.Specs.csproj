@@ -80,10 +80,12 @@
     <Compile Include="JsonFixtures\Accounts\AllAccountsFixture.cs" />
     <Compile Include="JsonFixtures\Orders\CancelOrderResponseFixture.cs" />
     <Compile Include="JsonFixtures\Orders\OrderResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Payments\PaymentMethodsResponseFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Accounts\AccountsServiceSpecs.cs" />
     <Compile Include="Services\HttpRequest\HttpRequestMessageServiceSpecs.cs" />
     <Compile Include="Services\Orders\OrdersServiceSpecs.cs" />
+    <Compile Include="Services\Payments\PaymentsServiceSpecs.cs" />
     <Compile Include="Utilities\Extensions\DateExtensionsSpecs.cs" />
     <Compile Include="Utilities\Extensions\ProductTypeExtensionsSpecs.cs" />
   </ItemGroup>
@@ -98,6 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\Withdrawals\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

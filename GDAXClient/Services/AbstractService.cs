@@ -27,8 +27,8 @@ namespace GDAXClient.Services
         protected async Task<string> SendHttpRequestMessage(HttpMethod httpMethod, IAuthenticator authenticator, string uri, string content = null)
         {
             var httpRequestMessage = content == null
-                ? httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Post, authenticator, uri)
-                : httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Post, authenticator, uri, content);
+                ? httpRequestMessageService.CreateHttpRequestMessage(httpMethod, authenticator, uri)
+                : httpRequestMessageService.CreateHttpRequestMessage(httpMethod, authenticator, uri, content);
 
             var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
