@@ -46,7 +46,7 @@ namespace GDAXClient.Specs.Services.Payments
             {
                 payment_methods.First().Id.ShouldEqual(new System.Guid("bc6d7162-d984-5ffa-963c-a493b1c1370b"));
                 payment_methods.First().Name.ShouldEqual("Bank of America - eBan... ********7134");
-                payment_methods.First().Currency.ShouldEqual("USD");
+                payment_methods.First().Currency.ShouldEqual("USSD");
                 payment_methods.First().Allow_buy.ShouldBeTrue();
                 payment_methods.First().Allow_sell.ShouldBeTrue();
                 payment_methods.First().Allow_deposit.ShouldBeTrue();
