@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GDAXClient.Services.Accounts
 {
-    public class AccountsService
+    public class AccountsService : AbstractService
     {
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
@@ -19,6 +19,7 @@ namespace GDAXClient.Services.Accounts
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
+                : base(httpClient, httpRequestMessageService, authenticator)
         {
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
@@ -27,11 +28,7 @@ namespace GDAXClient.Services.Accounts
 
         public async Task<IEnumerable<Account>> GetAllAccountsAsync()
         {
-            var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Get, authenticator, "/accounts");
-
-            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-
+            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, "/accounts");
             var accountList = JsonConvert.DeserializeObject<List<Account>>(contentBody);
 
             return accountList;
@@ -39,11 +36,7 @@ namespace GDAXClient.Services.Accounts
 
         public async Task<Account> GetAccountByIdAsync(string id)
         {
-            var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Get, authenticator, $"/accounts/{id}");
-
-            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-
+            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/accounts/{id}");
             var account = JsonConvert.DeserializeObject<Account>(contentBody);
 
             return account;

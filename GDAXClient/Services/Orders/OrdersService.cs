@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GDAXClient.Services.Orders
 {
-    public class OrdersService
+    public class OrdersService : AbstractService
     {
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
@@ -23,6 +23,8 @@ namespace GDAXClient.Services.Orders
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
+                : base(httpClient, httpRequestMessageService, authenticator)
+
         {
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
@@ -105,21 +107,6 @@ namespace GDAXClient.Services.Orders
             var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(httpRequestResponse);
 
             return orderResponse;
-        }
-
-        private async Task<string> SendHttpRequestMessage(HttpMethod httpMethod, IAuthenticator authenticator, string uri, string order = null)
-        {
-            var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Post, authenticator, "/orders", order);
-
-            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                return null;
-            }
-
-            return contentBody;
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GDAXClient.Services.WithdrawalsService
 {
-    public class WithdrawalsService
+    public class WithdrawalsService : AbstractService
     {
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
@@ -21,6 +21,7 @@ namespace GDAXClient.Services.WithdrawalsService
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
+                : base(httpClient, httpRequestMessageService, authenticator)
         {
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
@@ -36,11 +37,7 @@ namespace GDAXClient.Services.WithdrawalsService
                 payment_method_id = new Guid(paymentMethodId)
             });
 
-            var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Post, authenticator, "/withdrawals/payment-method", newWithdrawal);
-
-            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-
+            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/withdrawals/payment-method", newWithdrawal);
             var withdrawalResponse = JsonConvert.DeserializeObject<WithdrawalResponse>(contentBody);
 
             return withdrawalResponse;

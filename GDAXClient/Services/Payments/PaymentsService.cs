@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GDAXClient.Services.Payments
 {
-    public class PaymentsService
+    public class PaymentsService : AbstractService
     {
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
@@ -20,6 +20,8 @@ namespace GDAXClient.Services.Payments
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
+                : base(httpClient, httpRequestMessageService, authenticator)
+
         {
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
@@ -28,11 +30,7 @@ namespace GDAXClient.Services.Payments
 
         public async Task<IEnumerable<PaymentMethod>> GetAllPaymentMethodsAsync()
         {
-            var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Get, authenticator, "/payment-methods");
-
-            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-
+            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, "/payment-methods");
             var paymentMethodsResponse = JsonConvert.DeserializeObject<IEnumerable<PaymentMethod>>(contentBody);
 
             return paymentMethodsResponse;
