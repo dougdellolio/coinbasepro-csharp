@@ -2,4 +2,4 @@ language: csharp
 solution: GDAXClient.sln
 script:
   - xbuild /p:Configuration=Release GDAXClient.sln
-  - mono ./packages/xunit.runners.*/tools/xunit.console.clr4.exe ./GDAXClient.Specs/bin/Release/GDAXClient.Specs.dll
+  - mono ./packages/Machine.Specifications.Runner.Console.0.9.3\tools\mspec.exe ./GDAXClient.Specs/bin/Release/GDAXClient.Specs.dll
