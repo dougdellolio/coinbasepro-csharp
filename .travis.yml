@@ -1,0 +1,8 @@
+language: csharp
+solution: GDAXClient.sln
+before_install:
+  - sudo apt-get install nunit-console
+before_script:
+  - nuget restore GDAXClient.sln
+after_script:
+  - nunit-console GDAXClient.Specs/bin/Release/GDAXClient.Specs.dll
