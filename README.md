@@ -34,6 +34,12 @@ var allAccounts = await gdaxClient.accountsService.GetAllAccountsAsync();
 - GetAllOrdersAsync() - get all orders (only open or un-settled orders)
 - GetOrderByIdAsync(string id) - get order by id
 
+###### Payments ######
+- GetAllPaymentMethodsAsync() - get all payment methods
+
+###### Withdrawals ######
+- WithdrawFundsAsync(paymentMethodId, amount, currency)
+
 <h1>Sandbox Support</h1>
 
 <i>Generate your key at https://public.sandbox.gdax.com/settings/api</i>
