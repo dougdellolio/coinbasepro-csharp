@@ -148,9 +148,7 @@ namespace GDAXClient.Specs.Services.Accounts
                 cancel_order_response_result.OrderIds.Count().ShouldEqual(1);
 
             It should_have_correct_list_of_cancelled_orders = () =>
-            {
                 cancel_order_response_result.OrderIds.First().ShouldEqual(new System.Guid("144c6f8e-713f-4682-8435-5280fbe8b2b4"));
-            };
         }
 
         class when_cancelling_order_by_id_with_failure

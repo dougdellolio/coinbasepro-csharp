@@ -34,7 +34,7 @@ namespace GDAXClient.Specs.Services.Accounts
                     .Return(Task.FromResult(new HttpResponseMessage()));
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(AllAccountsFixture.Create()));
+                    .Return(Task.FromResult(AllAccountsResponseFixture.Create()));
             };
 
             Because of = () =>
@@ -67,7 +67,7 @@ namespace GDAXClient.Specs.Services.Accounts
                     .Return(Task.FromResult(new HttpResponseMessage()));
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(AccountByIdFixture.Create()));
+                    .Return(Task.FromResult(AccountByIdResponseFixture.Create()));
             };
 
             Because of = () =>
