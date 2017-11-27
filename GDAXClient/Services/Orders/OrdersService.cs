@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GDAXClient.Services.Orders
 {
-    public class OrdersService
+    public class OrdersService : AbstractService
     {
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
@@ -23,6 +23,8 @@ namespace GDAXClient.Services.Orders
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
+                : base(httpClient, httpRequestMessageService, authenticator)
+
         {
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
@@ -39,12 +41,8 @@ namespace GDAXClient.Services.Orders
                 size = size
             });
 
-            var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Post, authenticator, "/orders", newOrder);
-
-            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-
-            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
+            var httpRequestResponse = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/orders", newOrder);
+            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(httpRequestResponse);
 
             return orderResponse;
         }
@@ -60,24 +58,16 @@ namespace GDAXClient.Services.Orders
                 size = size
             });
 
-            var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Post, authenticator, "/orders", newOrder);
-
-            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-
-            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
+            var httpRequestResponse = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/orders", newOrder);
+            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(httpRequestResponse);
 
             return orderResponse;
         }
 
         public async Task<CancelOrderResponse> CancelAllOrdersAsync()
         {
-            var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Delete, authenticator, "/orders");
-
-            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-
-            var orderResponse = JsonConvert.DeserializeObject<IEnumerable<Guid>>(contentBody);
+            var httpRequestResponse = await SendHttpRequestMessage(HttpMethod.Delete, authenticator, "/orders");
+            var orderResponse = JsonConvert.DeserializeObject<IEnumerable<Guid>>(httpRequestResponse);
 
             return new CancelOrderResponse
             {
@@ -87,45 +77,34 @@ namespace GDAXClient.Services.Orders
 
         public async Task<CancelOrderResponse> CancelOrderByIdAsync(string id)
         {
-            var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Delete, authenticator, $"/orders/{id}");
+            var httpRequestResponse = await SendHttpRequestMessage(HttpMethod.Delete, authenticator, $"/orders/{id}");
 
-            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-
-            if (httpResponseMessage.IsSuccessStatusCode)
+            if (httpRequestResponse == null)
             {
                 return new CancelOrderResponse
                 {
-                    OrderIds = new List<Guid> { new Guid(id) }
+                    OrderIds = Enumerable.Empty<Guid>()
                 };
             }
 
             return new CancelOrderResponse
             {
-                OrderIds = Enumerable.Empty<Guid>()
+                OrderIds = new List<Guid> { new Guid(id) }
             };
         }
 
         public async Task<IEnumerable<OrderResponse>> GetAllOrdersAsync()
         {
-            var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Get, authenticator, "/orders");
-
-            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-
-            var orderResponse = JsonConvert.DeserializeObject<IEnumerable<OrderResponse>>(contentBody);
+            var httpRequestResponse = await SendHttpRequestMessage(HttpMethod.Get, authenticator, "/orders");
+            var orderResponse = JsonConvert.DeserializeObject<IEnumerable<OrderResponse>>(httpRequestResponse);
 
             return orderResponse;
         }
 
         public async Task<OrderResponse> GetOrderByIdAsync(string id)
         {
-            var httpRequestMessage = httpRequestMessageService.CreateHttpRequestMessage(HttpMethod.Get, authenticator, $"/orders/{id}");
-
-            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-
-            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
+            var httpRequestResponse = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/orders/{id}");
+            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(httpRequestResponse);
 
             return orderResponse;
         }

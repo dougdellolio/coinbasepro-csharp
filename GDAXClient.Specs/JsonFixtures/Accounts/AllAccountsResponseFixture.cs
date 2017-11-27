@@ -1,6 +1,6 @@
 ﻿namespace GDAXClient.Specs.Fixtures
 {
-    public static class AllAccountsFixture
+    public static class AllAccountsResponseFixture
     {
         public static string Create()
         {

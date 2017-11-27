@@ -1,0 +1,54 @@
+﻿using GDAXClient.Authentication;
+using GDAXClient.HttpClient;
+using GDAXClient.Services.HttpRequest;
+using GDAXClient.Services.Withdrawals;
+using GDAXClient.Services.WithdrawalsService;
+using GDAXClient.Specs.JsonFixtures.Withdrawals;
+using Machine.Fakes;
+using Machine.Specifications;
+using System.Net.Http;
+using System.Threading.Tasks;
+using GDAXClient.Services;
+
+namespace GDAXClient.Specs.Services.Withdrawals
+{
+    [Subject("WithdrawalsService")]
+    public class WithdrawalsServiceSpecs : WithSubject<WithdrawalsService>
+    {
+        static Authenticator authenticator;
+
+        static WithdrawalResponse withdrawals_response;
+
+        Establish context = () =>
+            authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
+
+        class when_requesting_a_withdrawal
+        {
+            Establish context = () =>
+            {
+                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                    .Return(new HttpRequestMessage());
+
+                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                    .Return(Task.FromResult(new HttpResponseMessage()));
+
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(WithdrawalsResponseFixture.Create()));
+            };
+
+            Because of = () =>
+                withdrawals_response = Subject.WithdrawFundsAsync("593533d2-ff31-46e0-b22e-ca754147a96a", 10, Currency.USD).Result;
+
+            It should_return_a_response = () =>
+                withdrawals_response.ShouldNotBeNull();
+
+            It should_return_a_correct_response = () =>
+            {
+                withdrawals_response.Id.ShouldEqual(new System.Guid("593533d2-ff31-46e0-b22e-ca754147a96a"));
+                withdrawals_response.Amount.ShouldEqual(10.00M);
+                withdrawals_response.Currency.ShouldEqual("USD");
+                withdrawals_response.Payout_at.ShouldEqual(new System.DateTime(2016, 12, 9));
+            };
+        }
+    }
+}

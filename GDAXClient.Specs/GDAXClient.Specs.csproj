@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Machine.Specifications.Runner.VisualStudio.2.5.2\build\net46\Machine.Specifications.Runner.VisualStudio.props" Condition="Exists('..\packages\Machine.Specifications.Runner.VisualStudio.2.5.2\build\net46\Machine.Specifications.Runner.VisualStudio.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,6 +12,8 @@
     <AssemblyName>GDAXClient.Specs</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +48,18 @@
     <Reference Include="Machine.Specifications.Should, Version=0.11.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Machine.Specifications.Should.0.11.0\lib\net45\Machine.Specifications.Should.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=4.7.142.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.7.142\lib\net45\Moq.dll</HintPath>
     </Reference>
@@ -61,14 +76,18 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JsonFixtures\Accounts\AccountByIdFixture.cs" />
-    <Compile Include="JsonFixtures\Accounts\AllAccountsFixture.cs" />
+    <Compile Include="JsonFixtures\Accounts\AccountByIdResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Accounts\AllAccountsResponseFixture.cs" />
     <Compile Include="JsonFixtures\Orders\CancelOrderResponseFixture.cs" />
     <Compile Include="JsonFixtures\Orders\OrderResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Payments\PaymentMethodsResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Withdrawals\WithdrawalsResponseFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Accounts\AccountsServiceSpecs.cs" />
     <Compile Include="Services\HttpRequest\HttpRequestMessageServiceSpecs.cs" />
     <Compile Include="Services\Orders\OrdersServiceSpecs.cs" />
+    <Compile Include="Services\Payments\PaymentsServiceSpecs.cs" />
+    <Compile Include="Services\Withdrawals\WithdrawalsServiceSpecs.cs" />
     <Compile Include="Utilities\Extensions\DateExtensionsSpecs.cs" />
     <Compile Include="Utilities\Extensions\ProductTypeExtensionsSpecs.cs" />
   </ItemGroup>
@@ -84,5 +103,12 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Machine.Specifications.Runner.VisualStudio.2.5.2\build\net46\Machine.Specifications.Runner.VisualStudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Machine.Specifications.Runner.VisualStudio.2.5.2\build\net46\Machine.Specifications.Runner.VisualStudio.props'))" />
+  </Target>
 </Project>
