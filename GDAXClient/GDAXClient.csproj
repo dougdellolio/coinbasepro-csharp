@@ -72,6 +72,10 @@
     <Compile Include="Services\Orders\ProductType.cs" />
     <Compile Include="Services\Payments\PaymentMethod.cs" />
     <Compile Include="Services\Payments\PaymentsService.cs" />
+    <Compile Include="Services\Withdrawals\Coinbase.cs" />
+    <Compile Include="Services\Withdrawals\CoinbaseResponse.cs" />
+    <Compile Include="Services\Withdrawals\Crypto.cs" />
+    <Compile Include="Services\Withdrawals\CryptoResponse.cs" />
     <Compile Include="Services\Withdrawals\Withdrawal.cs" />
     <Compile Include="Services\Withdrawals\WithdrawalResponse.cs" />
     <Compile Include="Services\Withdrawals\WithdrawalsService.cs" />

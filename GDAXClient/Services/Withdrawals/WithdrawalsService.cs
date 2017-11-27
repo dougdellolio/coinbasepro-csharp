@@ -42,5 +42,35 @@ namespace GDAXClient.Services.WithdrawalsService
 
             return withdrawalResponse;
         }
+
+        public async Task<CoinbaseResponse> WithdrawToCoinbaseAsync(string coinbase_account_id, decimal amount, Currency currency)
+        {
+            var newCoinbaseWithdrawal = JsonConvert.SerializeObject(new Coinbase
+            {
+                amount = amount,
+                currency = currency.ToString().ToUpper(),
+                coinbase_account_id = new Guid(coinbase_account_id)
+            });
+
+            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/withdrawals/coinbase-account", newCoinbaseWithdrawal);
+            var coinbaseResponse = JsonConvert.DeserializeObject<CoinbaseResponse>(contentBody);
+
+            return coinbaseResponse;
+        }
+
+        public async Task<CryptoResponse> WithdrawToCryptoAsync(string crypto_address, decimal amount, Currency currency)
+        {
+            var newCryptoWithdrawal = JsonConvert.SerializeObject(new Crypto
+            {
+                amount = amount,
+                currency = currency.ToString().ToUpper(),
+                crypto_address = new Guid(crypto_address)
+            });
+
+            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/withdrawals/crypto", newCryptoWithdrawal);
+            var cryptoResponse = JsonConvert.DeserializeObject<CryptoResponse>(contentBody);
+
+            return cryptoResponse;
+        }
     }
 }
