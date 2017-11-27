@@ -1,6 +1,8 @@
 # GDAXClient
 GDAX C# API Client Library - https://docs.gdax.com/
 
+<a href="https://travis-ci.org/dougdellolio/GDAXClient"><img src="https://travis-ci.org/dougdellolio/GDAXClient.svg?branch=feature%2Fpayment-and-withdrawals"></a> [![NuGet](https://img.shields.io/nuget/v/GDAX.Api.ClientLibrary.svg)]()
+
 <h1>How to Install</h1>
 
 `PM> Install-Package GDAX.Api.ClientLibrary`
@@ -38,7 +40,7 @@ var allAccounts = await gdaxClient.accountsService.GetAllAccountsAsync();
 - GetAllPaymentMethodsAsync() - get all payment methods
 
 ###### Withdrawals ######
- - WithdrawFundsAsync(paymentMethodId, amount, currency) - withdraw funds to a payment method
+- WithdrawFundsAsync(paymentMethodId, amount, currency)
 
 <h1>Sandbox Support</h1>
 
