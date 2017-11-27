@@ -40,7 +40,7 @@ var allAccounts = await gdaxClient.accountsService.GetAllAccountsAsync();
 - GetAllPaymentMethodsAsync() - get all payment methods
 
 ###### Withdrawals ######
-- WithdrawFundsAsync(paymentMethodId, amount, currency)
+- WithdrawFundsAsync(paymentMethodId, amount, currency) - withdraw funds to a payment method
 
 <h1>Sandbox Support</h1>
 
