@@ -61,6 +61,9 @@
     <Compile Include="Services\Accounts\AccountsService.cs" />
     <Compile Include="Authentication\IAuthenticator.cs" />
     <Compile Include="Services\Currency.cs" />
+    <Compile Include="Services\Deposits\Deposit.cs" />
+    <Compile Include="Services\Deposits\DepositResponse.cs" />
+    <Compile Include="Services\Deposits\DepositService.cs" />
     <Compile Include="Services\HttpRequest\HttpRequestMessageService.cs" />
     <Compile Include="Services\HttpRequest\IHttpRequestMessageService.cs" />
     <Compile Include="Services\Orders\CancelOrderResponse.cs" />

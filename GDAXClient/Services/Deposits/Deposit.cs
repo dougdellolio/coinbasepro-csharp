@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace GDAXClient.Services.Withdrawals
+namespace GDAXClient.Services.Deposits
 {
-    public class Coinbase
+    public class Deposit
     {
         public decimal amount { get; set; }
 
         public string currency { get; set; }
 
-        public Guid coinbase_account_id { get; set; }
+        public Guid payment_method_id { get; set; }
     }
 }
