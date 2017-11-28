@@ -27,6 +27,7 @@ var allAccounts = await gdaxClient.accountsService.GetAllAccountsAsync();
 ###### Accounts ######
 - GetAllAccountsAsync() - get all accounts
 - GetAccountByIdAsync(id) - get account by id
+- GetCoinbaseAccountsAsync() - get all coinbase accounts
 
 ###### Orders ######
 - PlaceMarketOrderAsync(orderSide, productType, size) - place market order
@@ -41,6 +42,12 @@ var allAccounts = await gdaxClient.accountsService.GetAllAccountsAsync();
 
 ###### Withdrawals ######
 - WithdrawFundsAsync(paymentMethodId, amount, currency) - withdraw funds to a payment method
+- WithdrawToCoinbaseAsync(coinbaseAccountId, amount, currency) - withdraw funds to a coinbase account
+- WithdrawToCryptoAsync(cryptoAddress, amount, currency) - withdraw funds to a crypto address
+
+###### Deposits ######
+- DepositFundsAsync(paymentMethodId, amount, currency) - deposits funds from a payment method
+- DepositCoinbaseFundsAsync(coinbaseAccountId, amount, currency) - deposits funds from a coinbase account
 
 <h1>Sandbox Support</h1>
 
