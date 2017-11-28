@@ -60,6 +60,7 @@
     <Compile Include="Services\Accounts\Account.cs" />
     <Compile Include="Services\Accounts\AccountsService.cs" />
     <Compile Include="Authentication\IAuthenticator.cs" />
+    <Compile Include="Services\Accounts\CoinbaseAccount.cs" />
     <Compile Include="Services\Currency.cs" />
     <Compile Include="Services\Deposits\Deposit.cs" />
     <Compile Include="Services\Deposits\DepositResponse.cs" />

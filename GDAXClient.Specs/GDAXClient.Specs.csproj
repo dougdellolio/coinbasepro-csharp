@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="JsonFixtures\Accounts\AccountByIdResponseFixture.cs" />
     <Compile Include="JsonFixtures\Accounts\AllAccountsResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Accounts\AllCoinbaseResponseFixture.cs" />
     <Compile Include="JsonFixtures\Deposits\CoinbaseDepositResponseFixture.cs" />
     <Compile Include="JsonFixtures\Deposits\DepositsResponseFixture.cs" />
     <Compile Include="JsonFixtures\Orders\CancelOrderResponseFixture.cs" />

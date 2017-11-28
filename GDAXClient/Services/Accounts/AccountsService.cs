@@ -41,5 +41,13 @@ namespace GDAXClient.Services.Accounts
 
             return account;
         }
+
+        public async Task<IEnumerable<CoinbaseAccount>> GetCoinbaseAccountsAsync()
+        {
+            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, "/coinbase-accounts");
+            var accounts = JsonConvert.DeserializeObject<List<CoinbaseAccount>>(contentBody);
+
+            return accounts;
+        }
     }
 }
