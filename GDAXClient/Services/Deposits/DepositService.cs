@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using GDAXClient.HttpClient;
 using GDAXClient.Services.Accounts;
 using GDAXClient.Services.HttpRequest;
+using GDAXClient.Services.Orders;
 using GDAXClient.Services.Withdrawals;
 using Newtonsoft.Json;
 
@@ -20,7 +21,8 @@ namespace GDAXClient.Services.Deposits
         public DepositService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator) : base(httpClient, httpRequestMessageService, authenticator)
+            IAuthenticator authenticator) 
+            : base(httpClient, httpRequestMessageService, authenticator)
         {
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;

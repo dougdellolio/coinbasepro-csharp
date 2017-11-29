@@ -88,7 +88,7 @@ namespace GDAXClient.Specs.Services.Accounts
         {
             static IEnumerable<CoinbaseAccount> result;
 
-            private Establish context = () =>
+            Establish context = () =>
             {
                 The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>())).Return(new HttpRequestMessage());
 
@@ -97,25 +97,26 @@ namespace GDAXClient.Specs.Services.Accounts
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).Return(Task.FromResult(AllCoinbaseResponseFixture.Create()));
             };
 
-            private Because of = () =>
+            Because of = () =>
                 result = Subject.GetCoinbaseAccountsAsync().Result;
 
-            private It should_have_correct_count = () =>
+            It should_have_correct_count = () =>
                 result.Count().ShouldEqual(4);
 
             private It should_have_correct_ETH_account_information = () =>
             {
                 result.First().Id.ShouldEqual(new Guid("fc3a8a57-7142-542d-8436-95a3d82e1622"));
                 result.First().Name.ShouldEqual("ETH Wallet");
+                result.First().Balance.ShouldEqual(0.00000000M);
                 result.First().Currency.ShouldEqual("ETH");
                 result.First().Type.ShouldEqual("wallet");
                 result.First().Primary.ShouldEqual(false);
                 result.First().Active.ShouldEqual(true);
             };
 
-            private It should_have_correct_US_account_information = () =>
+            It should_have_correct_US_account_information = () =>
             {
-                var usAccount = result.ElementAt(1);
+                var usAccount = result.Skip(1).First();
 
                 usAccount.Id.ShouldEqual(new Guid("2ae3354e-f1c3-5771-8a37-6228e9d239db"));
                 usAccount.Name.ShouldEqual("USD Wallet");
@@ -137,19 +138,20 @@ namespace GDAXClient.Specs.Services.Accounts
 
             private It should_have_corret_BTC_account_information = () =>
             {
-                var btcAccount = result.ElementAt(2);
+                var btcAccount = result.Skip(2).First();
 
                 btcAccount.Id.ShouldEqual(new Guid("1bfad868-5223-5d3c-8a22-b5ed371e55cb"));
                 btcAccount.Name.ShouldEqual("BTC Wallet");
+                btcAccount.Balance.ShouldEqual(0.00000000M);
                 btcAccount.Currency.ShouldEqual("BTC");
                 btcAccount.Type.ShouldEqual("wallet");
                 btcAccount.Primary.ShouldEqual(true);
                 btcAccount.Active.ShouldEqual(true);
             };
 
-            private It should_have_correct_EU_account_information = () =>
+            It should_have_correct_EU_account_information = () =>
             {
-                var euAccount = result.ElementAt(3);
+                var euAccount = result.Last();
 
                 euAccount.Id.ShouldEqual(new Guid("2a11354e-f133-5771-8a37-622be9b239db"));
                 euAccount.Name.ShouldEqual("EUR Wallet");

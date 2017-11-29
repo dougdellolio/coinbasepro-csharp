@@ -6,6 +6,7 @@ using GDAXClient.HttpClient;
 using GDAXClient.Services;
 using GDAXClient.Services.Deposits;
 using GDAXClient.Services.HttpRequest;
+using GDAXClient.Services.Orders;
 using GDAXClient.Services.Withdrawals;
 using GDAXClient.Specs.JsonFixtures.Deposits;
 using Machine.Fakes;
@@ -27,7 +28,7 @@ namespace GDAXClient.Specs.Services.Deposits
 
         class when_requesting_a_deposit
         {
-            private Establish context = () =>
+            Establish context = () =>
             {
                 The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>())).Return(new HttpRequestMessage());
 
@@ -36,13 +37,13 @@ namespace GDAXClient.Specs.Services.Deposits
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).Return(Task.FromResult(DepositsResponseFixture.Create()));
             };
 
-            private Because of = () =>
+            Because of = () =>
                 deposit_response = Subject.DepositFundsAsync("593533d2-ff31-46e0-b22e-ca754147a96a", 10, Currency.USD).Result;
 
-            private It should_return_a_response = () =>
+            It should_return_a_response = () =>
                 deposit_response.ShouldNotBeNull();
 
-            private It should_return_a_correct_response = () =>
+            It should_return_a_correct_response = () =>
             {
                 deposit_response.Id.ShouldEqual(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"));
                 deposit_response.Amount.ShouldEqual(10.00M);
@@ -53,7 +54,7 @@ namespace GDAXClient.Specs.Services.Deposits
 
         class when_requesting_a_coinbase_deposit
         {
-            private Establish context = () =>
+            Establish context = () =>
             {
                 The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(),Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>())).Return(new HttpRequestMessage());
 
@@ -62,13 +63,13 @@ namespace GDAXClient.Specs.Services.Deposits
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).Return(Task.FromResult(CoinbaseDepositResponseFixture.Create()));
             };
 
-            private Because of = () =>
+            Because of = () =>
                 coinbase_response = Subject.DepositCoinbaseFundsAsync("593533d2-ff31-46e0-b22e-ca754147a96a", 10, Currency.BTC).Result;
 
-            private It should_return_a_response = () =>
+            It should_return_a_response = () =>
                 coinbase_response.ShouldNotBeNull();
 
-            private It should_return_a_correct_respose = () =>
+            It should_return_a_correct_respose = () =>
             {
                 coinbase_response.Id.ShouldEqual(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"));
                 coinbase_response.Amount.ShouldEqual(10.00M);

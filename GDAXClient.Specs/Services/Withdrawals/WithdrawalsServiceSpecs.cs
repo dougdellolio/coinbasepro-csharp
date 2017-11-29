@@ -10,6 +10,7 @@ using Machine.Specifications;
 using System.Net.Http;
 using System.Threading.Tasks;
 using GDAXClient.Services;
+using GDAXClient.Services.Orders;
 
 namespace GDAXClient.Specs.Services.Withdrawals
 {
@@ -67,13 +68,13 @@ namespace GDAXClient.Specs.Services.Withdrawals
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).Return(Task.FromResult(CoinbaseWithdrawalResponseFixture.Create()));
             };
 
-            private Because of = () =>
+            Because of = () =>
                 coinbase_response = Subject.WithdrawToCoinbaseAsync("593533d2-ff31-46e0-b22e-ca754147a96a", 10, Currency.BTC).Result;
 
-            private It should_return_a_response = () =>
+            It should_return_a_response = () =>
                 coinbase_response.ShouldNotBeNull();
 
-            private It should_return_a_correct_response = () =>
+            It should_return_a_correct_response = () =>
             {
                 coinbase_response.Id.ShouldEqual(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"));
                 coinbase_response.Amount.ShouldEqual(10.00M);
@@ -83,7 +84,7 @@ namespace GDAXClient.Specs.Services.Withdrawals
 
         class when_requesting_crypto_withdrawal
         {
-            private Establish context = () =>
+            Establish context = () =>
             {
                 The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>())).Return(new HttpRequestMessage());
 
@@ -92,13 +93,13 @@ namespace GDAXClient.Specs.Services.Withdrawals
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).Return(Task.FromResult(CryptoWithdrawalResponseFixture.Create()));
             };
 
-            private Because of = () =>
+            Because of = () =>
                 crypto_response = Subject.WithdrawToCryptoAsync("593533d2-ff31-46e0-b22e-ca754147a96a", 10, Currency.BTC).Result;
 
-            private It should_return_a_response = () =>
+            It should_return_a_response = () =>
                 crypto_response.ShouldNotBeNull();
 
-            private It should_return_a_correct_response = () =>
+            It should_return_a_correct_response = () =>
             {
                 crypto_response.Id.ShouldEqual(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"));
                 crypto_response.Amount.ShouldEqual(10.00M);

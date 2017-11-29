@@ -5,6 +5,8 @@
         USD,
         EUR,
         GBP,
-        BTC
+        BTC,
+        LTC,
+        ETH
     }
 }
