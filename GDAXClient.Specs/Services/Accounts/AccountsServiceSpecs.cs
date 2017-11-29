@@ -122,8 +122,8 @@ namespace GDAXClient.Specs.Services.Accounts
                 usAccount.Name.ShouldEqual("USD Wallet");
                 usAccount.Balance.ShouldEqual(0.00M);
                 usAccount.Type.ShouldEqual("fiat");
-                usAccount.Primary.ShouldBeTrue();
-                usAccount.Active.ShouldBeFalse();
+                usAccount.Primary.ShouldBeFalse();
+                usAccount.Active.ShouldBeTrue();
                 usAccount.Wire_Deposit_Information.Account_Number.ShouldEqual("0199003122");
                 usAccount.Wire_Deposit_Information.Routing_Number.ShouldEqual("026013356");
                 usAccount.Wire_Deposit_Information.Bank_Name.ShouldEqual("Metropolitan Commercial Bank");
