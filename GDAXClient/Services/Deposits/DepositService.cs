@@ -22,7 +22,7 @@ namespace GDAXClient.Services.Deposits
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator) 
-            : base(httpClient, httpRequestMessageService, authenticator)
+                : base(httpClient, httpRequestMessageService, authenticator)
         {
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;

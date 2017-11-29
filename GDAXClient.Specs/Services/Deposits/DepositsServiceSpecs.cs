@@ -23,7 +23,7 @@ namespace GDAXClient.Specs.Services.Deposits
 
         static CoinbaseResponse coinbase_response;
 
-        private Establish context = () =>
+        Establish context = () =>
             authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
 
         class when_requesting_a_deposit

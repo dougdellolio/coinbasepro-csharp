@@ -136,7 +136,7 @@ namespace GDAXClient.Specs.Services.Accounts
                 usAccount.Wire_Deposit_Information.Reference.ShouldEqual("BAOCAEUX");
             };
 
-            private It should_have_corret_BTC_account_information = () =>
+            It should_have_corret_BTC_account_information = () =>
             {
                 var btcAccount = result.Skip(2).First();
 
