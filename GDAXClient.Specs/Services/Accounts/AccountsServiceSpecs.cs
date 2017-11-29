@@ -103,15 +103,15 @@ namespace GDAXClient.Specs.Services.Accounts
             It should_have_correct_count = () =>
                 result.Count().ShouldEqual(4);
 
-            private It should_have_correct_ETH_account_information = () =>
+            It should_have_correct_ETH_account_information = () =>
             {
                 result.First().Id.ShouldEqual(new Guid("fc3a8a57-7142-542d-8436-95a3d82e1622"));
                 result.First().Name.ShouldEqual("ETH Wallet");
                 result.First().Balance.ShouldEqual(0.00000000M);
                 result.First().Currency.ShouldEqual("ETH");
                 result.First().Type.ShouldEqual("wallet");
-                result.First().Primary.ShouldEqual(false);
-                result.First().Active.ShouldEqual(true);
+                result.First().Primary.ShouldBeFalse();
+                result.First().Active.ShouldBeTrue();
             };
 
             It should_have_correct_US_account_information = () =>
@@ -122,8 +122,8 @@ namespace GDAXClient.Specs.Services.Accounts
                 usAccount.Name.ShouldEqual("USD Wallet");
                 usAccount.Balance.ShouldEqual(0.00M);
                 usAccount.Type.ShouldEqual("fiat");
-                usAccount.Primary.ShouldEqual(false);
-                usAccount.Active.ShouldEqual(true);
+                usAccount.Primary.ShouldBeTrue();
+                usAccount.Active.ShouldBeFalse();
                 usAccount.Wire_Deposit_Information.Account_Number.ShouldEqual("0199003122");
                 usAccount.Wire_Deposit_Information.Routing_Number.ShouldEqual("026013356");
                 usAccount.Wire_Deposit_Information.Bank_Name.ShouldEqual("Metropolitan Commercial Bank");
@@ -145,8 +145,8 @@ namespace GDAXClient.Specs.Services.Accounts
                 btcAccount.Balance.ShouldEqual(0.00000000M);
                 btcAccount.Currency.ShouldEqual("BTC");
                 btcAccount.Type.ShouldEqual("wallet");
-                btcAccount.Primary.ShouldEqual(true);
-                btcAccount.Active.ShouldEqual(true);
+                btcAccount.Primary.ShouldBeTrue();
+                btcAccount.Active.ShouldBeTrue();
             };
 
             It should_have_correct_EU_account_information = () =>
@@ -157,8 +157,8 @@ namespace GDAXClient.Specs.Services.Accounts
                 euAccount.Name.ShouldEqual("EUR Wallet");
                 euAccount.Balance.ShouldEqual(0.00M);
                 euAccount.Type.ShouldEqual("fiat");
-                euAccount.Primary.ShouldEqual(false);
-                euAccount.Active.ShouldEqual(true);
+                euAccount.Primary.ShouldBeFalse();
+                euAccount.Active.ShouldBeTrue();
                 euAccount.Sepa_Deposit_Information.Iban.ShouldEqual("EE957700771001355096");
                 euAccount.Sepa_Deposit_Information.Swift.ShouldEqual("LHVBEE22");
                 euAccount.Sepa_Deposit_Information.Bank_Name.ShouldEqual("AS LHV Pank");
