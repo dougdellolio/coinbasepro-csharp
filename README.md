@@ -1,7 +1,7 @@
 # GDAXClient
 GDAX C# API Client Library - https://docs.gdax.com/
 
-<a href="https://travis-ci.org/dougdellolio/GDAXClient"><img src="https://travis-ci.org/dougdellolio/GDAXClient.svg?branch=feature%2Fpayment-and-withdrawals"></a> [![NuGet](https://img.shields.io/nuget/v/GDAX.Api.ClientLibrary.svg)]()
+<a href="https://travis-ci.org/dougdellolio/GDAXClient"><img src="https://travis-ci.org/dougdellolio/gdax-csharp.svg?branch=master"></a> [![NuGet](https://img.shields.io/nuget/v/GDAX.Api.ClientLibrary.svg)]()
 
 <h1>How to Install</h1>
 
