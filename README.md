@@ -19,7 +19,7 @@ var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>")
 var gdaxClient = new GDAXClient.GDAXClient(authenticator);
 
 //use one of the services 
-var allAccounts = await gdaxClient.accountsService.GetAllAccountsAsync();
+var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 ````
 
 <h1>What services are provided?</h1>
