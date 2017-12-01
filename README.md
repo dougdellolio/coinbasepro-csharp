@@ -27,7 +27,9 @@ var allAccounts = await gdaxClient.accountsService.GetAllAccountsAsync();
 ###### Accounts ######
 - GetAllAccountsAsync() - get all accounts
 - GetAccountByIdAsync(id) - get account by id
-- GetCoinbaseAccountsAsync() - get all coinbase accounts
+
+###### CoinbaseAccounts ######
+- GetAllAccountsAsync() - get all coinbase accounts
 
 ###### Orders ######
 - PlaceMarketOrderAsync(orderSide, productType, size) - place market order

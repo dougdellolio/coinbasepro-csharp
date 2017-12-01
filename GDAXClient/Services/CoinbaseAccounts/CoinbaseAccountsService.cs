@@ -1,13 +1,14 @@
 ﻿using GDAXClient.HttpClient;
+using GDAXClient.Services.Accounts;
 using GDAXClient.Services.HttpRequest;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace GDAXClient.Services.Accounts
+namespace GDAXClient.Services.CoinbaseAccounts
 {
-    public class AccountsService : AbstractService
+    public class CoinbaseAccountsService : AbstractService
     {
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
@@ -15,7 +16,7 @@ namespace GDAXClient.Services.Accounts
 
         private readonly IAuthenticator authenticator;
 
-        public AccountsService(
+        public CoinbaseAccountsService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
@@ -26,20 +27,12 @@ namespace GDAXClient.Services.Accounts
             this.authenticator = authenticator;
         }
 
-        public async Task<IEnumerable<Account>> GetAllAccountsAsync()
+        public async Task<IEnumerable<CoinbaseAccount>> GetAllAccountsAsync()
         {
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, "/accounts");
-            var accountList = JsonConvert.DeserializeObject<List<Account>>(contentBody);
+            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, "/coinbase-accounts");
+            var accounts = JsonConvert.DeserializeObject<List<CoinbaseAccount>>(contentBody);
 
-            return accountList;
-        }
-
-        public async Task<Account> GetAccountByIdAsync(string id)
-        {
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/accounts/{id}");
-            var account = JsonConvert.DeserializeObject<Account>(contentBody);
-
-            return account;
+            return accounts;
         }
     }
 }
