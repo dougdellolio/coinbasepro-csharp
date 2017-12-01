@@ -15,7 +15,7 @@ using Machine.Specifications;
 namespace GDAXClient.Specs.Services.Deposits
 {
     [Subject("DepositsService")]
-    public class DepositsServiceSpecs : WithSubject<DepositService>
+    public class DepositsServiceSpecs : WithSubject<DepositsService>
     {
         static Authenticator authenticator;
 
@@ -30,11 +30,14 @@ namespace GDAXClient.Specs.Services.Deposits
         {
             Establish context = () =>
             {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>())).Return(new HttpRequestMessage());
+                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                    .Return(new HttpRequestMessage());
 
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>())).Return(Task.FromResult(new HttpResponseMessage()));
+                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                    .Return(Task.FromResult(new HttpResponseMessage()));
 
-                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).Return(Task.FromResult(DepositsResponseFixture.Create()));
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(DepositsResponseFixture.Create()));
             };
 
             Because of = () =>
@@ -56,11 +59,14 @@ namespace GDAXClient.Specs.Services.Deposits
         {
             Establish context = () =>
             {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(),Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>())).Return(new HttpRequestMessage());
+                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                    .Return(new HttpRequestMessage());
 
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>())).Return(Task.FromResult(new HttpResponseMessage()));
+                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                    .Return(Task.FromResult(new HttpResponseMessage()));
 
-                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).Return(Task.FromResult(CoinbaseDepositResponseFixture.Create()));
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(CoinbaseDepositResponseFixture.Create()));
             };
 
             Because of = () =>

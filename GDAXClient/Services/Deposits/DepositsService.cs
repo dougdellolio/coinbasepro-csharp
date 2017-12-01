@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace GDAXClient.Services.Deposits
 {
-    public class DepositService : AbstractService
+    public class DepositsService : AbstractService
     {
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
@@ -18,7 +18,7 @@ namespace GDAXClient.Services.Deposits
 
         private readonly IAuthenticator authenticator;
 
-        public DepositService(
+        public DepositsService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator) 
