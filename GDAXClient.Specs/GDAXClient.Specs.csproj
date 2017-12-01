@@ -78,12 +78,18 @@
   <ItemGroup>
     <Compile Include="JsonFixtures\Accounts\AccountByIdResponseFixture.cs" />
     <Compile Include="JsonFixtures\Accounts\AllAccountsResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Accounts\AllCoinbaseResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Deposits\CoinbaseDepositResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Deposits\DepositsResponseFixture.cs" />
     <Compile Include="JsonFixtures\Orders\CancelOrderResponseFixture.cs" />
     <Compile Include="JsonFixtures\Orders\OrderResponseFixture.cs" />
     <Compile Include="JsonFixtures\Payments\PaymentMethodsResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Withdrawals\CoinbaseWithdrawalResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Withdrawals\CryptoWithdrawalResponseFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\WithdrawalsResponseFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Accounts\AccountsServiceSpecs.cs" />
+    <Compile Include="Services\Deposits\DepositsServiceSpecs.cs" />
     <Compile Include="Services\HttpRequest\HttpRequestMessageServiceSpecs.cs" />
     <Compile Include="Services\Orders\OrdersServiceSpecs.cs" />
     <Compile Include="Services\Payments\PaymentsServiceSpecs.cs" />

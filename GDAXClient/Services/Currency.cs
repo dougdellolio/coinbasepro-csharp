@@ -4,6 +4,9 @@
     {
         USD,
         EUR,
-        GBP
+        GBP,
+        BTC,
+        LTC,
+        ETH
     }
 }
