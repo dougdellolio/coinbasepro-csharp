@@ -3,7 +3,13 @@
     public enum ProductType
     {
         BtcUsd,
+        BtcEur,
+        BtcGbp,
         EthUsd,
-        LtcUsd
+        EthEur,
+        EthBtc,
+        LtcUsd,
+        LtcEur,
+        LtcBtc
     }
 }
