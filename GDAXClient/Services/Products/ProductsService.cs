@@ -56,5 +56,13 @@ namespace GDAXClient.Products
 
             return productTickerResponse;
         }
+
+        public async Task<ProductStats> GetProductStatsAsync(ProductType productPair)
+        {
+            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/stats");
+            var productStatsResponse = JsonConvert.DeserializeObject<ProductStats>(contentBody);
+
+            return productStatsResponse;
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace GDAXClient.Specs.JsonFixtures.Products
 {
-    class ProductsResponseFixture
+    public static class ProductsResponseFixture
     {
         public static string Create()
         {

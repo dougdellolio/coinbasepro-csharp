@@ -27,6 +27,8 @@ namespace GDAXClient.Specs.Services.Payments
 
         static ProductTicker product_ticker_result;
 
+        static ProductStats product_stats_result;
+
         Establish context = () =>
             authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
 
@@ -116,6 +118,32 @@ namespace GDAXClient.Specs.Services.Payments
                 product_ticker_result.Ask.ShouldEqual(333.99M);
                 product_ticker_result.Volume.ShouldEqual(5957.11914015M);
                 product_ticker_result.Time.ShouldEqual(new System.DateTime(2016, 12, 9));
+            };
+        }
+
+        class when_getting_product_stats
+        {
+            Establish context = () =>
+            {
+                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                    .Return(new HttpRequestMessage());
+
+                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                    .Return(Task.FromResult(new HttpResponseMessage()));
+
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(ProductStatsFixture.Create()));
+            };
+
+            Because of = () =>
+                product_stats_result = Subject.GetProductStatsAsync(ProductType.BtcUsd).Result;
+
+            It should_have_correct_product_ticker = () =>
+            {
+                product_stats_result.Open.ShouldEqual(34.19000000M);
+                product_stats_result.High.ShouldEqual(95.70000000M);
+                product_stats_result.Low.ShouldEqual(7.06000000M);
+                product_stats_result.Volume.ShouldEqual(2.41000000M);
             };
         }
     }
