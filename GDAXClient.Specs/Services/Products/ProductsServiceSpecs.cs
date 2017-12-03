@@ -138,7 +138,7 @@ namespace GDAXClient.Specs.Services.Payments
             Because of = () =>
                 product_stats_result = Subject.GetProductStatsAsync(ProductType.BtcUsd).Result;
 
-            It should_have_correct_product_ticker = () =>
+            It should_have_correct_product_stats = () =>
             {
                 product_stats_result.Open.ShouldEqual(34.19000000M);
                 product_stats_result.High.ShouldEqual(95.70000000M);
