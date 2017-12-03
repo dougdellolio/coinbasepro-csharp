@@ -4,6 +4,7 @@ using GDAXClient.Services.Accounts;
 using GDAXClient.Services.HttpRequest;
 using GDAXClient.Services.Orders;
 using GDAXClient.Services.Products;
+using GDAXClient.Services.Products.Models;
 using GDAXClient.Services.Products.Models.Responses;
 using GDAXClient.Utilities.Extensions;
 using Newtonsoft.Json;
@@ -46,6 +47,14 @@ namespace GDAXClient.Products
             var productOrderBookResponse = JsonConvert.DeserializeObject<ProductsOrderBookResponse>(contentBody);
 
             return productOrderBookResponse;
+        }
+
+        public async Task<ProductTicker> GetProductTickerAsync(ProductType productPair)
+        {
+            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/ticker");
+            var productTickerResponse = JsonConvert.DeserializeObject<ProductTicker>(contentBody);
+
+            return productTickerResponse;
         }
     }
 }

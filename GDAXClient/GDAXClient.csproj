@@ -56,6 +56,7 @@
     <Compile Include="HttpClient\HttpClient.cs" />
     <Compile Include="HttpClient\IHttpClient.cs" />
     <Compile Include="Services\Products\Models\Product.cs" />
+    <Compile Include="Services\Products\Models\ProductTicker.cs" />
     <Compile Include="Services\Products\Models\Responses\ProductsOrderBookResponse.cs" />
     <Compile Include="Services\Products\ProductsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
