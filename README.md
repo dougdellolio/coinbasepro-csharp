@@ -51,6 +51,12 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - DepositFundsAsync(paymentMethodId, amount, currency) - deposits funds from a payment method
 - DepositCoinbaseFundsAsync(coinbaseAccountId, amount, currency) - deposits funds from a coinbase account
 
+###### Products ######
+- GetAllProductsAsync() - get a list of available currency pairs for trading
+- GetProductOrderBookAsync(productType) - get a list of open orders for a product
+- GetProductTickerAsync(productType) - get information about the last trade (tick), best bid/ask and 24h volume
+- GetProductStatsAsync(productType) - get 24 hour stats for a product
+
 <h1>Sandbox Support</h1>
 
 <i>Generate your key at https://public.sandbox.gdax.com/settings/api</i>

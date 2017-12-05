@@ -1,6 +1,6 @@
 ﻿namespace GDAXClient.Specs.JsonFixtures.Deposits
 {
-    class CoinbaseDepositResponseFixture
+    public static class CoinbaseDepositResponseFixture
     {
         public static string Create()
         {
