@@ -41,6 +41,11 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - GetAllOrdersAsync(limit) - get all open or un-settled orders (paged response)
 - GetOrderByIdAsync(id) - get order by id
 
+###### Fills ######
+- GetAllFillsAsync() - gets all fills
+- GetFillsByOrderIdAsync(orderId) - gets all fills with specific order ID
+- GetFillsByProductIdAsync(productId) - gets all fills with product ID (ex. BTC-USD)
+
 ###### Payments ######
 - GetAllPaymentMethodsAsync() - get all payment methods
 
