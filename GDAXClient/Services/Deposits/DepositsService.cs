@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using GDAXClient.HttpClient;
 using GDAXClient.Services.Accounts;
 using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Orders;
 using GDAXClient.Services.Withdrawals;
 using Newtonsoft.Json;
 

@@ -55,6 +55,9 @@
     <Compile Include="GDAXClient.cs" />
     <Compile Include="HttpClient\HttpClient.cs" />
     <Compile Include="HttpClient\IHttpClient.cs" />
+    <Compile Include="Services\Fills\FillsService.cs" />
+    <Compile Include="Services\Fills\Models\Fill.cs" />
+    <Compile Include="Services\Fills\Models\Responses\FillResponse.cs" />
     <Compile Include="Services\Products\Models\Product.cs" />
     <Compile Include="Services\Products\Models\ProductStats.cs" />
     <Compile Include="Services\Products\Models\ProductTicker.cs" />

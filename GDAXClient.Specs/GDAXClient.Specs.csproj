@@ -81,6 +81,7 @@
     <Compile Include="JsonFixtures\CoinbaseAccounts\AllCoinbaseResponseFixture.cs" />
     <Compile Include="JsonFixtures\Deposits\CoinbaseDepositResponseFixture.cs" />
     <Compile Include="JsonFixtures\Deposits\DepositsResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Fills\FillsResponseFixture.cs" />
     <Compile Include="JsonFixtures\Orders\CancelOrderResponseFixture.cs" />
     <Compile Include="JsonFixtures\Orders\OrderResponseFixture.cs" />
     <Compile Include="JsonFixtures\Payments\PaymentMethodsResponseFixture.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Services\Accounts\AccountsServiceSpecs.cs" />
     <Compile Include="Services\CoinbaseAccounts\CoinbaseAccountsServiceSpecs.cs" />
     <Compile Include="Services\Deposits\DepositsServiceSpecs.cs" />
+    <Compile Include="Services\Fills\FillsServiceSpecs.cs" />
     <Compile Include="Services\HttpRequest\HttpRequestMessageServiceSpecs.cs" />
     <Compile Include="Services\Orders\OrdersServiceSpecs.cs" />
     <Compile Include="Services\Payments\PaymentsServiceSpecs.cs" />
