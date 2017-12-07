@@ -31,7 +31,7 @@ namespace GDAXClient.Services.Fills
 
         public async Task<FillResponse> GetAllFillsAsync()
         {
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "GET /fills");
+            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/fills");
             var fills = JsonConvert.DeserializeObject<FillResponse>(contentBody);
 
             return fills;
@@ -44,7 +44,7 @@ namespace GDAXClient.Services.Fills
                 order_id = new Guid(order_id)
             });
 
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "GET /fills", fill);
+            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/fills", fill);
             var fills = JsonConvert.DeserializeObject<FillResponse>(contentBody);
 
             return fills;
@@ -57,7 +57,7 @@ namespace GDAXClient.Services.Fills
                 product_id = product_id.ToUpper()
             });
 
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "GET /fills", fill);
+            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/fills", fill);
             var fills = JsonConvert.DeserializeObject<FillResponse>(contentBody);
 
             return fills;
