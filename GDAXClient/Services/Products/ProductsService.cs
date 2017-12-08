@@ -35,7 +35,8 @@ namespace GDAXClient.Products
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, "/products");
+            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Get, authenticator, "/products");
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var productsResponse = JsonConvert.DeserializeObject<IEnumerable<Product>>(contentBody);
 
             return productsResponse;
@@ -43,7 +44,8 @@ namespace GDAXClient.Products
 
         public async Task<ProductsOrderBookResponse> GetProductOrderBookAsync(ProductType productPair)
         {
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/book");
+            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/book");
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var productOrderBookResponse = JsonConvert.DeserializeObject<ProductsOrderBookResponse>(contentBody);
 
             return productOrderBookResponse;
@@ -51,7 +53,8 @@ namespace GDAXClient.Products
 
         public async Task<ProductTicker> GetProductTickerAsync(ProductType productPair)
         {
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/ticker");
+            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/ticker");
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var productTickerResponse = JsonConvert.DeserializeObject<ProductTicker>(contentBody);
 
             return productTickerResponse;
@@ -59,7 +62,8 @@ namespace GDAXClient.Products
 
         public async Task<ProductStats> GetProductStatsAsync(ProductType productPair)
         {
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/stats");
+            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/stats");
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var productStatsResponse = JsonConvert.DeserializeObject<ProductStats>(contentBody);
 
             return productStatsResponse;

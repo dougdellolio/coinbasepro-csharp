@@ -37,7 +37,8 @@ namespace GDAXClient.Services.WithdrawalsService
                 payment_method_id = new Guid(paymentMethodId)
             });
 
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/withdrawals/payment-method", newWithdrawal);
+            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/withdrawals/payment-method", newWithdrawal);
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var withdrawalResponse = JsonConvert.DeserializeObject<WithdrawalResponse>(contentBody);
 
             return withdrawalResponse;
@@ -52,7 +53,8 @@ namespace GDAXClient.Services.WithdrawalsService
                 coinbase_account_id = new Guid(coinbase_account_id)
             });
 
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/withdrawals/coinbase-account", newCoinbaseWithdrawal);
+            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/withdrawals/coinbase-account", newCoinbaseWithdrawal);
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var coinbaseResponse = JsonConvert.DeserializeObject<CoinbaseResponse>(contentBody);
 
             return coinbaseResponse;
@@ -67,7 +69,8 @@ namespace GDAXClient.Services.WithdrawalsService
                 crypto_address = new Guid(crypto_address)
             });
 
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/withdrawals/crypto", newCryptoWithdrawal);
+            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/withdrawals/crypto", newCryptoWithdrawal);
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var cryptoResponse = JsonConvert.DeserializeObject<CryptoResponse>(contentBody);
 
             return cryptoResponse;

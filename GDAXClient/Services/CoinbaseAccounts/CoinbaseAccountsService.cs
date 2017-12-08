@@ -29,7 +29,8 @@ namespace GDAXClient.Services.CoinbaseAccounts
 
         public async Task<IEnumerable<CoinbaseAccount>> GetAllAccountsAsync()
         {
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, "/coinbase-accounts");
+            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Get, authenticator, "/coinbase-accounts");
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var accounts = JsonConvert.DeserializeObject<List<CoinbaseAccount>>(contentBody);
 
             return accounts;

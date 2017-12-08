@@ -38,7 +38,8 @@ namespace GDAXClient.Services.Deposits
                 payment_method_id = new Guid(paymentMethodId)
             });
 
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/deposits/payment-method", newDeposit);
+            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/deposits/payment-method", newDeposit);
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var depositResponse = JsonConvert.DeserializeObject<DepositResponse>(contentBody);
 
             return depositResponse;
@@ -53,7 +54,8 @@ namespace GDAXClient.Services.Deposits
                 coinbase_account_id = new Guid(coinbaseAccountId)
             });
 
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/deposits/coinbase-account", newCoinbaseDeposit);
+            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/deposits/coinbase-account", newCoinbaseDeposit);
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var depositResponse = JsonConvert.DeserializeObject<CoinbaseResponse>(contentBody);
 
             return depositResponse;
