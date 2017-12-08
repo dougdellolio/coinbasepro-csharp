@@ -16,8 +16,9 @@
         public static string CreateEmpty()
         {
             var json = @"
-[
-]";
+{
+    ""message"": ""order not found"",
+}";
 
             return json;
         }

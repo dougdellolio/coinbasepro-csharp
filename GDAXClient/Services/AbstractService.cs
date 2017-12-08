@@ -35,7 +35,7 @@ namespace GDAXClient.Services
 
             if (!httpResponseMessage.IsSuccessStatusCode)
             {
-                return null;
+                throw new HttpRequestException(contentBody);
             }
 
             return contentBody;

@@ -5,6 +5,7 @@ using GDAXClient.Services.Orders;
 using GDAXClient.Specs.JsonFixtures.Orders;
 using Machine.Fakes;
 using Machine.Specifications;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -22,6 +23,8 @@ namespace GDAXClient.Specs.Services.Accounts
         static CancelOrderResponse cancel_order_response_result;
 
         static Authenticator authenticator;
+
+        static Exception exception;
 
         Establish context = () =>
             authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
@@ -166,10 +169,13 @@ namespace GDAXClient.Specs.Services.Accounts
             };
 
             Because of = () =>
-                cancel_order_response_result = Subject.CancelOrderByIdAsync("144c6f8e-713f-4682-8435-5280fbe8b2b4").Result;
+                exception = Catch.Exception(() => Subject.CancelOrderByIdAsync("144c6f8e-713f-4682-8435-5280fbe8b2b4").Result);
 
-            It should_have_correct_number_of_cancelled_orders = () =>
-                cancel_order_response_result.OrderIds.ShouldBeEmpty();
+            It should_have_correct_error_response_message = () =>
+            {
+                exception.InnerException.ShouldBeOfExactType<HttpRequestException>();
+                exception.InnerException.ShouldContainErrorMessage("order not found");
+            };
         }
 
         class when_getting_all_orders
