@@ -31,7 +31,7 @@ namespace GDAXClient.Services.Accounts
 
         public async Task<IEnumerable<Account>> GetAllAccountsAsync()
         {
-            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Get, authenticator, "/accounts");
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/accounts");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var accountList = JsonConvert.DeserializeObject<List<Account>>(contentBody);
 
@@ -40,17 +40,17 @@ namespace GDAXClient.Services.Accounts
 
         public async Task<Account> GetAccountByIdAsync(string id)
         {
-            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/accounts/{id}");
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/accounts/{id}");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var account = JsonConvert.DeserializeObject<Account>(contentBody);
 
             return account;
         }
 
-        public async Task<IEnumerable<IEnumerable<AccountHistory>>> GetAccountHistory(string id, decimal limit)
+        public async Task<IEnumerable<IEnumerable<AccountHistory>>> GetAccountsHistoryAsync(string id, decimal limit)
         {
             var accountHistory = new List<IEnumerable<AccountHistory>>();
-            var httpResponseMessage = await SendHttpRequestMessageForPagedHeaders<AccountHistory>(HttpMethod.Get, authenticator, $"/accounts/{id}/ledger?limit={limit}");
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<AccountHistory>(HttpMethod.Get, authenticator, $"/accounts/{id}/ledger?limit={limit}");
 
             return httpResponseMessage;
         }

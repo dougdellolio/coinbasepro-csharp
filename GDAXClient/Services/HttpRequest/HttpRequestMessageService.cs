@@ -44,7 +44,7 @@ namespace GDAXClient.Services.HttpRequest
             var timeStamp = clock.GetTime().ToTimeStamp();
             var signedSignature = ComputeSignature(httpMethod, authenticator.UnsignedSignature, timeStamp, requestUri, contentBody);
 
-            AddHeaders(requestMessage, authenticator, signedSignature, timeStamp, null, null);
+            AddHeaders(requestMessage, authenticator, signedSignature, timeStamp);
             return requestMessage;
         }
 
@@ -68,21 +68,13 @@ namespace GDAXClient.Services.HttpRequest
             HttpRequestMessage httpRequestMessage,
             IAuthenticator authenticator,
             string signedSignature,
-            double timeStamp,
-            decimal? before,
-            decimal? after)
+            double timeStamp)
         {
             httpRequestMessage.Headers.Add("User-Agent", "GDAXClient");
             httpRequestMessage.Headers.Add("CB-ACCESS-KEY", authenticator.ApiKey);
             httpRequestMessage.Headers.Add("CB-ACCESS-TIMESTAMP", timeStamp.ToString());
             httpRequestMessage.Headers.Add("CB-ACCESS-SIGN", signedSignature);
             httpRequestMessage.Headers.Add("CB-ACCESS-PASSPHRASE", authenticator.Passphrase);
-
-            if (before.HasValue && after.HasValue)
-            {
-                httpRequestMessage.Headers.Add("CB-BEFORE", authenticator.Passphrase);
-                httpRequestMessage.Headers.Add("CB-AFTER", authenticator.Passphrase);
-            }
         }
     }
 }

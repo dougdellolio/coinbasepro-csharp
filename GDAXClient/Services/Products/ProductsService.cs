@@ -35,7 +35,7 @@ namespace GDAXClient.Products
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Get, authenticator, "/products");
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/products");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var productsResponse = JsonConvert.DeserializeObject<IEnumerable<Product>>(contentBody);
 
@@ -44,7 +44,7 @@ namespace GDAXClient.Products
 
         public async Task<ProductsOrderBookResponse> GetProductOrderBookAsync(ProductType productPair)
         {
-            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/book");
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/book");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var productOrderBookResponse = JsonConvert.DeserializeObject<ProductsOrderBookResponse>(contentBody);
 
@@ -53,7 +53,7 @@ namespace GDAXClient.Products
 
         public async Task<ProductTicker> GetProductTickerAsync(ProductType productPair)
         {
-            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/ticker");
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/ticker");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var productTickerResponse = JsonConvert.DeserializeObject<ProductTicker>(contentBody);
 
@@ -62,7 +62,7 @@ namespace GDAXClient.Products
 
         public async Task<ProductStats> GetProductStatsAsync(ProductType productPair)
         {
-            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/stats");
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/stats");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var productStatsResponse = JsonConvert.DeserializeObject<ProductStats>(contentBody);
 

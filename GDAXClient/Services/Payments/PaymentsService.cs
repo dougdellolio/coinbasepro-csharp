@@ -30,7 +30,7 @@ namespace GDAXClient.Services.Payments
 
         public async Task<IEnumerable<PaymentMethod>> GetAllPaymentMethodsAsync()
         {
-            var httpResponseMessage = await SendHttpRequestMessage(HttpMethod.Get, authenticator, "/payment-methods");
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/payment-methods");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var paymentMethodsResponse = JsonConvert.DeserializeObject<IEnumerable<PaymentMethod>>(contentBody);
 
