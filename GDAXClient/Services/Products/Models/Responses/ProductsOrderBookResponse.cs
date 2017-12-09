@@ -8,6 +8,6 @@ namespace GDAXClient.Services.Products.Models.Responses
 
         public IEnumerable<IEnumerable<decimal>> Bids { get; set; }
 
-        public IEnumerable<IEnumerable<decimal>> Asks { get; set; }
+        public IEnumerable<IEnumerable<decimal>> Ask { get; set; }
     }
 }
