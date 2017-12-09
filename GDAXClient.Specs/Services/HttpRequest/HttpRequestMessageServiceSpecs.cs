@@ -22,8 +22,11 @@ namespace GDAXClient.Specs.Services.HttpRequest
             authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
         };
 
-        class when_checking_accounts
+        class when_making_a_request_not_on_sandbox
         {
+            Establish context = () =>
+                Configure(x => x.For<bool>().Use(false));
+
             Because of = () =>
                 result_http_request_message = Subject.CreateHttpRequestMessage(HttpMethod.Get, authenticator, "/accounts");
 
@@ -32,6 +35,29 @@ namespace GDAXClient.Specs.Services.HttpRequest
 
             It should_have_correct_request_uri = () =>
                 result_http_request_message.RequestUri.ToString().ShouldEqual("https://api.gdax.com/accounts");
+
+            It should_have_the_required_headers = () =>
+            {
+                result_http_request_message.Headers.ToString().ShouldContain("CB-ACCESS-KEY");
+                result_http_request_message.Headers.ToString().ShouldContain("CB-ACCESS-SIGN");
+                result_http_request_message.Headers.ToString().ShouldContain("CB-ACCESS-TIMESTAMP");
+                result_http_request_message.Headers.ToString().ShouldContain("CB-ACCESS-PASSPHRASE");
+            };
+        }
+
+        class when_making_a_request_using_sandbox_flag
+        {
+            Establish context = () =>
+                Configure(x => x.For<bool>().Use(true));
+
+            Because of = () =>
+                result_http_request_message = Subject.CreateHttpRequestMessage(HttpMethod.Get, authenticator, "/accounts");
+
+            It should_have_a_result = () =>
+                result_http_request_message.ShouldNotBeNull();
+
+            It should_have_correct_request_uri = () =>
+                result_http_request_message.RequestUri.ToString().ShouldEqual("https://api-public.sandbox.gdax.com/accounts");
 
             It should_have_the_required_headers = () =>
             {
