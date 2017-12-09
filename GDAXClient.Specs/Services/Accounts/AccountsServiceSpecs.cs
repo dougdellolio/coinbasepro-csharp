@@ -95,8 +95,13 @@ namespace GDAXClient.Specs.Services.Accounts
                 The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
                     .Return(new HttpRequestMessage());
 
+
                 The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(HttpResponseMessageFixture.Create()));
+                       .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithAfterValue()));
+
+                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                    .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
+
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(AccountsHistoryResponseFixture.Create()));
