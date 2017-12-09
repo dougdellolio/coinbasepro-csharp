@@ -86,6 +86,7 @@
     <Compile Include="JsonFixtures\Payments\PaymentMethodsResponseFixture.cs" />
     <Compile Include="JsonFixtures\Products\ProductsOrderBookResponseFixture.cs" />
     <Compile Include="JsonFixtures\Products\ProductsResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Products\ProductHistoryFixture.cs" />
     <Compile Include="JsonFixtures\Products\ProductStatsFixture.cs" />
     <Compile Include="JsonFixtures\Products\ProductTickerFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\CoinbaseWithdrawalResponseFixture.cs" />
