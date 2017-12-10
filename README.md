@@ -94,10 +94,10 @@ var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Bu
 var accountHistoryResponse = await gdaxClient.AccountsService.GetAccountHistoryAsync("ef56a389", 2);
 
 //retrieve by page number - this would return the first page of the response (latest first)
-var firstPage = accountHistoryResponse.ToArray()[0];
+var firstPage = accountHistoryResponse.ToList()[0];
 
 //get the first item on the page
-var firstAccountHistoryOnFirstPage = firstPage.ToArray()[0];
+var firstAccountHistoryOnFirstPage = firstPage.ToList()[0];
 ````
 
 Please open an issue for any bugs or questions
