@@ -88,7 +88,7 @@ namespace GDAXClient.Specs.Services.Accounts
 
         class when_getting_account_history
         {
-            static IEnumerable<IEnumerable<AccountHistory>> result;
+            static IList<IList<AccountHistory>> result;
 
             Establish context = () =>
             {
