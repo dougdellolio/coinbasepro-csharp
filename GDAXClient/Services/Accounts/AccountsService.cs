@@ -2,9 +2,7 @@
 using GDAXClient.Services.Accounts.Models;
 using GDAXClient.Services.HttpRequest;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -47,7 +45,7 @@ namespace GDAXClient.Services.Accounts
             return account;
         }
 
-        public async Task<IEnumerable<IEnumerable<AccountHistory>>> GetAccountsHistoryAsync(string id, decimal limit)
+        public async Task<IEnumerable<IEnumerable<AccountHistory>>> GetAccountHistoryAsync(string id, decimal limit)
         {
             var accountHistory = new List<IEnumerable<AccountHistory>>();
             var httpResponseMessage = await SendHttpRequestMessagePagedAsync<AccountHistory>(HttpMethod.Get, authenticator, $"/accounts/{id}/ledger?limit={limit}");

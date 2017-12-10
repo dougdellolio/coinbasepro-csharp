@@ -27,6 +27,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 ###### Accounts ######
 - GetAllAccountsAsync() - get all accounts
 - GetAccountByIdAsync(id) - get account by id
+- GetAccountHistory(id, limit) - get account history (paged response)
 
 ###### CoinbaseAccounts ######
 - GetAllAccountsAsync() - get all coinbase accounts
@@ -85,5 +86,19 @@ var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Bu
 ###### Cancel all open or un-settled orders ######
 
 `var response = await gdaxClient.OrdersService.CancelAllOrdersAsync();`
+
+###### Getting account history (<i>paged</i> response######
+
+````
+//the limit is the amount of items per page
+var accountHistoryResponse = await gdaxClient.AccountsService.GetAccountHistoryAsync("ef56a389-0afa-4819-998f-6ef181b1176e", 2);
+
+//retrieve by page number - this would return the first page of the response (latest first)
+var firstPage = accountHistoryResponse.ToArray()[0];
+
+//get the first item on the page
+var firstAccountHistoryOnFirstPage = firstPage.ToArray()[0];
+
+````
 
 

@@ -95,7 +95,6 @@ namespace GDAXClient.Specs.Services.Accounts
                 The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
                     .Return(new HttpRequestMessage());
 
-
                 The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
                        .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithAfterValue()));
 
@@ -104,7 +103,7 @@ namespace GDAXClient.Specs.Services.Accounts
             };
 
             Because of = () =>
-                result = Subject.GetAccountsHistoryAsync("a1b2c3d4", 1).Result;
+                result = Subject.GetAccountHistoryAsync("a1b2c3d4", 1).Result;
 
             It should_have_correct_account_information = () =>
             {
