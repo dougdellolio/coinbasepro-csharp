@@ -28,7 +28,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - GetAllAccountsAsync() - get all accounts
 - GetAccountByIdAsync(id) - get account by id
 - GetAccountHistory(id, limit) - get account history (paged response)
-- GetAccountHoldsAsync(string id, int limit) - get all holds placed on an account (paged response)
+- GetAccountHoldsAsync(id, limit) - get all holds placed on an account (paged response)
 
 ###### CoinbaseAccounts ######
 - GetAllAccountsAsync() - get all coinbase accounts
@@ -37,9 +37,9 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - PlaceMarketOrderAsync(orderSide, productType, size) - place market order
 - PlaceLimitOrderAsync(orderSide, productType, size, price) - place limit order
 - CancelAllOrdersAsync() - cancel all orders
-- CancelOrderByIdAsync(string id) - cancel order by id
-- GetAllOrdersAsync() - get all orders (only open or un-settled orders)
-- GetOrderByIdAsync(string id) - get order by id
+- CancelOrderByIdAsync(id) - cancel order by id
+- GetAllOrdersAsync(limit) - get all open or un-settled orders (paged response)
+- GetOrderByIdAsync(id) - get order by id
 
 ###### Payments ######
 - GetAllPaymentMethodsAsync() - get all payment methods
