@@ -27,7 +27,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 ###### Accounts ######
 - GetAllAccountsAsync() - get all accounts
 - GetAccountByIdAsync(id) - get account by id
-- GetAccountHistory(id, limit) - get account history (paged response)
+- GetAccountHistoryAsync(id, limit) - get account history (paged response)
 - GetAccountHoldsAsync(id, limit) - get all holds placed on an account (paged response)
 
 ###### CoinbaseAccounts ######
