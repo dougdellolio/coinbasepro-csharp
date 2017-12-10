@@ -87,7 +87,7 @@ var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Bu
 
 `var response = await gdaxClient.OrdersService.CancelAllOrdersAsync();`
 
-###### Getting account history (<i>paged</i> response######
+###### Getting account history (<i>paged response</i>) ######
 
 ````
 //the limit is the amount of items per page
