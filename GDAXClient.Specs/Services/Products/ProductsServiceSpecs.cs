@@ -86,9 +86,9 @@ namespace GDAXClient.Specs.Services.Payments
                 product_order_books_response.Bids.SelectMany(p => p).ShouldContain(200);
                 product_order_books_response.Bids.SelectMany(p => p).ShouldContain(100);
                 product_order_books_response.Bids.SelectMany(p => p).ShouldContain(3);
-                product_order_books_response.Ask.SelectMany(p => p).ShouldContain(200);
-                product_order_books_response.Ask.SelectMany(p => p).ShouldContain(100);
-                product_order_books_response.Ask.SelectMany(p => p).ShouldContain(3);
+                product_order_books_response.Asks.SelectMany(p => p).ShouldContain(200);
+                product_order_books_response.Asks.SelectMany(p => p).ShouldContain(100);
+                product_order_books_response.Asks.SelectMany(p => p).ShouldContain(3);
             };
         }
 
