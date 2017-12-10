@@ -103,15 +103,5 @@ namespace GDAXClient.Services
 
             return pagedList;
         }
-
-        private bool HasNextPage(HttpResponseMessage httpResponseMessage)
-        {
-            if (!httpResponseMessage.Headers.TryGetValues("cb-after", out var cursorHeaders))
-            {
-                return false;
-            }
-
-            return true;
-        }
     }
 }
