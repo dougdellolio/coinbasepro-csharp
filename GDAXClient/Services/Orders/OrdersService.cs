@@ -96,13 +96,11 @@ namespace GDAXClient.Services.Orders
             };
         }
 
-        public async Task<IEnumerable<OrderResponse>> GetAllOrdersAsync()
+        public async Task<IList<IList<OrderResponse>>> GetAllOrdersAsync(int limit = 100)
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/orders");
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var orderResponse = JsonConvert.DeserializeObject<IEnumerable<OrderResponse>>(contentBody);
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<OrderResponse>(HttpMethod.Get, authenticator, $"/orders?limit={limit}");
 
-            return orderResponse;
+            return httpResponseMessage;
         }
 
         public async Task<OrderResponse> GetOrderByIdAsync(string id)
