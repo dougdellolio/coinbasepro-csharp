@@ -91,14 +91,13 @@ var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Bu
 
 ````
 //the limit is the amount of items per page
-var accountHistoryResponse = await gdaxClient.AccountsService.GetAccountHistoryAsync("ef56a389-0afa-4819-998f-6ef181b1176e", 2);
+var accountHistoryResponse = await gdaxClient.AccountsService.GetAccountHistoryAsync("ef56a389", 2);
 
 //retrieve by page number - this would return the first page of the response (latest first)
 var firstPage = accountHistoryResponse.ToArray()[0];
 
 //get the first item on the page
 var firstAccountHistoryOnFirstPage = firstPage.ToArray()[0];
-
 ````
 
 
