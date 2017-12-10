@@ -99,10 +99,6 @@ namespace GDAXClient.Specs.Services.Accounts
                 The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
                        .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithAfterValue()));
 
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
-
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(AccountsHistoryResponseFixture.Create()));
             };

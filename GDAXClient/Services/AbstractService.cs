@@ -72,7 +72,6 @@ namespace GDAXClient.Services
                 return pagedList;
             }
 
-
             var subsequentPages = await GetAllSubsequentPages<T>(uri, firstPageAfterCursorId.First());
 
             pagedList.AddRange(subsequentPages);
