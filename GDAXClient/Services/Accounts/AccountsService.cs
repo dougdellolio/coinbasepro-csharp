@@ -47,8 +47,14 @@ namespace GDAXClient.Services.Accounts
 
         public async Task<IList<IList<AccountHistory>>> GetAccountHistoryAsync(string id, decimal limit)
         {
-            var accountHistory = new List<IList<AccountHistory>>();
             var httpResponseMessage = await SendHttpRequestMessagePagedAsync<AccountHistory>(HttpMethod.Get, authenticator, $"/accounts/{id}/ledger?limit={limit}");
+
+            return httpResponseMessage;
+        }
+
+        public async Task<IList<IList<AccountHold>>> GetAccountHoldsAsync(string id, int limit)
+        {
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<AccountHold>(HttpMethod.Get, authenticator, $"/accounts/{id}/holds?limit={limit}");
 
             return httpResponseMessage;
         }

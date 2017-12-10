@@ -28,6 +28,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - GetAllAccountsAsync() - get all accounts
 - GetAccountByIdAsync(id) - get account by id
 - GetAccountHistory(id, limit) - get account history (paged response)
+- GetAccountHoldsAsync(string id, int limit) - get all holds placed on an account (paged response)
 
 ###### CoinbaseAccounts ######
 - GetAllAccountsAsync() - get all coinbase accounts
@@ -57,6 +58,9 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - GetProductOrderBookAsync(productType) - get a list of open orders for a product
 - GetProductTickerAsync(productType) - get information about the last trade (tick), best bid/ask and 24h volume
 - GetProductStatsAsync(productType) - get 24 hour stats for a product
+
+###### Currencies ######
+- GetAllCurrenciesAsync() - gets a list of known currencies
 
 <h1>Sandbox Support</h1>
 
