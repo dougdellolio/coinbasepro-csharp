@@ -100,4 +100,6 @@ var firstPage = accountHistoryResponse.ToArray()[0];
 var firstAccountHistoryOnFirstPage = firstPage.ToArray()[0];
 ````
 
+<h1>Issues? Questions?</h1>
+Open an issue!
 
