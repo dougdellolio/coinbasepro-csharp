@@ -24,7 +24,11 @@ namespace GDAXClient.Services.HttpRequest
             this.sandBox = sandBox;
         }
 
-        public HttpRequestMessage CreateHttpRequestMessage(HttpMethod httpMethod, IAuthenticator authenticator, string requestUri, string contentBody = "")
+        public HttpRequestMessage CreateHttpRequestMessage(
+            HttpMethod httpMethod, 
+            IAuthenticator authenticator, 
+            string requestUri, 
+            string contentBody = "")
         {
             var baseUri = sandBox == true
                 ? sandBoxApiUri
@@ -60,7 +64,11 @@ namespace GDAXClient.Services.HttpRequest
             }
         }
 
-        private void AddHeaders(HttpRequestMessage httpRequestMessage, IAuthenticator authenticator, string signedSignature, double timeStamp)
+        private void AddHeaders(
+            HttpRequestMessage httpRequestMessage,
+            IAuthenticator authenticator,
+            string signedSignature,
+            double timeStamp)
         {
             httpRequestMessage.Headers.Add("User-Agent", "GDAXClient");
             httpRequestMessage.Headers.Add("CB-ACCESS-KEY", authenticator.ApiKey);

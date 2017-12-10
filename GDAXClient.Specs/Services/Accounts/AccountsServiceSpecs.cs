@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GDAXClient.Services.Accounts.Models;
+using GDAXClient.Specs.JsonFixtures.Accounts;
+using GDAXClient.Specs.JsonFixtures.HttpResponseMessage;
 
 namespace GDAXClient.Specs.Services.Accounts
 {
@@ -80,6 +83,37 @@ namespace GDAXClient.Specs.Services.Accounts
                 result.Currency.ShouldEqual("USD");
                 result.Balance.ShouldEqual(1.100M);
                 result.Available.ShouldEqual(1.00M);
+            };
+        }
+
+        class when_getting_account_history
+        {
+            static IEnumerable<IEnumerable<AccountHistory>> result;
+
+            Establish context = () =>
+            {
+                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                    .Return(new HttpRequestMessage());
+
+                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                       .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
+
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(AccountsHistoryResponseFixture.Create()));
+            };
+
+            Because of = () =>
+                result = Subject.GetAccountHistoryAsync("a1b2c3d4", 1).Result;
+
+            It should_have_correct_account_information = () =>
+            {
+                result.First().First().Id.ShouldEqual("100");
+                result.First().First().Amount.ShouldEqual(0.001M);
+                result.First().First().Balance.ShouldEqual(239.669M);
+                result.First().First().Type.ShouldEqual("fee");
+                result.First().First().Details.Order_id.ShouldEqual("d50ec984-77a8-460a-b958-66f114b0de9b");
+                result.First().First().Details.Trade_id.ShouldEqual("74");
+                result.First().First().Details.Product_id.ShouldEqual("BTC-USD");
             };
         }
     }

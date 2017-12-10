@@ -77,10 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JsonFixtures\Accounts\AccountByIdResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Accounts\AccountsHistoryResponseFixture.cs" />
     <Compile Include="JsonFixtures\Accounts\AllAccountsResponseFixture.cs" />
     <Compile Include="JsonFixtures\CoinbaseAccounts\AllCoinbaseResponseFixture.cs" />
     <Compile Include="JsonFixtures\Deposits\CoinbaseDepositResponseFixture.cs" />
     <Compile Include="JsonFixtures\Deposits\DepositsResponseFixture.cs" />
+    <Compile Include="JsonFixtures\HttpResponseMessage\HttpResponseMessageFixture.cs" />
     <Compile Include="JsonFixtures\Orders\CancelOrderResponseFixture.cs" />
     <Compile Include="JsonFixtures\Orders\OrderResponseFixture.cs" />
     <Compile Include="JsonFixtures\Payments\PaymentMethodsResponseFixture.cs" />

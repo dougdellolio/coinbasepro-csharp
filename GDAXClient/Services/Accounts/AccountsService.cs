@@ -1,4 +1,5 @@
 ﻿using GDAXClient.HttpClient;
+using GDAXClient.Services.Accounts.Models;
 using GDAXClient.Services.HttpRequest;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -28,7 +29,8 @@ namespace GDAXClient.Services.Accounts
 
         public async Task<IEnumerable<Account>> GetAllAccountsAsync()
         {
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, "/accounts");
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/accounts");
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var accountList = JsonConvert.DeserializeObject<List<Account>>(contentBody);
 
             return accountList;
@@ -36,10 +38,19 @@ namespace GDAXClient.Services.Accounts
 
         public async Task<Account> GetAccountByIdAsync(string id)
         {
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Get, authenticator, $"/accounts/{id}");
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/accounts/{id}");
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var account = JsonConvert.DeserializeObject<Account>(contentBody);
 
             return account;
+        }
+
+        public async Task<IEnumerable<IEnumerable<AccountHistory>>> GetAccountHistoryAsync(string id, decimal limit)
+        {
+            var accountHistory = new List<IEnumerable<AccountHistory>>();
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<AccountHistory>(HttpMethod.Get, authenticator, $"/accounts/{id}/ledger?limit={limit}");
+
+            return httpResponseMessage;
         }
     }
 }
