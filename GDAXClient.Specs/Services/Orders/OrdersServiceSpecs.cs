@@ -18,7 +18,7 @@ namespace GDAXClient.Specs.Services.Accounts
     {
         static OrderResponse order_response_result;
 
-        static IEnumerable<OrderResponse> order_many_response_result;
+        static IList<IList<OrderResponse>> order_many_response_result;
 
         static CancelOrderResponse cancel_order_response_result;
 
@@ -196,41 +196,41 @@ namespace GDAXClient.Specs.Services.Accounts
                 order_many_response_result = Subject.GetAllOrdersAsync().Result;
 
             It should_have_correct_number_of_orders = () =>
-                order_many_response_result.Count().ShouldEqual(2);
+                order_many_response_result.First().Count().ShouldEqual(2);
 
             It should_have_correct_orders = () =>
             {
-                order_many_response_result.First().Id.ShouldEqual(new System.Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
-                order_many_response_result.First().Price.ShouldEqual(0.10000000M);
-                order_many_response_result.First().Size.ShouldEqual(0.01000000M);
-                order_many_response_result.First().Product_id.ShouldEqual("BTC-USD");
-                order_many_response_result.First().Side.ShouldEqual("buy");
-                order_many_response_result.First().Stp.ShouldEqual("dc");
-                order_many_response_result.First().Type.ShouldEqual("limit");
-                order_many_response_result.First().Time_in_force.ShouldEqual("GTC");
-                order_many_response_result.First().Post_only.ShouldBeFalse();
-                order_many_response_result.First().Created_at.ShouldEqual(new System.DateTime(2016, 12, 9));
-                order_many_response_result.First().Fill_fees.ShouldEqual(0.0000000000000000M);
-                order_many_response_result.First().Filled_size.ShouldEqual(0.00000000M);
-                order_many_response_result.First().Executed_value.ShouldEqual(0.0000000000000000M);
-                order_many_response_result.First().Status.ShouldEqual("pending");
-                order_many_response_result.First().Settled.ShouldBeFalse();
+                order_many_response_result.First().First().Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
+                order_many_response_result.First().First().Price.ShouldEqual(0.10000000M);
+                order_many_response_result.First().First().Size.ShouldEqual(0.01000000M);
+                order_many_response_result.First().First().Product_id.ShouldEqual("BTC-USD");
+                order_many_response_result.First().First().Side.ShouldEqual("buy");
+                order_many_response_result.First().First().Stp.ShouldEqual("dc");
+                order_many_response_result.First().First().Type.ShouldEqual("limit");
+                order_many_response_result.First().First().Time_in_force.ShouldEqual("GTC");
+                order_many_response_result.First().First().Post_only.ShouldBeFalse();
+                order_many_response_result.First().First().Created_at.ShouldEqual(new DateTime(2016, 12, 9));
+                order_many_response_result.First().First().Fill_fees.ShouldEqual(0.0000000000000000M);
+                order_many_response_result.First().First().Filled_size.ShouldEqual(0.00000000M);
+                order_many_response_result.First().First().Executed_value.ShouldEqual(0.0000000000000000M);
+                order_many_response_result.First().First().Status.ShouldEqual("pending");
+                order_many_response_result.First().First().Settled.ShouldBeFalse();
 
-                order_many_response_result.Skip(1).First().Id.ShouldEqual(new System.Guid("8b99b139-58f2-4ab2-8e7a-c11c846e3022"));
-                order_many_response_result.Skip(1).First().Price.ShouldEqual(0.10000000M);
-                order_many_response_result.Skip(1).First().Size.ShouldEqual(0.01000000M);
-                order_many_response_result.Skip(1).First().Product_id.ShouldEqual("ETH-USD");
-                order_many_response_result.Skip(1).First().Side.ShouldEqual("buy");
-                order_many_response_result.Skip(1).First().Stp.ShouldEqual("dc");
-                order_many_response_result.Skip(1).First().Type.ShouldEqual("limit");
-                order_many_response_result.Skip(1).First().Time_in_force.ShouldEqual("GTC");
-                order_many_response_result.Skip(1).First().Post_only.ShouldBeFalse();
-                order_many_response_result.Skip(1).First().Created_at.ShouldEqual(new System.DateTime(2016, 12, 9));
-                order_many_response_result.Skip(1).First().Fill_fees.ShouldEqual(0.0000000000000000M);
-                order_many_response_result.Skip(1).First().Filled_size.ShouldEqual(0.00000000M);
-                order_many_response_result.Skip(1).First().Executed_value.ShouldEqual(0.0000000000000000M);
-                order_many_response_result.Skip(1).First().Status.ShouldEqual("pending");
-                order_many_response_result.Skip(1).First().Settled.ShouldBeFalse();
+                order_many_response_result.First().Skip(1).First().Id.ShouldEqual(new Guid("8b99b139-58f2-4ab2-8e7a-c11c846e3022"));
+                order_many_response_result.First().Skip(1).First().Price.ShouldEqual(0.10000000M);
+                order_many_response_result.First().Skip(1).First().Size.ShouldEqual(0.01000000M);
+                order_many_response_result.First().Skip(1).First().Product_id.ShouldEqual("ETH-USD");
+                order_many_response_result.First().Skip(1).First().Side.ShouldEqual("buy");
+                order_many_response_result.First().Skip(1).First().Stp.ShouldEqual("dc");
+                order_many_response_result.First().Skip(1).First().Type.ShouldEqual("limit");
+                order_many_response_result.First().Skip(1).First().Time_in_force.ShouldEqual("GTC");
+                order_many_response_result.First().Skip(1).First().Post_only.ShouldBeFalse();
+                order_many_response_result.First().Skip(1).First().Created_at.ShouldEqual(new DateTime(2016, 12, 9));
+                order_many_response_result.First().Skip(1).First().Fill_fees.ShouldEqual(0.0000000000000000M);
+                order_many_response_result.First().Skip(1).First().Filled_size.ShouldEqual(0.00000000M);
+                order_many_response_result.First().Skip(1).First().Executed_value.ShouldEqual(0.0000000000000000M);
+                order_many_response_result.First().Skip(1).First().Status.ShouldEqual("pending");
+                order_many_response_result.First().Skip(1).First().Settled.ShouldBeFalse();
             };
         }
 
@@ -251,26 +251,23 @@ namespace GDAXClient.Specs.Services.Accounts
             Because of = () =>
                 order_response_result = Subject.GetOrderByIdAsync("d0c5340b-6d6c-49d9-b567-48c4bfca13d2").Result;
 
-            It should_have_correct_number_of_orders = () =>
-                order_many_response_result.Count().ShouldEqual(2);
-
-            It should_have_correct_orders = () =>
+            It should_have_correct_order = () =>
             {
-                order_many_response_result.First().Id.ShouldEqual(new System.Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
-                order_many_response_result.First().Price.ShouldEqual(0.10000000M);
-                order_many_response_result.First().Size.ShouldEqual(0.01000000M);
-                order_many_response_result.First().Product_id.ShouldEqual("BTC-USD");
-                order_many_response_result.First().Side.ShouldEqual("buy");
-                order_many_response_result.First().Stp.ShouldEqual("dc");
-                order_many_response_result.First().Type.ShouldEqual("limit");
-                order_many_response_result.First().Time_in_force.ShouldEqual("GTC");
-                order_many_response_result.First().Post_only.ShouldBeFalse();
-                order_many_response_result.First().Created_at.ShouldEqual(new System.DateTime(2016, 12, 9));
-                order_many_response_result.First().Fill_fees.ShouldEqual(0.0000000000000000M);
-                order_many_response_result.First().Filled_size.ShouldEqual(0.00000000M);
-                order_many_response_result.First().Executed_value.ShouldEqual(0.0000000000000000M);
-                order_many_response_result.First().Status.ShouldEqual("pending");
-                order_many_response_result.First().Settled.ShouldBeFalse();
+                order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
+                order_response_result.Price.ShouldEqual(0.10000000M);
+                order_response_result.Size.ShouldEqual(0.01000000M);
+                order_response_result.Product_id.ShouldEqual("BTC-USD");
+                order_response_result.Side.ShouldEqual("buy");
+                order_response_result.Stp.ShouldEqual("dc");
+                order_response_result.Type.ShouldEqual("limit");
+                order_response_result.Time_in_force.ShouldEqual("GTC");
+                order_response_result.Post_only.ShouldBeFalse();
+                order_response_result.Created_at.ShouldEqual(new System.DateTime(2016, 12, 9));
+                order_response_result.Fill_fees.ShouldEqual(0.0000000000000000M);
+                order_response_result.Filled_size.ShouldEqual(0.00000000M);
+                order_response_result.Executed_value.ShouldEqual(0.0000000000000000M);
+                order_response_result.Status.ShouldEqual("pending");
+                order_response_result.Settled.ShouldBeFalse();
             };
         }
     }

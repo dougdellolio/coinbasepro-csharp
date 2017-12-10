@@ -116,5 +116,36 @@ namespace GDAXClient.Specs.Services.Accounts
                 result.First().First().Details.Product_id.ShouldEqual("BTC-USD");
             };
         }
+
+        class when_getting_account_holds
+        {
+            static IList<IList<AccountHold>> result;
+
+            Establish context = () =>
+            {
+                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                    .Return(new HttpRequestMessage());
+
+                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                       .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
+
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(AccountHoldsResponseFixture.Create()));
+            };
+
+            Because of = () =>
+                result = Subject.GetAccountHoldsAsync("a1b2c3d4", 1).Result;
+
+            It should_have_correct_account_information = () =>
+            {
+                result.First().First().Id.ShouldEqual("82dcd140-c3c7-4507-8de4-2c529cd1a28f");
+                result.First().First().Account_id.ShouldEqual("e0b3f39a-183d-453e-b754-0c13e5bab0b3");
+                result.First().First().Created_at.ShouldEqual(new DateTime(2016, 12, 9));
+                result.First().First().Updated_at.ShouldEqual(new DateTime(2016, 12, 9));
+                result.First().First().Amount.ShouldEqual(4.23M);
+                result.First().First().Type.ShouldEqual("order");
+                result.First().First().@Ref.ShouldEqual("0a205de4-dd35-4370-a285-fe8fc375a273");
+            };
+        }
     }
 }
