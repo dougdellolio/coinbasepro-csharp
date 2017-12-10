@@ -82,14 +82,11 @@ namespace GDAXClient.Services
         private async Task<IList<IList<T>>> GetAllSubsequentPages<T>(string uri, string firstPageAfterCursorId)
         {
             var pagedList = new List<IList<T>>();
-
             var subsequentPageAfterHeaderId = firstPageAfterCursorId;
-            HttpResponseMessage subsequentHttpResponseMessage;
-            string subsequentContentBody;
 
             while (true)
             {
-                subsequentHttpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, uri + $"&after={subsequentPageAfterHeaderId}").ConfigureAwait(false);
+                var subsequentHttpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, uri + $"&after={subsequentPageAfterHeaderId}").ConfigureAwait(false);
 
                 if (!subsequentHttpResponseMessage.Headers.TryGetValues("cb-after", out var cursorHeaders))
                 {
@@ -97,14 +94,24 @@ namespace GDAXClient.Services
                 }
 
                 subsequentPageAfterHeaderId = cursorHeaders.First();
-                subsequentContentBody = await httpClient.ReadAsStringAsync(subsequentHttpResponseMessage).ConfigureAwait(false);
 
+                var subsequentContentBody = await httpClient.ReadAsStringAsync(subsequentHttpResponseMessage).ConfigureAwait(false);
                 var page = JsonConvert.DeserializeObject<IList<T>>(subsequentContentBody);
 
                 pagedList.Add(page);
             }
 
             return pagedList;
+        }
+
+        private bool HasNextPage(HttpResponseMessage httpResponseMessage)
+        {
+            if (!httpResponseMessage.Headers.TryGetValues("cb-after", out var cursorHeaders))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
