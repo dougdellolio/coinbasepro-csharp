@@ -102,6 +102,9 @@ var firstPage = accountHistoryResponse.ToList()[0];
 
 //get the first item on the page
 var firstAccountHistoryOnFirstPage = firstPage.ToList()[0];
+
+//get the second item on the page
+var firstAccountHistoryOnFirstPage = firstPage.ToList()[1];
 ````
 
 Please open an issue for any bugs or questions
