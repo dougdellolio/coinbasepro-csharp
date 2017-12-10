@@ -48,13 +48,13 @@ namespace GDAXClient.Services
             return httpResponseMessage;
         }
 
-        protected async Task<IEnumerable<IEnumerable<T>>> SendHttpRequestMessagePagedAsync<T>(
+        protected async Task<IList<IList<T>>> SendHttpRequestMessagePagedAsync<T>(
             HttpMethod httpMethod,
             IAuthenticator authenticator,
             string uri,
             string content = null)
         {
-            var pagedList = new List<IEnumerable<T>>();
+            var pagedList = new List<IList<T>>();
 
             var httpRequestMessage = content == null
                 ? httpRequestMessageService.CreateHttpRequestMessage(httpMethod, authenticator, uri)
@@ -63,7 +63,7 @@ namespace GDAXClient.Services
             var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
-            var firstPage = JsonConvert.DeserializeObject<IEnumerable<T>>(contentBody);
+            var firstPage = JsonConvert.DeserializeObject<IList<T>>(contentBody);
 
             pagedList.Add(firstPage);
 
@@ -79,17 +79,14 @@ namespace GDAXClient.Services
             return pagedList;
         }
 
-        private async Task<IEnumerable<IEnumerable<T>>> GetAllSubsequentPages<T>(string uri, string firstPageAfterCursorId)
+        private async Task<IList<IList<T>>> GetAllSubsequentPages<T>(string uri, string firstPageAfterCursorId)
         {
-            var pagedList = new List<IEnumerable<T>>();
-
+            var pagedList = new List<IList<T>>();
             var subsequentPageAfterHeaderId = firstPageAfterCursorId;
-            HttpResponseMessage subsequentHttpResponseMessage;
-            string subsequentContentBody;
 
             while (true)
             {
-                subsequentHttpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, uri + $"&after={subsequentPageAfterHeaderId}");
+                var subsequentHttpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, uri + $"&after={subsequentPageAfterHeaderId}").ConfigureAwait(false);
 
                 if (!subsequentHttpResponseMessage.Headers.TryGetValues("cb-after", out var cursorHeaders))
                 {
@@ -97,9 +94,9 @@ namespace GDAXClient.Services
                 }
 
                 subsequentPageAfterHeaderId = cursorHeaders.First();
-                subsequentContentBody = await httpClient.ReadAsStringAsync(subsequentHttpResponseMessage).ConfigureAwait(false);
 
-                var page = JsonConvert.DeserializeObject<IEnumerable<T>>(subsequentContentBody);
+                var subsequentContentBody = await httpClient.ReadAsStringAsync(subsequentHttpResponseMessage).ConfigureAwait(false);
+                var page = JsonConvert.DeserializeObject<IList<T>>(subsequentContentBody);
 
                 pagedList.Add(page);
             }
