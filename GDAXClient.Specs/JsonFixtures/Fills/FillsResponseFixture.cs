@@ -5,7 +5,8 @@
         public static string Create()
         {
             var json = @"
-{
+[
+    {
          ""trade_id"": 74,
         ""product_id"": ""BTC-USD"",
         ""price"": ""10.00"",
@@ -16,7 +17,8 @@
         ""fee"": ""0.00025"",
         ""settled"": true,
         ""side"": ""buy""
-}";
+    }
+]";
 
             return json;
         }

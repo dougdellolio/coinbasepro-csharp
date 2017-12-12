@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using GDAXClient.HttpClient;
@@ -29,36 +31,33 @@ namespace GDAXClient.Services.Fills
             this.authenticator = authenticator;
         }
 
-        public async Task<FillResponse> GetAllFillsAsync()
+        public async Task<IList<IList<FillResponse>>> GetAllFillsAsync(int limit = 100)
         {
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/fills");
-            var fills = JsonConvert.DeserializeObject<FillResponse>(contentBody);
+            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Post, authenticator, $"/fills?limit={limit}");
 
             return fills;
         }
 
-        public async Task<FillResponse> GetFillsByOrderIdAsync(string order_id)
+        public async Task<IList<IList<FillResponse>>> GetFillsByOrderIdAsync(string order_id, int limit = 100)
         {
             var fill = JsonConvert.SerializeObject(new Fill
             {
                 order_id = new Guid(order_id)
             });
 
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/fills", fill);
-            var fills = JsonConvert.DeserializeObject<FillResponse>(contentBody);
+            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Post, authenticator, $"/fills?limit={limit}", fill);
 
             return fills;
         }
 
-        public async Task<FillResponse> GetFillsByProductIdAsync(string product_id)
+        public async Task<IList<IList<FillResponse>>> GetFillsByProductIdAsync(string product_id, int limit = 100)
         {
             var fill = JsonConvert.SerializeObject(new Fill
             {
                 product_id = product_id.ToUpper()
             });
 
-            var contentBody = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/fills", fill);
-            var fills = JsonConvert.DeserializeObject<FillResponse>(contentBody);
+            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Post, authenticator, $"/fills?limit={limit}", fill);
 
             return fills;
         }
