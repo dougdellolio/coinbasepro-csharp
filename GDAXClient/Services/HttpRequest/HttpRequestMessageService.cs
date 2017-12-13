@@ -5,6 +5,7 @@ using System;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Globalization;
 
 namespace GDAXClient.Services.HttpRequest
 {
@@ -51,7 +52,7 @@ namespace GDAXClient.Services.HttpRequest
         private string ComputeSignature(HttpMethod httpMethod, string secret, double timestamp, string requestUri, string contentBody = "")
         {
             var convertedString = Convert.FromBase64String(secret);
-            var prehash = timestamp + httpMethod.ToString().ToUpper() + requestUri + contentBody;
+            var prehash = timestamp.ToString(CultureInfo.InvariantCulture) + httpMethod.ToString().ToUpper() + requestUri + contentBody;
             return HashString(prehash, convertedString);
         }
 
