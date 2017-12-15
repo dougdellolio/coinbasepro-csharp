@@ -37,11 +37,11 @@ namespace GDAXClient.Services.Fills
             return fills;
         }
 
-        public async Task<IList<IList<FillResponse>>> GetFillsByOrderIdAsync(string order_id, int limit = 100)
+        public async Task<IList<IList<FillResponse>>> GetFillsByOrderIdAsync(string orderId, int limit = 100)
         {
             var fill = JsonConvert.SerializeObject(new Fill
             {
-                order_id = new Guid(order_id)
+                order_id = new Guid(orderId)
             });
 
             var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Post, authenticator, $"/fills?limit={limit}", fill);
@@ -49,11 +49,11 @@ namespace GDAXClient.Services.Fills
             return fills;
         }
 
-        public async Task<IList<IList<FillResponse>>> GetFillsByProductIdAsync(string product_id, int limit = 100)
+        public async Task<IList<IList<FillResponse>>> GetFillsByProductIdAsync(string productId, int limit = 100)
         {
             var fill = JsonConvert.SerializeObject(new Fill
             {
-                product_id = product_id.ToUpper()
+                product_id = productId.ToUpper()
             });
 
             var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Post, authenticator, $"/fills?limit={limit}", fill);

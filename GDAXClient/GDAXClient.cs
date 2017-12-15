@@ -4,6 +4,7 @@ using GDAXClient.Services.Accounts;
 using GDAXClient.Services.CoinbaseAccounts;
 using GDAXClient.Services.Currencies;
 using GDAXClient.Services.Deposits;
+using GDAXClient.Services.Fills;
 using GDAXClient.Services.Orders;
 using GDAXClient.Services.Payments;
 using GDAXClient.Services.WithdrawalsService;
@@ -31,6 +32,7 @@ namespace GDAXClient
             DepositsService = new DepositsService(httpClient, httpRequestMessageService, authenticator);
             ProductsService = new ProductsService(httpClient, httpRequestMessageService, authenticator);
             CurrenciesService = new CurrenciesService(httpClient, httpRequestMessageService, authenticator);
+            FillsService = new FillsService(httpClient, httpRequestMessageService, authenticator);
         }
 
         public AccountsService AccountsService { get; }
@@ -48,5 +50,7 @@ namespace GDAXClient
         public ProductsService ProductsService { get; }
 
         public CurrenciesService CurrenciesService { get; }
+
+        public FillsService FillsService { get; }
     }
 }
