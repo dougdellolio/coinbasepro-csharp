@@ -59,6 +59,9 @@
     <Compile Include="Services\Accounts\Models\AccountHold.cs" />
     <Compile Include="Services\Currencies\CurrenciesService.cs" />
     <Compile Include="Services\Currencies\Models\Currency.cs" />
+    <Compile Include="Services\Fills\FillsService.cs" />
+    <Compile Include="Services\Fills\Models\Fill.cs" />
+    <Compile Include="Services\Fills\Models\Responses\FillResponse.cs" />
     <Compile Include="Services\Products\Models\Product.cs" />
     <Compile Include="Services\Products\Models\ProductStats.cs" />
     <Compile Include="Services\Products\Models\ProductTicker.cs" />

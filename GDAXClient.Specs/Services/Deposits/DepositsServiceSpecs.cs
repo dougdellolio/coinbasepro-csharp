@@ -6,7 +6,6 @@ using GDAXClient.HttpClient;
 using GDAXClient.Services;
 using GDAXClient.Services.Deposits;
 using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Orders;
 using GDAXClient.Services.Withdrawals;
 using GDAXClient.Specs.JsonFixtures.Deposits;
 using Machine.Fakes;
