@@ -118,6 +118,7 @@ Thanks for contributing!
 
 - @dgelineau
 
+<h1>Bugs or questions?</h1>
 
 Please open an issue for any bugs or questions
 
