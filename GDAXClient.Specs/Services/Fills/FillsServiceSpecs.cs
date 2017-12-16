@@ -102,7 +102,7 @@ namespace GDAXClient.Specs.Services
             };
 
             Because of = () =>
-                fill_response = Subject.GetFillsByProductIdAsync(ProductType.BtcUsd.ToDasherizedUpper(), 1).Result;
+                fill_response = Subject.GetFillsByProductIdAsync(ProductType.BtcUsd, 1).Result;
 
             It should_return_a_response = () =>
                 fill_response.ShouldNotBeNull();

@@ -62,6 +62,11 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 ###### Currencies ######
 - GetAllCurrenciesAsync() - gets a list of known currencies
 
+###### Fills ######
+- GetAllFillsAsync(limit) - gets a list of all recent fills (paged response)
+- GetFillsByOrderIdAsync(orderId, limit) - gets a list of all recent fills by order id (paged response)
+- GetFillsByProductIdAsync(productType, limit) - gets a list of all recent fills by product type (paged response)
+
 <h1>Sandbox Support</h1>
 
 <i>Generate your key at https://public.sandbox.gdax.com/settings/api</i>
@@ -106,6 +111,14 @@ var firstAccountHistoryOnFirstPage = firstPage.ToList()[0];
 //get the second item on the page
 var secondAccountHistoryOnFirstPage = firstPage.ToList()[1];
 ````
+
+<h1>Contributors</h1>
+
+Thanks for contributing!
+
+- @dgelineau
+
+<h1>Bugs or questions?</h1>
 
 Please open an issue for any bugs or questions
 
