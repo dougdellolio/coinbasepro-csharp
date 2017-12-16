@@ -112,7 +112,7 @@ var firstAccountHistoryOnFirstPage = firstPage.ToList()[0];
 var secondAccountHistoryOnFirstPage = firstPage.ToList()[1];
 ````
 
-<h1>Sandbox Support</h1>
+<h1>Contributors</h1>
 
 Thanks for contributing!
 
