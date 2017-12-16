@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using GDAXClient.HttpClient;
 using GDAXClient.Services.Accounts;
-using GDAXClient.Services.Fills.Models;
 using GDAXClient.Services.Fills.Models.Responses;
 using GDAXClient.Services.HttpRequest;
-using Newtonsoft.Json;
+using GDAXClient.Services.Orders;
+using GDAXClient.Utilities.Extensions;
 
 namespace GDAXClient.Services.Fills
 {
@@ -32,31 +31,21 @@ namespace GDAXClient.Services.Fills
 
         public async Task<IList<IList<FillResponse>>> GetAllFillsAsync(int limit = 100)
         {
-            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Post, authenticator, $"/fills?limit={limit}");
+            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, authenticator, $"/fills?limit={limit}");
 
             return fills;
         }
 
         public async Task<IList<IList<FillResponse>>> GetFillsByOrderIdAsync(string orderId, int limit = 100)
         {
-            var fill = JsonConvert.SerializeObject(new Fill
-            {
-                order_id = new Guid(orderId)
-            });
-
-            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Post, authenticator, $"/fills?limit={limit}", fill);
+            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, authenticator, $"/fills?limit={limit}&order_id={orderId}");
 
             return fills;
         }
 
-        public async Task<IList<IList<FillResponse>>> GetFillsByProductIdAsync(string productId, int limit = 100)
+        public async Task<IList<IList<FillResponse>>> GetFillsByProductIdAsync(ProductType productId, int limit = 100)
         {
-            var fill = JsonConvert.SerializeObject(new Fill
-            {
-                product_id = productId.ToUpper()
-            });
-
-            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Post, authenticator, $"/fills?limit={limit}", fill);
+            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, authenticator, $"/fills?limit={limit}&product_id={productId.ToDasherizedUpper()}");
 
             return fills;
         }

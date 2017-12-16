@@ -62,6 +62,11 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 ###### Currencies ######
 - GetAllCurrenciesAsync() - gets a list of known currencies
 
+###### Fills ######
+- GetAllFillsAsync(limit) - gets a list of all recent fills (paged response)
+- GetFillsByOrderIdAsync(orderId, limit) - gets a list of all recent fills by order id (paged response)
+- GetFillsByProductIdAsync(productType, limit) - gets a list of all recent fills by product type (paged response)
+
 <h1>Sandbox Support</h1>
 
 <i>Generate your key at https://public.sandbox.gdax.com/settings/api</i>
