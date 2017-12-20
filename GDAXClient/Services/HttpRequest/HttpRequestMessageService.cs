@@ -73,10 +73,9 @@ namespace GDAXClient.Services.HttpRequest
         {
             httpRequestMessage.Headers.Add("User-Agent", "GDAXClient");
             httpRequestMessage.Headers.Add("CB-ACCESS-KEY", authenticator.ApiKey);
-            httpRequestMessage.Headers.Add("CB-ACCESS-TIMESTAMP", timeStamp.ToString());
+            httpRequestMessage.Headers.Add("CB-ACCESS-TIMESTAMP", timeStamp.ToString(CultureInfo.InvariantCulture));
             httpRequestMessage.Headers.Add("CB-ACCESS-SIGN", signedSignature);
             httpRequestMessage.Headers.Add("CB-ACCESS-PASSPHRASE", authenticator.Passphrase);
         }
     }
 }
-
