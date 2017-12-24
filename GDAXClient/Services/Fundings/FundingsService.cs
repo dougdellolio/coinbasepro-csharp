@@ -2,6 +2,7 @@
 using GDAXClient.Services.Accounts;
 using GDAXClient.Services.Fundings.Models;
 using GDAXClient.Services.HttpRequest;
+using GDAXClient.Utilities;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -16,9 +17,13 @@ namespace GDAXClient.Services.Fundings
 
         private readonly IAuthenticator authenticator;
 
-        public FundingsService(IHttpClient httpClient,
+        private readonly IQueryBuilder queryBuilder;
+
+        public FundingsService(
+            IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator)
+            IAuthenticator authenticator,
+            IQueryBuilder queryBuilder)
             : base(httpClient, httpRequestMessageService, authenticator)
         {
             this.httpRequestMessageService = httpRequestMessageService;
@@ -26,8 +31,12 @@ namespace GDAXClient.Services.Fundings
             this.authenticator = authenticator;
         }
 
-        public async Task<IList<IList<Funding>>> GetAllFundingsAsync(int limit = 100)
+        public async Task<IList<IList<Funding>>> GetAllFundingsAsync(int limit = 100, FundingStatus? status = null)
         {
+            var queryString = queryBuilder.BuildQuery(
+                new KeyValuePair<string, string>("limit", limit.ToString()),
+                new KeyValuePair<string, string>("status", status.ToString()));
+
             var httpResponseMessage = await SendHttpRequestMessagePagedAsync<Funding>(HttpMethod.Get, authenticator, $"/");
 
             return httpResponseMessage;

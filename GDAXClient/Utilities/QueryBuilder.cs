@@ -11,7 +11,10 @@ namespace GDAXClient.Utilities
 
             foreach(var queryParameter in queryParameters)
             {
-                queryString.Append(queryParameter.Key + "=" + queryParameter.Value + "&");
+                if(queryParameter.Value != "null")
+                {
+                    queryString.Append(queryParameter.Key + "=" + queryParameter.Value + "&");
+                }
             }
 
             return queryString.ToString().TrimEnd('&');

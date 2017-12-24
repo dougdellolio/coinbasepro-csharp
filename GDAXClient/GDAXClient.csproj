@@ -103,6 +103,7 @@
     <Compile Include="Utilities\Extensions\DateExtensions.cs" />
     <Compile Include="Utilities\Extensions\ProductTypeExtensions.cs" />
     <Compile Include="Utilities\IClock.cs" />
+    <Compile Include="Utilities\IQueryBuilder.cs" />
     <Compile Include="Utilities\QueryBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
