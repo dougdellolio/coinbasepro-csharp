@@ -3,7 +3,7 @@ using System.Text;
 
 namespace GDAXClient.Utilities
 {
-    public class QueryBuilder
+    public class QueryBuilder : IQueryBuilder
     {
         public string BuildQuery(params KeyValuePair<string, string>[] queryParameters)
         {
@@ -11,9 +11,9 @@ namespace GDAXClient.Utilities
 
             foreach(var queryParameter in queryParameters)
             {
-                if(queryParameter.Value != "null")
+                if(queryParameter.Value != string.Empty)
                 {
-                    queryString.Append(queryParameter.Key + "=" + queryParameter.Value + "&");
+                    queryString.Append(queryParameter.Key.ToLower() + "=" + queryParameter.Value.ToLower() + "&");
                 }
             }
 

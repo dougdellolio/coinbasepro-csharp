@@ -29,15 +29,16 @@ namespace GDAXClient.Services.Fundings
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
             this.authenticator = authenticator;
+            this.queryBuilder = queryBuilder;
         }
 
         public async Task<IList<IList<Funding>>> GetAllFundingsAsync(int limit = 100, FundingStatus? status = null)
         {
             var queryString = queryBuilder.BuildQuery(
                 new KeyValuePair<string, string>("limit", limit.ToString()),
-                new KeyValuePair<string, string>("status", status.ToString()));
+                new KeyValuePair<string, string>("status", status?.ToString()));
 
-            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<Funding>(HttpMethod.Get, authenticator, $"/");
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<Funding>(HttpMethod.Get, authenticator, $"/funding" + queryString);
 
             return httpResponseMessage;
         }
