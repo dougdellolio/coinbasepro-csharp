@@ -67,6 +67,9 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - GetFillsByOrderIdAsync(orderId, limit) - gets a list of all recent fills by order id (paged response)
 - GetFillsByProductIdAsync(productType, limit) - gets a list of all recent fills by product type (paged response)
 
+###### Fundings ######
+- GetAllFundingsAsync(limit, fundingStatus) - gets a list of all orders placed with a margin profile that draws funding (paged response)
+
 <h1>Sandbox Support</h1>
 
 <i>Generate your key at https://public.sandbox.gdax.com/settings/api</i>
