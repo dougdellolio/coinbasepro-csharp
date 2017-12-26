@@ -94,6 +94,7 @@
     <Compile Include="JsonFixtures\Products\ProductsResponseFixture.cs" />
     <Compile Include="JsonFixtures\Products\ProductStatsFixture.cs" />
     <Compile Include="JsonFixtures\Products\ProductTickerFixture.cs" />
+    <Compile Include="JsonFixtures\Reports\ReportsResponseFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\CoinbaseWithdrawalResponseFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\CryptoWithdrawalResponseFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\WithdrawalsResponseFixture.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Services\Orders\OrdersServiceSpecs.cs" />
     <Compile Include="Services\Payments\PaymentsServiceSpecs.cs" />
     <Compile Include="Services\Products\ProductsServiceSpecs.cs" />
+    <Compile Include="Services\Reports\ReportsServiceSpecs.cs" />
     <Compile Include="Services\Withdrawals\WithdrawalsServiceSpecs.cs" />
     <Compile Include="Utilities\Extensions\DateExtensionsSpecs.cs" />
     <Compile Include="Utilities\Extensions\ProductTypeExtensionsSpecs.cs" />
