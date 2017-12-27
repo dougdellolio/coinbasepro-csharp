@@ -40,7 +40,7 @@ namespace GDAXClient.WebSocketFeed
                 });
 
                 ws.Send(json);
-                Console.ReadKey(true);
+                //Console.ReadKey(true);
             }
         }
 

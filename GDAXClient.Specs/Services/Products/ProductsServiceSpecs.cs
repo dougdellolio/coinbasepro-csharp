@@ -2,10 +2,10 @@
 using GDAXClient.HttpClient;
 using GDAXClient.Products;
 using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Orders;
 using GDAXClient.Services.Products;
 using GDAXClient.Services.Products.Models;
 using GDAXClient.Services.Products.Models.Responses;
+using GDAXClient.Shared;
 using GDAXClient.Specs.JsonFixtures.Products;
 using Machine.Fakes;
 using Machine.Specifications;
