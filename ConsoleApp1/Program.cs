@@ -1,7 +1,7 @@
 ﻿using GDAXClient.Shared;
 using GDAXClient.WebSocketFeed;
 using System;
-
+using GDAXClient.WebSocketFeed.Response;
 
 namespace ConsoleApp1
 {
@@ -12,17 +12,14 @@ namespace ConsoleApp1
             var ws = new WebSocketFeed();
 
             ws.OnDataReceived += (sender, e) =>
-                            ReceivedData(e.Data);
+                ReceivedData(e.LastOrder);
 
-
-            ws.Get(ProductType.BtcUsd);
+            ws.GetTickerChannel(ProductType.BtcUsd);
         }
 
-        static void ReceivedData(string latestData)
+        static void ReceivedData(FeedOrder latestData)
         {
-            // data which received by library....
-            Console.WriteLine(latestData);
-            //Console.ReadKey(true);
+            Console.WriteLine(latestData.Last_size);
         }
     }
 }

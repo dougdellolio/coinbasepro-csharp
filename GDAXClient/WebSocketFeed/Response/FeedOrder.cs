@@ -1,20 +1,20 @@
 ﻿using System;
 
-namespace GDAXClient.WebSocketFeed
+namespace GDAXClient.WebSocketFeed.Response
 {
-    public class Price
+    public class FeedOrder
     {
-        public string type { get; set; }
+        public string Type { get; set; }
 
-        public string Trrade_id { get; set; }
+        public string Trade_id { get; set; }
 
-        public long sequence { get; set; }
+        public long Sequence { get; set; }
 
         public DateTime Time { get; set; }
 
         public string Product_id { get; set; }
 
-        public decimal PriceUsd { get; set; }
+        public decimal Price { get; set; }
 
         public string Side { get; set; }
 

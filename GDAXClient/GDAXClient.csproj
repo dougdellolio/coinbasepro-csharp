@@ -109,8 +109,8 @@
     <Compile Include="Utilities\IQueryBuilder.cs" />
     <Compile Include="Utilities\QueryBuilder.cs" />
     <Compile Include="WebSocketFeed\Request\TickerChannel.cs" />
-    <Compile Include="WebSocketFeed\Response\GdaxEventArgs.cs" />
-    <Compile Include="WebSocketFeed\Request\Price.cs" />
+    <Compile Include="WebSocketFeed\Response\FeedOrder.cs" />
+    <Compile Include="WebSocketFeed\Response\WebSocketFeedEventArgs.cs" />
     <Compile Include="WebSocketFeed\WebSocketFeed.cs" />
   </ItemGroup>
   <ItemGroup>
