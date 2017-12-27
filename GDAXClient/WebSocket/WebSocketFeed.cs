@@ -6,9 +6,8 @@ using Newtonsoft.Json;
 using System;
 using System.Linq;
 using WebSocketSharp;
-using WebSocketSharp.Server;
 
-namespace GDAXClient.WebSocketFeed
+namespace GDAXClient.WebSocket
 {
     public class WebSocketFeed
     {
@@ -19,7 +18,7 @@ namespace GDAXClient.WebSocketFeed
                 throw new ArgumentException("You must specify at least one product type");
             }
 
-            using (var ws = new WebSocket("wss://ws-feed.gdax.com"))
+            using (var ws = new WebSocketSharp.WebSocket("wss://ws-feed.gdax.com"))
             {
                 ws.OnMessage += (sender, e) =>
                     Create(sender, e, ws);
@@ -44,7 +43,7 @@ namespace GDAXClient.WebSocketFeed
             }
         }
 
-        private void Create(object sender, MessageEventArgs e, WebSocket ws)
+        private void Create(object sender, MessageEventArgs e, WebSocketSharp.WebSocket ws)
         {
             var lastOrder = JsonConvert.DeserializeObject<FeedOrder>(e.Data);
 

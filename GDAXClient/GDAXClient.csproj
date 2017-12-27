@@ -108,10 +108,10 @@
     <Compile Include="Utilities\IClock.cs" />
     <Compile Include="Utilities\IQueryBuilder.cs" />
     <Compile Include="Utilities\QueryBuilder.cs" />
-    <Compile Include="WebSocketFeed\Request\TickerChannel.cs" />
-    <Compile Include="WebSocketFeed\Response\FeedOrder.cs" />
-    <Compile Include="WebSocketFeed\Response\WebSocketFeedEventArgs.cs" />
-    <Compile Include="WebSocketFeed\WebSocketFeed.cs" />
+    <Compile Include="WebSocket\Request\TickerChannel.cs" />
+    <Compile Include="WebSocket\Response\FeedOrder.cs" />
+    <Compile Include="WebSocket\Response\WebSocketFeedEventArgs.cs" />
+    <Compile Include="WebSocket\WebSocketFeed.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

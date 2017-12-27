@@ -36,6 +36,7 @@ namespace GDAXClient
             CurrenciesService = new CurrenciesService(httpClient, httpRequestMessageService, authenticator);
             FillsService = new FillsService(httpClient, httpRequestMessageService, authenticator);
             FundingsService = new FundingsService(httpClient, httpRequestMessageService, authenticator, queryBuilder);
+            WebSocketFeed = new WebSocket.WebSocketFeed();
         }
 
         public AccountsService AccountsService { get; }
@@ -57,5 +58,7 @@ namespace GDAXClient
         public FillsService FillsService { get; }
 
         public FundingsService FundingsService { get; }
+
+        public WebSocket.WebSocketFeed WebSocketFeed { get; }
     }
 }
