@@ -10,10 +10,10 @@ using Machine.Specifications;
 using GDAXClient.Services.Fills;
 using GDAXClient.Services.Fills.Models.Responses;
 using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Orders;
 using GDAXClient.Specs.JsonFixtures.Fills;
 using GDAXClient.Specs.JsonFixtures.HttpResponseMessage;
 using GDAXClient.Utilities.Extensions;
+using GDAXClient.Shared;
 
 namespace GDAXClient.Specs.Services
 {

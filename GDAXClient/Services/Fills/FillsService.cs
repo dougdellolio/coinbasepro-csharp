@@ -5,8 +5,8 @@ using GDAXClient.HttpClient;
 using GDAXClient.Services.Accounts;
 using GDAXClient.Services.Fills.Models.Responses;
 using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Orders;
 using GDAXClient.Utilities.Extensions;
+using GDAXClient.Shared;
 
 namespace GDAXClient.Services.Fills
 {

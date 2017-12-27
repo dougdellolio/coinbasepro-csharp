@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Services.Orders
+﻿namespace GDAXClient.Shared
 {
     public enum ProductType
     {

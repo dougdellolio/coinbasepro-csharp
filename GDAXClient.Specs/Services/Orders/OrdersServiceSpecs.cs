@@ -2,6 +2,7 @@
 using GDAXClient.HttpClient;
 using GDAXClient.Services.HttpRequest;
 using GDAXClient.Services.Orders;
+using GDAXClient.Shared;
 using GDAXClient.Specs.JsonFixtures.Orders;
 using Machine.Fakes;
 using Machine.Specifications;
@@ -57,7 +58,7 @@ namespace GDAXClient.Specs.Services.Accounts
                 order_response_result.Type.ShouldEqual("limit");
                 order_response_result.Time_in_force.ShouldEqual("GTC");
                 order_response_result.Post_only.ShouldBeFalse();
-                order_response_result.Created_at.ShouldEqual(new System.DateTime(2016, 12, 9));
+                order_response_result.Created_at.ShouldEqual(new DateTime(2016, 12, 9));
                 order_response_result.Fill_fees.ShouldEqual(0.0000000000000000M);
                 order_response_result.Filled_size.ShouldEqual(0.00000000M);
                 order_response_result.Executed_value.ShouldEqual(0.0000000000000000M);

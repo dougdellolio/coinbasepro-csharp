@@ -2,10 +2,10 @@
 using GDAXClient.Services;
 using GDAXClient.Services.Accounts;
 using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Orders;
 using GDAXClient.Services.Products;
 using GDAXClient.Services.Products.Models;
 using GDAXClient.Services.Products.Models.Responses;
+using GDAXClient.Shared;
 using GDAXClient.Utilities.Extensions;
 using Newtonsoft.Json;
 using System.Collections.Generic;

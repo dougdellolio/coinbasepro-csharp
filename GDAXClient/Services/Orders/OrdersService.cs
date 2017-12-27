@@ -1,6 +1,7 @@
 ﻿using GDAXClient.HttpClient;
 using GDAXClient.Services.Accounts;
 using GDAXClient.Services.HttpRequest;
+using GDAXClient.Shared;
 using GDAXClient.Utilities.Extensions;
 using Newtonsoft.Json;
 using System;
