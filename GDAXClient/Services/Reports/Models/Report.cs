@@ -4,7 +4,7 @@ namespace GDAXClient.Services.Reports.Models
 {
     public class Report
     {
-        public ReportType type { get; set; }
+        public string type { get; set; }
 
         public DateTime start_date { get; set; }
 
