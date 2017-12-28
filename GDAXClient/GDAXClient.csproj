@@ -86,6 +86,8 @@
     <Compile Include="Services\Reports\Models\Responses\ReportResponse.cs" />
     <Compile Include="Services\Reports\ReportsService.cs" />
     <Compile Include="Services\Reports\Models\ReportType.cs" />
+    <Compile Include="Services\Time\Models\Responses\TimeResponse.cs" />
+    <Compile Include="Services\Time\TimeService.cs" />
     <Compile Include="Shared\Currency.cs" />
     <Compile Include="Services\Deposits\Models\Deposit.cs" />
     <Compile Include="Services\Deposits\Models\Responses\DepositResponse.cs" />

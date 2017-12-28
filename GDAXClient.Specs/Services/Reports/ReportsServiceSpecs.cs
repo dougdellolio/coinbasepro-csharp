@@ -13,6 +13,7 @@ using Machine.Specifications;
 
 namespace GDAXClient.Specs.Services.Reports
 {
+    [Subject("ReportsService")]
     public class ReportsServiceSpecs : WithSubject<ReportsService>
     {
         static Authenticator authenticator;
