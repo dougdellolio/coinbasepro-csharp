@@ -33,7 +33,7 @@ namespace GDAXClient.Services.Reports
         {
             var newReport = JsonConvert.SerializeObject(new Report
             {
-                type = type,
+                type = type.ToString().ToLower(),
                 start_date = startDate,
                 end_date = endDate,
                 format = format,

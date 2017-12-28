@@ -37,7 +37,7 @@ namespace GDAXClient.Specs.Services.Reports
             };
 
             Because of = () =>
-                report_response = Subject.CreateReportAsync(ReportType.fills, new DateTime(2014, 11, 01), new DateTime(2014, 11, 30, 23, 59, 59)).Result;
+                report_response = Subject.CreateReportAsync(ReportType.Fills, new DateTime(2014, 11, 01), new DateTime(2014, 11, 30, 23, 59, 59)).Result;
 
             It should_not_be_null = () =>
                 report_response.ShouldNotBeNull();
@@ -45,7 +45,7 @@ namespace GDAXClient.Specs.Services.Reports
             It should_have_correct_information = () =>
             {
                 report_response.Id.ShouldEqual(new Guid("0428b97b-bec1-429e-a94c-59232926778d"));
-                report_response.Type.ShouldEqual(ReportType.fills.ToString());
+                report_response.Type.ShouldEqual(ReportType.Fills.ToString().ToLower());
                 report_response.Status.ShouldEqual("pending");
                 report_response.Completed_at.ShouldBeNull();
                 report_response.File_url.ShouldBeNull();

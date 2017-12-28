@@ -68,5 +68,13 @@ namespace GDAXClient.Products
 
             return productStatsResponse;
         }
+
+        public async Task<IList<IList<ProductTrades>>> GetProductTradesAsync(ProductType productPair, int limit = 100)
+        {
+            var trades = await SendHttpRequestMessagePagedAsync<ProductTrades>(HttpMethod.Get,
+                authenticator, $"/products/{productPair.ToDasherizedUpper()}/trades");
+
+            return trades;
+        }
     }
 }

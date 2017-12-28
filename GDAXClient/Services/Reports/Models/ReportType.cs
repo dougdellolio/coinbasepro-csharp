@@ -2,7 +2,7 @@
 {
     public enum ReportType
     {
-        fills,
-        account
+        Fills,
+        Account
     }
 }
