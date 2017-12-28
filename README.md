@@ -1,4 +1,4 @@
-# GDAXClient
+# gdax-csharp
 GDAX API C# Client Library - https://docs.gdax.com/
 
 <a href="https://travis-ci.org/dougdellolio/gdax-csharp"><img src="https://travis-ci.org/dougdellolio/gdax-csharp.svg?branch=master"></a> [![NuGet](https://img.shields.io/nuget/v/GDAX.Api.ClientLibrary.svg)](https://www.nuget.org/packages/GDAX.Api.ClientLibrary/)
