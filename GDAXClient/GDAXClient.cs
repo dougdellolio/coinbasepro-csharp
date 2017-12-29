@@ -37,7 +37,7 @@ namespace GDAXClient
             DepositsService = new DepositsService(httpClient, httpRequestMessageService, authenticator);
             ProductsService = new ProductsService(httpClient, httpRequestMessageService, queryBuilder, authenticator);
             CurrenciesService = new CurrenciesService(httpClient, httpRequestMessageService, authenticator);
-            FillsService = new FillsService(httpClient, httpRequestMessageService, authenticator);
+            FillsService = new FillsService(httpClient, httpRequestMessageService, queryBuilder, authenticator);
             FundingsService = new FundingsService(httpClient, httpRequestMessageService, authenticator, queryBuilder);
             ReportsService = new ReportsService(httpClient, httpRequestMessageService, authenticator);
             TimesService = new TimesService(httpClient, httpRequestMessageService, authenticator);
