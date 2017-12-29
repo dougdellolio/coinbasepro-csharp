@@ -16,7 +16,7 @@ using Machine.Specifications;
 namespace GDAXClient.Specs.Services.MarginTransfers
 {
     [Subject("MarginTransferService")]
-    public class MarginTransferServiceSpecs : WithSubject<MarginTransferService>
+    public class MarginTransferServiceSpecs : WithSubject<MarginTransfersService>
     {
         static MarginTransferResponse margin_transfer_result;
 
@@ -47,13 +47,13 @@ namespace GDAXClient.Specs.Services.MarginTransfers
                 margin_transfer_result.created_at.ShouldEqual(new DateTime(2017, 01, 25, 19, 06, 23));
                 margin_transfer_result.Id.ShouldEqual(new Guid("80bc6b74-8b1f-4c60-a089-c61f9810d4ab"));
                 margin_transfer_result.User_id.ShouldEqual("521c20b3d4ab09621f000011");
-                margin_transfer_result.Profile_id.ShouldEqual(new Guid("cda95996-ac59-45a3-a42e-30daeb061867"));
-                margin_transfer_result.Margin_profile_id.ShouldEqual(new Guid("45fa9e3b-00ba-4631-b907-8a98cbdf21be"));
+                margin_transfer_result.Profile_id.ShouldEqual("cda95996-ac59-45a3-a42e-30daeb061867");
+                margin_transfer_result.Margin_profile_id.ShouldEqual("45fa9e3b-00ba-4631-b907-8a98cbdf21be");
                 margin_transfer_result.Type.ShouldEqual(MarginType.Deposit.ToString().ToLower());
                 margin_transfer_result.Amount.ShouldEqual(2);
                 margin_transfer_result.Currency.ShouldEqual(Currency.USD);
-                margin_transfer_result.Account_id.ShouldEqual(new Guid("23035fc7-0707-4b59-b0d2-95d0c035f8f5"));
-                margin_transfer_result.Margin_account_id.ShouldEqual(new Guid("e1d9862c-a259-4e83-96cd-376352a9d24d"));
+                margin_transfer_result.Account_id.ShouldEqual("23035fc7-0707-4b59-b0d2-95d0c035f8f5");
+                margin_transfer_result.Margin_account_id.ShouldEqual("e1d9862c-a259-4e83-96cd-376352a9d24d");
                 margin_transfer_result.Margin_product_id.ShouldEqual(ProductType.BtcUsd.ToDasherizedUpper());
                 margin_transfer_result.Status.ShouldEqual("completed");
                 margin_transfer_result.Nonce.ShouldEqual(25);

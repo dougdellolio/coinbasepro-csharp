@@ -6,8 +6,11 @@ using GDAXClient.Services.Currencies;
 using GDAXClient.Services.Deposits;
 using GDAXClient.Services.Fills;
 using GDAXClient.Services.Fundings;
+using GDAXClient.Services.MarginTransfer;
 using GDAXClient.Services.Orders;
 using GDAXClient.Services.Payments;
+using GDAXClient.Services.Reports;
+using GDAXClient.Services.Time;
 using GDAXClient.Services.WithdrawalsService;
 using GDAXClient.Utilities;
 
@@ -36,6 +39,9 @@ namespace GDAXClient
             CurrenciesService = new CurrenciesService(httpClient, httpRequestMessageService, authenticator);
             FillsService = new FillsService(httpClient, httpRequestMessageService, authenticator);
             FundingsService = new FundingsService(httpClient, httpRequestMessageService, authenticator, queryBuilder);
+            ReportsService = new ReportsService(httpClient, httpRequestMessageService, authenticator);
+            TimesService = new TimesService(httpClient, httpRequestMessageService, authenticator);
+            MarginTransfersService = new MarginTransfersService(httpClient, httpRequestMessageService, authenticator);
         }
 
         public AccountsService AccountsService { get; }
@@ -57,5 +63,11 @@ namespace GDAXClient
         public FillsService FillsService { get; }
 
         public FundingsService FundingsService { get; }
+
+        public ReportsService ReportsService { get; }
+
+        public TimesService TimesService { get; }
+
+        public MarginTransfersService MarginTransfersService { get; }
     }
 }

@@ -10,6 +10,6 @@ namespace GDAXClient.Services.MarginTransfer.Models
 
         public Currency currency { get; set; }
 
-        public int amount { get; set; }
+        public decimal amount { get; set; }
     }
 }

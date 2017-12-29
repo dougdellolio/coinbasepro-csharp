@@ -52,8 +52,8 @@ namespace GDAXClient.Specs.Services.Reports
                 report_response.File_url.ShouldBeNull();
                 report_response.Created_at.ShouldEqual(new DateTime(2015, 01, 06, 10, 34, 47));
                 report_response.Expires_at.ShouldEqual(new DateTime(2015, 01, 13, 10, 35, 47));
-                report_response.Params.End_date.ShouldEqual(new DateTime(2014, 11, 30, 23, 59, 59));
-                report_response.Params.Start_date.ShouldEqual(new DateTime(2014, 11, 01));
+                report_response.ReportDuration.End_date.ShouldEqual(new DateTime(2014, 11, 30, 23, 59, 59));
+                report_response.ReportDuration.Start_date.ShouldEqual(new DateTime(2014, 11, 01));
             };
         }
     }

@@ -22,10 +22,11 @@ namespace GDAXClient.Services.Reports.Models.Responses
         [DefaultValue(null)]
         public string File_url { get; set; }
 
-        public Params Params { get; set; }
+        [JsonProperty("Params")]
+        public ReportDuration ReportDuration { get; set; }
     }
 
-    public class Params
+    public class ReportDuration
     {
         public DateTime Start_date { get; set; }
 

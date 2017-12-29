@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace GDAXClient.Services.MarginTransfer
 {
-    public class MarginTransferService : AbstractService
+    public class MarginTransfersService : AbstractService
     {
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
@@ -17,7 +17,7 @@ namespace GDAXClient.Services.MarginTransfer
 
         private readonly IAuthenticator authenticator;
 
-        public MarginTransferService(
+        public MarginTransfersService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)

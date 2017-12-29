@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace GDAXClient.Services.Time
 {
-    public class TimeService : AbstractService
+    public class TimesService : AbstractService
     {
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
@@ -16,7 +16,7 @@ namespace GDAXClient.Services.Time
 
         private readonly IAuthenticator authenticator;
 
-        public TimeService(
+        public TimesService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator) 

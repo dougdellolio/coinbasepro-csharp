@@ -14,7 +14,7 @@ using Machine.Specifications;
 namespace GDAXClient.Specs.Services.Time
 {
     [Subject("TimeService")]
-    public class TimeServiceSpecs : WithSubject<TimeService>
+    public class TimeServiceSpecs : WithSubject<TimesService>
     {
         static TimeResponse time_result;
 
