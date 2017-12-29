@@ -58,6 +58,17 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - GetProductOrderBookAsync(productType) - get a list of open orders for a product
 - GetProductTickerAsync(productType) - get information about the last trade (tick), best bid/ask and 24h volume
 - GetProductStatsAsync(productType) - get 24 hour stats for a product
+- GetProductTradesAsync(productType) - get paginated list of latest trades for a product
+
+##### Reports #####
+- CreateReportAsync(type, startDate, endDate, format(default pdf), email(optional)) - creates a report between start and end date inclusive
+- GetReportStatusAsync(reportId) - gets the report with the report ID
+
+##### Margin Transfers #####
+- CreateMarginTransferAsync(marginProfileId, type, currency, amount) - creates a margin transfer to transfer funds
+
+##### Time #####
+- GetServerTimeAsync() - gets the API server time 
 
 ###### Currencies ######
 - GetAllCurrenciesAsync() - gets a list of known currencies

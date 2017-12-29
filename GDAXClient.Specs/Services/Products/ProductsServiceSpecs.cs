@@ -1,4 +1,5 @@
-﻿using GDAXClient.Authentication;
+﻿using System;
+using GDAXClient.Authentication;
 using GDAXClient.HttpClient;
 using GDAXClient.Products;
 using GDAXClient.Services.HttpRequest;
@@ -28,6 +29,8 @@ namespace GDAXClient.Specs.Services.Payments
         static ProductTicker product_ticker_result;
 
         static ProductStats product_stats_result;
+
+        static IList<IList<ProductTrades>> product_trades_result;
 
         Establish context = () =>
             authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
@@ -145,6 +148,34 @@ namespace GDAXClient.Specs.Services.Payments
                 product_stats_result.Low.ShouldEqual(7.06000000M);
                 product_stats_result.Volume.ShouldEqual(2.41000000M);
             };
+        }
+
+        class when_getting_product_trades
+        {
+            Establish context = () =>
+            {
+                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                    .Return(new HttpRequestMessage());
+            
+                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                    .Return(Task.FromResult(new HttpResponseMessage()));
+
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(ProductTradesResponseFixture.Create()));
+            };
+
+            Because of = () =>
+                product_trades_result = Subject.GetProductTradesAsync(ProductType.BtcUsd, 1).Result;
+
+            It should_have_correct_product_trades = () =>
+            {
+                product_trades_result.First().First().Time.ShouldEqual(new DateTime(2014, 11, 07, 22, 19, 28));
+                product_trades_result.First().First().Trade_id.ShouldEqual(74);
+                product_trades_result.First().First().Price.ShouldEqual(10.00000000M);
+                product_trades_result.First().First().Size.ShouldEqual(0.01000000M);
+                product_trades_result.First().First().Side.ShouldEqual("buy");
+            };
+
         }
     }
 }

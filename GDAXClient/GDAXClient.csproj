@@ -65,9 +65,14 @@
     <Compile Include="Services\Fundings\FundingsService.cs" />
     <Compile Include="Services\Fundings\FundingStatus.cs" />
     <Compile Include="Services\Fundings\Models\Funding.cs" />
+    <Compile Include="Services\MarginTransfer\MarginTransfersService.cs" />
+    <Compile Include="Services\MarginTransfer\Models\MarginType.cs" />
+    <Compile Include="Services\MarginTransfer\Models\MarginTransfer.cs" />
+    <Compile Include="Services\MarginTransfer\Models\Responses\MarginTransferResponse.cs" />
     <Compile Include="Services\Products\Models\Product.cs" />
     <Compile Include="Services\Products\Models\ProductStats.cs" />
     <Compile Include="Services\Products\Models\ProductTicker.cs" />
+    <Compile Include="Services\Products\Models\ProductTrades.cs" />
     <Compile Include="Services\Products\Models\Responses\ProductsOrderBookResponse.cs" />
     <Compile Include="Services\Products\ProductsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,6 +82,12 @@
     <Compile Include="Authentication\IAuthenticator.cs" />
     <Compile Include="Services\CoinbaseAccounts\Models\CoinbaseAccount.cs" />
     <Compile Include="Services\CoinbaseAccounts\CoinbaseAccountsService.cs" />
+    <Compile Include="Services\Reports\Models\Report.cs" />
+    <Compile Include="Services\Reports\Models\Responses\ReportResponse.cs" />
+    <Compile Include="Services\Reports\ReportsService.cs" />
+    <Compile Include="Services\Reports\Models\ReportType.cs" />
+    <Compile Include="Services\Time\Models\Responses\TimeResponse.cs" />
+    <Compile Include="Services\Time\TimesService.cs" />
     <Compile Include="Shared\Currency.cs" />
     <Compile Include="Services\Deposits\Models\Deposit.cs" />
     <Compile Include="Services\Deposits\Models\Responses\DepositResponse.cs" />
