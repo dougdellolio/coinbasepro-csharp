@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GDAXClient.Utilities;
 
 namespace GDAXClient.Products
 {
@@ -22,15 +23,19 @@ namespace GDAXClient.Products
 
         private readonly IAuthenticator authenticator;
 
+        private readonly IQueryBuilder queryBuilder;
+
         public ProductsService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
+            IQueryBuilder queryBuilder,
             IAuthenticator authenticator)
                 : base(httpClient, httpRequestMessageService, authenticator)
         {
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
             this.authenticator = authenticator;
+            this.queryBuilder = queryBuilder;
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
@@ -71,8 +76,11 @@ namespace GDAXClient.Products
 
         public async Task<IList<IList<ProductTrades>>> GetProductTradesAsync(ProductType productPair, int limit = 100)
         {
+            var queryString = queryBuilder.BuildQuery(
+                new KeyValuePair<string, string>("limit", limit.ToString()));
+
             var trades = await SendHttpRequestMessagePagedAsync<ProductTrades>(HttpMethod.Get,
-                authenticator, $"/products/{productPair.ToDasherizedUpper()}/trades");
+                authenticator, $"/products/{productPair.ToDasherizedUpper()}/trades" + queryString);
 
             return trades;
         }

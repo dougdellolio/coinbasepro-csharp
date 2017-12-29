@@ -21,7 +21,7 @@ namespace GDAXClient.Services.MarginTransfer
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
-            : base(httpClient, httpRequestMessageService, authenticator)
+                : base(httpClient, httpRequestMessageService, authenticator)
 
         {
             this.httpRequestMessageService = httpRequestMessageService;

@@ -52,7 +52,7 @@ namespace GDAXClient.Services.Reports
 
         public async Task<ReportResponse> GetReportStatusAsync(Guid reportId)
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, $"/reports/:{0}", reportId.ToString());
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, $"/reports/:{reportId.ToString()}");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var reportResponse = JsonConvert.DeserializeObject<ReportResponse>(contentBody);
 

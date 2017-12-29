@@ -114,7 +114,7 @@
     <Compile Include="Services\Payments\PaymentsServiceSpecs.cs" />
     <Compile Include="Services\Products\ProductsServiceSpecs.cs" />
     <Compile Include="Services\Reports\ReportsServiceSpecs.cs" />
-    <Compile Include="Services\Time\TimeServiceSpecs.cs" />
+    <Compile Include="Services\Time\TimesServiceSpecs.cs" />
     <Compile Include="Services\Withdrawals\WithdrawalsServiceSpecs.cs" />
     <Compile Include="Utilities\Extensions\DateExtensionsSpecs.cs" />
     <Compile Include="Utilities\Extensions\ProductTypeExtensionsSpecs.cs" />
