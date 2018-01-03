@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace GDAXClient.Services.Payments
+namespace GDAXClient.Services.Currencies
 {
-    public class PaymentsService : AbstractService
+    public class CurrenciesService : AbstractService
     {
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
@@ -16,25 +16,24 @@ namespace GDAXClient.Services.Payments
 
         private readonly IAuthenticator authenticator;
 
-        public PaymentsService(
+        public CurrenciesService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
                 : base(httpClient, httpRequestMessageService, authenticator)
-
         {
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
             this.authenticator = authenticator;
         }
 
-        public async Task<IEnumerable<PaymentMethod>> GetAllPaymentMethodsAsync()
+        public async Task<IEnumerable<Models.Currency>> GetAllCurrenciesAsync()
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/payment-methods");
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/currencies");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var paymentMethodsResponse = JsonConvert.DeserializeObject<IEnumerable<PaymentMethod>>(contentBody);
+            var currencies = JsonConvert.DeserializeObject<List<Models.Currency>>(contentBody);
 
-            return paymentMethodsResponse;
+            return currencies;
         }
     }
 }

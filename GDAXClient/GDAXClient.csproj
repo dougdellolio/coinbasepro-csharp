@@ -56,6 +56,16 @@
     <Compile Include="HttpClient\HttpClient.cs" />
     <Compile Include="HttpClient\IHttpClient.cs" />
     <Compile Include="Services\Orders\TimeInForce.cs" />
+    <Compile Include="Services\Accounts\Models\AccountHistory.cs" />
+    <Compile Include="Services\Accounts\Models\AccountHold.cs" />
+    <Compile Include="Services\Currencies\CurrenciesService.cs" />
+    <Compile Include="Services\Currencies\Models\Currency.cs" />
+    <Compile Include="Services\Fills\FillsService.cs" />
+    <Compile Include="Services\Fills\Models\Fill.cs" />
+    <Compile Include="Services\Fills\Models\Responses\FillResponse.cs" />
+    <Compile Include="Services\Fundings\FundingsService.cs" />
+    <Compile Include="Services\Fundings\FundingStatus.cs" />
+    <Compile Include="Services\Fundings\Models\Funding.cs" />
     <Compile Include="Services\Products\Models\Product.cs" />
     <Compile Include="Services\Products\Models\ProductStats.cs" />
     <Compile Include="Services\Products\Models\ProductTicker.cs" />
@@ -94,6 +104,8 @@
     <Compile Include="Utilities\Extensions\DateExtensions.cs" />
     <Compile Include="Utilities\Extensions\ProductTypeExtensions.cs" />
     <Compile Include="Utilities\IClock.cs" />
+    <Compile Include="Utilities\IQueryBuilder.cs" />
+    <Compile Include="Utilities\QueryBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

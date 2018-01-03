@@ -7,6 +7,7 @@
         GBP,
         BTC,
         LTC,
-        ETH
+        ETH,
+        BCH
     }
 }

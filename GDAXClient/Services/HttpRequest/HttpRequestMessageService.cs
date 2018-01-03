@@ -5,6 +5,7 @@ using System;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Globalization;
 
 namespace GDAXClient.Services.HttpRequest
 {
@@ -24,7 +25,11 @@ namespace GDAXClient.Services.HttpRequest
             this.sandBox = sandBox;
         }
 
-        public HttpRequestMessage CreateHttpRequestMessage(HttpMethod httpMethod, IAuthenticator authenticator, string requestUri, string contentBody = "")
+        public HttpRequestMessage CreateHttpRequestMessage(
+            HttpMethod httpMethod, 
+            IAuthenticator authenticator, 
+            string requestUri, 
+            string contentBody = "")
         {
             var baseUri = sandBox == true
                 ? sandBoxApiUri
@@ -47,7 +52,7 @@ namespace GDAXClient.Services.HttpRequest
         private string ComputeSignature(HttpMethod httpMethod, string secret, double timestamp, string requestUri, string contentBody = "")
         {
             var convertedString = Convert.FromBase64String(secret);
-            var prehash = timestamp + httpMethod.ToString().ToUpper() + requestUri + contentBody;
+            var prehash = timestamp.ToString(CultureInfo.InvariantCulture) + httpMethod.ToString().ToUpper() + requestUri + contentBody;
             return HashString(prehash, convertedString);
         }
 
@@ -60,14 +65,17 @@ namespace GDAXClient.Services.HttpRequest
             }
         }
 
-        private void AddHeaders(HttpRequestMessage httpRequestMessage, IAuthenticator authenticator, string signedSignature, double timeStamp)
+        private void AddHeaders(
+            HttpRequestMessage httpRequestMessage,
+            IAuthenticator authenticator,
+            string signedSignature,
+            double timeStamp)
         {
             httpRequestMessage.Headers.Add("User-Agent", "GDAXClient");
             httpRequestMessage.Headers.Add("CB-ACCESS-KEY", authenticator.ApiKey);
-            httpRequestMessage.Headers.Add("CB-ACCESS-TIMESTAMP", timeStamp.ToString());
+            httpRequestMessage.Headers.Add("CB-ACCESS-TIMESTAMP", timeStamp.ToString(CultureInfo.InvariantCulture));
             httpRequestMessage.Headers.Add("CB-ACCESS-SIGN", signedSignature);
             httpRequestMessage.Headers.Add("CB-ACCESS-PASSPHRASE", authenticator.Passphrase);
         }
     }
 }
-
