@@ -95,7 +95,8 @@ namespace GDAXClient.Services.Orders
             queryString.Append(postOnly.ToString().ToLower());
 
             var httpRequestResponse = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders" + queryString, newOrder);
-            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(httpRequestResponse);
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);            
+            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
 
             return orderResponse;
         }
