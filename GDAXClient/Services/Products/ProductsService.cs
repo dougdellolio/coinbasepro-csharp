@@ -75,7 +75,9 @@ namespace GDAXClient.Products
         {
             var isoStart = start.ToString("s");
             var isoEnd = end.ToString("s");
-            var contentBody = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/candles?start={isoStart}&end={isoEnd}&granularity={granularity}");
+            
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/candles?start={isoStart}&end={isoEnd}&granularity={granularity}");
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var productHistoryResponse = JsonConvert.DeserializeObject<IEnumerable<object[]>>(contentBody);
 
             return productHistoryResponse;
