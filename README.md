@@ -36,7 +36,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 ###### Orders ######
 - PlaceMarketOrderAsync(orderSide, productPair, size) - place market order
 - PlaceLimitOrderAsync(orderSide, productPair, size, price, timeInForce, postOnly) - place limit order with time in force
-- PlaceLimitOrderAsync(orderSide, productPair, size, price, cancelAfter, postOnly) - place limit order cancel after date
+- PlaceLimitOrderAsync(orderSide, productPair, size, price, cancelAfter, postOnly) - place limit order with cancel after date
 - CancelAllOrdersAsync() - cancel all orders
 - CancelOrderByIdAsync(id) - cancel order by id
 - GetAllOrdersAsync(limit) - get all open or un-settled orders (paged response)
