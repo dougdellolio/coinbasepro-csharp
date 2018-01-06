@@ -34,8 +34,9 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - GetAllAccountsAsync() - get all coinbase accounts
 
 ###### Orders ######
-- PlaceMarketOrderAsync(orderSide, productType, size) - place market order
-- PlaceLimitOrderAsync(orderSide, productType, size, price) - place limit order
+- PlaceMarketOrderAsync(orderSide, productPair, size) - place market order
+- PlaceLimitOrderAsync(orderSide, productPair, size, price, timeInForce, postOnly) - place limit order with time in force
+- PlaceLimitOrderAsync(orderSide, productPair, size, price, cancelAfter, postOnly) - place limit order cancel after date
 - CancelAllOrdersAsync() - cancel all orders
 - CancelOrderByIdAsync(id) - cancel order by id
 - GetAllOrdersAsync(limit) - get all open or un-settled orders (paged response)
@@ -58,6 +59,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - GetProductOrderBookAsync(productType) - get a list of open orders for a product
 - GetProductTickerAsync(productType) - get information about the last trade (tick), best bid/ask and 24h volume
 - GetProductStatsAsync(productType) - get 24 hour stats for a product
+- GetHistoricRatesAsync(productPair, start, end, granularity) - get historic rates for a product
 
 ###### Currencies ######
 - GetAllCurrenciesAsync() - gets a list of known currencies
@@ -120,6 +122,8 @@ var secondAccountHistoryOnFirstPage = firstPage.ToList()[1];
 Thanks for contributing!
 
 - @dgelineau
+- @quin810
+- @DontFretBrett
 
 <h1>Bugs or questions?</h1>
 
