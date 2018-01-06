@@ -94,7 +94,7 @@ namespace GDAXClient.Services.Orders
             queryString.Append("&post_only=");
             queryString.Append(postOnly.ToString().ToLower());
 
-            var httpRequestResponse = await SendHttpRequestMessage(HttpMethod.Post, authenticator, "/orders" + queryString, newOrder);
+            var httpRequestResponse = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders" + queryString, newOrder);
             var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(httpRequestResponse);
 
             return orderResponse;
