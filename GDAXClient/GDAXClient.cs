@@ -28,11 +28,11 @@ namespace GDAXClient
 
             AccountsService = new AccountsService(httpClient, httpRequestMessageService, authenticator);
             CoinbaseAccountsService = new CoinbaseAccountsService(httpClient, httpRequestMessageService, authenticator);
-            OrdersService = new OrdersService(httpClient, httpRequestMessageService, authenticator);
+            OrdersService = new OrdersService(httpClient, httpRequestMessageService, authenticator, queryBuilder);
             PaymentsService = new PaymentsService(httpClient, httpRequestMessageService, authenticator);
             WithdrawalsService = new WithdrawalsService(httpClient, httpRequestMessageService, authenticator);
             DepositsService = new DepositsService(httpClient, httpRequestMessageService, authenticator);
-            ProductsService = new ProductsService(httpClient, httpRequestMessageService, authenticator);
+            ProductsService = new ProductsService(httpClient, httpRequestMessageService, authenticator, queryBuilder);
             CurrenciesService = new CurrenciesService(httpClient, httpRequestMessageService, authenticator);
             FillsService = new FillsService(httpClient, httpRequestMessageService, authenticator);
             FundingsService = new FundingsService(httpClient, httpRequestMessageService, authenticator, queryBuilder);
