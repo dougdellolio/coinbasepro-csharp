@@ -1,4 +1,5 @@
-﻿using GDAXClient.HttpClient;
+﻿using System;
+using GDAXClient.HttpClient;
 using GDAXClient.Services;
 using GDAXClient.Services.Accounts;
 using GDAXClient.Services.HttpRequest;
@@ -11,6 +12,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GDAXClient.Utilities;
 
 namespace GDAXClient.Products
 {
@@ -22,15 +24,19 @@ namespace GDAXClient.Products
 
         private readonly IAuthenticator authenticator;
 
+        private readonly IQueryBuilder queryBuilder;
+
         public ProductsService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator)
+            IAuthenticator authenticator,
+            IQueryBuilder queryBuilder)
                 : base(httpClient, httpRequestMessageService, authenticator)
         {
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
             this.authenticator = authenticator;
+            this.queryBuilder = queryBuilder;
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
@@ -67,6 +73,23 @@ namespace GDAXClient.Products
             var productStatsResponse = JsonConvert.DeserializeObject<ProductStats>(contentBody);
 
             return productStatsResponse;
+        }
+        
+        public async Task<IEnumerable<object[]>> GetHistoricRatesAsync(ProductType productPair, DateTime start, DateTime end, int granularity)
+        {
+            var isoStart = start.ToString("s");
+            var isoEnd = end.ToString("s");
+
+            var queryString = queryBuilder.BuildQuery(
+                new KeyValuePair<string, string>("start", isoStart),
+                new KeyValuePair<string, string>("end", isoEnd),
+                new KeyValuePair<string, string>("granularity", granularity.ToString()));
+
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/candles" + queryString);
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
+            var productHistoryResponse = JsonConvert.DeserializeObject<IEnumerable<object[]>>(contentBody);
+
+            return productHistoryResponse;
         }
     }
 }

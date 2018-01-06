@@ -10,6 +10,7 @@
         EthBtc,
         LtcUsd,
         LtcEur,
-        LtcBtc
+        LtcBtc,
+        BchUsd
     }
 }

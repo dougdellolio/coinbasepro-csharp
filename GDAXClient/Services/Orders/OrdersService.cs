@@ -2,6 +2,7 @@
 using GDAXClient.Services.Accounts;
 using GDAXClient.Services.HttpRequest;
 using GDAXClient.Shared;
+using GDAXClient.Utilities;
 using GDAXClient.Utilities.Extensions;
 using Newtonsoft.Json;
 using System;
@@ -20,24 +21,31 @@ namespace GDAXClient.Services.Orders
 
         private readonly IAuthenticator authenticator;
 
+        private readonly IQueryBuilder queryBuilder;
+
         public OrdersService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator)
+            IAuthenticator authenticator,
+            IQueryBuilder queryBuilder)
                 : base(httpClient, httpRequestMessageService, authenticator)
 
         {
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
             this.authenticator = authenticator;
+            this.queryBuilder = queryBuilder;
         }
 
-        public async Task<OrderResponse> PlaceMarketOrderAsync(OrderSide side, ProductType productId, decimal size)
+        public async Task<OrderResponse> PlaceMarketOrderAsync(
+            OrderSide side, 
+            ProductType productPair, 
+            decimal size)
         {
             var newOrder = JsonConvert.SerializeObject(new Order
             {
                 side = side.ToString().ToLower(),
-                product_id = productId.ToDasherizedUpper(),
+                product_id = productPair.ToDasherizedUpper(),
                 type = OrderType.Market.ToString().ToLower(),
                 size = size
             });
@@ -49,24 +57,63 @@ namespace GDAXClient.Services.Orders
             return orderResponse;
         }
 
-        public async Task<OrderResponse> PlaceLimitOrderAsync(OrderSide side, ProductType productId, decimal size, decimal price)
+        public async Task<OrderResponse> PlaceLimitOrderAsync(
+            OrderSide side, 
+            ProductType productPair, 
+            decimal size, 
+            decimal price, 
+            TimeInForce timeInForce = TimeInForce.Gtc, 
+            bool postOnly = true)
         {
             var newOrder = JsonConvert.SerializeObject(new Order
             {
                 side = side.ToString().ToLower(),
-                product_id = productId.ToDasherizedUpper(),
+                product_id = productPair.ToDasherizedUpper(),
                 type = OrderType.Limit.ToString().ToLower(),
                 price = price,
                 size = size
             });
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders", newOrder);
+            var queryString = queryBuilder.BuildQuery(
+                new KeyValuePair<string, string>("time_in_force", timeInForce.ToString().ToUpperInvariant()),
+                new KeyValuePair<string, string>("post_only", postOnly.ToString().ToLower()));
+            
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders"  + queryString, newOrder).ConfigureAwait(false);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
 
             return orderResponse;
         }
 
+        public async Task<OrderResponse> PlaceLimitOrderAsync(
+            OrderSide side, 
+            ProductType productPair, 
+            decimal size, 
+            decimal price, 
+            DateTime cancelAfter, 
+            bool postOnly = true)
+        {
+            var newOrder = JsonConvert.SerializeObject(new Order
+            {
+                side = side.ToString().ToLower(),
+                product_id = productPair.ToDasherizedUpper(),
+                type = OrderType.Limit.ToString().ToLower(),
+                price = price,
+                size = size
+            });
+
+            var queryString = queryBuilder.BuildQuery(
+                new KeyValuePair<string, string>("time_in_force", "GTT"),
+                new KeyValuePair<string, string>("cancel_after", cancelAfter.Minute + "," + cancelAfter.Hour + "," + cancelAfter.Day),
+                new KeyValuePair<string, string>("post_only", postOnly.ToString().ToLower()));
+
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders" + queryString, newOrder);
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);            
+            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
+
+            return orderResponse;
+        }
+       
         public async Task<CancelOrderResponse> CancelAllOrdersAsync()
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Delete, authenticator, "/orders");

@@ -46,5 +46,18 @@ namespace GDAXClient.Specs.Utilities.Extensions
             It should_calculate_correct_time_stamp = () =>
                  product_type_result.ShouldEqual("LTC-USD");
         }
+
+        class bch_product_type
+        {
+            Establish context = () =>
+                product_type = ProductType.BchUsd;
+
+            Because of = () =>
+                product_type_result = product_type.ToDasherizedUpper();
+
+            It should_calculate_correct_time_stamp = () =>
+                 product_type_result.ShouldEqual("BCH-USD");
+        }
+
     }
 }

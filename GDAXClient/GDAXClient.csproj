@@ -58,6 +58,7 @@
     <Compile Include="GDAXClient.cs" />
     <Compile Include="HttpClient\HttpClient.cs" />
     <Compile Include="HttpClient\IHttpClient.cs" />
+    <Compile Include="Services\Orders\TimeInForce.cs" />
     <Compile Include="Services\Accounts\Models\AccountHistory.cs" />
     <Compile Include="Services\Accounts\Models\AccountHold.cs" />
     <Compile Include="Services\Currencies\CurrenciesService.cs" />

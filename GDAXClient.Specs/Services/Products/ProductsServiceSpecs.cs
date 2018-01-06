@@ -1,4 +1,5 @@
-﻿using GDAXClient.Authentication;
+﻿using System;
+using GDAXClient.Authentication;
 using GDAXClient.HttpClient;
 using GDAXClient.Products;
 using GDAXClient.Services.HttpRequest;
@@ -10,6 +11,7 @@ using GDAXClient.Specs.JsonFixtures.Products;
 using Machine.Fakes;
 using Machine.Specifications;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -24,6 +26,8 @@ namespace GDAXClient.Specs.Services.Payments
         static IEnumerable<Product> products_result;
 
         static ProductsOrderBookResponse product_order_books_response;
+
+        static IEnumerable<object[]> product_history_response;
 
         static ProductTicker product_ticker_result;
 
@@ -144,6 +148,48 @@ namespace GDAXClient.Specs.Services.Payments
                 product_stats_result.High.ShouldEqual(95.70000000M);
                 product_stats_result.Low.ShouldEqual(7.06000000M);
                 product_stats_result.Volume.ShouldEqual(2.41000000M);
+            };
+        }
+
+        class when_getting_product_history
+        {
+            Establish context = () =>
+            {
+                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                    .Return(new HttpRequestMessage());
+
+                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                    .Return(Task.FromResult(new HttpResponseMessage()));
+
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(ProductHistoryFixture.Create()));
+            };
+
+            Because of = () =>
+                product_history_response = Subject.GetHistoricRatesAsync(ProductType.BtcUsd, DateTime.Now.AddDays(-1), DateTime.Now, 57600).Result;
+
+            It should_have_correct_product_stats = () =>
+            {
+                product_history_response.ToList()[0][0].ToString().ShouldEqual(1512691200.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[0][1].ToString().ShouldEqual(16777.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[0][2].ToString().ShouldEqual(17777.69.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[0][3].ToString().ShouldEqual(17390.01.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[0][4].ToString().ShouldEqual(17210.99.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[0][5].ToString().ShouldEqual(7650.386033540894.ToString(CultureInfo.InvariantCulture));
+
+                product_history_response.ToList()[1][0].ToString().ShouldEqual(1512633600.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[1][1].ToString().ShouldEqual(14487.8.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[1][2].ToString().ShouldEqual(19697.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[1][3].ToString().ShouldEqual(14487.8.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[1][4].ToString().ShouldEqual(17390.01.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[1][5].ToString().ShouldEqual(65581.82529800163.ToString(CultureInfo.InvariantCulture));
+
+                product_history_response.ToList()[2][0].ToString().ShouldEqual(1512576000.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[2][1].ToString().ShouldEqual(13500.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[2][2].ToString().ShouldEqual(14499.89.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[2][3].ToString().ShouldEqual(14056.78.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[2][4].ToString().ShouldEqual(14487.8.ToString(CultureInfo.InvariantCulture));
+                product_history_response.ToList()[2][5].ToString().ShouldEqual(12303.76923928093.ToString(CultureInfo.InvariantCulture));
             };
         }
     }
