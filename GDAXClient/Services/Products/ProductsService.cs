@@ -1,4 +1,5 @@
-﻿using GDAXClient.HttpClient;
+﻿using System;
+using GDAXClient.HttpClient;
 using GDAXClient.Services;
 using GDAXClient.Services.Accounts;
 using GDAXClient.Services.HttpRequest;
@@ -67,6 +68,19 @@ namespace GDAXClient.Products
             var productStatsResponse = JsonConvert.DeserializeObject<ProductStats>(contentBody);
 
             return productStatsResponse;
+        }
+        
+       
+        public async Task<IEnumerable<object[]>> GetProductHistoryAsync(ProductType productPair, DateTime start, DateTime end, int granularity)
+        {
+            var isoStart = start.ToString("s");
+            var isoEnd = end.ToString("s");
+            
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/candles?start={isoStart}&end={isoEnd}&granularity={granularity}");
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
+            var productHistoryResponse = JsonConvert.DeserializeObject<IEnumerable<object[]>>(contentBody);
+
+            return productHistoryResponse;
         }
     }
 }

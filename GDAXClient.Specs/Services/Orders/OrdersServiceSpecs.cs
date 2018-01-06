@@ -81,7 +81,7 @@ namespace GDAXClient.Specs.Services.Accounts
             };
 
             Because of = () =>
-                order_response_result = Subject.PlaceLimitOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, 0.1M).Result;
+                order_response_result = Subject.PlaceLimitOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, 0.1M, DateTime.Today.Date.ToUniversalTime()).Result;
 
             It should_have_correct_account_information = () =>
             {
