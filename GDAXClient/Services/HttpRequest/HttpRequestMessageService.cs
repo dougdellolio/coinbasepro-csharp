@@ -29,7 +29,8 @@ namespace GDAXClient.Services.HttpRequest
             HttpMethod httpMethod, 
             IAuthenticator authenticator, 
             string requestUri, 
-            string contentBody = "")
+            string contentBody = "",
+            double? timeStampValue=null)
         {
             var baseUri = sandBox == true
                 ? sandBoxApiUri
@@ -41,11 +42,12 @@ namespace GDAXClient.Services.HttpRequest
                     ? null
                     : new StringContent(contentBody, Encoding.UTF8, "application/json")
             };
+            var timeStamp = timeStampValue;
+            if(timeStamp == null)
+                timeStamp = clock.GetTime().ToTimeStamp();
+            var signedSignature = ComputeSignature(httpMethod, authenticator.UnsignedSignature, timeStamp.Value, requestUri, contentBody);
 
-            var timeStamp = clock.GetTime().ToTimeStamp();
-            var signedSignature = ComputeSignature(httpMethod, authenticator.UnsignedSignature, timeStamp, requestUri, contentBody);
-
-            AddHeaders(requestMessage, authenticator, signedSignature, timeStamp);
+            AddHeaders(requestMessage, authenticator, signedSignature, timeStamp.Value);
             return requestMessage;
         }
 

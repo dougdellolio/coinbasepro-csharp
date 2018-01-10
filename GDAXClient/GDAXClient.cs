@@ -8,6 +8,7 @@ using GDAXClient.Services.Fills;
 using GDAXClient.Services.Fundings;
 using GDAXClient.Services.Orders;
 using GDAXClient.Services.Payments;
+using GDAXClient.Services.Time;
 using GDAXClient.Services.WithdrawalsService;
 using GDAXClient.Utilities;
 
@@ -36,6 +37,7 @@ namespace GDAXClient
             CurrenciesService = new CurrenciesService(httpClient, httpRequestMessageService, authenticator);
             FillsService = new FillsService(httpClient, httpRequestMessageService, authenticator);
             FundingsService = new FundingsService(httpClient, httpRequestMessageService, authenticator, queryBuilder);
+            TimeService = new TimeService(httpClient, httpRequestMessageService, authenticator);
         }
 
         public AccountsService AccountsService { get; }
@@ -57,5 +59,7 @@ namespace GDAXClient
         public FillsService FillsService { get; }
 
         public FundingsService FundingsService { get; }
+
+        public TimeService TimeService { get; }
     }
 }

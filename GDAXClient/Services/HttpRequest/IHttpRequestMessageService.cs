@@ -9,6 +9,7 @@ namespace GDAXClient.Services.HttpRequest
             HttpMethod httpMethod,
             IAuthenticator authenticator,
             string requestUri,
-            string contentBody = "");
+            string contentBody = "",
+            double? timeStampValue = null);
     }
 }

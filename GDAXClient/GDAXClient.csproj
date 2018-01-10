@@ -78,6 +78,8 @@
     <Compile Include="Authentication\IAuthenticator.cs" />
     <Compile Include="Services\CoinbaseAccounts\Models\CoinbaseAccount.cs" />
     <Compile Include="Services\CoinbaseAccounts\CoinbaseAccountsService.cs" />
+    <Compile Include="Services\Time\Models\Time.cs" />
+    <Compile Include="Services\Time\TimeService.cs" />
     <Compile Include="Shared\Currency.cs" />
     <Compile Include="Services\Deposits\Models\Deposit.cs" />
     <Compile Include="Services\Deposits\Models\Responses\DepositResponse.cs" />

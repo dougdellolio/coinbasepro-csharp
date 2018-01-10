@@ -1,6 +1,7 @@
 ﻿using GDAXClient.HttpClient;
 using GDAXClient.Services.Accounts;
 using GDAXClient.Services.HttpRequest;
+using GDAXClient.Services.Time;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,9 +34,15 @@ namespace GDAXClient.Services
             string uri,
             string content = null)
         {
+            double? timestampValue = null;
+            if(authenticator.UseTimeStampServer)
+            {
+                var timeServer = await new TimeService(httpClient, httpRequestMessageService, authenticator).GetTimeAsync();
+                timestampValue = timeServer.Epoch;
+            }
             var httpRequestMessage = content == null
-                ? httpRequestMessageService.CreateHttpRequestMessage(httpMethod, authenticator, uri)
-                : httpRequestMessageService.CreateHttpRequestMessage(httpMethod, authenticator, uri, content);
+                ? httpRequestMessageService.CreateHttpRequestMessage(httpMethod, authenticator, uri,timeStampValue: timestampValue)
+                : httpRequestMessageService.CreateHttpRequestMessage(httpMethod, authenticator, uri, content, timestampValue);
 
             var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
