@@ -78,6 +78,8 @@
     <Compile Include="Authentication\IAuthenticator.cs" />
     <Compile Include="Services\CoinbaseAccounts\Models\CoinbaseAccount.cs" />
     <Compile Include="Services\CoinbaseAccounts\CoinbaseAccountsService.cs" />
+    <Compile Include="Services\Time\Models\Time.cs" />
+    <Compile Include="Services\Time\TimeService.cs" />
     <Compile Include="Shared\Currency.cs" />
     <Compile Include="Services\Deposits\Models\Deposit.cs" />
     <Compile Include="Services\Deposits\Models\Responses\DepositResponse.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Services\Withdrawals\Models\Responses\WithdrawalResponse.cs" />
     <Compile Include="Services\Withdrawals\WithdrawalsService.cs" />
     <Compile Include="Utilities\Clock.cs" />
+    <Compile Include="Utilities\ClockServer.cs" />
     <Compile Include="Utilities\Extensions\DateExtensions.cs" />
     <Compile Include="Utilities\Extensions\ProductTypeExtensions.cs" />
     <Compile Include="Utilities\IClock.cs" />

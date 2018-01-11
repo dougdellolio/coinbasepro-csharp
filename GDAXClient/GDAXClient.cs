@@ -8,6 +8,7 @@ using GDAXClient.Services.Fills;
 using GDAXClient.Services.Fundings;
 using GDAXClient.Services.Orders;
 using GDAXClient.Services.Payments;
+using GDAXClient.Services.Time;
 using GDAXClient.Services.WithdrawalsService;
 using GDAXClient.Utilities;
 
@@ -17,12 +18,12 @@ namespace GDAXClient
     {
         private readonly Authenticator authenticator;
 
-        public GDAXClient(Authenticator authenticator, bool sandBox = false)
+        public GDAXClient(Authenticator authenticator, bool sandBox = false, bool useServerTime = false)
         {
             this.authenticator = authenticator;
 
             var httpClient = new HttpClient.HttpClient();
-            var clock = new Clock();
+            var clock = useServerTime ? (IClock) new ClockServer() : (IClock) new Clock();
             var httpRequestMessageService = new Services.HttpRequest.HttpRequestMessageService(clock, sandBox);
             var queryBuilder = new QueryBuilder();
 
@@ -36,6 +37,16 @@ namespace GDAXClient
             CurrenciesService = new CurrenciesService(httpClient, httpRequestMessageService, authenticator);
             FillsService = new FillsService(httpClient, httpRequestMessageService, authenticator);
             FundingsService = new FundingsService(httpClient, httpRequestMessageService, authenticator, queryBuilder);
+            if (useServerTime)
+            {
+                TimeService = new TimeService(httpClient,
+                    new Services.HttpRequest.HttpRequestMessageService(new Clock(), sandBox), authenticator);
+                ((ClockServer)clock).SetTimeService(TimeService);
+            }
+            else
+            {
+                TimeService = new TimeService(httpClient, httpRequestMessageService, authenticator);
+            }
         }
 
         public AccountsService AccountsService { get; }
@@ -57,5 +68,7 @@ namespace GDAXClient
         public FillsService FillsService { get; }
 
         public FundingsService FundingsService { get; }
+
+        public TimeService TimeService { get; }
     }
 }
