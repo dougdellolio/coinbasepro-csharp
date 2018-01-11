@@ -7,13 +7,11 @@ namespace GDAXClient.Authentication
         public Authenticator(
             string apiKey,
             string unsignedSignature,
-            string passphrase,
-            bool useTimeStampServer = false)
+            string passphrase)
         {
             ApiKey = apiKey;
             UnsignedSignature = unsignedSignature;
             Passphrase = passphrase;
-            UseTimeStampServer = useTimeStampServer;
         }
 
         public string ApiKey { get; }
@@ -21,8 +19,5 @@ namespace GDAXClient.Authentication
         public string UnsignedSignature { get; }
 
         public string Passphrase { get; }
-
-        public bool UseTimeStampServer { get; }
-
     }
 }

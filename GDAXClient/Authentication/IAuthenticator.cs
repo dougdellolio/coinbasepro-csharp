@@ -7,7 +7,5 @@
         string UnsignedSignature { get; }
 
         string Passphrase { get; }
-
-        bool UseTimeStampServer { get; }
     }
 }
