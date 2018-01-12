@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXClient.Services.Orders
+namespace GDAXClient.Services.Orders.Models.Responses
 {
     public class OrderResponse
     {

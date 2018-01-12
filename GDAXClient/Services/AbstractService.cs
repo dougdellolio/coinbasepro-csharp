@@ -1,11 +1,11 @@
-﻿using GDAXClient.HttpClient;
-using GDAXClient.Services.Accounts;
-using GDAXClient.Services.HttpRequest;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GDAXClient.Authentication;
+using GDAXClient.HttpClient;
+using GDAXClient.Services.HttpRequest;
+using Newtonsoft.Json;
 
 namespace GDAXClient.Services
 {
@@ -15,16 +15,12 @@ namespace GDAXClient.Services
 
         private readonly IHttpClient httpClient;
 
-        private readonly IAuthenticator authenticator;
-
         protected AbstractService(
             IHttpClient httpClient,
-            IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator)
+            IHttpRequestMessageService httpRequestMessageService)
         {
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
-            this.authenticator = authenticator;
         }
 
         protected async Task<HttpResponseMessage> SendHttpRequestMessageAsync(
@@ -72,14 +68,17 @@ namespace GDAXClient.Services
                 return pagedList;
             }
 
-            var subsequentPages = await GetAllSubsequentPages<T>(uri, firstPageAfterCursorId.First());
+            var subsequentPages = await GetAllSubsequentPages<T>(authenticator, uri, firstPageAfterCursorId.First());
 
             pagedList.AddRange(subsequentPages);
 
             return pagedList;
         }
 
-        private async Task<IList<IList<T>>> GetAllSubsequentPages<T>(string uri, string firstPageAfterCursorId)
+        private async Task<IList<IList<T>>> GetAllSubsequentPages<T>(
+            IAuthenticator authenticator,
+            string uri, 
+            string firstPageAfterCursorId)
         {
             var pagedList = new List<IList<T>>();
             var subsequentPageAfterHeaderId = firstPageAfterCursorId;

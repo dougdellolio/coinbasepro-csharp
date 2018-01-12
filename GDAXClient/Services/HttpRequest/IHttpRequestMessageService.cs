@@ -1,5 +1,5 @@
-﻿using GDAXClient.Services.Accounts;
-using System.Net.Http;
+﻿using System.Net.Http;
+using GDAXClient.Authentication;
 
 namespace GDAXClient.Services.HttpRequest
 {

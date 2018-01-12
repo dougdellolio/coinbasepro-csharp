@@ -1,22 +1,21 @@
 ﻿using System;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Products;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Orders;
-using GDAXClient.Services.Products;
-using GDAXClient.Services.Products.Models;
-using GDAXClient.Services.Products.Models.Responses;
-using GDAXClient.Specs.JsonFixtures.Products;
-using Machine.Fakes;
-using Machine.Specifications;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GDAXClient.Authentication;
+using GDAXClient.HttpClient;
+using GDAXClient.Services.HttpRequest;
+using GDAXClient.Services.Products;
+using GDAXClient.Services.Products.Models;
+using GDAXClient.Services.Products.Models.Responses;
+using GDAXClient.Shared;
+using GDAXClient.Specs.JsonFixtures.Products;
+using Machine.Fakes;
+using Machine.Specifications;
 
-namespace GDAXClient.Specs.Services.Payments
+namespace GDAXClient.Specs.Services.Products
 {
     [Subject("ProductsService")]
     public class ProductsServiceSpecs : WithSubject<ProductsService>
@@ -121,7 +120,7 @@ namespace GDAXClient.Specs.Services.Payments
                 product_ticker_result.Bid.ShouldEqual(333.98M);
                 product_ticker_result.Ask.ShouldEqual(333.99M);
                 product_ticker_result.Volume.ShouldEqual(5957.11914015M);
-                product_ticker_result.Time.ShouldEqual(new System.DateTime(2016, 12, 9));
+                product_ticker_result.Time.ShouldEqual(new DateTime(2016, 12, 9));
             };
         }
 

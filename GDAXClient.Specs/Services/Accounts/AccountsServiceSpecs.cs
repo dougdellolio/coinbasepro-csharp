@@ -1,19 +1,17 @@
 ﻿using System;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.Accounts;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Specs.Fixtures;
-using GDAXClient.Specs.JsonFixtures;
-using Machine.Fakes;
-using Machine.Specifications;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GDAXClient.Authentication;
+using GDAXClient.HttpClient;
+using GDAXClient.Services.Accounts;
 using GDAXClient.Services.Accounts.Models;
+using GDAXClient.Services.HttpRequest;
 using GDAXClient.Specs.JsonFixtures.Accounts;
 using GDAXClient.Specs.JsonFixtures.HttpResponseMessage;
+using Machine.Fakes;
+using Machine.Specifications;
 
 namespace GDAXClient.Specs.Services.Accounts
 {
@@ -49,7 +47,7 @@ namespace GDAXClient.Specs.Services.Accounts
 
             It should_have_correct_account_information = () =>
             {
-                result.First().Id.ShouldEqual(new System.Guid("e316cb9a-0808-4fd7-8914-97829c1925de"));
+                result.First().Id.ShouldEqual(new Guid("e316cb9a-0808-4fd7-8914-97829c1925de"));
                 result.First().Currency.ShouldEqual("USD");
                 result.First().Balance.ShouldEqual(80.2301373066930000M);
                 result.First().Available.ShouldEqual(79.2266348066930000M);
@@ -144,7 +142,7 @@ namespace GDAXClient.Specs.Services.Accounts
                 result.First().First().Updated_at.ShouldEqual(new DateTime(2016, 12, 9));
                 result.First().First().Amount.ShouldEqual(4.23M);
                 result.First().First().Type.ShouldEqual("order");
-                result.First().First().@Ref.ShouldEqual("0a205de4-dd35-4370-a285-fe8fc375a273");
+                result.First().First().Ref.ShouldEqual("0a205de4-dd35-4370-a285-fe8fc375a273");
             };
         }
     }

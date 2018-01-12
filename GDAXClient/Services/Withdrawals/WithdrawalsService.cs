@@ -1,18 +1,18 @@
-﻿using GDAXClient.HttpClient;
-using GDAXClient.Services.Accounts;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Withdrawals;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GDAXClient.Authentication;
+using GDAXClient.HttpClient;
+using GDAXClient.Services.HttpRequest;
+using GDAXClient.Services.Withdrawals.Models;
+using GDAXClient.Services.Withdrawals.Models.Responses;
+using GDAXClient.Shared;
+using Newtonsoft.Json;
 
-namespace GDAXClient.Services.WithdrawalsService
+namespace GDAXClient.Services.Withdrawals
 {
     public class WithdrawalsService : AbstractService
     {
-        private readonly IHttpRequestMessageService httpRequestMessageService;
-
         private readonly IHttpClient httpClient;
 
         private readonly IAuthenticator authenticator;
@@ -21,9 +21,8 @@ namespace GDAXClient.Services.WithdrawalsService
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
-                : base(httpClient, httpRequestMessageService, authenticator)
+                : base(httpClient, httpRequestMessageService)
         {
-            this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
             this.authenticator = authenticator;
         }

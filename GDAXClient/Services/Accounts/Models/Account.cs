@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXClient.Services.Accounts
+namespace GDAXClient.Services.Accounts.Models
 {
     public class Account
     {
