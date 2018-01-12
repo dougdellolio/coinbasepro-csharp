@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using GDAXClient.Authentication;
 using GDAXClient.HttpClient;
 using GDAXClient.Services.Accounts;
 using GDAXClient.Services.HttpRequest;
@@ -20,7 +21,7 @@ namespace GDAXClient.Services.Time
         private readonly IAuthenticator authenticator;
 
         public TimeService(IHttpClient httpClient, IHttpRequestMessageService httpRequestMessageService, IAuthenticator authenticator) 
-            : base(httpClient, httpRequestMessageService, authenticator)
+            : base(httpClient, httpRequestMessageService)
         {
             this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
