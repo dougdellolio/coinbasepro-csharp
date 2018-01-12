@@ -12,8 +12,8 @@ GDAX API C# Client Library - https://docs.gdax.com/
 <i>Generate your key at https://www.gdax.com/settings/api</i>
 
 ````
-//create an authenticator with your apiKey, signature and passphrase
-var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>");
+//create an authenticator with your apiKey, secret and passphrase
+var authenticator = new Authenticator("<apiKey>", "<secret>", "<passphrase>");
 
 //create the GDAX client
 var gdaxClient = new GDAXClient.GDAXClient(authenticator);
