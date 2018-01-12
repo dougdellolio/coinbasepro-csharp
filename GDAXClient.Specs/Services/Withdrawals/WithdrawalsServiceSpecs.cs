@@ -1,16 +1,15 @@
 ﻿using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 using GDAXClient.Authentication;
 using GDAXClient.HttpClient;
 using GDAXClient.Services.HttpRequest;
 using GDAXClient.Services.Withdrawals;
-using GDAXClient.Services.WithdrawalsService;
+using GDAXClient.Services.Withdrawals.Models.Responses;
+using GDAXClient.Shared;
 using GDAXClient.Specs.JsonFixtures.Withdrawals;
 using Machine.Fakes;
 using Machine.Specifications;
-using System.Net.Http;
-using System.Threading.Tasks;
-using GDAXClient.Services;
-using GDAXClient.Services.Orders;
 
 namespace GDAXClient.Specs.Services.Withdrawals
 {
@@ -50,10 +49,10 @@ namespace GDAXClient.Specs.Services.Withdrawals
 
             It should_return_a_correct_response = () =>
             {
-                withdrawals_response.Id.ShouldEqual(new System.Guid("593533d2-ff31-46e0-b22e-ca754147a96a"));
+                withdrawals_response.Id.ShouldEqual(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"));
                 withdrawals_response.Amount.ShouldEqual(10.00M);
                 withdrawals_response.Currency.ShouldEqual("USD");
-                withdrawals_response.Payout_at.ShouldEqual(new System.DateTime(2016, 12, 9));
+                withdrawals_response.Payout_at.ShouldEqual(new DateTime(2016, 12, 9));
             };
         }
 

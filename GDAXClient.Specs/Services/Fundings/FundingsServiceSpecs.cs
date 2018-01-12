@@ -5,19 +5,15 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using GDAXClient.Authentication;
 using GDAXClient.HttpClient;
-using Machine.Fakes;
-using Machine.Specifications;
-using GDAXClient.Services.Fills;
-using GDAXClient.Services.Fills.Models.Responses;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Orders;
-using GDAXClient.Specs.JsonFixtures.Fills;
-using GDAXClient.Specs.JsonFixtures.HttpResponseMessage;
-using GDAXClient.Utilities.Extensions;
 using GDAXClient.Services.Fundings;
 using GDAXClient.Services.Fundings.Models;
+using GDAXClient.Services.HttpRequest;
+using GDAXClient.Specs.JsonFixtures.Fundings;
+using GDAXClient.Specs.JsonFixtures.HttpResponseMessage;
+using Machine.Fakes;
+using Machine.Specifications;
 
-namespace GDAXClient.Specs.Services
+namespace GDAXClient.Specs.Services.Fundings
 {
     [Subject("FundingsService")]
     public class FundingsServiceSpecs : WithSubject<FundingsService>

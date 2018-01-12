@@ -16,6 +16,6 @@ namespace GDAXClient.Services.Accounts.Models
 
         public string Type { get; set; }
 
-        public string @Ref { get; set; }
+        public string Ref { get; set; }
     }
 }

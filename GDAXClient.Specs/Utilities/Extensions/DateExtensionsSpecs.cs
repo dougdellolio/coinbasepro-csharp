@@ -1,6 +1,6 @@
-﻿using GDAXClient.Utilities.Extensions;
+﻿using System;
+using GDAXClient.Utilities.Extensions;
 using Machine.Specifications;
-using System;
 
 namespace GDAXClient.Specs.Utilities.Extensions
 {
