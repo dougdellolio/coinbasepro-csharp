@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Specs.JsonFixtures.Accounts
+﻿namespace GDAXClient.Specs.JsonFixtures.CoinbaseAccounts
 {
     public static class AllCoinbaseResponseFixture
     {

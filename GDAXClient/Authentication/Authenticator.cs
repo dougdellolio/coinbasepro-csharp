@@ -1,6 +1,4 @@
-﻿using GDAXClient.Services.Accounts;
-
-namespace GDAXClient.Authentication
+﻿namespace GDAXClient.Authentication
 {
     public class Authenticator : IAuthenticator
     {

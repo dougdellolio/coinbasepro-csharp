@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GDAXClient.Authentication;
 using GDAXClient.HttpClient;
-using GDAXClient.Services.Accounts;
+using GDAXClient.Services.Deposits.Models;
+using GDAXClient.Services.Deposits.Models.Responses;
 using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Withdrawals;
+using GDAXClient.Services.Withdrawals.Models;
+using GDAXClient.Services.Withdrawals.Models.Responses;
+using GDAXClient.Shared;
 using Newtonsoft.Json;
 
 namespace GDAXClient.Services.Deposits
 {
     public class DepositsService : AbstractService
     {
-        private readonly IHttpRequestMessageService httpRequestMessageService;
-
         private readonly IHttpClient httpClient;
 
         private readonly IAuthenticator authenticator;
@@ -21,9 +23,8 @@ namespace GDAXClient.Services.Deposits
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator) 
-                : base(httpClient, httpRequestMessageService, authenticator)
+                : base(httpClient, httpRequestMessageService)
         {
-            this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
             this.authenticator = authenticator;
         }

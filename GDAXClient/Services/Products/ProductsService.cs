@@ -1,25 +1,21 @@
 ﻿using System;
-using GDAXClient.HttpClient;
-using GDAXClient.Services;
-using GDAXClient.Services.Accounts;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Orders;
-using GDAXClient.Services.Products;
-using GDAXClient.Services.Products.Models;
-using GDAXClient.Services.Products.Models.Responses;
-using GDAXClient.Utilities.Extensions;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GDAXClient.Authentication;
+using GDAXClient.HttpClient;
+using GDAXClient.Services.HttpRequest;
+using GDAXClient.Services.Products.Models;
+using GDAXClient.Services.Products.Models.Responses;
+using GDAXClient.Shared;
 using GDAXClient.Utilities;
+using GDAXClient.Utilities.Extensions;
+using Newtonsoft.Json;
 
-namespace GDAXClient.Products
+namespace GDAXClient.Services.Products
 {
     public class ProductsService : AbstractService
     {
-        private readonly IHttpRequestMessageService httpRequestMessageService;
-
         private readonly IHttpClient httpClient;
 
         private readonly IAuthenticator authenticator;
@@ -31,9 +27,8 @@ namespace GDAXClient.Products
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator,
             IQueryBuilder queryBuilder)
-                : base(httpClient, httpRequestMessageService, authenticator)
+                : base(httpClient, httpRequestMessageService)
         {
-            this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
             this.authenticator = authenticator;
             this.queryBuilder = queryBuilder;

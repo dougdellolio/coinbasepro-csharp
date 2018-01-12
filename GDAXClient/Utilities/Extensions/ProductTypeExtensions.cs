@@ -1,4 +1,4 @@
-﻿using GDAXClient.Services.Orders;
+﻿using GDAXClient.Shared;
 
 namespace GDAXClient.Utilities.Extensions
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXClient.Services.Withdrawals
+namespace GDAXClient.Services.Withdrawals.Models
 {
     public class Withdrawal
     {

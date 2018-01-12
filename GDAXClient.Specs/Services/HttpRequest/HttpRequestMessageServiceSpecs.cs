@@ -1,10 +1,10 @@
-﻿using GDAXClient.Authentication;
+﻿using System;
+using System.Net.Http;
+using GDAXClient.Authentication;
 using GDAXClient.Services.HttpRequest;
 using GDAXClient.Utilities;
 using Machine.Fakes;
 using Machine.Specifications;
-using System;
-using System.Net.Http;
 
 namespace GDAXClient.Specs.Services.HttpRequest
 {
