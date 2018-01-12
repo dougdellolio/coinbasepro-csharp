@@ -1,11 +1,11 @@
-﻿using GDAXClient.Services.Accounts;
-using GDAXClient.Utilities;
-using GDAXClient.Utilities.Extensions;
-using System;
+﻿using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
-using System.Globalization;
+using GDAXClient.Authentication;
+using GDAXClient.Utilities;
+using GDAXClient.Utilities.Extensions;
 
 namespace GDAXClient.Services.HttpRequest
 {
@@ -31,7 +31,7 @@ namespace GDAXClient.Services.HttpRequest
             string requestUri, 
             string contentBody = "")
         {
-            var baseUri = sandBox == true
+            var baseUri = sandBox
                 ? sandBoxApiUri
                 : apiUri;
 

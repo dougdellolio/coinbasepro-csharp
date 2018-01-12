@@ -1,29 +1,28 @@
 ﻿using GDAXClient.Authentication;
-using GDAXClient.Products;
 using GDAXClient.Services.Accounts;
 using GDAXClient.Services.CoinbaseAccounts;
 using GDAXClient.Services.Currencies;
 using GDAXClient.Services.Deposits;
 using GDAXClient.Services.Fills;
 using GDAXClient.Services.Fundings;
+using GDAXClient.Services.HttpRequest;
 using GDAXClient.Services.Orders;
 using GDAXClient.Services.Payments;
-using GDAXClient.Services.WithdrawalsService;
+using GDAXClient.Services.Products;
+using GDAXClient.Services.Withdrawals;
 using GDAXClient.Utilities;
 
 namespace GDAXClient
 {
     public class GDAXClient
     {
-        private readonly Authenticator authenticator;
-
-        public GDAXClient(Authenticator authenticator, bool sandBox = false)
+        public GDAXClient(
+            IAuthenticator authenticator, 
+            bool sandBox = false)
         {
-            this.authenticator = authenticator;
-
             var httpClient = new HttpClient.HttpClient();
             var clock = new Clock();
-            var httpRequestMessageService = new Services.HttpRequest.HttpRequestMessageService(clock, sandBox);
+            var httpRequestMessageService = new HttpRequestMessageService(clock, sandBox);
             var queryBuilder = new QueryBuilder();
 
             AccountsService = new AccountsService(httpClient, httpRequestMessageService, authenticator);

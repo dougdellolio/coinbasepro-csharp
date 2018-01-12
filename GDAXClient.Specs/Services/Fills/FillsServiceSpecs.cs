@@ -5,17 +5,17 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using GDAXClient.Authentication;
 using GDAXClient.HttpClient;
-using Machine.Fakes;
-using Machine.Specifications;
 using GDAXClient.Services.Fills;
 using GDAXClient.Services.Fills.Models.Responses;
 using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Orders;
+using GDAXClient.Shared;
 using GDAXClient.Specs.JsonFixtures.Fills;
 using GDAXClient.Specs.JsonFixtures.HttpResponseMessage;
 using GDAXClient.Utilities.Extensions;
+using Machine.Fakes;
+using Machine.Specifications;
 
-namespace GDAXClient.Specs.Services
+namespace GDAXClient.Specs.Services.Fills
 {
     [Subject("FillsService")]
     public class FillsServiceSpecs : WithSubject<FillsService>

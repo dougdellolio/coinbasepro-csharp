@@ -1,7 +1,7 @@
-﻿using GDAXClient.Utilities;
+﻿using System.Collections.Generic;
+using GDAXClient.Utilities;
 using Machine.Fakes;
 using Machine.Specifications;
-using System.Collections.Generic;
 
 namespace GDAXClient.Specs.Utilities
 {

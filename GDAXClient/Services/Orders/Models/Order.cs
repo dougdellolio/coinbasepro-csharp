@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Services.Orders
+﻿namespace GDAXClient.Services.Orders.Models
 {
     public class Order
     {

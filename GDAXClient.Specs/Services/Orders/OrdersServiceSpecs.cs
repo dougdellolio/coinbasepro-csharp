@@ -1,17 +1,21 @@
-﻿using GDAXClient.Authentication;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using GDAXClient.Authentication;
 using GDAXClient.HttpClient;
 using GDAXClient.Services.HttpRequest;
 using GDAXClient.Services.Orders;
+using GDAXClient.Services.Orders.Models;
+using GDAXClient.Services.Orders.Models.Responses;
+using GDAXClient.Shared;
 using GDAXClient.Specs.JsonFixtures.Orders;
 using Machine.Fakes;
 using Machine.Specifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 
-namespace GDAXClient.Specs.Services.Accounts
+namespace GDAXClient.Specs.Services.Orders
 {
     [Subject("OrdersService")]
     public class OrdersServiceSpecs : WithSubject<OrdersService>
@@ -48,7 +52,7 @@ namespace GDAXClient.Specs.Services.Accounts
 
             It should_have_correct_account_information = () =>
             {
-                order_response_result.Id.ShouldEqual(new System.Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
+                order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
                 order_response_result.Price.ShouldEqual(0.10000000M);
                 order_response_result.Size.ShouldEqual(0.01000000M);
                 order_response_result.Product_id.ShouldEqual("BTC-USD");
@@ -57,7 +61,7 @@ namespace GDAXClient.Specs.Services.Accounts
                 order_response_result.Type.ShouldEqual("limit");
                 order_response_result.Time_in_force.ShouldEqual("GTC");
                 order_response_result.Post_only.ShouldBeFalse();
-                order_response_result.Created_at.ShouldEqual(new System.DateTime(2016, 12, 9));
+                order_response_result.Created_at.ShouldEqual(new DateTime(2016, 12, 9));
                 order_response_result.Fill_fees.ShouldEqual(0.0000000000000000M);
                 order_response_result.Filled_size.ShouldEqual(0.00000000M);
                 order_response_result.Executed_value.ShouldEqual(0.0000000000000000M);
@@ -85,7 +89,7 @@ namespace GDAXClient.Specs.Services.Accounts
 
             It should_have_correct_account_information = () =>
             {
-                order_response_result.Id.ShouldEqual(new System.Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
+                order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
                 order_response_result.Price.ShouldEqual(0.10000000M);
                 order_response_result.Size.ShouldEqual(0.01000000M);
                 order_response_result.Product_id.ShouldEqual("BTC-USD");
@@ -94,7 +98,7 @@ namespace GDAXClient.Specs.Services.Accounts
                 order_response_result.Type.ShouldEqual("limit");
                 order_response_result.Time_in_force.ShouldEqual("GTC");
                 order_response_result.Post_only.ShouldBeFalse();
-                order_response_result.Created_at.ShouldEqual(new System.DateTime(2016, 12, 9));
+                order_response_result.Created_at.ShouldEqual(new DateTime(2016, 12, 9));
                 order_response_result.Fill_fees.ShouldEqual(0.0000000000000000M);
                 order_response_result.Filled_size.ShouldEqual(0.00000000M);
                 order_response_result.Executed_value.ShouldEqual(0.0000000000000000M);
@@ -125,8 +129,8 @@ namespace GDAXClient.Specs.Services.Accounts
 
             It should_have_correct_list_of_cancelled_orders = () =>
             {
-                cancel_order_response_result.OrderIds.First().ShouldEqual(new System.Guid("144c6f8e-713f-4682-8435-5280fbe8b2b4"));
-                cancel_order_response_result.OrderIds.Skip(1).First().ShouldEqual(new System.Guid("debe4907-95dc-442f-af3b-cec12f42ebda"));
+                cancel_order_response_result.OrderIds.First().ShouldEqual(new Guid("144c6f8e-713f-4682-8435-5280fbe8b2b4"));
+                cancel_order_response_result.OrderIds.Skip(1).First().ShouldEqual(new Guid("debe4907-95dc-442f-af3b-cec12f42ebda"));
             };
         }
 
@@ -138,7 +142,7 @@ namespace GDAXClient.Specs.Services.Accounts
                     .Return(new HttpRequestMessage());
 
                 The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.Accepted)));
+                    .Return(Task.FromResult(new HttpResponseMessage(HttpStatusCode.Accepted)));
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(CancelOrderResponseFixture.Create()));
@@ -151,7 +155,7 @@ namespace GDAXClient.Specs.Services.Accounts
                 cancel_order_response_result.OrderIds.Count().ShouldEqual(1);
 
             It should_have_correct_list_of_cancelled_orders = () =>
-                cancel_order_response_result.OrderIds.First().ShouldEqual(new System.Guid("144c6f8e-713f-4682-8435-5280fbe8b2b4"));
+                cancel_order_response_result.OrderIds.First().ShouldEqual(new Guid("144c6f8e-713f-4682-8435-5280fbe8b2b4"));
         }
 
         class when_cancelling_order_by_id_with_failure
@@ -162,7 +166,7 @@ namespace GDAXClient.Specs.Services.Accounts
                     .Return(new HttpRequestMessage());
 
                 The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.NotFound)));
+                    .Return(Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound)));
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(CancelOrderResponseFixture.CreateEmpty()));
@@ -196,7 +200,7 @@ namespace GDAXClient.Specs.Services.Accounts
                 order_many_response_result = Subject.GetAllOrdersAsync().Result;
 
             It should_have_correct_number_of_orders = () =>
-                order_many_response_result.First().Count().ShouldEqual(2);
+                order_many_response_result.First().Count.ShouldEqual(2);
 
             It should_have_correct_orders = () =>
             {
@@ -262,7 +266,7 @@ namespace GDAXClient.Specs.Services.Accounts
                 order_response_result.Type.ShouldEqual("limit");
                 order_response_result.Time_in_force.ShouldEqual("GTC");
                 order_response_result.Post_only.ShouldBeFalse();
-                order_response_result.Created_at.ShouldEqual(new System.DateTime(2016, 12, 9));
+                order_response_result.Created_at.ShouldEqual(new DateTime(2016, 12, 9));
                 order_response_result.Fill_fees.ShouldEqual(0.0000000000000000M);
                 order_response_result.Filled_size.ShouldEqual(0.00000000M);
                 order_response_result.Executed_value.ShouldEqual(0.0000000000000000M);

@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Services.Accounts
+﻿namespace GDAXClient.Authentication
 {
     public interface IAuthenticator
     {

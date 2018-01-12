@@ -1,17 +1,17 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using GDAXClient.Authentication;
 using GDAXClient.HttpClient;
+using GDAXClient.Services.Currencies;
+using GDAXClient.Services.Currencies.Models;
 using GDAXClient.Services.HttpRequest;
+using GDAXClient.Specs.JsonFixtures.Currencies;
 using Machine.Fakes;
 using Machine.Specifications;
-using GDAXClient.Services.Currencies;
-using System.Collections.Generic;
-using GDAXClient.Specs.JsonFixtures.Currencies;
-using System.Linq;
-using GDAXClient.Services.Currencies.Models;
 
-namespace GDAXClient.Specs.Services.Deposits
+namespace GDAXClient.Specs.Services.Currencies
 {
     [Subject("CurrenciesService")]
     public class CurrenciesServiceSpecs : WithSubject<CurrenciesService>

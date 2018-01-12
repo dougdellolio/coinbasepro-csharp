@@ -1,17 +1,15 @@
-﻿using GDAXClient.HttpClient;
-using GDAXClient.Services.Accounts;
-using GDAXClient.Services.HttpRequest;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GDAXClient.Authentication;
+using GDAXClient.HttpClient;
+using GDAXClient.Services.HttpRequest;
+using Newtonsoft.Json;
 
 namespace GDAXClient.Services.Currencies
 {
     public class CurrenciesService : AbstractService
     {
-        private readonly IHttpRequestMessageService httpRequestMessageService;
-
         private readonly IHttpClient httpClient;
 
         private readonly IAuthenticator authenticator;
@@ -20,9 +18,8 @@ namespace GDAXClient.Services.Currencies
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
-                : base(httpClient, httpRequestMessageService, authenticator)
+                : base(httpClient, httpRequestMessageService)
         {
-            this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
             this.authenticator = authenticator;
         }

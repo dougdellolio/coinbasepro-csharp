@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Specs.JsonFixtures
+﻿namespace GDAXClient.Specs.JsonFixtures.Accounts
 {
     public static class AccountByIdResponseFixture
     {

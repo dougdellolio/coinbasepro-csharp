@@ -1,17 +1,16 @@
-﻿using GDAXClient.HttpClient;
+﻿using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+using GDAXClient.Authentication;
+using GDAXClient.HttpClient;
 using GDAXClient.Services.Accounts.Models;
 using GDAXClient.Services.HttpRequest;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace GDAXClient.Services.Accounts
 {
     public class AccountsService : AbstractService
     {
-        private readonly IHttpRequestMessageService httpRequestMessageService;
-
         private readonly IHttpClient httpClient;
 
         private readonly IAuthenticator authenticator;
@@ -20,9 +19,8 @@ namespace GDAXClient.Services.Accounts
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
-                : base(httpClient, httpRequestMessageService, authenticator)
+                : base(httpClient, httpRequestMessageService)
         {
-            this.httpRequestMessageService = httpRequestMessageService;
             this.httpClient = httpClient;
             this.authenticator = authenticator;
         }
