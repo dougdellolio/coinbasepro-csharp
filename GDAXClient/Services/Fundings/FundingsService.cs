@@ -20,7 +20,7 @@ namespace GDAXClient.Services.Fundings
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator,
             IQueryBuilder queryBuilder)
-            : base(httpClient, httpRequestMessageService)
+                : base(httpClient, httpRequestMessageService)
         {
             this.authenticator = authenticator;
             this.queryBuilder = queryBuilder;
