@@ -67,6 +67,7 @@
     <Compile Include="Services\Fundings\FundingStatus.cs" />
     <Compile Include="Services\Fundings\Models\Funding.cs" />
     <Compile Include="Services\Products\Models\Product.cs" />
+    <Compile Include="Services\Products\Models\ProductLevel.cs" />
     <Compile Include="Services\Products\Models\ProductStats.cs" />
     <Compile Include="Services\Products\Models\ProductTicker.cs" />
     <Compile Include="Services\Products\Models\Responses\ProductsOrderBookResponse.cs" />

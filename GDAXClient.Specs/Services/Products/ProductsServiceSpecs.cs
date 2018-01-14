@@ -86,12 +86,41 @@ namespace GDAXClient.Specs.Services.Products
             It should_have_correct_product_order_book_response = () =>
             {
                 product_order_books_response.Sequence.ShouldEqual(3M);
-                product_order_books_response.Bids.SelectMany(p => p).ShouldContain(200);
-                product_order_books_response.Bids.SelectMany(p => p).ShouldContain(100);
-                product_order_books_response.Bids.SelectMany(p => p).ShouldContain(3);
-                product_order_books_response.Asks.SelectMany(p => p).ShouldContain(200);
-                product_order_books_response.Asks.SelectMany(p => p).ShouldContain(100);
-                product_order_books_response.Asks.SelectMany(p => p).ShouldContain(3);
+                product_order_books_response.Bids.SelectMany(p => p).ShouldContain("200");
+                product_order_books_response.Bids.SelectMany(p => p).ShouldContain("100");
+                product_order_books_response.Bids.SelectMany(p => p).ShouldContain("3");
+                product_order_books_response.Asks.SelectMany(p => p).ShouldContain("200");
+                product_order_books_response.Asks.SelectMany(p => p).ShouldContain("100");
+                product_order_books_response.Asks.SelectMany(p => p).ShouldContain("3");
+            };
+        }
+
+        class when_getting_a_product_order_book_with_level_3_specified
+        {
+            Establish context = () =>
+            {
+                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                    .Return(new HttpRequestMessage());
+
+                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                    .Return(Task.FromResult(new HttpResponseMessage()));
+
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(ProductsOrderBookResponseFixture.CreateWithLevelThree()));
+            };
+
+            Because of = () =>
+                product_order_books_response = Subject.GetProductOrderBookAsync(ProductType.BtcUsd, ProductLevel.Three).Result;
+
+            It should_have_correct_product_order_book_response = () =>
+            {
+                product_order_books_response.Sequence.ShouldEqual(3M);
+                product_order_books_response.Bids.SelectMany(p => p).ShouldContain("200");
+                product_order_books_response.Bids.SelectMany(p => p).ShouldContain("100");
+                product_order_books_response.Bids.SelectMany(p => p).ShouldContain("3b0f1225-7f84-490b-a29f-0faef9de823a");
+                product_order_books_response.Asks.SelectMany(p => p).ShouldContain("200");
+                product_order_books_response.Asks.SelectMany(p => p).ShouldContain("100");
+                product_order_books_response.Asks.SelectMany(p => p).ShouldContain("da863862-25f4-4868-ac41-005d11ab0a5f");
             };
         }
 
