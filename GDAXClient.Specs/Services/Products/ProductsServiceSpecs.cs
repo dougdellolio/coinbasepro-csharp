@@ -120,11 +120,11 @@ namespace GDAXClient.Specs.Services.Products
                 product_order_books_response.Bids.First().Price.ShouldEqual(200M);
                 product_order_books_response.Bids.First().Size.ShouldEqual(100M);
                 product_order_books_response.Bids.First().NumberOfOrders.ShouldEqual(3);
-                product_order_books_response.Bids.First().OrderId.ShouldBeNull();;
+                product_order_books_response.Bids.First().OrderId.ShouldBeNull();
                 product_order_books_response.Asks.First().Price.ShouldEqual(200M);
                 product_order_books_response.Asks.First().Size.ShouldEqual(100M);
                 product_order_books_response.Asks.First().NumberOfOrders.ShouldEqual(3);
-                product_order_books_response.Asks.First().OrderId.ShouldBeNull(); ;
+                product_order_books_response.Asks.First().OrderId.ShouldBeNull();
             };
         }
 
