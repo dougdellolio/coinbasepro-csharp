@@ -4,10 +4,20 @@ namespace GDAXClient.Services.Products.Models.Responses
 {
     public class ProductsOrderBookResponse
     {
-        public decimal Sequence { get; set; }
+        public ProductsOrderBookResponse(
+            decimal sequence,
+            IEnumerable<Bid> bids,
+            IEnumerable<Ask> asks)
+        {
+            Sequence = sequence;
+            Bids = bids;
+            Asks = asks;
+        }
 
-        public IEnumerable<IEnumerable<string>> Bids { get; set; }
+        public decimal Sequence { get; }
 
-        public IEnumerable<IEnumerable<string>> Asks { get; set; }
+        public IEnumerable<Bid> Bids { get; }
+
+        public IEnumerable<Ask> Asks { get; }
     }
 }

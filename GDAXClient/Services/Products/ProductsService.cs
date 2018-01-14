@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using GDAXClient.Authentication;
@@ -45,9 +46,31 @@ namespace GDAXClient.Services.Products
 
         public async Task<ProductsOrderBookResponse> GetProductOrderBookAsync(ProductType productPair, ProductLevel productLevel = ProductLevel.One)
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/book/?level={(int) productLevel}");
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/book/?level={(int)productLevel}");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productOrderBookResponse = JsonConvert.DeserializeObject<ProductsOrderBookResponse>(contentBody);
+            var productsOrderBookJsonResponse = JsonConvert.DeserializeObject<ProductsOrderBookJsonResponse>(contentBody);
+
+            var askList = productsOrderBookJsonResponse.Asks.Select(product => product.ToArray()).Select(askArray => new Ask(Convert.ToDecimal(askArray[0]), Convert.ToDecimal(askArray[1]))
+            {
+                OrderId = productLevel == ProductLevel.Three
+                    ? new Guid(askArray[2])
+                    : (Guid?)null,
+                NumberOfOrders = productLevel == ProductLevel.Three
+                    ? (decimal?)null
+                    : Convert.ToDecimal(askArray[2])
+            }).ToArray();
+
+            var bidList = productsOrderBookJsonResponse.Bids.Select(product => product.ToArray()).Select(bidArray => new Bid(Convert.ToDecimal(bidArray[0]), Convert.ToDecimal(bidArray[1]))
+            {
+                OrderId = productLevel == ProductLevel.Three
+                    ? new Guid(bidArray[2])
+                    : (Guid?)null,
+                NumberOfOrders = productLevel == ProductLevel.Three
+                    ? (decimal?)null
+                    : Convert.ToDecimal(bidArray[2])
+            });
+
+            var productOrderBookResponse = new ProductsOrderBookResponse(productsOrderBookJsonResponse.Sequence, bidList, askList);
 
             return productOrderBookResponse;
         }
@@ -69,7 +92,7 @@ namespace GDAXClient.Services.Products
 
             return productStatsResponse;
         }
-        
+
         public async Task<IEnumerable<object[]>> GetHistoricRatesAsync(ProductType productPair, DateTime start, DateTime end, int granularity)
         {
             var isoStart = start.ToString("s");
