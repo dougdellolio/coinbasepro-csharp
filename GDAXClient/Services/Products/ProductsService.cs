@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -94,24 +95,24 @@ namespace GDAXClient.Services.Products
             ProductsOrderBookJsonResponse productsOrderBookJsonResponse,
             ProductLevel productLevel)
         {
-            var askList = productsOrderBookJsonResponse.Asks.Select(product => product.ToArray()).Select(askArray => new Ask(Convert.ToDecimal(askArray[0]), Convert.ToDecimal(askArray[1]))
+            var askList = productsOrderBookJsonResponse.Asks.Select(product => product.ToArray()).Select(askArray => new Ask(Convert.ToDecimal(askArray[0], CultureInfo.InvariantCulture), Convert.ToDecimal(askArray[1], CultureInfo.InvariantCulture))
             {
                 OrderId = productLevel == ProductLevel.Three
                     ? new Guid(askArray[2])
                     : (Guid?)null,
                 NumberOfOrders = productLevel == ProductLevel.Three
                     ? (decimal?)null
-                    : Convert.ToDecimal(askArray[2])
+                    : Convert.ToDecimal(askArray[2], CultureInfo.InvariantCulture)
             }).ToArray();
 
-            var bidList = productsOrderBookJsonResponse.Bids.Select(product => product.ToArray()).Select(bidArray => new Bid(Convert.ToDecimal(bidArray[0]), Convert.ToDecimal(bidArray[1]))
+            var bidList = productsOrderBookJsonResponse.Bids.Select(product => product.ToArray()).Select(bidArray => new Bid(Convert.ToDecimal(bidArray[0], CultureInfo.InvariantCulture), Convert.ToDecimal(bidArray[1], CultureInfo.InvariantCulture))
             {
                 OrderId = productLevel == ProductLevel.Three
                     ? new Guid(bidArray[2])
                     : (Guid?)null,
                 NumberOfOrders = productLevel == ProductLevel.Three
                     ? (decimal?)null
-                    : Convert.ToDecimal(bidArray[2])
+                    : Convert.ToDecimal(bidArray[2], CultureInfo.InvariantCulture)
             });
 
             var productOrderBookResponse = new ProductsOrderBookResponse(productsOrderBookJsonResponse.Sequence, bidList, askList);
