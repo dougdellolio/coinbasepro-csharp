@@ -74,7 +74,7 @@
     <Compile Include="Services\Products\Models\ProductTicker.cs" />
     <Compile Include="Services\Products\Models\Quote.cs" />
     <Compile Include="Services\Products\Models\Responses\ProductsOrderBookResponse.cs" />
-    <Compile Include="Services\Products\Models\Responses\ProductOrderBookJsonResponse.cs" />
+    <Compile Include="Services\Products\Models\Responses\ProductsOrderBookJsonResponse.cs" />
     <Compile Include="Services\Products\ProductsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AbstractService.cs" />

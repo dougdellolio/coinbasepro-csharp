@@ -50,27 +50,7 @@ namespace GDAXClient.Services.Products
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var productsOrderBookJsonResponse = JsonConvert.DeserializeObject<ProductsOrderBookJsonResponse>(contentBody);
 
-            var askList = productsOrderBookJsonResponse.Asks.Select(product => product.ToArray()).Select(askArray => new Ask(Convert.ToDecimal(askArray[0]), Convert.ToDecimal(askArray[1]))
-            {
-                OrderId = productLevel == ProductLevel.Three
-                    ? new Guid(askArray[2])
-                    : (Guid?)null,
-                NumberOfOrders = productLevel == ProductLevel.Three
-                    ? (decimal?)null
-                    : Convert.ToDecimal(askArray[2])
-            }).ToArray();
-
-            var bidList = productsOrderBookJsonResponse.Bids.Select(product => product.ToArray()).Select(bidArray => new Bid(Convert.ToDecimal(bidArray[0]), Convert.ToDecimal(bidArray[1]))
-            {
-                OrderId = productLevel == ProductLevel.Three
-                    ? new Guid(bidArray[2])
-                    : (Guid?)null,
-                NumberOfOrders = productLevel == ProductLevel.Three
-                    ? (decimal?)null
-                    : Convert.ToDecimal(bidArray[2])
-            });
-
-            var productOrderBookResponse = new ProductsOrderBookResponse(productsOrderBookJsonResponse.Sequence, bidList, askList);
+            var productOrderBookResponse = ConvertProductOrderBookResponse(productsOrderBookJsonResponse, productLevel);
 
             return productOrderBookResponse;
         }
@@ -108,6 +88,34 @@ namespace GDAXClient.Services.Products
             var productHistoryResponse = JsonConvert.DeserializeObject<IEnumerable<object[]>>(contentBody);
 
             return productHistoryResponse;
+        }
+
+        private ProductsOrderBookResponse ConvertProductOrderBookResponse(
+            ProductsOrderBookJsonResponse productsOrderBookJsonResponse,
+            ProductLevel productLevel)
+        {
+            var askList = productsOrderBookJsonResponse.Asks.Select(product => product.ToArray()).Select(askArray => new Ask(Convert.ToDecimal(askArray[0]), Convert.ToDecimal(askArray[1]))
+            {
+                OrderId = productLevel == ProductLevel.Three
+                    ? new Guid(askArray[2])
+                    : (Guid?)null,
+                NumberOfOrders = productLevel == ProductLevel.Three
+                    ? (decimal?)null
+                    : Convert.ToDecimal(askArray[2])
+            }).ToArray();
+
+            var bidList = productsOrderBookJsonResponse.Bids.Select(product => product.ToArray()).Select(bidArray => new Bid(Convert.ToDecimal(bidArray[0]), Convert.ToDecimal(bidArray[1]))
+            {
+                OrderId = productLevel == ProductLevel.Three
+                    ? new Guid(bidArray[2])
+                    : (Guid?)null,
+                NumberOfOrders = productLevel == ProductLevel.Three
+                    ? (decimal?)null
+                    : Convert.ToDecimal(bidArray[2])
+            });
+
+            var productOrderBookResponse = new ProductsOrderBookResponse(productsOrderBookJsonResponse.Sequence, bidList, askList);
+            return productOrderBookResponse;
         }
     }
 }
