@@ -30,7 +30,7 @@ namespace GDAXClient.Services.Fundings
         {
             var queryString = queryBuilder.BuildQuery(
                 new KeyValuePair<string, string>("limit", limit.ToString()),
-                new KeyValuePair<string, string>("status", status?.ToString()));
+                new KeyValuePair<string, string>("status", status?.ToString().ToLower()));
 
             var httpResponseMessage = await SendHttpRequestMessagePagedAsync<Funding>(HttpMethod.Get, authenticator, "/funding" + queryString);
 
