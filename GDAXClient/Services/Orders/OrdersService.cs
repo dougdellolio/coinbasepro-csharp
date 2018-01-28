@@ -89,7 +89,7 @@ namespace GDAXClient.Services.Orders
             ProductType productPair, 
             decimal size, 
             decimal price, 
-            DateTime cancelAfter, 
+            GoodTillTime cancelAfter, 
             bool postOnly = true)
         {
             var newOrder = JsonConvert.SerializeObject(new Order
@@ -103,7 +103,7 @@ namespace GDAXClient.Services.Orders
 
             var queryString = queryBuilder.BuildQuery(
                 new KeyValuePair<string, string>("time_in_force", "GTT"),
-                new KeyValuePair<string, string>("cancel_after", cancelAfter.Minute + "," + cancelAfter.Hour + "," + cancelAfter.Day),
+                new KeyValuePair<string, string>("cancel_after", cancelAfter.ToString().ToLower()),
                 new KeyValuePair<string, string>("post_only", postOnly.ToString().ToLower()));
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders" + queryString, newOrder);
