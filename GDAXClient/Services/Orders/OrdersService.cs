@@ -9,7 +9,6 @@ using GDAXClient.Services.HttpRequest;
 using GDAXClient.Services.Orders.Models;
 using GDAXClient.Services.Orders.Models.Responses;
 using GDAXClient.Shared;
-using GDAXClient.Utilities;
 using GDAXClient.Utilities.Extensions;
 using Newtonsoft.Json;
 
@@ -21,24 +20,20 @@ namespace GDAXClient.Services.Orders
 
         private readonly IAuthenticator authenticator;
 
-        private readonly IQueryBuilder queryBuilder;
-
         public OrdersService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator,
-            IQueryBuilder queryBuilder)
+            IAuthenticator authenticator)
                 : base(httpClient, httpRequestMessageService)
 
         {
             this.httpClient = httpClient;
             this.authenticator = authenticator;
-            this.queryBuilder = queryBuilder;
         }
 
         public async Task<OrderResponse> PlaceMarketOrderAsync(
-            OrderSide side, 
-            ProductType productPair, 
+            OrderSide side,
+            ProductType productPair,
             decimal size)
         {
             var newOrder = JsonConvert.SerializeObject(new Order
@@ -57,11 +52,11 @@ namespace GDAXClient.Services.Orders
         }
 
         public async Task<OrderResponse> PlaceLimitOrderAsync(
-            OrderSide side, 
-            ProductType productPair, 
-            decimal size, 
-            decimal price, 
-            TimeInForce timeInForce = TimeInForce.Gtc, 
+            OrderSide side,
+            ProductType productPair,
+            decimal size,
+            decimal price,
+            TimeInForce timeInForce = TimeInForce.Gtc,
             bool postOnly = true)
         {
             var newOrder = JsonConvert.SerializeObject(new Order
@@ -70,14 +65,11 @@ namespace GDAXClient.Services.Orders
                 product_id = productPair.ToDasherizedUpper(),
                 type = OrderType.Limit.ToString().ToLower(),
                 price = price,
-                size = size
+                size = size,
+                time_in_force = timeInForce.ToString().ToUpper()
             });
 
-            var queryString = queryBuilder.BuildQuery(
-                new KeyValuePair<string, string>("time_in_force", timeInForce.ToString().ToUpperInvariant()),
-                new KeyValuePair<string, string>("post_only", postOnly.ToString().ToLower()));
-            
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders"  + queryString, newOrder).ConfigureAwait(false);
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders", newOrder).ConfigureAwait(false);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
 
@@ -85,11 +77,11 @@ namespace GDAXClient.Services.Orders
         }
 
         public async Task<OrderResponse> PlaceLimitOrderAsync(
-            OrderSide side, 
-            ProductType productPair, 
-            decimal size, 
-            decimal price, 
-            GoodTillTime cancelAfter, 
+            OrderSide side,
+            ProductType productPair,
+            decimal size,
+            decimal price,
+            GoodTillTime cancelAfter,
             bool postOnly = true)
         {
             var newOrder = JsonConvert.SerializeObject(new Order
@@ -98,21 +90,17 @@ namespace GDAXClient.Services.Orders
                 product_id = productPair.ToDasherizedUpper(),
                 type = OrderType.Limit.ToString().ToLower(),
                 price = price,
-                size = size
+                size = size,
+                cancel_after = cancelAfter.ToString().ToLower()
             });
 
-            var queryString = queryBuilder.BuildQuery(
-                new KeyValuePair<string, string>("time_in_force", "GTT"),
-                new KeyValuePair<string, string>("cancel_after", cancelAfter.ToString().ToLower()),
-                new KeyValuePair<string, string>("post_only", postOnly.ToString().ToLower()));
-
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders" + queryString, newOrder);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);            
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders", newOrder);
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
 
             return orderResponse;
         }
-       
+
         public async Task<CancelOrderResponse> CancelAllOrdersAsync()
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Delete, authenticator, "/orders");
