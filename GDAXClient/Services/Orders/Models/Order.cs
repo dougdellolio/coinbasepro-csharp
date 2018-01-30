@@ -11,5 +11,9 @@
         public string type { get; set; }
 
         public string product_id { get; set; }
+
+        public string time_in_force { get; set; }
+
+        public string cancel_after { get; set; }
     }
 }
