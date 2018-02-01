@@ -15,5 +15,7 @@
         public string time_in_force { get; set; }
 
         public string cancel_after { get; set; }
+
+        public bool post_only { get; set; }
     }
 }

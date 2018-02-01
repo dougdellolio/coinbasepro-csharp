@@ -44,7 +44,7 @@ namespace GDAXClient.Specs.Services.Orders
                     .Return(Task.FromResult(new HttpResponseMessage()));
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(OrderResponseFixture.Create()));
+                    .Return(Task.FromResult(OrderResponseFixture.CreateMarketOrder()));
             };
 
             Because of = () =>
@@ -58,7 +58,7 @@ namespace GDAXClient.Specs.Services.Orders
                 order_response_result.Product_id.ShouldEqual("BTC-USD");
                 order_response_result.Side.ShouldEqual("buy");
                 order_response_result.Stp.ShouldEqual("dc");
-                order_response_result.Type.ShouldEqual("limit");
+                order_response_result.Type.ShouldEqual("market");
                 order_response_result.Time_in_force.ShouldEqual("GTC");
                 order_response_result.Post_only.ShouldBeFalse();
                 order_response_result.Created_at.ShouldEqual(new DateTime(2016, 12, 9));
@@ -81,7 +81,7 @@ namespace GDAXClient.Specs.Services.Orders
                     .Return(Task.FromResult(new HttpResponseMessage()));
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(OrderResponseFixture.Create()));
+                    .Return(Task.FromResult(OrderResponseFixture.CreateLimitOrder()));
             };
 
             Because of = () =>
@@ -96,6 +96,43 @@ namespace GDAXClient.Specs.Services.Orders
                 order_response_result.Side.ShouldEqual("buy");
                 order_response_result.Stp.ShouldEqual("dc");
                 order_response_result.Type.ShouldEqual("limit");
+                order_response_result.Time_in_force.ShouldEqual("GTC");
+                order_response_result.Post_only.ShouldBeFalse();
+                order_response_result.Created_at.ShouldEqual(new DateTime(2016, 12, 9));
+                order_response_result.Fill_fees.ShouldEqual(0.0000000000000000M);
+                order_response_result.Filled_size.ShouldEqual(0.00000000M);
+                order_response_result.Executed_value.ShouldEqual(0.0000000000000000M);
+                order_response_result.Status.ShouldEqual("pending");
+                order_response_result.Settled.ShouldBeFalse();
+            };
+        }
+
+        class when_placing_a_stop_order
+        {
+            Establish context = () =>
+            {
+                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                    .Return(new HttpRequestMessage());
+
+                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                    .Return(Task.FromResult(new HttpResponseMessage()));
+
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(OrderResponseFixture.CreateStopOrder()));
+            };
+
+            Because of = () =>
+                order_response_result = Subject.PlaceStopOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, .1M).Result;
+
+            It should_have_correct_account_information = () =>
+            {
+                order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
+                order_response_result.Price.ShouldEqual(0.10000000M);
+                order_response_result.Size.ShouldEqual(0.01000000M);
+                order_response_result.Product_id.ShouldEqual("BTC-USD");
+                order_response_result.Side.ShouldEqual("buy");
+                order_response_result.Stp.ShouldEqual("dc");
+                order_response_result.Type.ShouldEqual("stop");
                 order_response_result.Time_in_force.ShouldEqual("GTC");
                 order_response_result.Post_only.ShouldBeFalse();
                 order_response_result.Created_at.ShouldEqual(new DateTime(2016, 12, 9));
@@ -193,7 +230,7 @@ namespace GDAXClient.Specs.Services.Orders
                     .Return(Task.FromResult(new HttpResponseMessage()));
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(OrderResponseFixture.CreateMany()));
+                    .Return(Task.FromResult(OrderResponseFixture.CreateLimitOrderMany()));
             };
 
             Because of = () =>
@@ -249,7 +286,7 @@ namespace GDAXClient.Specs.Services.Orders
                     .Return(Task.FromResult(new HttpResponseMessage()));
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(OrderResponseFixture.Create()));
+                    .Return(Task.FromResult(OrderResponseFixture.CreateLimitOrder()));
             };
 
             Because of = () =>

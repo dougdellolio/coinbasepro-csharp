@@ -66,7 +66,8 @@ namespace GDAXClient.Services.Orders
                 type = OrderType.Limit.ToString().ToLower(),
                 price = price,
                 size = size,
-                time_in_force = timeInForce.ToString().ToUpper()
+                time_in_force = timeInForce.ToString().ToUpper(),
+                post_only = postOnly
             });
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders", newOrder).ConfigureAwait(false);
@@ -91,7 +92,30 @@ namespace GDAXClient.Services.Orders
                 type = OrderType.Limit.ToString().ToLower(),
                 price = price,
                 size = size,
-                cancel_after = cancelAfter.ToString().ToLower()
+                cancel_after = cancelAfter.ToString().ToLower(),
+                post_only = postOnly
+            });
+
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders", newOrder);
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
+            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
+
+            return orderResponse;
+        }
+
+        public async Task<OrderResponse> PlaceStopOrderAsync(
+            OrderSide side,
+            ProductType productPair,
+            decimal size,
+            decimal stopPrice)
+        {
+            var newOrder = JsonConvert.SerializeObject(new Order
+            {
+                side = side.ToString().ToLower(),
+                product_id = productPair.ToDasherizedUpper(),
+                type = OrderType.Stop.ToString().ToLower(),
+                price = stopPrice,
+                size = size
             });
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders", newOrder);
