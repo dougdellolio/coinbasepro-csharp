@@ -50,7 +50,7 @@ namespace GDAXClient.Specs.Services.Orders
             Because of = () =>
                 order_response_result = Subject.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M).Result;
 
-            It should_have_correct_account_information = () =>
+            It should_have_correct_order_information = () =>
             {
                 order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
                 order_response_result.Price.ShouldEqual(0.10000000M);
@@ -87,7 +87,7 @@ namespace GDAXClient.Specs.Services.Orders
             Because of = () =>
                 order_response_result = Subject.PlaceLimitOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, 0.1M, GoodTillTime.Min).Result;
 
-            It should_have_correct_account_information = () =>
+            It should_have_correct_order_information = () =>
             {
                 order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
                 order_response_result.Price.ShouldEqual(0.10000000M);
@@ -124,7 +124,7 @@ namespace GDAXClient.Specs.Services.Orders
             Because of = () =>
                 order_response_result = Subject.PlaceStopOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, .1M).Result;
 
-            It should_have_correct_account_information = () =>
+            It should_have_correct_order_information = () =>
             {
                 order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
                 order_response_result.Price.ShouldEqual(0.10000000M);
