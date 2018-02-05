@@ -37,6 +37,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - PlaceMarketOrderAsync(orderSide, productPair, size) - place market order
 - PlaceLimitOrderAsync(orderSide, productPair, size, price, timeInForce, postOnly) - place limit order with time in force
 - PlaceLimitOrderAsync(orderSide, productPair, size, price, cancelAfter, postOnly) - place limit order with cancel after date
+- PlaceStopOrderAsync(orderSide, productPair, size, stopPrice) - place stop order with stop price
 - CancelAllOrdersAsync() - cancel all orders
 - CancelOrderByIdAsync(id) - cancel order by id
 - GetAllOrdersAsync(limit) - get all open or un-settled orders (paged response)
@@ -84,18 +85,18 @@ var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>")
 var gdaxClient = new GDAXClient.GDAXClient(authenticator, true);
 
 //use one of the services 
-var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1));
+var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
 ````
 
 <h1>Examples</h1>
 
 ###### Place a market order ######
 
-`var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1));`
+`var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);`
 
 ###### Place a limit order ######
 
-`var response = await gdaxClient.OrdersService.PlaceLimitOrderAsync(OrderSide.Sell, ProductType.EthUsd, 1, 400.0M));`
+`var response = await gdaxClient.OrdersService.PlaceLimitOrderAsync(OrderSide.Sell, ProductType.EthUsd, 1, 400.0M);`
 
 ###### Cancel all open or un-settled orders ######
 

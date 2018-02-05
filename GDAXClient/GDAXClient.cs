@@ -27,7 +27,7 @@ namespace GDAXClient
 
             AccountsService = new AccountsService(httpClient, httpRequestMessageService, authenticator);
             CoinbaseAccountsService = new CoinbaseAccountsService(httpClient, httpRequestMessageService, authenticator);
-            OrdersService = new OrdersService(httpClient, httpRequestMessageService, authenticator, queryBuilder);
+            OrdersService = new OrdersService(httpClient, httpRequestMessageService, authenticator);
             PaymentsService = new PaymentsService(httpClient, httpRequestMessageService, authenticator);
             WithdrawalsService = new WithdrawalsService(httpClient, httpRequestMessageService, authenticator);
             DepositsService = new DepositsService(httpClient, httpRequestMessageService, authenticator);
