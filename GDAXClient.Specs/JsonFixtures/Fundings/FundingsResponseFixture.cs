@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Specs.JsonFixtures.Fills
+﻿namespace GDAXClient.Specs.JsonFixtures.Fundings
 {
     class FundingsResponseFixture
     {

@@ -1,14 +1,16 @@
-﻿using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Payments;
-using GDAXClient.Specs.JsonFixtures.Payments;
-using Machine.Fakes;
-using Machine.Specifications;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GDAXClient.Authentication;
+using GDAXClient.HttpClient;
+using GDAXClient.Services.HttpRequest;
+using GDAXClient.Services.Payments;
+using GDAXClient.Services.Payments.Models;
+using GDAXClient.Specs.JsonFixtures.Payments;
+using Machine.Fakes;
+using Machine.Specifications;
 
 namespace GDAXClient.Specs.Services.Payments
 {
@@ -44,7 +46,7 @@ namespace GDAXClient.Specs.Services.Payments
 
             It should_have_correct_payment_methods = () =>
             {
-                payment_methods.First().Id.ShouldEqual(new System.Guid("bc6d7162-d984-5ffa-963c-a493b1c1370b"));
+                payment_methods.First().Id.ShouldEqual(new Guid("bc6d7162-d984-5ffa-963c-a493b1c1370b"));
                 payment_methods.First().Name.ShouldEqual("Bank of America - eBan... ********7134");
                 payment_methods.First().Currency.ShouldEqual("USD");
                 payment_methods.First().Allow_buy.ShouldBeTrue();

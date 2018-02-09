@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXClient.Services.Accounts
+namespace GDAXClient.Services.CoinbaseAccounts.Models
 {
     public class CoinbaseAccount
     {

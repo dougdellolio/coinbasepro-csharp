@@ -13,7 +13,7 @@ namespace GDAXClient.Utilities
             {
                 if(queryParameter.Value != string.Empty)
                 {
-                    queryString.Append(queryParameter.Key.ToLower() + "=" + queryParameter.Value.ToLower() + "&");
+                    queryString.Append(queryParameter.Key.ToLower() + "=" + queryParameter.Value + "&");
                 }
             }
 

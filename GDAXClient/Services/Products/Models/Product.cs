@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Services.Products
+﻿namespace GDAXClient.Services.Products.Models
 {
     public class Product
     {

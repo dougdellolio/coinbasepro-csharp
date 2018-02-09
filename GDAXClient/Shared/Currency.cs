@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Services
+﻿namespace GDAXClient.Shared
 {
     public enum Currency
     {

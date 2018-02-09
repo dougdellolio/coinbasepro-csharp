@@ -1,11 +1,11 @@
-﻿using GDAXClient.Services.Accounts;
-using GDAXClient.Utilities;
-using GDAXClient.Utilities.Extensions;
-using System;
+﻿using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
-using System.Globalization;
+using GDAXClient.Authentication;
+using GDAXClient.Utilities;
+using GDAXClient.Utilities.Extensions;
 
 namespace GDAXClient.Services.HttpRequest
 {
@@ -31,7 +31,7 @@ namespace GDAXClient.Services.HttpRequest
             string requestUri, 
             string contentBody = "")
         {
-            var baseUri = sandBox == true
+            var baseUri = sandBox
                 ? sandBoxApiUri
                 : apiUri;
 
@@ -52,7 +52,7 @@ namespace GDAXClient.Services.HttpRequest
         private string ComputeSignature(HttpMethod httpMethod, string secret, double timestamp, string requestUri, string contentBody = "")
         {
             var convertedString = Convert.FromBase64String(secret);
-            var prehash = timestamp.ToString(CultureInfo.InvariantCulture) + httpMethod.ToString().ToUpper() + requestUri + contentBody;
+            var prehash = timestamp.ToString("F0", CultureInfo.InvariantCulture) + httpMethod.ToString().ToUpper() + requestUri + contentBody;
             return HashString(prehash, convertedString);
         }
 
@@ -73,7 +73,7 @@ namespace GDAXClient.Services.HttpRequest
         {
             httpRequestMessage.Headers.Add("User-Agent", "GDAXClient");
             httpRequestMessage.Headers.Add("CB-ACCESS-KEY", authenticator.ApiKey);
-            httpRequestMessage.Headers.Add("CB-ACCESS-TIMESTAMP", timeStamp.ToString(CultureInfo.InvariantCulture));
+            httpRequestMessage.Headers.Add("CB-ACCESS-TIMESTAMP", timeStamp.ToString("F0", CultureInfo.InvariantCulture));
             httpRequestMessage.Headers.Add("CB-ACCESS-SIGN", signedSignature);
             httpRequestMessage.Headers.Add("CB-ACCESS-PASSPHRASE", authenticator.Passphrase);
         }

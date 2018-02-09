@@ -11,6 +11,8 @@
         LtcUsd,
         LtcEur,
         LtcBtc,
-        BchUsd
+        BchUsd,
+        BchEur,
+        BchBtc
     }
 }

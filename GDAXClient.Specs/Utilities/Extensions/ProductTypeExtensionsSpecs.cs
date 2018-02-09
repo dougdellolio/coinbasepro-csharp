@@ -58,6 +58,5 @@ namespace GDAXClient.Specs.Utilities.Extensions
             It should_calculate_correct_time_stamp = () =>
                  product_type_result.ShouldEqual("BCH-USD");
         }
-
     }
 }

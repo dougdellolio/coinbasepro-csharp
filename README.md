@@ -12,8 +12,8 @@ GDAX API C# Client Library - https://docs.gdax.com/
 <i>Generate your key at https://www.gdax.com/settings/api</i>
 
 ````
-//create an authenticator with your apiKey, signature and passphrase
-var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>");
+//create an authenticator with your apiKey, secret and passphrase
+var authenticator = new Authenticator("<apiKey>", "<secret>", "<passphrase>");
 
 //create the GDAX client
 var gdaxClient = new GDAXClient.GDAXClient(authenticator);
@@ -37,6 +37,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - PlaceMarketOrderAsync(orderSide, productPair, size) - place market order
 - PlaceLimitOrderAsync(orderSide, productPair, size, price, timeInForce, postOnly) - place limit order with time in force
 - PlaceLimitOrderAsync(orderSide, productPair, size, price, cancelAfter, postOnly) - place limit order with cancel after date
+- PlaceStopOrderAsync(orderSide, productPair, size, stopPrice) - place stop order with stop price
 - CancelAllOrdersAsync() - cancel all orders
 - CancelOrderByIdAsync(id) - cancel order by id
 - GetAllOrdersAsync(limit) - get all open or un-settled orders (paged response)
@@ -56,7 +57,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 
 ###### Products ######
 - GetAllProductsAsync() - get a list of available currency pairs for trading
-- GetProductOrderBookAsync(productType) - get a list of open orders for a product
+- GetProductOrderBookAsync(productType, productLevel) - get a list of open orders for a product (specify level 1, 2, or 3)
 - GetProductTickerAsync(productType) - get information about the last trade (tick), best bid/ask and 24h volume
 - GetProductStatsAsync(productType) - get 24 hour stats for a product
 - GetHistoricRatesAsync(productPair, start, end, granularity) - get historic rates for a product
@@ -84,18 +85,18 @@ var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>")
 var gdaxClient = new GDAXClient.GDAXClient(authenticator, true);
 
 //use one of the services 
-var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1));
+var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
 ````
 
 <h1>Examples</h1>
 
 ###### Place a market order ######
 
-`var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1));`
+`var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);`
 
 ###### Place a limit order ######
 
-`var response = await gdaxClient.OrdersService.PlaceLimitOrderAsync(OrderSide.Sell, ProductType.EthUsd, 1, 400.0M));`
+`var response = await gdaxClient.OrdersService.PlaceLimitOrderAsync(OrderSide.Sell, ProductType.EthUsd, 1, 400.0M);`
 
 ###### Cancel all open or un-settled orders ######
 
