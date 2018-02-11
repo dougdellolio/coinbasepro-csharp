@@ -1,4 +1,6 @@
-﻿namespace GDAXClient.Specs.JsonFixtures.Orders
+﻿using GDAXClient.Services.Orders.Models;
+
+namespace GDAXClient.Specs.JsonFixtures.Orders
 {
     public static class OrderResponseFixture
     {
@@ -74,11 +76,11 @@
             return json;
         }
 
-        public static string CreateLimitOrderMany()
+        public static string CreateLimitOrderMany(OrderStatus orderStatus = OrderStatus.Pending)
         {
-            var json = @"
+            var json = $@"
 [
-    {
+    {{
         ""id"": ""d0c5340b-6d6c-49d9-b567-48c4bfca13d2"",
         ""price"": ""0.10000000"",
         ""size"": ""0.01000000"",
@@ -92,10 +94,10 @@
         ""fill_fees"": ""0.0000000000000000"",
         ""filled_size"": ""0.00000000"",
         ""executed_value"": ""0.0000000000000000"",
-        ""status"": ""pending"",
+        ""status"": ""{orderStatus.ToString().ToLower()}"",
         ""settled"": false
-    },
-    {    ""id"": ""8b99b139-58f2-4ab2-8e7a-c11c846e3022"",
+    }},
+    {{    ""id"": ""8b99b139-58f2-4ab2-8e7a-c11c846e3022"",
         ""price"": ""0.10000000"",
         ""size"": ""0.01000000"",
         ""product_id"": ""ETH-USD"",
@@ -108,9 +110,9 @@
         ""fill_fees"": ""0.0000000000000000"",
         ""filled_size"": ""0.00000000"",
         ""executed_value"": ""0.0000000000000000"",
-        ""status"": ""pending"",
+        ""status"": ""{orderStatus.ToString().ToLower()}"",
         ""settled"": false
-    }
+    }}
 ]";
 
             return json;

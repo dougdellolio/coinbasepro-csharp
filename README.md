@@ -40,7 +40,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - PlaceStopOrderAsync(orderSide, productPair, size, stopPrice) - place stop order with stop price
 - CancelAllOrdersAsync() - cancel all orders
 - CancelOrderByIdAsync(id) - cancel order by id
-- GetAllOrdersAsync(limit) - get all open or un-settled orders (paged response)
+- GetAllOrdersAsync(orderStatus, limit) - get all, active or pending orders (paged response)
 - GetOrderByIdAsync(id) - get order by id
 
 ###### Payments ######

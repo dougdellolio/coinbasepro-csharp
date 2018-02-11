@@ -155,9 +155,9 @@ namespace GDAXClient.Services.Orders
             };
         }
 
-        public async Task<IList<IList<OrderResponse>>> GetAllOrdersAsync(int limit = 100)
+        public async Task<IList<IList<OrderResponse>>> GetAllOrdersAsync(OrderStatus orderStatus = OrderStatus.All, int limit = 100)
         {
-            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<OrderResponse>(HttpMethod.Get, authenticator, $"/orders?limit={limit}");
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<OrderResponse>(HttpMethod.Get, authenticator, $"/orders?limit={limit}&status={orderStatus.ToString().ToLower()}");
 
             return httpResponseMessage;
         }

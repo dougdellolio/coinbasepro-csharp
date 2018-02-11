@@ -275,6 +275,62 @@ namespace GDAXClient.Specs.Services.Orders
             };
         }
 
+        class when_getting_all_orders_and_specifying_order_status
+        {
+            Establish context = () =>
+            {
+                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                    .Return(new HttpRequestMessage());
+
+                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                    .Return(Task.FromResult(new HttpResponseMessage()));
+
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(OrderResponseFixture.CreateLimitOrderMany(OrderStatus.Active)));
+            };
+
+            Because of = () =>
+                order_many_response_result = Subject.GetAllOrdersAsync(OrderStatus.Active).Result;
+
+            It should_have_correct_number_of_orders = () =>
+                order_many_response_result.First().Count.ShouldEqual(2);
+
+            It should_have_correct_orders = () =>
+            {
+                order_many_response_result.First().First().Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
+                order_many_response_result.First().First().Price.ShouldEqual(0.10000000M);
+                order_many_response_result.First().First().Size.ShouldEqual(0.01000000M);
+                order_many_response_result.First().First().Product_id.ShouldEqual("BTC-USD");
+                order_many_response_result.First().First().Side.ShouldEqual("buy");
+                order_many_response_result.First().First().Stp.ShouldEqual("dc");
+                order_many_response_result.First().First().Type.ShouldEqual("limit");
+                order_many_response_result.First().First().Time_in_force.ShouldEqual("GTC");
+                order_many_response_result.First().First().Post_only.ShouldBeFalse();
+                order_many_response_result.First().First().Created_at.ShouldEqual(new DateTime(2016, 12, 9));
+                order_many_response_result.First().First().Fill_fees.ShouldEqual(0.0000000000000000M);
+                order_many_response_result.First().First().Filled_size.ShouldEqual(0.00000000M);
+                order_many_response_result.First().First().Executed_value.ShouldEqual(0.0000000000000000M);
+                order_many_response_result.First().First().Status.ShouldEqual("active");
+                order_many_response_result.First().First().Settled.ShouldBeFalse();
+
+                order_many_response_result.First().Skip(1).First().Id.ShouldEqual(new Guid("8b99b139-58f2-4ab2-8e7a-c11c846e3022"));
+                order_many_response_result.First().Skip(1).First().Price.ShouldEqual(0.10000000M);
+                order_many_response_result.First().Skip(1).First().Size.ShouldEqual(0.01000000M);
+                order_many_response_result.First().Skip(1).First().Product_id.ShouldEqual("ETH-USD");
+                order_many_response_result.First().Skip(1).First().Side.ShouldEqual("buy");
+                order_many_response_result.First().Skip(1).First().Stp.ShouldEqual("dc");
+                order_many_response_result.First().Skip(1).First().Type.ShouldEqual("limit");
+                order_many_response_result.First().Skip(1).First().Time_in_force.ShouldEqual("GTC");
+                order_many_response_result.First().Skip(1).First().Post_only.ShouldBeFalse();
+                order_many_response_result.First().Skip(1).First().Created_at.ShouldEqual(new DateTime(2016, 12, 9));
+                order_many_response_result.First().Skip(1).First().Fill_fees.ShouldEqual(0.0000000000000000M);
+                order_many_response_result.First().Skip(1).First().Filled_size.ShouldEqual(0.00000000M);
+                order_many_response_result.First().Skip(1).First().Executed_value.ShouldEqual(0.0000000000000000M);
+                order_many_response_result.First().Skip(1).First().Status.ShouldEqual("active");
+                order_many_response_result.First().Skip(1).First().Settled.ShouldBeFalse();
+            };
+        }
+
         class when_getting_order_by_id
         {
             Establish context = () =>
