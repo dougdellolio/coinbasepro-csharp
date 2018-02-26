@@ -74,6 +74,13 @@ namespace GDAXClient.Services.Products
             return productStatsResponse;
         }
 
+        public async Task<IList<IList<ProductTrade>>> GetTradesAsync(ProductType productPair)
+        {
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<ProductTrade>(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/trades");
+
+            return httpResponseMessage;
+        }
+
         public async Task<IEnumerable<object[]>> GetHistoricRatesAsync(ProductType productPair, DateTime start, DateTime end, int granularity)
         {
             var isoStart = start.ToString("s");

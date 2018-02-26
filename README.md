@@ -59,6 +59,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - GetAllProductsAsync() - get a list of available currency pairs for trading
 - GetProductOrderBookAsync(productType, productLevel) - get a list of open orders for a product (specify level 1, 2, or 3)
 - GetProductTickerAsync(productType) - get information about the last trade (tick), best bid/ask and 24h volume
+- GetTradesAsync(productType) - get latest trades for a product (paged response)
 - GetProductStatsAsync(productType) - get 24 hour stats for a product
 - GetHistoricRatesAsync(productPair, start, end, granularity) - get historic rates for a product
 
