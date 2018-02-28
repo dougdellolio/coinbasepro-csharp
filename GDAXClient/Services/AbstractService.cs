@@ -48,7 +48,8 @@ namespace GDAXClient.Services
             HttpMethod httpMethod,
             IAuthenticator authenticator,
             string uri,
-            string content = null)
+            string content = null,
+            int numberOfPages = 0)
         {
             var pagedList = new List<IList<T>>();
 
@@ -68,7 +69,7 @@ namespace GDAXClient.Services
                 return pagedList;
             }
 
-            var subsequentPages = await GetAllSubsequentPages<T>(authenticator, uri, firstPageAfterCursorId.First());
+            var subsequentPages = await GetAllSubsequentPages<T>(authenticator, uri, firstPageAfterCursorId.First(), numberOfPages);
 
             pagedList.AddRange(subsequentPages);
 
@@ -77,13 +78,18 @@ namespace GDAXClient.Services
 
         private async Task<IList<IList<T>>> GetAllSubsequentPages<T>(
             IAuthenticator authenticator,
-            string uri, 
-            string firstPageAfterCursorId)
+            string uri,
+            string firstPageAfterCursorId, 
+            int numberOfPages)
         {
             var pagedList = new List<IList<T>>();
             var subsequentPageAfterHeaderId = firstPageAfterCursorId;
 
-            while (true)
+            var runCount = numberOfPages == 0 
+                ? int.MaxValue
+                : numberOfPages;
+
+            while (runCount > 1)
             {
                 var subsequentHttpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, uri + $"&after={subsequentPageAfterHeaderId}").ConfigureAwait(false);
 
@@ -98,6 +104,8 @@ namespace GDAXClient.Services
                 var page = JsonConvert.DeserializeObject<IList<T>>(subsequentContentBody);
 
                 pagedList.Add(page);
+
+                runCount--;
             }
 
             return pagedList;

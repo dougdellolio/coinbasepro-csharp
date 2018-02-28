@@ -95,6 +95,7 @@
     <Compile Include="JsonFixtures\Products\ProductHistoryFixture.cs" />
     <Compile Include="JsonFixtures\Products\ProductStatsFixture.cs" />
     <Compile Include="JsonFixtures\Products\ProductTickerFixture.cs" />
+    <Compile Include="JsonFixtures\Products\ProductTradesFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\CoinbaseWithdrawalResponseFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\CryptoWithdrawalResponseFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\WithdrawalsResponseFixture.cs" />
