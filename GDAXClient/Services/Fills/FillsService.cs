@@ -17,29 +17,37 @@ namespace GDAXClient.Services.Fills
         public FillsService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator) 
+            IAuthenticator authenticator)
                 : base(httpClient, httpRequestMessageService)
         {
             this.authenticator = authenticator;
         }
 
-        public async Task<IList<IList<FillResponse>>> GetAllFillsAsync(int limit = 100)
+        public async Task<IList<IList<FillResponse>>> GetAllFillsAsync(
+            int limit = 100, 
+            int numberOfPages = 0)
         {
-            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, authenticator, $"/fills?limit={limit}");
+            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, authenticator, $"/fills?limit={limit}", numberOfPages: numberOfPages);
 
             return fills;
         }
 
-        public async Task<IList<IList<FillResponse>>> GetFillsByOrderIdAsync(string orderId, int limit = 100)
+        public async Task<IList<IList<FillResponse>>> GetFillsByOrderIdAsync(
+            string orderId, 
+            int limit = 100, 
+            int numberOfPages = 0)
         {
-            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, authenticator, $"/fills?limit={limit}&order_id={orderId}");
+            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, authenticator, $"/fills?limit={limit}&order_id={orderId}", numberOfPages: numberOfPages);
 
             return fills;
         }
 
-        public async Task<IList<IList<FillResponse>>> GetFillsByProductIdAsync(ProductType productId, int limit = 100)
+        public async Task<IList<IList<FillResponse>>> GetFillsByProductIdAsync(
+            ProductType productId, 
+            int limit = 100, 
+            int numberOfPages = 0)
         {
-            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, authenticator, $"/fills?limit={limit}&product_id={productId.ToDasherizedUpper()}");
+            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, authenticator, $"/fills?limit={limit}&product_id={productId.ToDasherizedUpper()}", numberOfPages: numberOfPages);
 
             return fills;
         }

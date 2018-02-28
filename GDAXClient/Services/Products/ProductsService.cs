@@ -74,9 +74,12 @@ namespace GDAXClient.Services.Products
             return productStatsResponse;
         }
 
-        public async Task<IList<IList<ProductTrade>>> GetTradesAsync(ProductType productPair)
+        public async Task<IList<IList<ProductTrade>>> GetTradesAsync(
+            ProductType productPair,
+            int limit = 100,
+            int numberOfPages = 0)
         {
-            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<ProductTrade>(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/trades");
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<ProductTrade>(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/trades?limit={limit}", numberOfPages: numberOfPages);
 
             return httpResponseMessage;
         }

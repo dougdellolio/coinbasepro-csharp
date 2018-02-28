@@ -27,8 +27,8 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 ###### Accounts ######
 - GetAllAccountsAsync() - get all accounts
 - GetAccountByIdAsync(id) - get account by id
-- GetAccountHistoryAsync(id, limit) - get account history (paged response)
-- GetAccountHoldsAsync(id, limit) - get all holds placed on an account (paged response)
+- GetAccountHistoryAsync(id, limit, numberOfPages) - get account history (paged response)
+- GetAccountHoldsAsync(id, limit, numberOfPages) - get all holds placed on an account (paged response)
 
 ###### CoinbaseAccounts ######
 - GetAllAccountsAsync() - get all coinbase accounts
@@ -40,7 +40,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - PlaceStopOrderAsync(orderSide, productPair, size, stopPrice) - place stop order with stop price
 - CancelAllOrdersAsync() - cancel all orders
 - CancelOrderByIdAsync(id) - cancel order by id
-- GetAllOrdersAsync(orderStatus, limit) - get all, active or pending orders (paged response)
+- GetAllOrdersAsync(orderStatus, limit, numberOfPages) - get all, active or pending orders (paged response)
 - GetOrderByIdAsync(id) - get order by id
 
 ###### Payments ######
@@ -59,7 +59,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - GetAllProductsAsync() - get a list of available currency pairs for trading
 - GetProductOrderBookAsync(productType, productLevel) - get a list of open orders for a product (specify level 1, 2, or 3)
 - GetProductTickerAsync(productType) - get information about the last trade (tick), best bid/ask and 24h volume
-- GetTradesAsync(productType) - get latest trades for a product (paged response)
+- GetTradesAsync(productType, limit, numberOfPages) - get latest trades for a product (paged response)
 - GetProductStatsAsync(productType) - get 24 hour stats for a product
 - GetHistoricRatesAsync(productPair, start, end, granularity) - get historic rates for a product
 
@@ -67,12 +67,12 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - GetAllCurrenciesAsync() - gets a list of known currencies
 
 ###### Fills ######
-- GetAllFillsAsync(limit) - gets a list of all recent fills (paged response)
-- GetFillsByOrderIdAsync(orderId, limit) - gets a list of all recent fills by order id (paged response)
-- GetFillsByProductIdAsync(productType, limit) - gets a list of all recent fills by product type (paged response)
+- GetAllFillsAsync(limit, numberOfPages) - gets a list of all recent fills (paged response)
+- GetFillsByOrderIdAsync(orderId, limit, numberOfPages) - gets a list of all recent fills by order id (paged response)
+- GetFillsByProductIdAsync(productType, limit, numberOfPages) - gets a list of all recent fills by product type (paged response)
 
 ###### Fundings ######
-- GetAllFundingsAsync(limit, fundingStatus) - gets a list of all orders placed with a margin profile that draws funding (paged response)
+- GetAllFundingsAsync(limit, fundingStatus, numberOfPages) - gets a list of all orders placed with a margin profile that draws funding (paged response)
 
 <h1>Sandbox Support</h1>
 
@@ -107,7 +107,9 @@ var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Bu
 
 ````
 //the limit is the amount of items per page - in this case it would be 2 items (default is 100)
-var accountHistoryResponse = await gdaxClient.AccountsService.GetAccountHistoryAsync("ef56a389", 2);
+//you can also specify the number of pages to request - in this case it would be the first 5 pages (default is 0 which will request all pages)
+//some routes may require the number of pages to be specified as there are rate limits
+var accountHistoryResponse = await gdaxClient.AccountsService.GetAccountHistoryAsync("ef56a389", 2, 5);
 
 //retrieve by page number - this would return the first page of the response (latest first)
 var firstPage = accountHistoryResponse.ToList()[0];
