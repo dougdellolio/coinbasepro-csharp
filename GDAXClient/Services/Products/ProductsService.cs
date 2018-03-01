@@ -96,7 +96,9 @@ namespace GDAXClient.Services.Products
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/candles" + queryString);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productHistoryResponse = JsonConvert.DeserializeObject<IList<Candle>>(contentBody);
+            var productHistoryResponse = JsonConvert.DeserializeObject<IList<Candle>>(contentBody
+                    // Ensure we don't lose any precision
+                    , new JsonSerializerSettings {FloatParseHandling = FloatParseHandling.Decimal});
 
             return productHistoryResponse;
         }
