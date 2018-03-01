@@ -84,7 +84,7 @@ namespace GDAXClient.Services.Products
             return httpResponseMessage;
         }
 
-        public async Task<IEnumerable<object[]>> GetHistoricRatesAsync(ProductType productPair, DateTime start, DateTime end, int granularity)
+        public async Task<IList<Candle>> GetHistoricRatesAsync(ProductType productPair, DateTime start, DateTime end, int granularity)
         {
             var isoStart = start.ToString("s");
             var isoEnd = end.ToString("s");
@@ -96,7 +96,7 @@ namespace GDAXClient.Services.Products
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/candles" + queryString);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productHistoryResponse = JsonConvert.DeserializeObject<IEnumerable<object[]>>(contentBody);
+            var productHistoryResponse = JsonConvert.DeserializeObject<IList<Candle>>(contentBody);
 
             return productHistoryResponse;
         }
