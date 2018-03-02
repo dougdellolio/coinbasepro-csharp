@@ -71,6 +71,7 @@
     <Compile Include="Services\Products\Models\Ask.cs" />
     <Compile Include="Services\Products\Models\Bid.cs" />
     <Compile Include="Services\Products\Models\Candle.cs" />
+    <Compile Include="Services\Products\Models\CandleGranularity.cs" />
     <Compile Include="Services\Products\Models\Product.cs" />
     <Compile Include="Services\Products\Models\ProductLevel.cs" />
     <Compile Include="Services\Products\Models\ProductStats.cs" />

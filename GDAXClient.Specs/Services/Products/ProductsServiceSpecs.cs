@@ -264,7 +264,7 @@ namespace GDAXClient.Specs.Services.Products
             };
 
             Because of = () =>
-                product_history_response = Subject.GetHistoricRatesAsync(ProductType.BtcUsd, DateTime.Now.AddDays(-1), DateTime.Now, 57600).Result;
+                product_history_response = Subject.GetHistoricRatesAsync(ProductType.BtcUsd, DateTime.Now.AddDays(-1), DateTime.Now, CandleGranularity.Minutes1).Result;
             
             It should_have_correct_product_stats = () =>
             {
