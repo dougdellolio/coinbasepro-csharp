@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.Accounts;
-using GDAXClient.Services.Accounts.Models;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Specs.JsonFixtures.Accounts;
-using GDAXClient.Specs.JsonFixtures.HttpResponseMessage;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.Accounts;
+using GDAXSharp.Services.Accounts.Models;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Specs.JsonFixtures.Accounts;
+using GDAXSharp.Specs.JsonFixtures.HttpResponseMessage;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXClient.Specs.Services.Accounts
+namespace GDAXSharp.Specs.Services.Accounts
 {
     [Subject("AccountsService")]
     public class AccountsServiceSpecs : WithSubject<AccountsService>

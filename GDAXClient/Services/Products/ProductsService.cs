@@ -4,17 +4,17 @@ using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Products.Models;
-using GDAXClient.Services.Products.Models.Responses;
-using GDAXClient.Shared;
-using GDAXClient.Utilities;
-using GDAXClient.Utilities.Extensions;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Services.Products.Models;
+using GDAXSharp.Services.Products.Models.Responses;
+using GDAXSharp.Shared;
+using GDAXSharp.Utilities;
+using GDAXSharp.Utilities.Extensions;
 using Newtonsoft.Json;
 
-namespace GDAXClient.Services.Products
+namespace GDAXSharp.Services.Products
 {
     public class ProductsService : AbstractService
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXClient.Services.Products.Models
+namespace GDAXSharp.Services.Products.Models
 {
     public class ProductTicker
     {

@@ -3,11 +3,11 @@ using System.Globalization;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
-using GDAXClient.Authentication;
-using GDAXClient.Utilities;
-using GDAXClient.Utilities.Extensions;
+using GDAXSharp.Authentication;
+using GDAXSharp.Utilities;
+using GDAXSharp.Utilities.Extensions;
 
-namespace GDAXClient.Services.HttpRequest
+namespace GDAXSharp.Services.HttpRequest
 {
     public class HttpRequestMessageService : IHttpRequestMessageService
     {

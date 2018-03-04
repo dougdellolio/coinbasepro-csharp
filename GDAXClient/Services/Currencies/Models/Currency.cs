@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Services.Currencies.Models
+﻿namespace GDAXSharp.Services.Currencies.Models
 {
     public class Currency
     {

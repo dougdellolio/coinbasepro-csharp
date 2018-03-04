@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GDAXClient.Services.Payments.Models
+namespace GDAXSharp.Services.Payments.Models
 {
     public class PaymentMethod
     {

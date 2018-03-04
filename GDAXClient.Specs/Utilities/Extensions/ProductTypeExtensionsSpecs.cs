@@ -1,8 +1,8 @@
-﻿using GDAXClient.Shared;
-using GDAXClient.Utilities.Extensions;
+﻿using GDAXSharp.Shared;
+using GDAXSharp.Utilities.Extensions;
 using Machine.Specifications;
 
-namespace GDAXClient.Specs.Utilities.Extensions
+namespace GDAXSharp.Specs.Utilities.Extensions
 {
     [Subject("ProductTypeExtensions")]
     public class ProductTypeExtensionsSpecs

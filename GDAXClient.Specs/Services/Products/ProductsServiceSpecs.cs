@@ -4,18 +4,18 @@ using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Products;
-using GDAXClient.Services.Products.Models;
-using GDAXClient.Services.Products.Models.Responses;
-using GDAXClient.Shared;
-using GDAXClient.Specs.JsonFixtures.Products;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Services.Products;
+using GDAXSharp.Services.Products.Models;
+using GDAXSharp.Services.Products.Models.Responses;
+using GDAXSharp.Shared;
+using GDAXSharp.Specs.JsonFixtures.Products;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXClient.Specs.Services.Products
+namespace GDAXSharp.Specs.Services.Products
 {
     [Subject("ProductsService")]
     public class ProductsServiceSpecs : WithSubject<ProductsService>

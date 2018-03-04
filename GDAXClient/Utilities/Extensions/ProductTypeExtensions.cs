@@ -1,6 +1,6 @@
-﻿using GDAXClient.Shared;
+﻿using GDAXSharp.Shared;
 
-namespace GDAXClient.Utilities.Extensions
+namespace GDAXSharp.Utilities.Extensions
 {
     public static class ProductTypeExtensions
     {

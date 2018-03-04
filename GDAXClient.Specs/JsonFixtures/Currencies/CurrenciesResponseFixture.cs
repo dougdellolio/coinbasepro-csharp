@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Specs.JsonFixtures.Currencies
+﻿namespace GDAXSharp.Specs.JsonFixtures.Currencies
 {
     public static class CurrenciesResponseFixture
     {

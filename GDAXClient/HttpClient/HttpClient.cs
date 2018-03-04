@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace GDAXClient.HttpClient
+namespace GDAXSharp.HttpClient
 {
     public class HttpClient : IHttpClient
     {

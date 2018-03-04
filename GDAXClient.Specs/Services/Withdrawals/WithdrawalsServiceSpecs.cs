@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Withdrawals;
-using GDAXClient.Services.Withdrawals.Models.Responses;
-using GDAXClient.Shared;
-using GDAXClient.Specs.JsonFixtures.Withdrawals;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Services.Withdrawals;
+using GDAXSharp.Services.Withdrawals.Models.Responses;
+using GDAXSharp.Shared;
+using GDAXSharp.Specs.JsonFixtures.Withdrawals;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXClient.Specs.Services.Withdrawals
+namespace GDAXSharp.Specs.Services.Withdrawals
 {
     [Subject("WithdrawalsService")]
     public class WithdrawalsServiceSpecs : WithSubject<WithdrawalsService>

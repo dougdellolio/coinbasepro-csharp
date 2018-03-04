@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GDAXClient.Utilities
+namespace GDAXSharp.Utilities
 {
     public interface IQueryBuilder
     {

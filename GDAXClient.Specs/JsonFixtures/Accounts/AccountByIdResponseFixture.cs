@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Specs.JsonFixtures.Accounts
+﻿namespace GDAXSharp.Specs.JsonFixtures.Accounts
 {
     public static class AccountByIdResponseFixture
     {

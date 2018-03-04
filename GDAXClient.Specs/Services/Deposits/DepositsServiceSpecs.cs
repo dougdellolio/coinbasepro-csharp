@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.Deposits;
-using GDAXClient.Services.Deposits.Models.Responses;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Withdrawals.Models.Responses;
-using GDAXClient.Shared;
-using GDAXClient.Specs.JsonFixtures.Deposits;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.Deposits;
+using GDAXSharp.Services.Deposits.Models.Responses;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Services.Withdrawals.Models.Responses;
+using GDAXSharp.Shared;
+using GDAXSharp.Specs.JsonFixtures.Deposits;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXClient.Specs.Services.Deposits
+namespace GDAXSharp.Specs.Services.Deposits
 {
     [Subject("DepositsService")]
     public class DepositsServiceSpecs : WithSubject<DepositsService>

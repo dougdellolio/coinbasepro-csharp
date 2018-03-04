@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Withdrawals.Models;
-using GDAXClient.Services.Withdrawals.Models.Responses;
-using GDAXClient.Shared;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Services.Withdrawals.Models;
+using GDAXSharp.Services.Withdrawals.Models.Responses;
+using GDAXSharp.Shared;
 using Newtonsoft.Json;
 
-namespace GDAXClient.Services.Withdrawals
+namespace GDAXSharp.Services.Withdrawals
 {
     public class WithdrawalsService : AbstractService
     {

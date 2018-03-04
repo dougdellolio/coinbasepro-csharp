@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GDAXClient.Services.Orders.Models.Responses
+namespace GDAXSharp.Services.Orders.Models.Responses
 {
     public class CancelOrderResponse
     {

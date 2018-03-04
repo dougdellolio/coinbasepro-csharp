@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
-using GDAXClient.Authentication;
+using GDAXSharp.Authentication;
 
-namespace GDAXClient.Services.HttpRequest
+namespace GDAXSharp.Services.HttpRequest
 {
     public interface IHttpRequestMessageService
     {

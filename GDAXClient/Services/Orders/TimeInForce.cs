@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Services.Orders
+﻿namespace GDAXSharp.Services.Orders
 {
     public enum TimeInForce
     {

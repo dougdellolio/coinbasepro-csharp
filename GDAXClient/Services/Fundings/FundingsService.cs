@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.Fundings.Models;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Utilities;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.Fundings.Models;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Utilities;
 
-namespace GDAXClient.Services.Fundings
+namespace GDAXSharp.Services.Fundings
 {
     public class FundingsService : AbstractService
     {

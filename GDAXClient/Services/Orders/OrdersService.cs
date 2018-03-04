@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Orders.Models;
-using GDAXClient.Services.Orders.Models.Responses;
-using GDAXClient.Shared;
-using GDAXClient.Utilities.Extensions;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Services.Orders.Models;
+using GDAXSharp.Services.Orders.Models.Responses;
+using GDAXSharp.Shared;
+using GDAXSharp.Utilities.Extensions;
 using Newtonsoft.Json;
 
-namespace GDAXClient.Services.Orders
+namespace GDAXSharp.Services.Orders
 {
     public class OrdersService : AbstractService
     {

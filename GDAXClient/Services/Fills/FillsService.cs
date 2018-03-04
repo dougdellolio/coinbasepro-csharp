@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.Fills.Models.Responses;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Shared;
-using GDAXClient.Utilities.Extensions;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.Fills.Models.Responses;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Shared;
+using GDAXSharp.Utilities.Extensions;
 
-namespace GDAXClient.Services.Fills
+namespace GDAXSharp.Services.Fills
 {
     public class FillsService : AbstractService
     {

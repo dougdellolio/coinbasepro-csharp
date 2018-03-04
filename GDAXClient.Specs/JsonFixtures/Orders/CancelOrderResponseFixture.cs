@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Specs.JsonFixtures.Orders
+﻿namespace GDAXSharp.Specs.JsonFixtures.Orders
 {
     public static class CancelOrderResponseFixture
     {

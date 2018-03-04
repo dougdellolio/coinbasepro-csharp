@@ -1,18 +1,18 @@
-﻿using GDAXClient.Authentication;
-using GDAXClient.Services.Accounts;
-using GDAXClient.Services.CoinbaseAccounts;
-using GDAXClient.Services.Currencies;
-using GDAXClient.Services.Deposits;
-using GDAXClient.Services.Fills;
-using GDAXClient.Services.Fundings;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Orders;
-using GDAXClient.Services.Payments;
-using GDAXClient.Services.Products;
-using GDAXClient.Services.Withdrawals;
-using GDAXClient.Utilities;
+﻿using GDAXSharp.Authentication;
+using GDAXSharp.Services.Accounts;
+using GDAXSharp.Services.CoinbaseAccounts;
+using GDAXSharp.Services.Currencies;
+using GDAXSharp.Services.Deposits;
+using GDAXSharp.Services.Fills;
+using GDAXSharp.Services.Fundings;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Services.Orders;
+using GDAXSharp.Services.Payments;
+using GDAXSharp.Services.Products;
+using GDAXSharp.Services.Withdrawals;
+using GDAXSharp.Utilities;
 
-namespace GDAXClient
+namespace GDAXSharp
 {
     public class GDAXClient
     {

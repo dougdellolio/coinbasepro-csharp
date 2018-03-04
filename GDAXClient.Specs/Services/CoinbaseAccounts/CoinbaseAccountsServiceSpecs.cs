@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.CoinbaseAccounts;
-using GDAXClient.Services.CoinbaseAccounts.Models;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Specs.JsonFixtures.CoinbaseAccounts;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.CoinbaseAccounts;
+using GDAXSharp.Services.CoinbaseAccounts.Models;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Specs.JsonFixtures.CoinbaseAccounts;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXClient.Specs.Services.CoinbaseAccounts
+namespace GDAXSharp.Specs.Services.CoinbaseAccounts
 {
     [Subject("CoinbaseAccountsService")]
     public class CoinbaseAccountsServiceSpecs : WithSubject<CoinbaseAccountsService>

@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Specs.JsonFixtures.Payments
+﻿namespace GDAXSharp.Specs.JsonFixtures.Payments
 {
     public static class PaymentMethodsResponseFixture
     {

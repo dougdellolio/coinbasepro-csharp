@@ -4,18 +4,18 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Orders;
-using GDAXClient.Services.Orders.Models;
-using GDAXClient.Services.Orders.Models.Responses;
-using GDAXClient.Shared;
-using GDAXClient.Specs.JsonFixtures.Orders;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Services.Orders;
+using GDAXSharp.Services.Orders.Models;
+using GDAXSharp.Services.Orders.Models.Responses;
+using GDAXSharp.Shared;
+using GDAXSharp.Specs.JsonFixtures.Orders;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXClient.Specs.Services.Orders
+namespace GDAXSharp.Specs.Services.Orders
 {
     [Subject("OrdersService")]
     public class OrdersServiceSpecs : WithSubject<OrdersService>

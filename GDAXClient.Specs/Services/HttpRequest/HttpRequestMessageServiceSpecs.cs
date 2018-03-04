@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Net.Http;
-using GDAXClient.Authentication;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Utilities;
+using GDAXSharp.Authentication;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Utilities;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXClient.Specs.Services.HttpRequest
+namespace GDAXSharp.Specs.Services.HttpRequest
 {
     [Subject("HttpRequestMessageService")]
     public class HttpRequestMessageServiceSpecs : WithSubject<HttpRequestMessageService>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace GDAXClient.Utilities
+namespace GDAXSharp.Utilities
 {
     public class QueryBuilder : IQueryBuilder
     {

@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDAXClient", "GDAXClient\GDAXClient.csproj", "{454A0FAC-C580-4674-AE58-6D8E6658685B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDAXSharp", "GDAXClient\GDAXSharp.csproj", "{454A0FAC-C580-4674-AE58-6D8E6658685B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDAXClient.Specs", "GDAXClient.Specs\GDAXClient.Specs.csproj", "{3F1CF230-DEFD-4D8E-8BA5-B8CB86218800}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDAXSharp.Specs", "GDAXClient.Specs\GDAXSharp.Specs.csproj", "{3F1CF230-DEFD-4D8E-8BA5-B8CB86218800}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

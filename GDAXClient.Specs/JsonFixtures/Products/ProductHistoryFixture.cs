@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Specs.JsonFixtures.Products
+﻿namespace GDAXSharp.Specs.JsonFixtures.Products
 {
     public static class ProductHistoryFixture
     {

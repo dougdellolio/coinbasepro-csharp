@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXClient.Services.Withdrawals.Models
+namespace GDAXSharp.Services.Withdrawals.Models
 {
     public class Crypto
     {

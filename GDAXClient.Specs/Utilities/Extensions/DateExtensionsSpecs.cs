@@ -1,8 +1,8 @@
 ﻿using System;
-using GDAXClient.Utilities.Extensions;
+using GDAXSharp.Utilities.Extensions;
 using Machine.Specifications;
 
-namespace GDAXClient.Specs.Utilities.Extensions
+namespace GDAXSharp.Specs.Utilities.Extensions
 {
     [Subject("DateExtensions")]
     public class DateExtensionsSpecs

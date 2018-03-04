@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Specs.JsonFixtures.Deposits
+﻿namespace GDAXSharp.Specs.JsonFixtures.Deposits
 {
     public static class DepositsResponseFixture
     {

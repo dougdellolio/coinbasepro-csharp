@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXClient.Services.Withdrawals.Models.Responses
+namespace GDAXSharp.Services.Withdrawals.Models.Responses
 {
     public class CoinbaseResponse
     {

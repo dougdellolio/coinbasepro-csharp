@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXClient.Services.Fills.Models.Responses
+namespace GDAXSharp.Services.Fills.Models.Responses
 {
     public class FillResponse
     {

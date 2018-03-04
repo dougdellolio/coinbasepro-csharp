@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Services.Orders.Models
+﻿namespace GDAXSharp.Services.Orders.Models
 {
     public enum OrderStatus
     {

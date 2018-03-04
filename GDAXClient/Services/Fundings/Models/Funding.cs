@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXClient.Services.Fundings.Models
+namespace GDAXSharp.Services.Fundings.Models
 {
     public class Funding
     {

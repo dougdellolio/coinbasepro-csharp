@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using GDAXClient.Utilities;
+using GDAXSharp.Utilities;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXClient.Specs.Utilities
+namespace GDAXSharp.Specs.Utilities
 {
     [Subject("QueryBuilder")]
     public class QueryBuilderSpecs : WithSubject<QueryBuilder>

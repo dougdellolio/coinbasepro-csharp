@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Authentication
+﻿namespace GDAXSharp.Authentication
 {
     public interface IAuthenticator
     {

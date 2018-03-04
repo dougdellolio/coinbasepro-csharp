@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Services.Payments;
-using GDAXClient.Services.Payments.Models;
-using GDAXClient.Specs.JsonFixtures.Payments;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Services.Payments;
+using GDAXSharp.Services.Payments.Models;
+using GDAXSharp.Specs.JsonFixtures.Payments;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXClient.Specs.Services.Payments
+namespace GDAXSharp.Specs.Services.Payments
 {
     [Subject("PaymentsService")]
     public class PaymentsServiceSpecs : WithSubject<PaymentsService>

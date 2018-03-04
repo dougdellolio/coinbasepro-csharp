@@ -119,9 +119,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GDAXClient\GDAXClient.csproj">
+    <ProjectReference Include="..\GDAXClient\GDAXSharp.csproj">
       <Project>{454A0FAC-C580-4674-AE58-6D8E6658685B}</Project>
-      <Name>GDAXClient</Name>
+      <Name>GDAXSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

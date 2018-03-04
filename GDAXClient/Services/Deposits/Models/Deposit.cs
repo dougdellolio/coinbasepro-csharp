@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXClient.Services.Deposits.Models
+namespace GDAXSharp.Services.Deposits.Models
 {
     public class Deposit
     {

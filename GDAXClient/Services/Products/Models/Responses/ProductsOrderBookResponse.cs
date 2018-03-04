@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GDAXClient.Services.Products.Models.Responses
+namespace GDAXSharp.Services.Products.Models.Responses
 {
     public class ProductsOrderBookResponse
     {

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.CoinbaseAccounts.Models;
-using GDAXClient.Services.HttpRequest;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.CoinbaseAccounts.Models;
+using GDAXSharp.Services.HttpRequest;
 using Newtonsoft.Json;
 
-namespace GDAXClient.Services.CoinbaseAccounts
+namespace GDAXSharp.Services.CoinbaseAccounts
 {
     public class CoinbaseAccountsService : AbstractService
     {

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.Accounts.Models;
-using GDAXClient.Services.HttpRequest;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.Accounts.Models;
+using GDAXSharp.Services.HttpRequest;
 using Newtonsoft.Json;
 
-namespace GDAXClient.Services.Accounts
+namespace GDAXSharp.Services.Accounts
 {
     public class AccountsService : AbstractService
     {

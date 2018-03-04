@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Shared
+﻿namespace GDAXSharp.Shared
 {
     public enum ProductType
     {

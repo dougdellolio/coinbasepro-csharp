@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXClient.Utilities
+namespace GDAXSharp.Utilities
 {
     public class Clock : IClock
     {

@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Services.Fundings
+﻿namespace GDAXSharp.Services.Fundings
 {
     public enum FundingStatus
     {

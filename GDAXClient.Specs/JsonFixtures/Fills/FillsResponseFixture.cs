@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Specs.JsonFixtures.Fills
+﻿namespace GDAXSharp.Specs.JsonFixtures.Fills
 {
     class FillsResponseFixture
     {

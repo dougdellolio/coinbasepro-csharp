@@ -1,6 +1,6 @@
-﻿using GDAXClient.Services.Orders.Models;
+﻿using GDAXSharp.Services.Orders.Models;
 
-namespace GDAXClient.Specs.JsonFixtures.Orders
+namespace GDAXSharp.Specs.JsonFixtures.Orders
 {
     public static class OrderResponseFixture
     {

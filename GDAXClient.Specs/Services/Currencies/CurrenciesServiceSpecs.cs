@@ -2,16 +2,16 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.Currencies;
-using GDAXClient.Services.Currencies.Models;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Specs.JsonFixtures.Currencies;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.Currencies;
+using GDAXSharp.Services.Currencies.Models;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Specs.JsonFixtures.Currencies;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXClient.Specs.Services.Currencies
+namespace GDAXSharp.Specs.Services.Currencies
 {
     [Subject("CurrenciesService")]
     public class CurrenciesServiceSpecs : WithSubject<CurrenciesService>

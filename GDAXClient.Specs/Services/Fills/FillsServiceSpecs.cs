@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXClient.Authentication;
-using GDAXClient.HttpClient;
-using GDAXClient.Services.Fills;
-using GDAXClient.Services.Fills.Models.Responses;
-using GDAXClient.Services.HttpRequest;
-using GDAXClient.Shared;
-using GDAXClient.Specs.JsonFixtures.Fills;
-using GDAXClient.Specs.JsonFixtures.HttpResponseMessage;
-using GDAXClient.Utilities.Extensions;
+using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
+using GDAXSharp.Services.Fills;
+using GDAXSharp.Services.Fills.Models.Responses;
+using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Shared;
+using GDAXSharp.Specs.JsonFixtures.Fills;
+using GDAXSharp.Specs.JsonFixtures.HttpResponseMessage;
+using GDAXSharp.Utilities.Extensions;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXClient.Specs.Services.Fills
+namespace GDAXSharp.Specs.Services.Fills
 {
     [Subject("FillsService")]
     public class FillsServiceSpecs : WithSubject<FillsService>

@@ -1,4 +1,4 @@
-﻿namespace GDAXClient.Specs.JsonFixtures.Withdrawals
+﻿namespace GDAXSharp.Specs.JsonFixtures.Withdrawals
 {
     public static class WithdrawalsResponseFixture
     {

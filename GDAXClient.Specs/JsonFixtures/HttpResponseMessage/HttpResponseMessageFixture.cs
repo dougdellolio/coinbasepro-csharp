@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace GDAXClient.Specs.JsonFixtures.HttpResponseMessage
+namespace GDAXSharp.Specs.JsonFixtures.HttpResponseMessage
 {
     public static class HttpResponseMessageFixture
     {

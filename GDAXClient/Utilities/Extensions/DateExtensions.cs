@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXClient.Utilities.Extensions
+namespace GDAXSharp.Utilities.Extensions
 {
     public static class DateExtensions
     {
