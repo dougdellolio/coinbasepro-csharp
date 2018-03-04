@@ -84,30 +84,26 @@ namespace GDAXClient.Services.Products
             return httpResponseMessage;
         }
 
-        /// <summary>
-        /// Get the Historic Rates and auto batch request when the date range is too large
-        /// </summary>
         public async Task<IList<Candle>> GetHistoricRatesAsync(ProductType productPair, DateTime start, DateTime end, CandleGranularity granularity)
         {
             const int maxPeriods = 350; // From GDAX docs
 
             var rc = new List<Candle>();
 
-            DateTime ? dEnd = end;
-            DateTime dStart;
+            DateTime? batchEnd = end;
+            DateTime batchStart;
 
             var maxBatchPeriod = (int)granularity * maxPeriods;
 
-            // Work backwards, so the results are correctly ordered from latest to oldest
             do
             {
-                dStart = dEnd.Value.AddSeconds(-maxBatchPeriod);
-                if (dStart < start) dStart = start; // constrain boundary
+                batchStart = batchEnd.Value.AddSeconds(-maxBatchPeriod);
+                if (batchStart < start) batchStart = start;
 
-                rc.AddRange(await GetHistoricRatesAsync(productPair, dStart, dEnd.Value, (int)granularity));
+                rc.AddRange(await GetHistoricRatesAsync(productPair, batchStart, batchEnd.Value, (int)granularity));
 
-                dEnd = rc.Last()?.Time;
-            } while (dStart > start);
+                batchEnd = rc.Last()?.Time;
+            } while (batchStart > start);
 
             return rc;
         }
