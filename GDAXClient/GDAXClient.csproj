@@ -70,6 +70,8 @@
     <Compile Include="Services\Fundings\Models\Funding.cs" />
     <Compile Include="Services\Products\Models\Ask.cs" />
     <Compile Include="Services\Products\Models\Bid.cs" />
+    <Compile Include="Services\Products\Models\Candle.cs" />
+    <Compile Include="Services\Products\Models\CandleGranularity.cs" />
     <Compile Include="Services\Products\Models\Product.cs" />
     <Compile Include="Services\Products\Models\ProductLevel.cs" />
     <Compile Include="Services\Products\Models\ProductStats.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Services\Withdrawals\Models\Withdrawal.cs" />
     <Compile Include="Services\Withdrawals\Models\Responses\WithdrawalResponse.cs" />
     <Compile Include="Services\Withdrawals\WithdrawalsService.cs" />
+    <Compile Include="Utilities\CandleConverter.cs" />
     <Compile Include="Utilities\Clock.cs" />
     <Compile Include="Utilities\Extensions\DateExtensions.cs" />
     <Compile Include="Utilities\Extensions\ProductTypeExtensions.cs" />
@@ -116,7 +119,9 @@
     <Compile Include="Utilities\QueryBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

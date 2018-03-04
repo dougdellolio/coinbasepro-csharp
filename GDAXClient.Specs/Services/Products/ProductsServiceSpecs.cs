@@ -26,7 +26,7 @@ namespace GDAXClient.Specs.Services.Products
 
         static ProductsOrderBookResponse product_order_books_response;
 
-        static IEnumerable<object[]> product_history_response;
+        static IList<Candle> product_history_response;
 
         static ProductTicker product_ticker_result;
 
@@ -36,6 +36,8 @@ namespace GDAXClient.Specs.Services.Products
 
         Establish context = () =>
             authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
+
+        private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         class when_getting_all_products
         {
@@ -262,30 +264,30 @@ namespace GDAXClient.Specs.Services.Products
             };
 
             Because of = () =>
-                product_history_response = Subject.GetHistoricRatesAsync(ProductType.BtcUsd, DateTime.Now.AddDays(-1), DateTime.Now, 57600).Result;
-
+                product_history_response = Subject.GetHistoricRatesAsync(ProductType.BtcUsd, DateTime.Now.AddDays(-1), DateTime.Now, CandleGranularity.Minutes1).Result;
+            
             It should_have_correct_product_stats = () =>
             {
-                product_history_response.ToList()[0][0].ToString().ShouldEqual(1512691200.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[0][1].ToString().ShouldEqual(16777.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[0][2].ToString().ShouldEqual(17777.69.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[0][3].ToString().ShouldEqual(17390.01.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[0][4].ToString().ShouldEqual(17210.99.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[0][5].ToString().ShouldEqual(7650.386033540894.ToString(CultureInfo.InvariantCulture));
+                product_history_response[0].Time.ShouldEqual(UnixEpoch.AddSeconds(1512691200));
+                product_history_response[0].Low.ShouldEqual(16777M);
+                product_history_response[0].High.ShouldEqual(17777.69M);
+                product_history_response[0].Open.ShouldEqual(17390.01M);
+                product_history_response[0].Close.ShouldEqual(17210.99M);
+                product_history_response[0].Volume.ShouldEqual(7650.386033540894M);
 
-                product_history_response.ToList()[1][0].ToString().ShouldEqual(1512633600.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[1][1].ToString().ShouldEqual(14487.8.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[1][2].ToString().ShouldEqual(19697.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[1][3].ToString().ShouldEqual(14487.8.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[1][4].ToString().ShouldEqual(17390.01.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[1][5].ToString().ShouldEqual(65581.82529800163.ToString(CultureInfo.InvariantCulture));
+                product_history_response[1].Time.ShouldEqual(UnixEpoch.AddSeconds(1512633600));
+                product_history_response[1].Low.ShouldEqual(14487.8M);
+                product_history_response[1].High.ShouldEqual(19697M);
+                product_history_response[1].Open.ShouldEqual(14487.8M);
+                product_history_response[1].Close.ShouldEqual(17390.01M);
+                product_history_response[1].Volume.ShouldEqual(65581.82529800163M);
 
-                product_history_response.ToList()[2][0].ToString().ShouldEqual(1512576000.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[2][1].ToString().ShouldEqual(13500.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[2][2].ToString().ShouldEqual(14499.89.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[2][3].ToString().ShouldEqual(14056.78.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[2][4].ToString().ShouldEqual(14487.8.ToString(CultureInfo.InvariantCulture));
-                product_history_response.ToList()[2][5].ToString().ShouldEqual(12303.76923928093.ToString(CultureInfo.InvariantCulture));
+                product_history_response[2].Time.ShouldEqual(UnixEpoch.AddSeconds(1512576000));
+                product_history_response[2].Low.ShouldEqual(13500M);
+                product_history_response[2].High.ShouldEqual(14499.89M);
+                product_history_response[2].Open.ShouldEqual(14056.78M);
+                product_history_response[2].Close.ShouldEqual(14487.8M);
+                product_history_response[2].Volume.ShouldEqual(12303.76923928093M);
             };
         }
     }

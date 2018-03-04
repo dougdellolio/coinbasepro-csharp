@@ -84,7 +84,31 @@ namespace GDAXClient.Services.Products
             return httpResponseMessage;
         }
 
-        public async Task<IEnumerable<object[]>> GetHistoricRatesAsync(ProductType productPair, DateTime start, DateTime end, int granularity)
+        public async Task<IList<Candle>> GetHistoricRatesAsync(ProductType productPair, DateTime start, DateTime end, CandleGranularity granularity)
+        {
+            const int maxPeriods = 350; // From GDAX docs
+
+            var rc = new List<Candle>();
+
+            DateTime? batchEnd = end;
+            DateTime batchStart;
+
+            var maxBatchPeriod = (int)granularity * maxPeriods;
+
+            do
+            {
+                batchStart = batchEnd.Value.AddSeconds(-maxBatchPeriod);
+                if (batchStart < start) batchStart = start;
+
+                rc.AddRange(await GetHistoricRatesAsync(productPair, batchStart, batchEnd.Value, (int)granularity));
+
+                batchEnd = rc.Last()?.Time;
+            } while (batchStart > start);
+
+            return rc;
+        }
+
+        private async Task<IList<Candle>> GetHistoricRatesAsync(ProductType productPair, DateTime start, DateTime end, int granularity)
         {
             var isoStart = start.ToString("s");
             var isoEnd = end.ToString("s");
@@ -96,7 +120,9 @@ namespace GDAXClient.Services.Products
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/candles" + queryString);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productHistoryResponse = JsonConvert.DeserializeObject<IEnumerable<object[]>>(contentBody);
+            var productHistoryResponse = JsonConvert.DeserializeObject<IList<Candle>>(contentBody
+                    // Ensure we don't lose any precision
+                    , new JsonSerializerSettings {FloatParseHandling = FloatParseHandling.Decimal});
 
             return productHistoryResponse;
         }
