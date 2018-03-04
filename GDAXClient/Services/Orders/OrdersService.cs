@@ -92,6 +92,7 @@ namespace GDAXClient.Services.Orders
                 type = OrderType.Limit.ToString().ToLower(),
                 price = price,
                 size = size,
+                time_in_force = TimeInForce.Gtt.ToString().ToUpper(),
                 cancel_after = cancelAfter.ToString().ToLower(),
                 post_only = postOnly
             });

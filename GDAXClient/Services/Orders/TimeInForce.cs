@@ -3,6 +3,7 @@
     public enum TimeInForce
     {
         Gtc,
+        Gtt,
         Ioc,
         Fok
     }
