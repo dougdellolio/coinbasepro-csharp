@@ -82,6 +82,7 @@ namespace GDAXClient.Services.Orders
             ProductType productPair,
             decimal size,
             decimal price,
+            TimeInForce timeInForce,
             GoodTillTime cancelAfter,
             bool postOnly = true)
         {
@@ -92,6 +93,7 @@ namespace GDAXClient.Services.Orders
                 type = OrderType.Limit.ToString().ToLower(),
                 price = price,
                 size = size,
+                time_in_force = timeInForce.ToString().ToUpper(),
                 cancel_after = cancelAfter.ToString().ToLower(),
                 post_only = postOnly
             });
