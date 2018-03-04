@@ -12,8 +12,8 @@ GDAX API C# Client Library - https://docs.gdax.com/
 <i>Generate your key at https://www.gdax.com/settings/api</i>
 
 ````
-//create an authenticator with your apiKey, secret and passphrase
-var authenticator = new Authenticator("<apiKey>", "<secret>", "<passphrase>");
+//create an authenticator with your apiKey, apiSecret and passphrase
+var authenticator = new Authenticator("<apiKey>", "<apiSecret>", "<passphrase>");
 
 //create the GDAX client
 var gdaxClient = new GDAXClient.GDAXClient(authenticator);
@@ -61,7 +61,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - GetProductTickerAsync(productType) - get information about the last trade (tick), best bid/ask and 24h volume
 - GetTradesAsync(productType, limit, numberOfPages) - get latest trades for a product (paged response)
 - GetProductStatsAsync(productType) - get 24 hour stats for a product
-- GetHistoricRatesAsync(productPair, start, end, granularity) - get historic rates for a product
+- GetHistoricRatesAsync(productPair, start, end, granularity) - get historic rates for a product, auto batches requests to pull complete date range
 
 ###### Currencies ######
 - GetAllCurrenciesAsync() - gets a list of known currencies
