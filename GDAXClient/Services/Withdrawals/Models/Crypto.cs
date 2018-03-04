@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GDAXClient.Services.Withdrawals.Models
+﻿namespace GDAXClient.Services.Withdrawals.Models
 {
     public class Crypto
     {
@@ -8,6 +6,6 @@ namespace GDAXClient.Services.Withdrawals.Models
 
         public string currency { get; set; }
 
-        public Guid crypto_address { get; set; }
+        public string crypto_address { get; set; }
     }
 }
