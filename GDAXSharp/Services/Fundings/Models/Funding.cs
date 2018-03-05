@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GDAXSharp.Services.Fundings.Models
 {
@@ -6,22 +8,30 @@ namespace GDAXSharp.Services.Fundings.Models
     {
         public Guid Id { get; set; }
 
-        public string Order_id { get; set; }
+        [JsonProperty("order_id")]
+        public string OrderId { get; set; }
 
-        public string Profile_id { get; set; }
+        [JsonProperty("profile_id")]
+        public string ProfileId { get; set; }
 
         public decimal Amount { get; set; }
 
-        public string Status { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public FundingStatus Status { get; set; }
 
-        public DateTime Created_at { get; set; }
+        [JsonProperty("created_at")]
+        public DateTime CreatedAt { get; set; }
 
-        public string Currency { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Shared.Currency Currency { get; set; }
 
-        public decimal Repaid_amount { get; set; }
+        [JsonProperty("repaid_amount")]
+        public decimal RepaidAmount { get; set; }
 
-        public decimal Default_amount { get; set; }
+        [JsonProperty("default_amount")]
+        public decimal DefaultAmount { get; set; }
 
-        public bool Repaid_default { get; set; }
+        [JsonProperty("repaid_default")]
+        public bool RepaidDefault { get; set; }
     }
 }

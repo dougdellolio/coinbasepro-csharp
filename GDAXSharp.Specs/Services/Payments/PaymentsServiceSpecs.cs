@@ -8,6 +8,7 @@ using GDAXSharp.HttpClient;
 using GDAXSharp.Services.HttpRequest;
 using GDAXSharp.Services.Payments;
 using GDAXSharp.Services.Payments.Models;
+using GDAXSharp.Shared;
 using GDAXSharp.Specs.JsonFixtures.Payments;
 using Machine.Fakes;
 using Machine.Specifications;
@@ -48,13 +49,13 @@ namespace GDAXSharp.Specs.Services.Payments
             {
                 payment_methods.First().Id.ShouldEqual(new Guid("bc6d7162-d984-5ffa-963c-a493b1c1370b"));
                 payment_methods.First().Name.ShouldEqual("Bank of America - eBan... ********7134");
-                payment_methods.First().Currency.ShouldEqual("USD");
-                payment_methods.First().Allow_buy.ShouldBeTrue();
-                payment_methods.First().Allow_sell.ShouldBeTrue();
-                payment_methods.First().Allow_deposit.ShouldBeTrue();
-                payment_methods.First().Allow_withdraw.ShouldBeTrue();
+                payment_methods.First().Currency.ShouldEqual(Currency.USD);
+                payment_methods.First().AllowBuy.ShouldBeTrue();
+                payment_methods.First().AllowSell.ShouldBeTrue();
+                payment_methods.First().AllowDeposit.ShouldBeTrue();
+                payment_methods.First().AllowWithdraw.ShouldBeTrue();
                 payment_methods.First().Limits.Buy.Count().ShouldEqual(1);
-                payment_methods.First().Limits.Instant_buy.Count().ShouldEqual(1);
+                payment_methods.First().Limits.InstantBuy.Count().ShouldEqual(1);
                 payment_methods.First().Limits.Sell.Count().ShouldEqual(1);
                 payment_methods.First().Limits.Deposit.Count().ShouldEqual(1);
             };

@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GDAXSharp.Services.Deposits.Models.Responses
 {
@@ -8,8 +10,10 @@ namespace GDAXSharp.Services.Deposits.Models.Responses
 
         public decimal Amount { get; set; }
 
-        public string Currency { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Shared.Currency Currency { get; set; }
 
-        public DateTime Payout_at { get; set; }
+        [JsonProperty("payout_at")]
+        public DateTime PayoutAt { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GDAXSharp.Services.Accounts.Models
 {
@@ -6,16 +8,21 @@ namespace GDAXSharp.Services.Accounts.Models
     {
         public string Id { get; set; }
 
-        public string Account_id { get; set; }
+        [JsonProperty("account_id")]
+        public Guid AccountId { get; set; }
 
-        public DateTime Created_at { get; set; }
+        [JsonProperty("created_at")]
+        public DateTime CreatedAt { get; set; }
 
-        public DateTime Updated_at { get; set; }
+        [JsonProperty("updated_at")]
+        public DateTime UpdatedAt { get; set; }
 
         public decimal Amount { get; set; }
 
-        public string Type { get; set; }
+        [JsonProperty("type")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public AccountHoldType AccountHoldType { get; set; }
 
-        public string Ref { get; set; }
+        public Guid Ref { get; set; }
     }
 }

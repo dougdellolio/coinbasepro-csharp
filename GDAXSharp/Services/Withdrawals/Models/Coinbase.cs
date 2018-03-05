@@ -1,13 +1,17 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GDAXSharp.Services.Withdrawals.Models
 {
     public class Coinbase
     {
-        public decimal amount { get; set; }
+        public decimal Amount { get; set; }
 
-        public string currency { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Shared.Currency Currency { get; set; }
 
-        public Guid coinbase_account_id { get; set; }
+        [JsonProperty("coinbase_account_id")]
+        public Guid CoinbaseAccountId { get; set; }
     }
 }

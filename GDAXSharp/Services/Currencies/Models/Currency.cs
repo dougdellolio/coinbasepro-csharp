@@ -1,11 +1,14 @@
-﻿namespace GDAXSharp.Services.Currencies.Models
+﻿using Newtonsoft.Json;
+
+namespace GDAXSharp.Services.Currencies.Models
 {
     public class Currency
     {
-        public string Id { get; set; }
+        public Shared.Currency Id { get; set; }
 
         public string Name { get; set; }
 
-        public decimal Min_size { get; set; }
+        [JsonProperty("min_size")]
+        public decimal MinSize { get; set; }
     }
 }

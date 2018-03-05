@@ -27,13 +27,13 @@ namespace GDAXSharp.Services.Withdrawals
             this.authenticator = authenticator;
         }
 
-        public async Task<WithdrawalResponse> WithdrawFundsAsync(string paymentMethodId, decimal amount, Currency currency)
+        public async Task<WithdrawalResponse> WithdrawFundsAsync(Guid paymentMethodId, decimal amount, Currency currency)
         {
             var newWithdrawal = JsonConvert.SerializeObject(new Withdrawal
             {
-                amount = amount,
-                currency = currency.ToString().ToUpper(),
-                payment_method_id = new Guid(paymentMethodId)
+                Amount = amount,
+                Currency = currency,
+                PaymentMethodId = paymentMethodId
             });
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/withdrawals/payment-method", newWithdrawal);
@@ -43,13 +43,13 @@ namespace GDAXSharp.Services.Withdrawals
             return withdrawalResponse;
         }
 
-        public async Task<CoinbaseResponse> WithdrawToCoinbaseAsync(string coinbase_account_id, decimal amount, Currency currency)
+        public async Task<CoinbaseResponse> WithdrawToCoinbaseAsync(Guid coinbaseAccountId, decimal amount, Currency currency)
         {
             var newCoinbaseWithdrawal = JsonConvert.SerializeObject(new Coinbase
             {
-                amount = amount,
-                currency = currency.ToString().ToUpper(),
-                coinbase_account_id = new Guid(coinbase_account_id)
+                Amount = amount,
+                Currency = currency,
+                CoinbaseAccountId = coinbaseAccountId
             });
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/withdrawals/coinbase-account", newCoinbaseWithdrawal);
@@ -59,13 +59,13 @@ namespace GDAXSharp.Services.Withdrawals
             return coinbaseResponse;
         }
 
-        public async Task<CryptoResponse> WithdrawToCryptoAsync(string crypto_address, decimal amount, Currency currency)
+        public async Task<CryptoResponse> WithdrawToCryptoAsync(string cryptoAddress, decimal amount, Currency currency)
         {
             var newCryptoWithdrawal = JsonConvert.SerializeObject(new Crypto
             {
-                amount = amount,
-                currency = currency.ToString().ToUpper(),
-                crypto_address = new Guid(crypto_address)
+                Amount = amount,
+                Currency = currency,
+                CryptoAddress = cryptoAddress
             });
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/withdrawals/crypto", newCryptoWithdrawal);

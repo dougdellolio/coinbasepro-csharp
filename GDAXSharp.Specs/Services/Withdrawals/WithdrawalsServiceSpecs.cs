@@ -42,7 +42,7 @@ namespace GDAXSharp.Specs.Services.Withdrawals
             };
 
             Because of = () =>
-                withdrawals_response = Subject.WithdrawFundsAsync("593533d2-ff31-46e0-b22e-ca754147a96a", 10, Currency.USD).Result;
+                withdrawals_response = Subject.WithdrawFundsAsync(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"), 10, Currency.USD).Result;
 
             It should_return_a_response = () =>
                 withdrawals_response.ShouldNotBeNull();
@@ -51,8 +51,8 @@ namespace GDAXSharp.Specs.Services.Withdrawals
             {
                 withdrawals_response.Id.ShouldEqual(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"));
                 withdrawals_response.Amount.ShouldEqual(10.00M);
-                withdrawals_response.Currency.ShouldEqual("USD");
-                withdrawals_response.Payout_at.ShouldEqual(new DateTime(2016, 12, 9));
+                withdrawals_response.Currency.ShouldEqual(Currency.USD);
+                withdrawals_response.PayoutAt.ShouldEqual(new DateTime(2016, 12, 9));
             };
         }
 
@@ -68,7 +68,7 @@ namespace GDAXSharp.Specs.Services.Withdrawals
             };
 
             Because of = () =>
-                coinbase_response = Subject.WithdrawToCoinbaseAsync("593533d2-ff31-46e0-b22e-ca754147a96a", 10, Currency.BTC).Result;
+                coinbase_response = Subject.WithdrawToCoinbaseAsync(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"), 10, Currency.BTC).Result;
 
             It should_return_a_response = () =>
                 coinbase_response.ShouldNotBeNull();
@@ -77,7 +77,7 @@ namespace GDAXSharp.Specs.Services.Withdrawals
             {
                 coinbase_response.Id.ShouldEqual(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"));
                 coinbase_response.Amount.ShouldEqual(10.00M);
-                coinbase_response.Currency.ShouldEqual("BTC");
+                coinbase_response.Currency.ShouldEqual(Currency.BTC);
             };
         }
 
@@ -93,16 +93,16 @@ namespace GDAXSharp.Specs.Services.Withdrawals
             };
 
             Because of = () =>
-                crypto_response = Subject.WithdrawToCryptoAsync("593533d2-ff31-46e0-b22e-ca754147a96a", 10, Currency.BTC).Result;
+                crypto_response = Subject.WithdrawToCryptoAsync("0x5ad5769cd04681FeD900BCE3DDc877B50E83d469", 10.0M, Currency.BTC).Result;
 
             It should_return_a_response = () =>
                 crypto_response.ShouldNotBeNull();
 
             It should_return_a_correct_response = () =>
             {
-                crypto_response.Id.ShouldEqual(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"));
+                crypto_response.Id.ShouldNotBeTheSameAs(Guid.Empty);
                 crypto_response.Amount.ShouldEqual(10.00M);
-                crypto_response.Currency.ShouldEqual("BTC");
+                crypto_response.Currency.ShouldEqual(Currency.BTC);
             };
         }
     }

@@ -42,6 +42,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +56,10 @@
     <Compile Include="GDAXClient.cs" />
     <Compile Include="HttpClient\HttpClient.cs" />
     <Compile Include="HttpClient\IHttpClient.cs" />
+    <Compile Include="Services\Accounts\Models\AccountEntryType.cs" />
+    <Compile Include="Services\Accounts\Models\AccountHoldType.cs" />
+    <Compile Include="Services\CoinbaseAccounts\CoinbaseAccountType.cs" />
+    <Compile Include="Services\Fills\FillLiquidity.cs" />
     <Compile Include="Services\Orders\Models\GoodTillTime.cs" />
     <Compile Include="Services\Orders\Models\OrderStatus.cs" />
     <Compile Include="Services\Orders\TimeInForce.cs" />
@@ -113,7 +118,7 @@
     <Compile Include="Utilities\CandleConverter.cs" />
     <Compile Include="Utilities\Clock.cs" />
     <Compile Include="Utilities\Extensions\DateExtensions.cs" />
-    <Compile Include="Utilities\Extensions\ProductTypeExtensions.cs" />
+    <Compile Include="Utilities\Extensions\EnumExtensions.cs" />
     <Compile Include="Utilities\IClock.cs" />
     <Compile Include="Utilities\IQueryBuilder.cs" />
     <Compile Include="Utilities\QueryBuilder.cs" />

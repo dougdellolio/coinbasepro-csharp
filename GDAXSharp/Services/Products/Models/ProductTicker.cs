@@ -1,10 +1,12 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace GDAXSharp.Services.Products.Models
 {
     public class ProductTicker
     {
-        public int Trade_id { get; set; }
+        [JsonProperty("trade_id")]
+        public int TradeId { get; set; }
 
         public decimal Price { get; set; }
 
