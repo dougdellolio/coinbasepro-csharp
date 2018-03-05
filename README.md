@@ -128,6 +128,8 @@ Thanks for contributing!
 - @dgelineau
 - @quin810
 - @DontFretBrett
+- @chrisw000
+- @confessore
 
 <h1>Bugs or questions?</h1>
 
