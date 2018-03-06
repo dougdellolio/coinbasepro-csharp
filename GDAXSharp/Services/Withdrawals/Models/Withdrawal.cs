@@ -1,4 +1,6 @@
-﻿namespace GDAXSharp.Services.Withdrawals.Models
+﻿using System;
+
+namespace GDAXSharp.Services.Withdrawals.Models
 {
     public class Withdrawal
     {
