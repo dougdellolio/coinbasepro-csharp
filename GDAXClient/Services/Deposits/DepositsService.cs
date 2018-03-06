@@ -51,7 +51,7 @@ namespace GDAXClient.Services.Deposits
             {
                 amount = amount,
                 currency = currency.ToString().ToUpper(),
-                coinbase_account_id = new Guid(coinbaseAccountId)
+                coinbase_account_id = coinbaseAccountId
             });
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/deposits/coinbase-account", newCoinbaseDeposit);
