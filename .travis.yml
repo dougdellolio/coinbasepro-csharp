@@ -1,5 +1,5 @@
 language: csharp
-solution: GDAXClient.sln
+solution: GDAXSharp.sln
 script:
-  - xbuild /p:Configuration=Release GDAXClient.sln
-  - mono ./packages/Machine.Specifications.Runner.Console.0.9.3/tools/mspec.exe ./GDAXClient.Specs/bin/Release/GDAXClient.Specs.dll
+  - xbuild /p:Configuration=Release GDAXSharp.sln
+  - mono ./packages/Machine.Specifications.Runner.Console.0.9.3/tools/mspec.exe ./GDAXSharp.Specs/bin/Release/GDAXSharp.Specs.dll
