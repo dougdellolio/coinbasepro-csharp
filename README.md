@@ -16,7 +16,7 @@ GDAX API C# Client Library - https://docs.gdax.com/
 var authenticator = new Authenticator("<apiKey>", "<apiSecret>", "<passphrase>");
 
 //create the GDAX client
-var gdaxClient = new GDAXClient.GDAXClient(authenticator);
+var gdaxClient = new GDAXClient(authenticator);
 
 //use one of the services 
 var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
@@ -83,7 +83,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>");
 
 //create the GDAX client and set the sandbox flag to true
-var gdaxClient = new GDAXClient.GDAXClient(authenticator, true);
+var gdaxClient = new GDAXClient(authenticator, true);
 
 //use one of the services 
 var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
