@@ -1,4 +1,12 @@
-﻿using System;
+﻿using GDAXClient.HttpClient;
+using GDAXClient.Services.Accounts;
+using GDAXClient.Services.HttpRequest;
+using GDAXClient.Shared;
+using GDAXClient.Utilities;
+using GDAXClient.Utilities.Extensions;
+using Newtonsoft.Json;
+using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;

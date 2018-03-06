@@ -49,6 +49,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Serialization" />
+    <Reference Include="websocket-sharp, Version=1.0.2.59611, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebSocketSharp.1.0.3-rc11\lib\websocket-sharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication\Authenticator.cs" />
@@ -117,6 +120,10 @@
     <Compile Include="Utilities\IClock.cs" />
     <Compile Include="Utilities\IQueryBuilder.cs" />
     <Compile Include="Utilities\QueryBuilder.cs" />
+    <Compile Include="WebSocket\Request\TickerChannel.cs" />
+    <Compile Include="WebSocket\Response\FeedOrder.cs" />
+    <Compile Include="WebSocket\Response\WebSocketFeedEventArgs.cs" />
+    <Compile Include="WebSocket\WebSocketFeed.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
