@@ -45,7 +45,9 @@ namespace GDAXSharp.Services.Products
             return productsResponse;
         }
 
-        public async Task<ProductsOrderBookResponse> GetProductOrderBookAsync(ProductType productPair, ProductLevel productLevel = ProductLevel.One)
+        public async Task<ProductsOrderBookResponse> GetProductOrderBookAsync(
+            ProductType productPair, 
+            ProductLevel productLevel = ProductLevel.One)
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/book/?level={(int)productLevel}");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
@@ -84,9 +86,13 @@ namespace GDAXSharp.Services.Products
             return httpResponseMessage;
         }
 
-        public async Task<IList<Candle>> GetHistoricRatesAsync(ProductType productPair, DateTime start, DateTime end, CandleGranularity granularity)
+        public async Task<IList<Candle>> GetHistoricRatesAsync(
+            ProductType productPair, 
+            DateTime start, 
+            DateTime end, 
+            CandleGranularity granularity)
         {
-            const int maxPeriods = 350; // From GDAX docs
+            const int maxPeriods = 350;
 
             var rc = new List<Candle>();
 
@@ -108,7 +114,11 @@ namespace GDAXSharp.Services.Products
             return rc;
         }
 
-        private async Task<IList<Candle>> GetHistoricRatesAsync(ProductType productPair, DateTime start, DateTime end, int granularity)
+        private async Task<IList<Candle>> GetHistoricRatesAsync(
+            ProductType productPair, 
+            DateTime start, 
+            DateTime end, 
+            int granularity)
         {
             var isoStart = start.ToString("s");
             var isoEnd = end.ToString("s");
@@ -120,9 +130,8 @@ namespace GDAXSharp.Services.Products
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/candles" + queryString);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productHistoryResponse = JsonConvert.DeserializeObject<IList<Candle>>(contentBody
-                    // Ensure we don't lose any precision
-                    , new JsonSerializerSettings {FloatParseHandling = FloatParseHandling.Decimal});
+            var productHistoryResponse = JsonConvert.DeserializeObject<IList<Candle>>(contentBody,
+                new JsonSerializerSettings { FloatParseHandling = FloatParseHandling.Decimal });
 
             return productHistoryResponse;
         }

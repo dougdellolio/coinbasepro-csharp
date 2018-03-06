@@ -8,6 +8,6 @@ namespace GDAXSharp.Services.Withdrawals.Models
 
         public string currency { get; set; }
 
-        public Guid coinbase_account_id { get; set; }
+        public string coinbase_account_id { get; set; }
     }
 }

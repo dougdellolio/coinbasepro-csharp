@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GDAXSharp.Services.Withdrawals.Models
+﻿namespace GDAXClient.Services.Withdrawals.Models
 {
     public class Withdrawal
     {
@@ -8,6 +6,6 @@ namespace GDAXSharp.Services.Withdrawals.Models
 
         public string currency { get; set; }
 
-        public Guid payment_method_id { get; set; }
+        public string payment_method_id { get; set; }
     }
 }
