@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GDAXSharp.Services.CoinbaseAccounts.Models
 {
@@ -10,34 +12,45 @@ namespace GDAXSharp.Services.CoinbaseAccounts.Models
 
         public decimal Balance { get; set; }
 
-        public string Currency { get; set; }
+        public Shared.Currency Currency { get; set; }
 
-        public string Type { get; set; }
+        [JsonProperty("type")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public CoinbaseAccountType CoinbaseAccountType { get; set; }
 
         public bool Primary { get; set; }
 
         public bool Active { get; set; }
 
-        public WireDepositInformation Wire_Deposit_Information { get; set; }
+        [JsonProperty("wire_deposit_information")]
+        public WireDepositInformation WireDepositInformation { get; set; }
 
-        public SepaDepositInformation Sepa_Deposit_Information { get; set; }
+        [JsonProperty("sepa_deposit_information")]
+        public SepaDepositInformation SepaDepositInformation { get; set; }
     }
 
     public class WireDepositInformation
     {
-        public string Account_Number { get; set; }
+        [JsonProperty("account_number")]
+        public string AccountNumber { get; set; }
 
-        public string Routing_Number { get; set; }
+        [JsonProperty("routing_number")]
+        public string RoutingNumber { get; set; }
 
-        public string Bank_Name { get; set; }
+        [JsonProperty("bank_name")]
+        public string BankName { get; set; }
 
-        public string Bank_Address { get; set; }
+        [JsonProperty("bank_address")]
+        public string BankAddress { get; set; }
 
-        public BankCountry Bank_Country { get; set; }
+        [JsonProperty("bank_country")]
+        public BankCountry BankCountry { get; set; }
 
-        public string Account_Name { get; set; }
+        [JsonProperty("account_name")]
+        public string AccountName { get; set; }
 
-        public string Account_Address { get; set; }
+        [JsonProperty("account_address")]
+        public string AccountAddress { get; set; }
 
         public string Reference { get; set; }
     }
@@ -48,15 +61,20 @@ namespace GDAXSharp.Services.CoinbaseAccounts.Models
 
         public string Swift { get; set; }
 
-        public string Bank_Name { get; set; }
+        [JsonProperty("bank_name")]
+        public string BankName { get; set; }
 
-        public string Bank_Address { get; set; }
+        [JsonProperty("bank_address")]
+        public string BankAddress { get; set; }
 
-        public string Bank_Country_Name { get; set; }
+        [JsonProperty("bank_country_name")]
+        public string BankCountryName { get; set; }
 
-        public string Account_Name { get; set; }
+        [JsonProperty("account_name")]
+        public string AccountName { get; set; }
 
-        public string Account_Address { get; set; }
+        [JsonProperty("account_address")]
+        public string AccountAddress { get; set; }
 
         public string Reference { get; set; }
     }

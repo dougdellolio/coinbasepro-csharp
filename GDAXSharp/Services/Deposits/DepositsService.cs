@@ -33,9 +33,9 @@ namespace GDAXSharp.Services.Deposits
         {
             var newDeposit = JsonConvert.SerializeObject(new Deposit
             {
-                amount = amount,
-                currency = currency.ToString().ToUpper(),
-                payment_method_id = new Guid(paymentMethodId)
+                Amount = amount,
+                Currency = currency,
+                PaymentMethodId = new Guid(paymentMethodId)
             });
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/deposits/payment-method", newDeposit);
@@ -49,9 +49,9 @@ namespace GDAXSharp.Services.Deposits
         {
             var newCoinbaseDeposit = JsonConvert.SerializeObject(new Coinbase
             {
-                amount = amount,
-                currency = currency.ToString().ToUpper(),
-                coinbase_account_id = coinbaseAccountId
+                Amount = amount,
+                Currency = currency,
+                CoinbaseAccountId = coinbaseAccountId
             });
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/deposits/coinbase-account", newCoinbaseDeposit);

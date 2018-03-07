@@ -1,4 +1,7 @@
 ﻿using System;
+using GDAXSharp.Services.Orders.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GDAXSharp.Services.Products.Models
 {
@@ -6,12 +9,14 @@ namespace GDAXSharp.Services.Products.Models
     {
         public DateTime Time { get; set; }
 
-        public int Trade_id { get; set; }
+        [JsonProperty("trade_id")]
+        public int TradeId { get; set; }
 
         public decimal Price { get; set; }
 
         public decimal Size { get; set; }
 
-        public string Side { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public OrderSide Side { get; set; }
     }
 }

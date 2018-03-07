@@ -47,7 +47,7 @@ namespace GDAXSharp.Services.Fills
             int limit = 100, 
             int numberOfPages = 0)
         {
-            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, authenticator, $"/fills?limit={limit}&product_id={productId.ToDasherizedUpper()}", numberOfPages: numberOfPages);
+            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, authenticator, $"/fills?limit={limit}&product_id={productId.GetEnumMemberValue()}", numberOfPages: numberOfPages);
 
             return fills;
         }

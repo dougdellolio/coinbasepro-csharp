@@ -1,6 +1,6 @@
 ﻿namespace GDAXSharp.Services.Products.Models
 {
-    public enum CandleGranularity : int
+    public enum CandleGranularity
     {
         Minutes1 = 60,
         Minutes5 = 300,

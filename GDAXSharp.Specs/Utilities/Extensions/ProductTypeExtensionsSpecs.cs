@@ -7,56 +7,77 @@ namespace GDAXSharp.Specs.Utilities.Extensions
     [Subject("ProductTypeExtensions")]
     public class ProductTypeExtensionsSpecs
     {
-        static ProductType product_type;
+        static ProductType productId;
 
-        static string product_type_result;
+        static Currency baseCurrency;
+        private static Currency quoteCurrency;
 
-        class eth_product_type
+        class base_eth_product_type
         {
-            Establish context = () =>
-                product_type = ProductType.EthUsd;
+            Establish context = () => productId = ProductType.EthUsd;
 
-            Because of = () =>
-                product_type_result = product_type.ToDasherizedUpper();
+            private Because of = () =>
+            {
+                baseCurrency = productId.BaseCurrency();
+                quoteCurrency = productId.QuoteCurrency();
+            };
 
-            It should_calculate_correct_time_stamp = () =>
-                 product_type_result.ShouldEqual("ETH-USD");
+            It should_calculate_correct_base_currency = () =>
+                baseCurrency.ShouldEqual(Currency.ETH);
+
+            It should_calculate_correct_quote_currency = () =>
+                quoteCurrency.ShouldEqual(Currency.USD);
         }
 
         class btc_product_type
         {
-            Establish context = () =>
-                product_type = ProductType.BtcUsd;
+            Establish context = () => productId = ProductType.BtcGbp;
 
-            Because of = () =>
-                product_type_result = product_type.ToDasherizedUpper();
+            private Because of = () =>
+            {
+                baseCurrency = productId.BaseCurrency();
+                quoteCurrency = productId.QuoteCurrency();
+            };
 
-            It should_calculate_correct_time_stamp = () =>
-                 product_type_result.ShouldEqual("BTC-USD");
+            It should_calculate_correct_base_currency = () =>
+                baseCurrency.ShouldEqual(Currency.BTC);
+
+            It should_calculate_correct_quote_currency = () =>
+                quoteCurrency.ShouldEqual(Currency.GBP);
         }
 
         class ltc_product_type
         {
-            Establish context = () =>
-                product_type = ProductType.LtcUsd;
+            Establish context = () => productId = ProductType.LtcEur;
 
-            Because of = () =>
-                product_type_result = product_type.ToDasherizedUpper();
+            private Because of = () =>
+            {
+                baseCurrency = productId.BaseCurrency();
+                quoteCurrency = productId.QuoteCurrency();
+            };
 
-            It should_calculate_correct_time_stamp = () =>
-                 product_type_result.ShouldEqual("LTC-USD");
+            It should_calculate_correct_base_currency = () =>
+                baseCurrency.ShouldEqual(Currency.LTC);
+
+            It should_calculate_correct_quote_currency = () =>
+                quoteCurrency.ShouldEqual(Currency.EUR);
         }
 
         class bch_product_type
         {
-            Establish context = () =>
-                product_type = ProductType.BchUsd;
+            Establish context = () => productId = ProductType.BchBtc;
 
-            Because of = () =>
-                product_type_result = product_type.ToDasherizedUpper();
+            private Because of = () =>
+            {
+                baseCurrency = productId.BaseCurrency();
+                quoteCurrency = productId.QuoteCurrency();
+            };
 
-            It should_calculate_correct_time_stamp = () =>
-                 product_type_result.ShouldEqual("BCH-USD");
+            It should_calculate_correct_base_currency = () =>
+                baseCurrency.ShouldEqual(Currency.BCH);
+
+            It should_calculate_correct_quote_currency = () =>
+                quoteCurrency.ShouldEqual(Currency.BTC);
         }
     }
 }

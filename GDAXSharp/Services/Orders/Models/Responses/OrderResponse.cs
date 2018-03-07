@@ -1,4 +1,7 @@
 ﻿using System;
+using GDAXSharp.Shared;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GDAXSharp.Services.Orders.Models.Responses
 {
@@ -10,34 +13,50 @@ namespace GDAXSharp.Services.Orders.Models.Responses
 
         public decimal Size { get; set; }
 
-        public string Product_id { get; set; }
+        [JsonProperty("Product_id")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ProductType ProductId { get; set; }
 
-        public string Side { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public OrderSide Side { get; set; }
 
         public string Stp { get; set; }
 
-        public string Type { get; set; }
+        [JsonProperty("type")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public OrderType OrderType { get; set; }
 
-        public string Time_in_force { get; set; }
+        [JsonProperty("time_in_force")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public TimeInForce TimeInForce { get; set; }
 
-        public bool Post_only { get; set; }
+        [JsonProperty("post_only")]
+        public bool PostOnly { get; set; }
 
-        public DateTime Created_at { get; set; }
+        [JsonProperty("created_at")]
+        public DateTime CreatedAt { get; set; }
 
-        public DateTime Done_at { get; set; }
+        [JsonProperty("done_at")]
+        public DateTime DoneAt { get; set; }
 
-        public string Done_reason { get; set; }
+        [JsonProperty("done_reason")]
+        public string DoneReason { get; set; }
 
-        public decimal Fill_fees { get; set; }
+        [JsonProperty("fill_fees")]
+        public decimal FillFees { get; set; }
 
-        public decimal Filled_size { get; set; }
+        [JsonProperty("filled_size")]
+        public decimal FilledSize { get; set; }
 
-        public decimal Executed_value { get; set; }
+        [JsonProperty("executed_value")]
+        public decimal ExecutedValue { get; set; }
 
-        public string Status { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public OrderStatus Status { get; set; }
 
         public bool Settled { get; set; }
 
-        public decimal Specified_funds { get; set; }
+        [JsonProperty("specified_funds")]
+        public decimal SpecifiedFunds { get; set; }
     }
 }

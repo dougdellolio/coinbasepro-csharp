@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using GDAXSharp.Authentication;
 using GDAXSharp.HttpClient;
 using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Services.Orders.Models;
 using GDAXSharp.Services.Products;
 using GDAXSharp.Services.Products.Models;
 using GDAXSharp.Services.Products.Models.Responses;
@@ -61,12 +61,12 @@ namespace GDAXSharp.Specs.Services.Products
 
             It should_have_correct_products = () =>
             {
-                products_result.First().Id.ShouldEqual("BTC-USD");
-                products_result.First().Base_currency.ShouldEqual("BTC");
-                products_result.First().Quote_currency.ShouldEqual("USD");
-                products_result.First().Base_min_size.ShouldEqual("0.01");
-                products_result.First().Base_max_size.ShouldEqual("10000.00");
-                products_result.First().Quote_increment.ShouldEqual("0.01");
+                products_result.First().Id.ShouldEqual(ProductType.BtcUsd);
+                products_result.First().BaseCurrency.ShouldEqual(Currency.BTC);
+                products_result.First().QuoteCurrency.ShouldEqual(Currency.USD);
+                products_result.First().BaseMinSize.ShouldEqual(0.01M);
+                products_result.First().BaseMaxSize.ShouldEqual(10000.00M);
+                products_result.First().QuoteIncrement.ShouldEqual(0.01M);
             };
         }
 
@@ -182,7 +182,7 @@ namespace GDAXSharp.Specs.Services.Products
 
             It should_have_correct_product_ticker = () =>
             {
-                product_ticker_result.Trade_id.ShouldEqual(4729088);
+                product_ticker_result.TradeId.ShouldEqual(4729088);
                 product_ticker_result.Price.ShouldEqual(333.99M);
                 product_ticker_result.Size.ShouldEqual(0.193M);
                 product_ticker_result.Bid.ShouldEqual(333.98M);
@@ -237,15 +237,15 @@ namespace GDAXSharp.Specs.Services.Products
 
             It should_have_correct_product_trades = () =>
             {
-                product_trades_result.First().First().Trade_id.ShouldEqual(74);
+                product_trades_result.First().First().TradeId.ShouldEqual(74);
                 product_trades_result.First().First().Price.ShouldEqual(10.0M);
                 product_trades_result.First().First().Size.ShouldEqual(0.01M);
-                product_trades_result.First().First().Side.ShouldEqual("buy");
+                product_trades_result.First().First().Side.ShouldEqual(OrderSide.Buy);
 
-                product_trades_result.First().Skip(1).First().Trade_id.ShouldEqual(73);
+                product_trades_result.First().Skip(1).First().TradeId.ShouldEqual(73);
                 product_trades_result.First().Skip(1).First().Price.ShouldEqual(100M);
                 product_trades_result.First().Skip(1).First().Size.ShouldEqual(0.01M);
-                product_trades_result.First().Skip(1).First().Side.ShouldEqual("sell");
+                product_trades_result.First().Skip(1).First().Side.ShouldEqual(OrderSide.Sell);
             };
         }
 

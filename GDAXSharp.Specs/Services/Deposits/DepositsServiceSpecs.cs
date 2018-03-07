@@ -50,8 +50,8 @@ namespace GDAXSharp.Specs.Services.Deposits
             {
                 deposit_response.Id.ShouldEqual(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"));
                 deposit_response.Amount.ShouldEqual(10.00M);
-                deposit_response.Currency.ShouldEqual("USD");
-                deposit_response.Payout_at.ShouldEqual(new DateTime(2016, 08, 20, 0, 31, 09));
+                deposit_response.Currency.ShouldEqual(Currency.USD);
+                deposit_response.PayoutAt.ShouldEqual(new DateTime(2016, 08, 20, 0, 31, 09));
             };
         }
 
@@ -79,7 +79,7 @@ namespace GDAXSharp.Specs.Services.Deposits
             {
                 coinbase_response.Id.ShouldEqual(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"));
                 coinbase_response.Amount.ShouldEqual(10.00M);
-                coinbase_response.Currency.ShouldEqual("BTC");
+                coinbase_response.Currency.ShouldEqual(Currency.BTC);
             };
         }
     }

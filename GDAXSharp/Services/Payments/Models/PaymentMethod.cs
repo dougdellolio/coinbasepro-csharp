@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GDAXSharp.Services.Payments.Models
 {
@@ -7,23 +9,31 @@ namespace GDAXSharp.Services.Payments.Models
     {
         public Guid Id { get; set; }
 
-        public string Type { get; set; }
+        [JsonProperty("type")]
+        public string PaymentMethodType { get; set; }
 
         public string Name { get; set; }
 
-        public string Currency { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Shared.Currency Currency { get; set; }
 
-        public bool Primary_buy { get; set; }
+        [JsonProperty("primary_buy")]
+        public bool PrimaryBuy { get; set; }
 
-        public bool Primary_sell { get; set; }
+        [JsonProperty("primary_sell")]
+        public bool PrimarySell { get; set; }
 
-        public bool Allow_buy { get; set; }
+        [JsonProperty("allow_buy")]
+        public bool AllowBuy { get; set; }
 
-        public bool Allow_sell { get; set; }
+        [JsonProperty("allow_sell")]
+        public bool AllowSell { get; set; }
 
-        public bool Allow_deposit { get; set; }
+        [JsonProperty("allow_deposit")]
+        public bool AllowDeposit { get; set; }
 
-        public bool Allow_withdraw { get; set; }
+        [JsonProperty("allow_withdraw")]
+        public bool AllowWithdraw { get; set; }
 
         public Limit Limits { get; set; }
     }
@@ -32,7 +42,8 @@ namespace GDAXSharp.Services.Payments.Models
     {
         public IEnumerable<BuyPower> Buy { get; set; }
 
-        public IEnumerable<BuyPower> Instant_buy { get; set; }
+        [JsonProperty("instant_buy")]
+        public IEnumerable<BuyPower> InstantBuy { get; set; }
 
         public IEnumerable<SellPower> Sell { get; set; }
 
@@ -49,7 +60,8 @@ namespace GDAXSharp.Services.Payments.Models
 
     public abstract class Power
     {
-        public decimal Period_in_days { get; set; }
+        [JsonProperty("period_in_days")]
+        public decimal PeriodInDays { get; set; }
 
         public Total Total { get; set; }
     }
@@ -58,6 +70,7 @@ namespace GDAXSharp.Services.Payments.Models
     {
         public decimal Amount { get; set; }
 
-        public string Currency { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Shared.Currency Currency { get; set; }
     }
 }

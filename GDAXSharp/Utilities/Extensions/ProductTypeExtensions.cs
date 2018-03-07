@@ -1,14 +1,23 @@
-﻿using GDAXSharp.Shared;
+﻿using System;
+using GDAXSharp.Shared;
 
 namespace GDAXSharp.Utilities.Extensions
 {
     public static class ProductTypeExtensions
     {
-        public static string ToDasherizedUpper(this ProductType orderType)
+        public static Currency BaseCurrency(this ProductType value)
         {
-            var orderTypeString = orderType.ToString();
+            var baseCurrency = value.GetEnumMemberValue().Split('-')[0];
 
-            return orderTypeString.Insert(3, "-").ToUpper();
+            return (Currency)Enum.Parse(typeof(Currency), baseCurrency);
+        }
+
+        public static Currency QuoteCurrency(this ProductType value)
+        {
+            var quoteCurrency = value.GetEnumMemberValue().Split('-')[1];
+
+            return (Currency)Enum.Parse(typeof(Currency), quoteCurrency);
         }
     }
 }
+
