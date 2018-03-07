@@ -23,21 +23,21 @@ namespace GDAXSharp.Specs.Services.Fundings
         static IList<IList<Funding>> fundings_response;
 
         Establish context = () =>
+        {
+            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                .Return(new HttpRequestMessage());
+
+            The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
+
             authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
+        };
 
         class when_requesting_all_fundings
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(FundingsResponseFixture.Create()));
-            };
 
             Because of = () =>
                 fundings_response = Subject.GetAllFundingsAsync().Result;

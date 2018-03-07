@@ -21,20 +21,20 @@ namespace GDAXSharp.Specs.Services.CoinbaseAccounts
         static Authenticator authenticator;
 
         Establish context = () =>
+        {
+            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>())).Return(new HttpRequestMessage());
+
+            The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>())).Return(Task.FromResult(new HttpResponseMessage()));
+
             authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
+        };
 
         class when_getting_all_coinbase_accounts
         {
             static IEnumerable<CoinbaseAccount> result;
 
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>())).Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>())).Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).Return(Task.FromResult(AllCoinbaseResponseFixture.Create()));
-            };
 
             Because of = () =>
                 result = Subject.GetAllAccountsAsync().Result;

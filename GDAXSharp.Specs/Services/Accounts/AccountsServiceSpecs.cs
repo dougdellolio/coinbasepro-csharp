@@ -22,23 +22,23 @@ namespace GDAXSharp.Specs.Services.Accounts
         static Authenticator authenticator;
 
         Establish context = () =>
+        {
+            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                .Return(new HttpRequestMessage());
+
+            The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                .Return(Task.FromResult(new HttpResponseMessage()));
+
             authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
+        };
 
         class when_getting_all_accounts
         {
             static IEnumerable<Account> result;
 
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(AllAccountsResponseFixture.Create()));
-            };
 
             Because of = () =>
                 result = Subject.GetAllAccountsAsync().Result;
@@ -62,16 +62,8 @@ namespace GDAXSharp.Specs.Services.Accounts
             static Account result;
 
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(AccountByIdResponseFixture.Create()));
-            };
 
             Because of = () =>
                 result = Subject.GetAccountByIdAsync("a1b2c3d4").Result;
@@ -91,9 +83,6 @@ namespace GDAXSharp.Specs.Services.Accounts
 
             Establish context = () =>
             {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
                 The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
                        .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
 
@@ -122,9 +111,6 @@ namespace GDAXSharp.Specs.Services.Accounts
 
             Establish context = () =>
             {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
                 The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
                        .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
 

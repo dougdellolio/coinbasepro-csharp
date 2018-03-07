@@ -74,6 +74,10 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 ###### Fundings ######
 - GetAllFundingsAsync(limit, fundingStatus, numberOfPages) - gets a list of all orders placed with a margin profile that draws funding (paged response)
 
+###### Reports ######
+- CreateNewAccountReportAsync(startDate, endDate, accountId, productType, email, fileFormat) - generate new account report
+- CreateNewFillsReportAsync(startDate, endDate, productType, accountId, email, fileFormat) - generate new fills report
+
 <h1>Sandbox Support</h1>
 
 <i>Generate your key at https://public.sandbox.gdax.com/settings/api</i>
@@ -83,7 +87,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>");
 
 //create the GDAX client and set the sandbox flag to true
-var gdaxClient = new GDAXSharp.GDAXClient(authenticator, true);
+var gdaxClient = new GDAXClient(authenticator, true);
 
 //use one of the services 
 var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
@@ -120,6 +124,16 @@ var firstAccountHistoryOnFirstPage = firstPage.ToList()[0];
 //get the second item on the page
 var secondAccountHistoryOnFirstPage = firstPage.ToList()[1];
 ````
+
+###### Generate and email a report######
+
+````var response = gdaxClient.ReportsService.CreateNewAccountReportAsync(
+						new DateTime(2017, 1, 1), 
+						new DateTime(2018, 1, 1), 
+						"29318029382",
+						ProductType.BtcUsd,
+						"me@email.com",
+						FileFormat.Csv);````
 
 <h1>Contributors</h1>
 
