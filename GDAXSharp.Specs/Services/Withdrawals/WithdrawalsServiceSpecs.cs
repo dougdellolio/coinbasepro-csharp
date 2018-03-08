@@ -42,7 +42,7 @@ namespace GDAXSharp.Specs.Services.Withdrawals
             };
 
             Because of = () =>
-                withdrawals_response = Subject.WithdrawFundsAsync(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"), 10, Currency.USD).Result;
+                withdrawals_response = Subject.WithdrawFundsAsync("593533d2-ff31-46e0-b22e-ca754147a96a", 10, Currency.USD).Result;
 
             It should_return_a_response = () =>
                 withdrawals_response.ShouldNotBeNull();

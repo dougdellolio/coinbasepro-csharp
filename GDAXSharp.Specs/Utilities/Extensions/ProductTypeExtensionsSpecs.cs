@@ -8,15 +8,14 @@ namespace GDAXSharp.Specs.Utilities.Extensions
     public class ProductTypeExtensionsSpecs
     {
         static ProductType productId;
-
         static Currency baseCurrency;
-        private static Currency quoteCurrency;
+        static Currency quoteCurrency;
 
-        class base_eth_product_type
+        class eth_product_type
         {
             Establish context = () => productId = ProductType.EthUsd;
 
-            private Because of = () =>
+            Because of = () =>
             {
                 baseCurrency = productId.BaseCurrency();
                 quoteCurrency = productId.QuoteCurrency();
@@ -33,7 +32,7 @@ namespace GDAXSharp.Specs.Utilities.Extensions
         {
             Establish context = () => productId = ProductType.BtcGbp;
 
-            private Because of = () =>
+            Because of = () =>
             {
                 baseCurrency = productId.BaseCurrency();
                 quoteCurrency = productId.QuoteCurrency();
@@ -50,7 +49,7 @@ namespace GDAXSharp.Specs.Utilities.Extensions
         {
             Establish context = () => productId = ProductType.LtcEur;
 
-            private Because of = () =>
+            Because of = () =>
             {
                 baseCurrency = productId.BaseCurrency();
                 quoteCurrency = productId.QuoteCurrency();
@@ -67,7 +66,7 @@ namespace GDAXSharp.Specs.Utilities.Extensions
         {
             Establish context = () => productId = ProductType.BchBtc;
 
-            private Because of = () =>
+            Because of = () =>
             {
                 baseCurrency = productId.BaseCurrency();
                 quoteCurrency = productId.QuoteCurrency();

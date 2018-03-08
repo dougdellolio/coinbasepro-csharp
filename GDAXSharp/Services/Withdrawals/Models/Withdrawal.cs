@@ -1,5 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace GDAXSharp.Services.Withdrawals.Models
@@ -12,6 +11,6 @@ namespace GDAXSharp.Services.Withdrawals.Models
         public Shared.Currency Currency { get; set; }
 
         [JsonProperty("payment_method_id")]
-        public Guid PaymentMethodId { get; set; }
+        public string PaymentMethodId { get; set; }
     }
 }
