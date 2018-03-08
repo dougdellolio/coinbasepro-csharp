@@ -17,13 +17,10 @@ namespace GDAXSharp.Services.Accounts.Models
 
         public decimal Available { get; set; }
 
-        [JsonProperty("margin_enabled")]
         public bool MarginEnabled { get; set; }
 
-        [JsonProperty("funded_amount")]
         public decimal FundedAmount { get; set; }
 
-        [JsonProperty("default_amount")]
         public decimal DefaultAmount { get; set; }
     }
 }

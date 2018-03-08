@@ -30,7 +30,7 @@ namespace GDAXSharp.Services.Payments
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/payment-methods");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var paymentMethodsResponse = JsonConvert.DeserializeObject<IEnumerable<PaymentMethod>>(contentBody);
+            var paymentMethodsResponse = DeserializeObject<IEnumerable<PaymentMethod>>(contentBody);
 
             return paymentMethodsResponse;
         }

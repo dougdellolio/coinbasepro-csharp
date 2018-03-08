@@ -8,10 +8,8 @@ namespace GDAXSharp.Services.Fills.Models.Responses
 {
     public class FillResponse
     {
-        [JsonProperty("trade_id")]
         public int TradeId { get; set; }
 
-        [JsonProperty("product_id")]
         [JsonConverter(typeof(StringEnumConverter))]
         public ProductType ProductId { get; set; }
 
@@ -19,10 +17,8 @@ namespace GDAXSharp.Services.Fills.Models.Responses
 
         public decimal Size { get; set; }
 
-        [JsonProperty("order_id")]
         public Guid OrderId { get; set; }
 
-        [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]

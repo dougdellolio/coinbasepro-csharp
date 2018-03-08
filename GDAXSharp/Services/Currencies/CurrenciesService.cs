@@ -28,7 +28,7 @@ namespace GDAXSharp.Services.Currencies
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/currencies");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var currencies = JsonConvert.DeserializeObject<List<Models.Currency>>(contentBody);
+            var currencies = DeserializeObject<List<Models.Currency>>(contentBody);
 
             return currencies;
         }

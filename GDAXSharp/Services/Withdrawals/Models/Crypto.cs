@@ -10,7 +10,6 @@ namespace GDAXSharp.Services.Withdrawals.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public Shared.Currency Currency { get; set; }
 
-        [JsonProperty("crypto_address")]
         public string CryptoAddress { get; set; }
     }
 }

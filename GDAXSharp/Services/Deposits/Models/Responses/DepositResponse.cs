@@ -13,7 +13,6 @@ namespace GDAXSharp.Services.Deposits.Models.Responses
         [JsonConverter(typeof(StringEnumConverter))]
         public Shared.Currency Currency { get; set; }
 
-        [JsonProperty("payout_at")]
         public DateTime PayoutAt { get; set; }
     }
 }

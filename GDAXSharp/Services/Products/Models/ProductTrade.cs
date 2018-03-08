@@ -9,7 +9,6 @@ namespace GDAXSharp.Services.Products.Models
     {
         public DateTime Time { get; set; }
 
-        [JsonProperty("trade_id")]
         public int TradeId { get; set; }
 
         public decimal Price { get; set; }

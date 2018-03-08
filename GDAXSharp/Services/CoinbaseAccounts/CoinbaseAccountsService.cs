@@ -29,7 +29,7 @@ namespace GDAXSharp.Services.CoinbaseAccounts
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/coinbase-accounts");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var accounts = JsonConvert.DeserializeObject<List<CoinbaseAccount>>(contentBody);
+            var accounts = DeserializeObject<List<CoinbaseAccount>>(contentBody);
 
             return accounts;
         }

@@ -14,7 +14,6 @@ namespace GDAXSharp.Services.Withdrawals.Models.Responses
         [JsonConverter(typeof(StringEnumConverter))]
         public Currency Currency { get; set; }
 
-        [JsonProperty("payout_at")]
         public DateTime PayoutAt { get; set; }
     }
 }

@@ -8,13 +8,10 @@ namespace GDAXSharp.Services.Accounts.Models
     {
         public string Id { get; set; }
 
-        [JsonProperty("account_id")]
         public Guid AccountId { get; set; }
 
-        [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
 
-        [JsonProperty("updated_at")]
         public DateTime UpdatedAt { get; set; }
 
         public decimal Amount { get; set; }

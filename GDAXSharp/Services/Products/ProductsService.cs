@@ -40,7 +40,7 @@ namespace GDAXSharp.Services.Products
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/products");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productsResponse = JsonConvert.DeserializeObject<IEnumerable<Product>>(contentBody);
+            var productsResponse = DeserializeObject<IEnumerable<Product>>(contentBody);
 
             return productsResponse;
         }
@@ -51,7 +51,7 @@ namespace GDAXSharp.Services.Products
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productId.GetEnumMemberValue()}/book/?level={(int)productLevel}");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productsOrderBookJsonResponse = JsonConvert.DeserializeObject<ProductsOrderBookJsonResponse>(contentBody);
+            var productsOrderBookJsonResponse = DeserializeObject<ProductsOrderBookJsonResponse>(contentBody);
 
             var productOrderBookResponse = ConvertProductOrderBookResponse(productsOrderBookJsonResponse, productLevel);
 
@@ -62,7 +62,7 @@ namespace GDAXSharp.Services.Products
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productId.GetEnumMemberValue()}/ticker");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productTickerResponse = JsonConvert.DeserializeObject<ProductTicker>(contentBody);
+            var productTickerResponse = DeserializeObject<ProductTicker>(contentBody);
 
             return productTickerResponse;
         }
@@ -71,7 +71,7 @@ namespace GDAXSharp.Services.Products
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productId.GetEnumMemberValue()}/stats");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productStatsResponse = JsonConvert.DeserializeObject<ProductStats>(contentBody);
+            var productStatsResponse = DeserializeObject<ProductStats>(contentBody);
 
             return productStatsResponse;
         }
@@ -132,8 +132,7 @@ namespace GDAXSharp.Services.Products
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productId.GetEnumMemberValue()}/candles" + queryString);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productHistoryResponse = JsonConvert.DeserializeObject<IList<Candle>>(contentBody
-                    , new JsonSerializerSettings {FloatParseHandling = FloatParseHandling.Decimal});
+            var productHistoryResponse = DeserializeObject<IList<Candle>>(contentBody);
 
             return productHistoryResponse;
         }

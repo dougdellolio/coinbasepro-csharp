@@ -31,32 +31,32 @@ namespace GDAXSharp.Services.Deposits
 
         public async Task<DepositResponse> DepositFundsAsync(string paymentMethodId, decimal amount, Currency currency)
         {
-            var newDeposit = JsonConvert.SerializeObject(new Deposit
+            var newDeposit = new Deposit
             {
                 Amount = amount,
                 Currency = currency,
                 PaymentMethodId = new Guid(paymentMethodId)
-            });
+            };
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/deposits/payment-method", newDeposit);
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/deposits/payment-method", SerializeObject(newDeposit));
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var depositResponse = JsonConvert.DeserializeObject<DepositResponse>(contentBody);
+            var depositResponse = DeserializeObject<DepositResponse>(contentBody);
 
             return depositResponse;
         }
 
         public async Task<CoinbaseResponse> DepositCoinbaseFundsAsync(string coinbaseAccountId, decimal amount, Currency currency)
         {
-            var newCoinbaseDeposit = JsonConvert.SerializeObject(new Coinbase
+            var newCoinbaseDeposit = new Coinbase
             {
                 Amount = amount,
                 Currency = currency,
                 CoinbaseAccountId = coinbaseAccountId
-            });
+            };
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/deposits/coinbase-account", newCoinbaseDeposit);
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/deposits/coinbase-account", SerializeObject(newCoinbaseDeposit));
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var depositResponse = JsonConvert.DeserializeObject<CoinbaseResponse>(contentBody);
+            var depositResponse = DeserializeObject<CoinbaseResponse>(contentBody);
 
             return depositResponse;
         }

@@ -8,7 +8,6 @@ namespace GDAXSharp.Services.Currencies.Models
 
         public string Name { get; set; }
 
-        [JsonProperty("min_size")]
         public decimal MinSize { get; set; }
     }
 }

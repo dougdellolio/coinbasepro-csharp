@@ -11,7 +11,6 @@ namespace GDAXSharp.Services.Deposits.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public Shared.Currency Currency { get; set; }
 
-        [JsonProperty("payment_method_id")]
         public Guid PaymentMethodId { get; set; }
     }
 }

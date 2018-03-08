@@ -111,11 +111,9 @@ namespace GDAXSharp.Services.Orders
 
         private async Task<OrderResponse> PlaceOrderAsync(Order order)
         {
-            var newOrder = JsonConvert.SerializeObject(order);
-
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders", newOrder);
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders", SerializeObject(order));
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
+            var orderResponse = DeserializeObject<OrderResponse>(contentBody);
 
             return orderResponse;
         }
@@ -124,7 +122,7 @@ namespace GDAXSharp.Services.Orders
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Delete, authenticator, "/orders");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var orderResponse = JsonConvert.DeserializeObject<IEnumerable<Guid>>(contentBody);
+            var orderResponse = DeserializeObject<IEnumerable<Guid>>(contentBody);
 
             return new CancelOrderResponse
             {
@@ -164,7 +162,7 @@ namespace GDAXSharp.Services.Orders
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/orders/{id}");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
+            var orderResponse = DeserializeObject<OrderResponse>(contentBody);
 
             return orderResponse;
         }

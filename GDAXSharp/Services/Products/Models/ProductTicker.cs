@@ -5,7 +5,6 @@ namespace GDAXSharp.Services.Products.Models
 {
     public class ProductTicker
     {
-        [JsonProperty("trade_id")]
         public int TradeId { get; set; }
 
         public decimal Price { get; set; }
