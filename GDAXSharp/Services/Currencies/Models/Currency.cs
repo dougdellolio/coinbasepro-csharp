@@ -2,10 +2,10 @@
 {
     public class Currency
     {
-        public string Id { get; set; }
+        public Shared.Currency Id { get; set; }
 
         public string Name { get; set; }
 
-        public decimal Min_size { get; set; }
+        public decimal MinSize { get; set; }
     }
 }

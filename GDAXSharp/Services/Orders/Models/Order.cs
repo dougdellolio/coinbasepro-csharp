@@ -1,21 +1,31 @@
-﻿namespace GDAXSharp.Services.Orders.Models
+﻿using GDAXSharp.Shared;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace GDAXSharp.Services.Orders.Models
 {
     public class Order
     {
-        public string side { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public OrderSide Side { get; set; }
 
-        public decimal size { get; set; }
+        public decimal Size { get; set; }
 
-        public decimal price { get; set; }
+        public decimal Price { get; set; }
 
-        public string type { get; set; }
+        [JsonProperty("type")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public OrderType OrderType { get; set; }
 
-        public string product_id { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ProductType ProductId { get; set; }
 
-        public string time_in_force { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public TimeInForce TimeInForce { get; set; }
 
-        public string cancel_after { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public GoodTillTime CancelAfter { get; set; }
 
-        public bool post_only { get; set; }
+        public bool PostOnly { get; set; }
     }
 }

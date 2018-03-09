@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GDAXSharp.Services.Accounts.Models
 {
@@ -6,7 +8,8 @@ namespace GDAXSharp.Services.Accounts.Models
     {
         public Guid Id { get; set; }
 
-        public string Currency { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Shared.Currency Currency { get; set; }
 
         public decimal Balance { get; set; }
 
@@ -14,10 +17,10 @@ namespace GDAXSharp.Services.Accounts.Models
 
         public decimal Available { get; set; }
 
-        public bool Margin_enabled { get; set; }
+        public bool MarginEnabled { get; set; }
 
-        public decimal Funded_amount { get; set; }
+        public decimal FundedAmount { get; set; }
 
-        public decimal Default_amount { get; set; }
+        public decimal DefaultAmount { get; set; }
     }
 }

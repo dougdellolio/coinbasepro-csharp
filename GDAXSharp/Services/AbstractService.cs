@@ -6,6 +6,7 @@ using GDAXSharp.Authentication;
 using GDAXSharp.HttpClient;
 using GDAXSharp.Services.HttpRequest;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace GDAXSharp.Services
 {
@@ -14,6 +15,16 @@ namespace GDAXSharp.Services
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
         private readonly IHttpClient httpClient;
+
+        private static JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings
+        {
+            FloatParseHandling = FloatParseHandling.Decimal,
+            NullValueHandling = NullValueHandling.Ignore,
+            ContractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new SnakeCaseNamingStrategy()
+            }
+        };
 
         protected AbstractService(
             IHttpClient httpClient,
@@ -60,7 +71,7 @@ namespace GDAXSharp.Services
             var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
-            var firstPage = JsonConvert.DeserializeObject<IList<T>>(contentBody);
+            var firstPage = DeserializeObject<IList<T>>(contentBody);
 
             pagedList.Add(firstPage);
 
@@ -101,7 +112,7 @@ namespace GDAXSharp.Services
                 subsequentPageAfterHeaderId = cursorHeaders.First();
 
                 var subsequentContentBody = await httpClient.ReadAsStringAsync(subsequentHttpResponseMessage).ConfigureAwait(false);
-                var page = JsonConvert.DeserializeObject<IList<T>>(subsequentContentBody);
+                var page = DeserializeObject<IList<T>>(subsequentContentBody);
 
                 pagedList.Add(page);
 
@@ -109,6 +120,16 @@ namespace GDAXSharp.Services
             }
 
             return pagedList;
+        }
+
+        protected static string SerializeObject(object value)
+        {
+            return JsonConvert.SerializeObject(value, SerializerSettings);
+        }
+
+        protected static T DeserializeObject<T>(string contentBody)
+        {
+            return JsonConvert.DeserializeObject<T>(contentBody, SerializerSettings);
         }
     }
 }

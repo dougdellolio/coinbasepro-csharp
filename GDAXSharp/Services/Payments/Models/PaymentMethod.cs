@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GDAXSharp.Services.Payments.Models
 {
@@ -7,23 +9,25 @@ namespace GDAXSharp.Services.Payments.Models
     {
         public Guid Id { get; set; }
 
-        public string Type { get; set; }
+        [JsonProperty("type")]
+        public string PaymentMethodType { get; set; }
 
         public string Name { get; set; }
 
-        public string Currency { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Shared.Currency Currency { get; set; }
 
-        public bool Primary_buy { get; set; }
+        public bool PrimaryBuy { get; set; }
 
-        public bool Primary_sell { get; set; }
+        public bool PrimarySell { get; set; }
 
-        public bool Allow_buy { get; set; }
+        public bool AllowBuy { get; set; }
 
-        public bool Allow_sell { get; set; }
+        public bool AllowSell { get; set; }
 
-        public bool Allow_deposit { get; set; }
+        public bool AllowDeposit { get; set; }
 
-        public bool Allow_withdraw { get; set; }
+        public bool AllowWithdraw { get; set; }
 
         public Limit Limits { get; set; }
     }
@@ -32,7 +36,7 @@ namespace GDAXSharp.Services.Payments.Models
     {
         public IEnumerable<BuyPower> Buy { get; set; }
 
-        public IEnumerable<BuyPower> Instant_buy { get; set; }
+        public IEnumerable<BuyPower> InstantBuy { get; set; }
 
         public IEnumerable<SellPower> Sell { get; set; }
 
@@ -49,7 +53,7 @@ namespace GDAXSharp.Services.Payments.Models
 
     public abstract class Power
     {
-        public decimal Period_in_days { get; set; }
+        public decimal PeriodInDays { get; set; }
 
         public Total Total { get; set; }
     }
@@ -58,6 +62,7 @@ namespace GDAXSharp.Services.Payments.Models
     {
         public decimal Amount { get; set; }
 
-        public string Currency { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Shared.Currency Currency { get; set; }
     }
 }

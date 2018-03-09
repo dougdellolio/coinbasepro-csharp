@@ -5,7 +5,6 @@ using GDAXSharp.Authentication;
 using GDAXSharp.HttpClient;
 using GDAXSharp.Services.Accounts.Models;
 using GDAXSharp.Services.HttpRequest;
-using Newtonsoft.Json;
 
 namespace GDAXSharp.Services.Accounts
 {
@@ -29,7 +28,7 @@ namespace GDAXSharp.Services.Accounts
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/accounts");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var accountList = JsonConvert.DeserializeObject<List<Account>>(contentBody);
+            var accountList = DeserializeObject<List<Account>>(contentBody);
 
             return accountList;
         }
@@ -38,7 +37,7 @@ namespace GDAXSharp.Services.Accounts
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/accounts/{id}");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var account = JsonConvert.DeserializeObject<Account>(contentBody);
+            var account = DeserializeObject<Account>(contentBody);
 
             return account;
         }

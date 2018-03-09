@@ -1,4 +1,7 @@
 ﻿using System;
+using GDAXSharp.Shared;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GDAXSharp.Services.Orders.Models.Responses
 {
@@ -10,34 +13,40 @@ namespace GDAXSharp.Services.Orders.Models.Responses
 
         public decimal Size { get; set; }
 
-        public string Product_id { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ProductType ProductId { get; set; }
 
-        public string Side { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public OrderSide Side { get; set; }
 
         public string Stp { get; set; }
 
-        public string Type { get; set; }
+        [JsonProperty("type")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public OrderType OrderType { get; set; }
 
-        public string Time_in_force { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public TimeInForce TimeInForce { get; set; }
 
-        public bool Post_only { get; set; }
+        public bool PostOnly { get; set; }
 
-        public DateTime Created_at { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        public DateTime Done_at { get; set; }
+        public DateTime DoneAt { get; set; }
 
-        public string Done_reason { get; set; }
+        public string DoneReason { get; set; }
 
-        public decimal Fill_fees { get; set; }
+        public decimal FillFees { get; set; }
 
-        public decimal Filled_size { get; set; }
+        public decimal FilledSize { get; set; }
 
-        public decimal Executed_value { get; set; }
+        public decimal ExecutedValue { get; set; }
 
-        public string Status { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public OrderStatus Status { get; set; }
 
         public bool Settled { get; set; }
 
-        public decimal Specified_funds { get; set; }
+        public decimal SpecifiedFunds { get; set; }
     }
 }

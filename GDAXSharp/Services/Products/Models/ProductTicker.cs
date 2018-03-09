@@ -4,7 +4,7 @@ namespace GDAXSharp.Services.Products.Models
 {
     public class ProductTicker
     {
-        public int Trade_id { get; set; }
+        public int TradeId { get; set; }
 
         public decimal Price { get; set; }
 

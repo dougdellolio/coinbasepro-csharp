@@ -5,7 +5,6 @@ using GDAXSharp.Authentication;
 using GDAXSharp.HttpClient;
 using GDAXSharp.Services.CoinbaseAccounts.Models;
 using GDAXSharp.Services.HttpRequest;
-using Newtonsoft.Json;
 
 namespace GDAXSharp.Services.CoinbaseAccounts
 {
@@ -29,7 +28,7 @@ namespace GDAXSharp.Services.CoinbaseAccounts
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/coinbase-accounts");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var accounts = JsonConvert.DeserializeObject<List<CoinbaseAccount>>(contentBody);
+            var accounts = DeserializeObject<List<CoinbaseAccount>>(contentBody);
 
             return accounts;
         }

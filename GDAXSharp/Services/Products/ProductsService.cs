@@ -12,7 +12,6 @@ using GDAXSharp.Services.Products.Models;
 using GDAXSharp.Services.Products.Models.Responses;
 using GDAXSharp.Shared;
 using GDAXSharp.Utilities;
-using Newtonsoft.Json;
 
 namespace GDAXSharp.Services.Products
 {
@@ -40,59 +39,59 @@ namespace GDAXSharp.Services.Products
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/products");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productsResponse = JsonConvert.DeserializeObject<IEnumerable<Product>>(contentBody);
+            var productsResponse = DeserializeObject<IEnumerable<Product>>(contentBody);
 
             return productsResponse;
         }
 
         public async Task<ProductsOrderBookResponse> GetProductOrderBookAsync(
-            ProductType productPair, 
-            ProductLevel productLevel = ProductLevel.One)
+			ProductType productId, 
+			ProductLevel productLevel = ProductLevel.One)
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/book/?level={(int)productLevel}");
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productId.GetEnumMemberValue()}/book/?level={(int)productLevel}");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productsOrderBookJsonResponse = JsonConvert.DeserializeObject<ProductsOrderBookJsonResponse>(contentBody);
+            var productsOrderBookJsonResponse = DeserializeObject<ProductsOrderBookJsonResponse>(contentBody);
 
             var productOrderBookResponse = ConvertProductOrderBookResponse(productsOrderBookJsonResponse, productLevel);
 
             return productOrderBookResponse;
         }
 
-        public async Task<ProductTicker> GetProductTickerAsync(ProductType productPair)
+        public async Task<ProductTicker> GetProductTickerAsync(ProductType productId)
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/ticker");
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productId.GetEnumMemberValue()}/ticker");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productTickerResponse = JsonConvert.DeserializeObject<ProductTicker>(contentBody);
+            var productTickerResponse = DeserializeObject<ProductTicker>(contentBody);
 
             return productTickerResponse;
         }
 
-        public async Task<ProductStats> GetProductStatsAsync(ProductType productPair)
+        public async Task<ProductStats> GetProductStatsAsync(ProductType productId)
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/stats");
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productId.GetEnumMemberValue()}/stats");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productStatsResponse = JsonConvert.DeserializeObject<ProductStats>(contentBody);
+            var productStatsResponse = DeserializeObject<ProductStats>(contentBody);
 
             return productStatsResponse;
         }
 
         public async Task<IList<IList<ProductTrade>>> GetTradesAsync(
-            ProductType productPair,
+            ProductType productId,
             int limit = 100,
             int numberOfPages = 0)
         {
-            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<ProductTrade>(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/trades?limit={limit}", numberOfPages: numberOfPages);
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<ProductTrade>(HttpMethod.Get, authenticator, $"/products/{productId.GetEnumMemberValue()}/trades?limit={limit}", numberOfPages: numberOfPages);
 
             return httpResponseMessage;
         }
 
         public async Task<IList<Candle>> GetHistoricRatesAsync(
-            ProductType productPair, 
-            DateTime start, 
-            DateTime end, 
-            CandleGranularity granularity)
+			ProductType productPair, 
+			DateTime start, 
+			DateTime end, 
+			CandleGranularity granularity)
         {
-            const int maxPeriods = 350;
+            const int maxPeriods = 300;
 
             var rc = new List<Candle>();
 
@@ -103,6 +102,10 @@ namespace GDAXSharp.Services.Products
 
             do
             {
+                if (batchEnd == null) {
+                    break;
+                }
+
                 batchStart = batchEnd.Value.AddSeconds(-maxBatchPeriod);
                 if (batchStart < start) batchStart = start;
 
@@ -115,10 +118,10 @@ namespace GDAXSharp.Services.Products
         }
 
         private async Task<IList<Candle>> GetHistoricRatesAsync(
-            ProductType productPair, 
-            DateTime start, 
-            DateTime end, 
-            int granularity)
+			ProductType productId, 
+			DateTime start, 
+			DateTime end, 
+			int granularity)
         {
             var isoStart = start.ToString("s");
             var isoEnd = end.ToString("s");
@@ -128,10 +131,9 @@ namespace GDAXSharp.Services.Products
                 new KeyValuePair<string, string>("end", isoEnd),
                 new KeyValuePair<string, string>("granularity", granularity.ToString()));
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productPair.ToDasherizedUpper()}/candles" + queryString);
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productId.GetEnumMemberValue()}/candles" + queryString);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productHistoryResponse = JsonConvert.DeserializeObject<IList<Candle>>(contentBody,
-                new JsonSerializerSettings { FloatParseHandling = FloatParseHandling.Decimal });
+            var productHistoryResponse = DeserializeObject<IList<Candle>>(contentBody);
 
             return productHistoryResponse;
         }

@@ -1,17 +1,24 @@
-﻿namespace GDAXSharp.Services.Products.Models
+﻿using GDAXSharp.Shared;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace GDAXSharp.Services.Products.Models
 {
     public class Product
     {
-        public string Id { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ProductType Id { get; set; }
 
-        public string Base_currency { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Currency BaseCurrency { get; set; }
 
-        public string Quote_currency { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Currency QuoteCurrency { get; set; }
 
-        public string Base_min_size { get; set; }
+        public decimal BaseMinSize { get; set; }
 
-        public string Base_max_size { get; set; }
+        public decimal BaseMaxSize { get; set; }
 
-        public string Quote_increment { get; set; }
+        public decimal QuoteIncrement { get; set; }
     }
 }

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Utilities.Extensions;
 using GDAXSharp.Authentication;
 using GDAXSharp.HttpClient;
 using GDAXSharp.Services.HttpRequest;
 using GDAXSharp.Services.Orders.Models;
 using GDAXSharp.Services.Orders.Models.Responses;
 using GDAXSharp.Shared;
-using Newtonsoft.Json;
+using GDAXSharp.Utilities.Extensions;
 
 namespace GDAXSharp.Services.Orders
 {
@@ -33,95 +32,88 @@ namespace GDAXSharp.Services.Orders
 
         public async Task<OrderResponse> PlaceMarketOrderAsync(
             OrderSide side,
-            ProductType productPair,
+            ProductType productId,
             decimal size)
         {
-            var newOrder = JsonConvert.SerializeObject(new Order
+            var order = new Order
             {
-                side = side.ToString().ToLower(),
-                product_id = productPair.ToDasherizedUpper(),
-                type = OrderType.Market.ToString().ToLower(),
-                size = size
-            });
+                Side = side,
+                ProductId = productId,
+                OrderType = OrderType.Market,
+                Size = size
+            };
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders", newOrder);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
-
-            return orderResponse;
+            return await PlaceOrderAsync(order);
         }
 
         public async Task<OrderResponse> PlaceLimitOrderAsync(
             OrderSide side,
-            ProductType productPair,
+            ProductType productId,
             decimal size,
             decimal price,
             TimeInForce timeInForce = TimeInForce.Gtc,
             bool postOnly = true)
         {
-            var newOrder = JsonConvert.SerializeObject(new Order
+            var order = new Order
             {
-                side = side.ToString().ToLower(),
-                product_id = productPair.ToDasherizedUpper(),
-                type = OrderType.Limit.ToString().ToLower(),
-                price = price,
-                size = size,
-                time_in_force = timeInForce.ToString().ToUpper(),
-                post_only = postOnly
-            });
+                Side = side,
+                ProductId = productId,
+                OrderType = OrderType.Limit,
+                Price = price,
+                Size = size,
+                TimeInForce = timeInForce,
+                PostOnly = postOnly
+            };
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders", newOrder).ConfigureAwait(false);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
-
-            return orderResponse;
+            return await PlaceOrderAsync(order);
         }
 
         public async Task<OrderResponse> PlaceLimitOrderAsync(
             OrderSide side,
-            ProductType productPair,
+            ProductType productId,
             decimal size,
             decimal price,
             GoodTillTime cancelAfter,
             bool postOnly = true)
         {
-            var newOrder = JsonConvert.SerializeObject(new Order
+            var order = new Order
             {
-                side = side.ToString().ToLower(),
-                product_id = productPair.ToDasherizedUpper(),
-                type = OrderType.Limit.ToString().ToLower(),
-                price = price,
-                size = size,
-                time_in_force = TimeInForce.Gtt.ToString().ToUpper(),
-                cancel_after = cancelAfter.ToString().ToLower(),
-                post_only = postOnly
-            });
+                Side = side,
+                ProductId = productId,
+                OrderType = OrderType.Limit,
+                Price = price,
+                Size = size,
+                TimeInForce = TimeInForce.Gtt,
+                CancelAfter = cancelAfter,
+                PostOnly = postOnly
+            };
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders", newOrder);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
-
-            return orderResponse;
+            return await PlaceOrderAsync(order);
         }
 
         public async Task<OrderResponse> PlaceStopOrderAsync(
             OrderSide side,
-            ProductType productPair,
+            ProductType productId,
             decimal size,
             decimal stopPrice)
         {
-            var newOrder = JsonConvert.SerializeObject(new Order
+            var order = new Order
             {
-                side = side.ToString().ToLower(),
-                product_id = productPair.ToDasherizedUpper(),
-                type = OrderType.Stop.ToString().ToLower(),
-                price = stopPrice,
-                size = size
-            });
+                Side = side,
+                ProductId = productId,
+                OrderType = OrderType.Stop,
+                Price = stopPrice,
+                Size = size
+            };
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders", newOrder);
+            return await PlaceOrderAsync(order);
+        }
+
+        private async Task<OrderResponse> PlaceOrderAsync(Order order)
+        {
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders", SerializeObject(order));
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
+            var orderResponse = DeserializeObject<OrderResponse>(contentBody);
 
             return orderResponse;
         }
@@ -130,7 +122,7 @@ namespace GDAXSharp.Services.Orders
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Delete, authenticator, "/orders");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var orderResponse = JsonConvert.DeserializeObject<IEnumerable<Guid>>(contentBody);
+            var orderResponse = DeserializeObject<IEnumerable<Guid>>(contentBody);
 
             return new CancelOrderResponse
             {
@@ -161,7 +153,7 @@ namespace GDAXSharp.Services.Orders
             int limit = 100, 
             int numberOfPages = 0)
         {
-            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<OrderResponse>(HttpMethod.Get, authenticator, $"/orders?limit={limit}&status={orderStatus.ToString().ToLower()}", numberOfPages: numberOfPages);
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<OrderResponse>(HttpMethod.Get, authenticator, $"/orders?limit={limit}&status={orderStatus.GetEnumMemberValue()}", numberOfPages: numberOfPages);
 
             return httpResponseMessage;
         }
@@ -170,7 +162,7 @@ namespace GDAXSharp.Services.Orders
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/orders/{id}");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var orderResponse = JsonConvert.DeserializeObject<OrderResponse>(contentBody);
+            var orderResponse = DeserializeObject<OrderResponse>(contentBody);
 
             return orderResponse;
         }

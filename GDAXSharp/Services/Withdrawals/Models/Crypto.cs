@@ -1,11 +1,15 @@
-﻿namespace GDAXSharp.Services.Withdrawals.Models
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace GDAXSharp.Services.Withdrawals.Models
 {
     public class Crypto
     {
-        public decimal amount { get; set; }
+        public decimal Amount { get; set; }
 
-        public string currency { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Shared.Currency Currency { get; set; }
 
-        public string crypto_address { get; set; }
+        public string CryptoAddress { get; set; }
     }
 }

@@ -6,7 +6,6 @@ using GDAXSharp.Services.HttpRequest;
 using GDAXSharp.Services.Withdrawals.Models;
 using GDAXSharp.Services.Withdrawals.Models.Responses;
 using GDAXSharp.Shared;
-using Newtonsoft.Json;
 
 namespace GDAXSharp.Services.Withdrawals
 {
@@ -31,35 +30,35 @@ namespace GDAXSharp.Services.Withdrawals
             decimal amount, 
             Currency currency)
         {
-            var newWithdrawal = JsonConvert.SerializeObject(new Withdrawal
+            var newWithdrawal = new Withdrawal
             {
-                amount = amount,
-                currency = currency.ToString().ToUpper(),
-                payment_method_id = paymentMethodId
-            });
+                Amount = amount,
+                Currency = currency,
+                PaymentMethodId = paymentMethodId
+            };
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/withdrawals/payment-method", newWithdrawal);
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/withdrawals/payment-method", SerializeObject(newWithdrawal));
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var withdrawalResponse = JsonConvert.DeserializeObject<WithdrawalResponse>(contentBody);
+            var withdrawalResponse = DeserializeObject<WithdrawalResponse>(contentBody);
 
             return withdrawalResponse;
         }
 
         public async Task<CoinbaseResponse> WithdrawToCoinbaseAsync(
             string coinbaseAccountId, 
-            decimal amount, 
+            decimal amount,
             Currency currency)
         {
-            var newCoinbaseWithdrawal = JsonConvert.SerializeObject(new Coinbase
+            var newCoinbaseWithdrawal = new Coinbase
             {
-                amount = amount,
-                currency = currency.ToString().ToUpper(),
-                coinbase_account_id = coinbaseAccountId
-            });
+                Amount = amount,
+                Currency = currency,
+                CoinbaseAccountId = coinbaseAccountId
+            };
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/withdrawals/coinbase-account", newCoinbaseWithdrawal);
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/withdrawals/coinbase-account", SerializeObject(newCoinbaseWithdrawal));
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var coinbaseResponse = JsonConvert.DeserializeObject<CoinbaseResponse>(contentBody);
+            var coinbaseResponse = DeserializeObject<CoinbaseResponse>(contentBody);
 
             return coinbaseResponse;
         }
@@ -69,16 +68,16 @@ namespace GDAXSharp.Services.Withdrawals
             decimal amount, 
             Currency currency)
         {
-            var newCryptoWithdrawal = JsonConvert.SerializeObject(new Crypto
+            var newCryptoWithdrawal = new Crypto
             {
-                amount = amount,
-                currency = currency.ToString().ToUpper(),
-                crypto_address = cryptoAddress
-            });
+                Amount = amount,
+                Currency = currency,
+                CryptoAddress = cryptoAddress
+            };
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/withdrawals/crypto", newCryptoWithdrawal);
+            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/withdrawals/crypto", SerializeObject(newCryptoWithdrawal));
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var cryptoResponse = JsonConvert.DeserializeObject<CryptoResponse>(contentBody);
+            var cryptoResponse = DeserializeObject<CryptoResponse>(contentBody);
 
             return cryptoResponse;
         }

@@ -1,11 +1,12 @@
 ﻿using System;
+using GDAXSharp.Shared;
 
 namespace GDAXSharp.Services.Fills.Models
 {
     public class Fill
     {
-        public Guid order_id { get; set; }
+        public Guid OrderId { get; set; }
 
-        public string product_id { get; set; }
+        public ProductType ProductId { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using GDAXSharp.HttpClient;
 using GDAXSharp.Services.CoinbaseAccounts;
 using GDAXSharp.Services.CoinbaseAccounts.Models;
 using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Shared;
 using GDAXSharp.Specs.JsonFixtures.CoinbaseAccounts;
 using Machine.Fakes;
 using Machine.Specifications;
@@ -46,8 +47,8 @@ namespace GDAXSharp.Specs.Services.CoinbaseAccounts
                 result.First().Id.ShouldEqual(new Guid("fc3a8a57-7142-542d-8436-95a3d82e1622"));
                 result.First().Name.ShouldEqual("ETH Wallet");
                 result.First().Balance.ShouldEqual(0.00000000M);
-                result.First().Currency.ShouldEqual("ETH");
-                result.First().Type.ShouldEqual("wallet");
+                result.First().Currency.ShouldEqual(Currency.ETH);
+                result.First().CoinbaseAccountType.ShouldEqual(CoinbaseAccountType.Wallet);
                 result.First().Primary.ShouldBeFalse();
                 result.First().Active.ShouldBeTrue();
             };
@@ -59,19 +60,19 @@ namespace GDAXSharp.Specs.Services.CoinbaseAccounts
                 usAccount.Id.ShouldEqual(new Guid("2ae3354e-f1c3-5771-8a37-6228e9d239db"));
                 usAccount.Name.ShouldEqual("USD Wallet");
                 usAccount.Balance.ShouldEqual(0.00M);
-                usAccount.Type.ShouldEqual("fiat");
+                usAccount.CoinbaseAccountType.ShouldEqual(CoinbaseAccountType.Fiat);
                 usAccount.Primary.ShouldBeFalse();
                 usAccount.Active.ShouldBeTrue();
-                usAccount.Wire_Deposit_Information.Account_Number.ShouldEqual("0199003122");
-                usAccount.Wire_Deposit_Information.Routing_Number.ShouldEqual("026013356");
-                usAccount.Wire_Deposit_Information.Bank_Name.ShouldEqual("Metropolitan Commercial Bank");
-                usAccount.Wire_Deposit_Information.Bank_Address.ShouldEqual("99 Park Ave 4th Fl New York, NY 10016");
-                usAccount.Wire_Deposit_Information.Bank_Country.Code.ShouldEqual("US");
-                usAccount.Wire_Deposit_Information.Bank_Country.Name.ShouldEqual("United States");
-                usAccount.Wire_Deposit_Information.Account_Name.ShouldEqual("Coinbase, Inc");
-                usAccount.Wire_Deposit_Information.Account_Address.ShouldEqual(
+                usAccount.WireDepositInformation.AccountNumber.ShouldEqual("0199003122");
+                usAccount.WireDepositInformation.RoutingNumber.ShouldEqual("026013356");
+                usAccount.WireDepositInformation.BankName.ShouldEqual("Metropolitan Commercial Bank");
+                usAccount.WireDepositInformation.BankAddress.ShouldEqual("99 Park Ave 4th Fl New York, NY 10016");
+                usAccount.WireDepositInformation.BankCountry.Code.ShouldEqual("US");
+                usAccount.WireDepositInformation.BankCountry.Name.ShouldEqual("United States");
+                usAccount.WireDepositInformation.AccountName.ShouldEqual("Coinbase, Inc");
+                usAccount.WireDepositInformation.AccountAddress.ShouldEqual(
                     "548 Market Street, #23008, San Francisco, CA 94104");
-                usAccount.Wire_Deposit_Information.Reference.ShouldEqual("BAOCAEUX");
+                usAccount.WireDepositInformation.Reference.ShouldEqual("BAOCAEUX");
             };
 
             It should_have_corret_BTC_account_information = () =>
@@ -81,8 +82,8 @@ namespace GDAXSharp.Specs.Services.CoinbaseAccounts
                 btcAccount.Id.ShouldEqual(new Guid("1bfad868-5223-5d3c-8a22-b5ed371e55cb"));
                 btcAccount.Name.ShouldEqual("BTC Wallet");
                 btcAccount.Balance.ShouldEqual(0.00000000M);
-                btcAccount.Currency.ShouldEqual("BTC");
-                btcAccount.Type.ShouldEqual("wallet");
+                btcAccount.Currency.ShouldEqual(Currency.BTC);
+                btcAccount.CoinbaseAccountType.ShouldEqual(CoinbaseAccountType.Wallet);
                 btcAccount.Primary.ShouldBeTrue();
                 btcAccount.Active.ShouldBeTrue();
             };
@@ -94,18 +95,18 @@ namespace GDAXSharp.Specs.Services.CoinbaseAccounts
                 euAccount.Id.ShouldEqual(new Guid("2a11354e-f133-5771-8a37-622be9b239db"));
                 euAccount.Name.ShouldEqual("EUR Wallet");
                 euAccount.Balance.ShouldEqual(0.00M);
-                euAccount.Type.ShouldEqual("fiat");
+                euAccount.CoinbaseAccountType.ShouldEqual(CoinbaseAccountType.Fiat);
                 euAccount.Primary.ShouldBeFalse();
                 euAccount.Active.ShouldBeTrue();
-                euAccount.Sepa_Deposit_Information.Iban.ShouldEqual("EE957700771001355096");
-                euAccount.Sepa_Deposit_Information.Swift.ShouldEqual("LHVBEE22");
-                euAccount.Sepa_Deposit_Information.Bank_Name.ShouldEqual("AS LHV Pank");
-                euAccount.Sepa_Deposit_Information.Bank_Address.ShouldEqual("Tartu mnt 2, 10145 Tallinn, Estonia");
-                euAccount.Sepa_Deposit_Information.Bank_Country_Name.ShouldEqual("Estonia");
-                euAccount.Sepa_Deposit_Information.Account_Name.ShouldEqual("Coinbase UK, Ltd.");
-                euAccount.Sepa_Deposit_Information.Account_Address.ShouldEqual(
+                euAccount.SepaDepositInformation.Iban.ShouldEqual("EE957700771001355096");
+                euAccount.SepaDepositInformation.Swift.ShouldEqual("LHVBEE22");
+                euAccount.SepaDepositInformation.BankName.ShouldEqual("AS LHV Pank");
+                euAccount.SepaDepositInformation.BankAddress.ShouldEqual("Tartu mnt 2, 10145 Tallinn, Estonia");
+                euAccount.SepaDepositInformation.BankCountryName.ShouldEqual("Estonia");
+                euAccount.SepaDepositInformation.AccountName.ShouldEqual("Coinbase UK, Ltd.");
+                euAccount.SepaDepositInformation.AccountAddress.ShouldEqual(
                     "9th Floor, 107 Cheapside, London, EC2V 6DN, United Kingdom");
-                euAccount.Sepa_Deposit_Information.Reference.ShouldEqual("CBAEUXOVFXOXYX");
+                euAccount.SepaDepositInformation.Reference.ShouldEqual("CBAEUXOVFXOXYX");
             };
         }
     }

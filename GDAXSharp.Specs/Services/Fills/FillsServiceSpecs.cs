@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Utilities.Extensions;
 using GDAXSharp.Authentication;
 using GDAXSharp.HttpClient;
 using GDAXSharp.Services.Fills;
@@ -49,11 +48,11 @@ namespace GDAXSharp.Specs.Services.Fills
 
             It should_return_a_correct_response = () =>
             {
-                fill_response.First().First().Trade_id.ShouldEqual(74);
-                fill_response.First().First().Product_id.ShouldEqual(ProductType.BtcUsd.ToDasherizedUpper());
+                fill_response.First().First().TradeId.ShouldEqual(74);
+                fill_response.First().First().ProductId.ShouldEqual(ProductType.BtcUsd);
                 fill_response.First().First().Price.ShouldEqual(10.00M);
                 fill_response.First().First().Size.ShouldEqual(0.01M);
-                fill_response.First().First().Order_id.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));
+                fill_response.First().First().OrderId.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));
             };
         }
 
@@ -79,11 +78,11 @@ namespace GDAXSharp.Specs.Services.Fills
 
             It should_return_a_correct_response = () =>
             {
-                fill_response.First().First().Trade_id.ShouldEqual(74);
-                fill_response.First().First().Product_id.ShouldEqual(ProductType.BtcUsd.ToDasherizedUpper());
+                fill_response.First().First().TradeId.ShouldEqual(74);
+                fill_response.First().First().ProductId.ShouldEqual(ProductType.BtcUsd);
                 fill_response.First().First().Price.ShouldEqual(10.00M);
                 fill_response.First().First().Size.ShouldEqual(0.01M);
-                fill_response.First().First().Order_id.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));
+                fill_response.First().First().OrderId.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));
             };
         }
 
@@ -109,11 +108,11 @@ namespace GDAXSharp.Specs.Services.Fills
 
             It should_return_a_correct_response = () =>
             {
-                fill_response.First().First().Trade_id.ShouldEqual(74);
-                fill_response.First().First().Product_id.ShouldEqual(ProductType.BtcUsd.ToDasherizedUpper());
+                fill_response.First().First().TradeId.ShouldEqual(74);
+                fill_response.First().First().ProductId.ShouldEqual(ProductType.BtcUsd);
                 fill_response.First().First().Price.ShouldEqual(10.00M);
                 fill_response.First().First().Size.ShouldEqual(0.01M);
-                fill_response.First().First().Order_id.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));
+                fill_response.First().First().OrderId.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));
             };
         }
     }

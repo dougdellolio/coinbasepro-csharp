@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using GDAXSharp.Authentication;
 using GDAXSharp.HttpClient;
 using GDAXSharp.Services.HttpRequest;
-using Newtonsoft.Json;
 
 namespace GDAXSharp.Services.Currencies
 {
@@ -28,7 +27,7 @@ namespace GDAXSharp.Services.Currencies
         {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/currencies");
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var currencies = JsonConvert.DeserializeObject<List<Models.Currency>>(contentBody);
+            var currencies = DeserializeObject<List<Models.Currency>>(contentBody);
 
             return currencies;
         }
