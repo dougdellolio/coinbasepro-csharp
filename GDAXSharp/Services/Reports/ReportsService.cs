@@ -45,11 +45,7 @@ namespace GDAXSharp.Services.Reports
                 Email = email
             });
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/reports", newReport);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var reportResponse = DeserializeObject<ReportResponse>(contentBody);
-
-            return reportResponse;
+            return await CreateReport(newReport);
         }
 
         public async Task<ReportResponse> CreateNewFillsReportAsync(
@@ -71,6 +67,11 @@ namespace GDAXSharp.Services.Reports
                 Email = email
             });
 
+            return await CreateReport(newReport);
+        }
+
+        private async Task<ReportResponse> CreateReport(string newReport)
+        {
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/reports", newReport);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
             var reportResponse = DeserializeObject<ReportResponse>(contentBody);
