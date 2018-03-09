@@ -125,15 +125,17 @@ var firstAccountHistoryOnFirstPage = firstPage.ToList()[0];
 var secondAccountHistoryOnFirstPage = firstPage.ToList()[1];
 ````
 
-###### Generate and email a report######
+###### Generate and email a report ######
 
-````var response = gdaxClient.ReportsService.CreateNewAccountReportAsync(
+````
+var response = gdaxClient.ReportsService.CreateNewAccountReportAsync(
 						new DateTime(2017, 1, 1), 
 						new DateTime(2018, 1, 1), 
 						"29318029382",
 						ProductType.BtcUsd,
 						"me@email.com",
-						FileFormat.Csv);````
+						FileFormat.Csv);
+````
 
 <h1>Contributors</h1>
 
