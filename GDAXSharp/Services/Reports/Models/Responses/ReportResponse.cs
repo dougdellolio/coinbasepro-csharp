@@ -1,4 +1,7 @@
 ﻿using System;
+using GDAXSharp.Shared;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GDAXSharp.Services.Reports.Models.Responses
 {
@@ -6,9 +9,11 @@ namespace GDAXSharp.Services.Reports.Models.Responses
     {
         public string Id { get; set; }
 
-        public string Type { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ProductType Type { get; set; }
 
-        public string Status { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ReportStatus Status { get; set; }
 
         public DateTime CreatedAt { get; set; }
 

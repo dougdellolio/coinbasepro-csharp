@@ -38,18 +38,18 @@ namespace GDAXSharp.Services.Reports
         {
             var newReport = JsonConvert.SerializeObject(new Report
             {
-                type = ReportType.Account.ToString().ToLower(),
-                start_date = startDate,
-                end_date = endDate,
-                product_id = productType?.ToDasherizedUpper(),
-                account_id = accountId,
-                format = fileFormat.ToString().ToLower(),
-                email = email
+                Type = ReportType.Account,
+                StartDate = startDate,
+                EndDate = endDate,
+                ProductId = productType,
+                AccountId = accountId,
+                Format = fileFormat,
+                Email = email
             });
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/reports", newReport);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var reportResponse = JsonConvert.DeserializeObject<ReportResponse>(contentBody);
+            var reportResponse = DeserializeObject<ReportResponse>(contentBody);
 
             return reportResponse;
         }
@@ -64,18 +64,18 @@ namespace GDAXSharp.Services.Reports
         {
             var newReport = JsonConvert.SerializeObject(new Report
             {
-                type = ReportType.Fills.ToString().ToLower(),
-                start_date = startDate,
-                end_date = endDate,
-                product_id = productType.ToDasherizedUpper(),
-                account_id = accountId,
-                format = fileFormat.ToString().ToLower(),
-                email = email
+                Type = ReportType.Fills,
+                StartDate = startDate,
+                EndDate = endDate,
+                ProductId = productType,
+                AccountId = accountId,
+                Format = fileFormat,
+                Email = email
             });
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/reports", newReport);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var reportResponse = JsonConvert.DeserializeObject<ReportResponse>(contentBody);
+            var reportResponse = DeserializeObject<ReportResponse>(contentBody);
 
             return reportResponse;
         }
