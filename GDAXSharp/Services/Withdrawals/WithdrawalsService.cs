@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using GDAXSharp.Authentication;
 using GDAXSharp.HttpClient;
@@ -7,7 +6,6 @@ using GDAXSharp.Services.HttpRequest;
 using GDAXSharp.Services.Withdrawals.Models;
 using GDAXSharp.Services.Withdrawals.Models.Responses;
 using GDAXSharp.Shared;
-using Newtonsoft.Json;
 
 namespace GDAXSharp.Services.Withdrawals
 {

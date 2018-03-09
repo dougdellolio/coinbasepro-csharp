@@ -9,6 +9,8 @@ namespace GDAXSharp.Services.Orders.Models
         [EnumMember(Value = "pending")]
         Pending,
         [EnumMember(Value = "active")]
-        Active
+        Active,
+        [EnumMember(Value = "rejected")]
+        Rejected
     }
 }

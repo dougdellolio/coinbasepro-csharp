@@ -12,7 +12,6 @@ using GDAXSharp.Services.Products.Models;
 using GDAXSharp.Services.Products.Models.Responses;
 using GDAXSharp.Shared;
 using GDAXSharp.Utilities;
-using Newtonsoft.Json;
 
 namespace GDAXSharp.Services.Products
 {
@@ -103,7 +102,9 @@ namespace GDAXSharp.Services.Products
 
             do
             {
-                if (batchEnd == null) break;
+                if (batchEnd == null) {
+                    break;
+                }
 
                 batchStart = batchEnd.Value.AddSeconds(-maxBatchPeriod);
                 if (batchStart < start) batchStart = start;

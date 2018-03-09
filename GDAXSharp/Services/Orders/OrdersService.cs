@@ -9,7 +9,6 @@ using GDAXSharp.Services.HttpRequest;
 using GDAXSharp.Services.Orders.Models;
 using GDAXSharp.Services.Orders.Models.Responses;
 using GDAXSharp.Shared;
-using Newtonsoft.Json;
 
 namespace GDAXSharp.Services.Orders
 {

@@ -5,7 +5,6 @@ using GDAXSharp.Authentication;
 using GDAXSharp.HttpClient;
 using GDAXSharp.Services.CoinbaseAccounts.Models;
 using GDAXSharp.Services.HttpRequest;
-using Newtonsoft.Json;
 
 namespace GDAXSharp.Services.CoinbaseAccounts
 {

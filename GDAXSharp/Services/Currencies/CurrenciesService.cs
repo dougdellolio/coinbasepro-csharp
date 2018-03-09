@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using GDAXSharp.Authentication;
 using GDAXSharp.HttpClient;
 using GDAXSharp.Services.HttpRequest;
-using Newtonsoft.Json;
 
 namespace GDAXSharp.Services.Currencies
 {

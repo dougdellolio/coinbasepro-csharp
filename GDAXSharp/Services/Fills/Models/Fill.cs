@@ -1,6 +1,5 @@
 ﻿using System;
 using GDAXSharp.Shared;
-using Newtonsoft.Json;
 
 namespace GDAXSharp.Services.Fills.Models
 {

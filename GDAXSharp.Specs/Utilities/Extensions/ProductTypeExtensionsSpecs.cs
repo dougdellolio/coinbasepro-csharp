@@ -8,7 +8,9 @@ namespace GDAXSharp.Specs.Utilities.Extensions
     public class ProductTypeExtensionsSpecs
     {
         static ProductType productId;
+
         static Currency baseCurrency;
+
         static Currency quoteCurrency;
 
         class eth_product_type

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace GDAXSharp.Services.Currencies.Models
+﻿namespace GDAXSharp.Services.Currencies.Models
 {
     public class Currency
     {

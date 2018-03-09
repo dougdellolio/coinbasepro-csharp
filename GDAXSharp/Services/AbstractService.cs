@@ -16,7 +16,7 @@ namespace GDAXSharp.Services
 
         private readonly IHttpClient httpClient;
 
-        protected static JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings
+        private static JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings
         {
             FloatParseHandling = FloatParseHandling.Decimal,
             NullValueHandling = NullValueHandling.Ignore,

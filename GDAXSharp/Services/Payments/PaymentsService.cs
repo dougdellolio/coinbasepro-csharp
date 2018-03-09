@@ -5,7 +5,6 @@ using GDAXSharp.Authentication;
 using GDAXSharp.HttpClient;
 using GDAXSharp.Services.HttpRequest;
 using GDAXSharp.Services.Payments.Models;
-using Newtonsoft.Json;
 
 namespace GDAXSharp.Services.Payments
 {
