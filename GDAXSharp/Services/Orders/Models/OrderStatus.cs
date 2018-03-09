@@ -15,6 +15,8 @@ namespace GDAXSharp.Services.Orders.Models
         [EnumMember(Value = "open")]
         Open,
         [EnumMember(Value = "done")]
-        Done
+        Done,
+        [EnumMember(Value = "settled")]
+        Settled
     }
 }
