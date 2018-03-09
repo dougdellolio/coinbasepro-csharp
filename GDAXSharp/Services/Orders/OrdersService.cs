@@ -9,6 +9,7 @@ using GDAXSharp.Services.HttpRequest;
 using GDAXSharp.Services.Orders.Models;
 using GDAXSharp.Services.Orders.Models.Responses;
 using GDAXSharp.Shared;
+using GDAXSharp.Utilities.Extensions;
 
 namespace GDAXSharp.Services.Orders
 {
@@ -152,7 +153,7 @@ namespace GDAXSharp.Services.Orders
             int limit = 100, 
             int numberOfPages = 0)
         {
-            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<OrderResponse>(HttpMethod.Get, authenticator, $"/orders?limit={limit}&status={orderStatus.ToString().ToLower()}", numberOfPages: numberOfPages);
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<OrderResponse>(HttpMethod.Get, authenticator, $"/orders?limit={limit}&status={orderStatus.GetEnumMemberValue()}", numberOfPages: numberOfPages);
 
             return httpResponseMessage;
         }

@@ -91,7 +91,7 @@ namespace GDAXSharp.Services.Products
 			DateTime end, 
 			CandleGranularity granularity)
         {
-            const int maxPeriods = 350;
+            const int maxPeriods = 300;
 
             var rc = new List<Candle>();
 

@@ -11,6 +11,10 @@ namespace GDAXSharp.Services.Orders.Models
         [EnumMember(Value = "active")]
         Active,
         [EnumMember(Value = "rejected")]
-        Rejected
+        Rejected,
+        [EnumMember(Value = "open")]
+        Open,
+        [EnumMember(Value = "done")]
+        Done
     }
 }
