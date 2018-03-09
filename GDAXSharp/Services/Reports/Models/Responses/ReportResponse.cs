@@ -10,7 +10,7 @@ namespace GDAXSharp.Services.Reports.Models.Responses
         public string Id { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public ProductType Type { get; set; }
+        public ReportType Type { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public ReportStatus Status { get; set; }

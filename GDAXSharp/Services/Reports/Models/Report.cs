@@ -7,8 +7,9 @@ namespace GDAXSharp.Services.Reports.Models
 {
     public class Report
     {
+        [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public ReportType Type { get; set; }
+        public ReportType ReportType { get; set; }
 
         public DateTime StartDate { get; set; }
 

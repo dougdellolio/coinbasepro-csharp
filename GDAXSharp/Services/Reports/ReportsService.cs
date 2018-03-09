@@ -7,8 +7,6 @@ using GDAXSharp.Services.HttpRequest;
 using GDAXSharp.Services.Reports.Models;
 using GDAXSharp.Services.Reports.Models.Responses;
 using GDAXSharp.Shared;
-using GDAXSharp.Utilities.Extensions;
-using Newtonsoft.Json;
 
 namespace GDAXSharp.Services.Reports
 {
@@ -36,9 +34,9 @@ namespace GDAXSharp.Services.Reports
             string email = null,
             FileFormat fileFormat = FileFormat.Pdf)
         {
-            var newReport = JsonConvert.SerializeObject(new Report
+            var newReport = SerializeObject(new Report
             {
-                Type = ReportType.Account,
+                ReportType = ReportType.Account,
                 StartDate = startDate,
                 EndDate = endDate,
                 ProductId = productType,
@@ -62,9 +60,9 @@ namespace GDAXSharp.Services.Reports
             string email = null,
             FileFormat fileFormat = FileFormat.Pdf)
         {
-            var newReport = JsonConvert.SerializeObject(new Report
+            var newReport = SerializeObject(new Report
             {
-                Type = ReportType.Fills,
+                ReportType = ReportType.Fills,
                 StartDate = startDate,
                 EndDate = endDate,
                 ProductId = productType,
