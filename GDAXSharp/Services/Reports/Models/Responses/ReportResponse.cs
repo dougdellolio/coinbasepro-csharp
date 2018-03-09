@@ -1,5 +1,4 @@
 ﻿using System;
-using GDAXSharp.Shared;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -7,7 +6,7 @@ namespace GDAXSharp.Services.Reports.Models.Responses
 {
     public class ReportResponse
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public ReportType Type { get; set; }

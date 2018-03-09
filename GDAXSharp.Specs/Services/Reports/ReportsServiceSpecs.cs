@@ -19,20 +19,17 @@ namespace GDAXSharp.Specs.Services.Reports
     {
         static Authenticator authenticator;
 
-        static Task<ReportResponse> account_report_response;
+        static ReportResponse account_report_response;
 
-        static Task<ReportResponse> fills_report_response;
+        static ReportResponse fills_report_response;
 
         Establish context = () =>
         {
-            The<IHttpRequestMessageService>().
-                WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>()
-                    , Param.IsAny<string>(), Param.IsAny<string>())).
-                Return(new HttpRequestMessage());
+            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                .Return(new HttpRequestMessage());
 
-            The<IHttpClient>().
-                WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>())).
-                Return(Task.FromResult(new HttpResponseMessage()));
+            The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                .Return(Task.FromResult(new HttpResponseMessage()));
 
             authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
         };
@@ -40,17 +37,24 @@ namespace GDAXSharp.Specs.Services.Reports
         class when_requesting_new_account_report
         {
             Establish context = () =>
-                The<IHttpClient>().
-                    WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).
-                    Return(Task.FromResult(ReportResponseFixture.Create(ReportType.Account)));
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(ReportResponseFixture.Create(ReportType.Account)));
 
             Because of = () =>
-                account_report_response = Subject.CreateNewAccountReportAsync(DateTime.MinValue, DateTime.MaxValue, 
-                    "555", ProductType.BtcUsd, "myemail", FileFormat.Csv);
+                account_report_response = Subject.CreateNewAccountReportAsync(DateTime.MinValue, DateTime.MaxValue,
+                    "555", ProductType.BtcUsd, "myemail", FileFormat.Csv).Result;
 
             It should_return_correct_response = () =>
             {
-
+                account_report_response.Id.ShouldEqual(new Guid("0428b97b-bec1-429e-a94c-59232926778d"));
+                account_report_response.Type.ShouldEqual(ReportType.Account);
+                account_report_response.Status.ShouldEqual(ReportStatus.Pending);
+                account_report_response.CreatedAt.ShouldEqual(new DateTime(2016, 12, 9));
+                account_report_response.CompletedAt.ShouldBeNull();
+                account_report_response.ExpiresAt.ShouldEqual(new DateTime(2016, 12, 9));
+                account_report_response.FileUrl.ShouldBeNull();
+                account_report_response.Params.StartDate.ShouldEqual(new DateTime(2016, 12, 9));
+                account_report_response.Params.EndDate.ShouldEqual(new DateTime(2016, 12, 9));
             };
         }
 
@@ -59,15 +63,23 @@ namespace GDAXSharp.Specs.Services.Reports
             Establish context = () =>
                 The<IHttpClient>().
                     WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).
-                    Return(Task.FromResult(ReportResponseFixture.Create(ReportType.Account)));
+                    Return(Task.FromResult(ReportResponseFixture.Create(ReportType.Fills)));
 
             Because of = () =>
-                account_report_response = Subject.CreateNewFillsReportAsync(DateTime.MinValue, DateTime.MaxValue,
-                    ProductType.BtcUsd, "555", "myemail", FileFormat.Csv);
+                fills_report_response = Subject.CreateNewFillsReportAsync(DateTime.MinValue, DateTime.MaxValue,
+                    ProductType.BtcUsd, "555", "myemail", FileFormat.Csv).Result;
 
             It should_return_correct_response = () =>
             {
-
+                fills_report_response.Id.ShouldEqual(new Guid("0428b97b-bec1-429e-a94c-59232926778d"));
+                fills_report_response.Type.ShouldEqual(ReportType.Fills);
+                fills_report_response.Status.ShouldEqual(ReportStatus.Pending);
+                fills_report_response.CreatedAt.ShouldEqual(new DateTime(2016, 12, 9));
+                fills_report_response.CompletedAt.ShouldBeNull();
+                fills_report_response.ExpiresAt.ShouldEqual(new DateTime(2016, 12, 9));
+                fills_report_response.FileUrl.ShouldBeNull();
+                fills_report_response.Params.StartDate.ShouldEqual(new DateTime(2016, 12, 9));
+                fills_report_response.Params.EndDate.ShouldEqual(new DateTime(2016, 12, 9));
             };
         }
     }
