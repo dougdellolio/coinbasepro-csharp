@@ -137,7 +137,6 @@ var accountResponse = gdaxClient.ReportsService.CreateNewAccountReportAsync(repo
 
 //generate and email fills report pdf
 var fillsResponse = gdaxClient.ReportsService.CreateNewFillsReportAsync(reportDateFrom, reportDateTo, ProductType.BtcUsd, accountId, "me@email.com", FileFormat.Pdf);
-
 ````
 
 <h1>Contributors</h1>
