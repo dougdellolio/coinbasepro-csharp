@@ -34,24 +34,24 @@ namespace GDAXSharp.Specs.Services.Products
 
         static IList<IList<ProductTrade>> product_trades_result;
 
-        Establish context = () =>
-            authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
+        static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        Establish context = () =>
+        {
+            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                .Return(new HttpRequestMessage());
+
+            The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                .Return(Task.FromResult(new HttpResponseMessage()));
+
+            authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
+        };
 
         class when_getting_all_products
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(ProductsResponseFixture.Create()));
-            };
 
             Because of = () =>
                 products_result = Subject.GetAllProductsAsync().Result;
@@ -73,16 +73,8 @@ namespace GDAXSharp.Specs.Services.Products
         class when_getting_a_product_order_book_for_level_one
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(ProductsOrderBookResponseFixture.Create()));
-            };
 
             Because of = () =>
                 product_order_books_response = Subject.GetProductOrderBookAsync(ProductType.BtcUsd).Result;
@@ -104,16 +96,8 @@ namespace GDAXSharp.Specs.Services.Products
         class when_getting_a_product_order_book_for_level_two
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(ProductsOrderBookResponseFixture.Create()));
-            };
 
             Because of = () =>
                 product_order_books_response = Subject.GetProductOrderBookAsync(ProductType.BtcUsd, ProductLevel.Two).Result;
@@ -135,16 +119,8 @@ namespace GDAXSharp.Specs.Services.Products
         class when_getting_a_product_order_book_with_level_3_specified
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(ProductsOrderBookResponseFixture.CreateWithLevelThree()));
-            };
 
             Because of = () =>
                 product_order_books_response = Subject.GetProductOrderBookAsync(ProductType.BtcUsd, ProductLevel.Three).Result;
@@ -166,16 +142,8 @@ namespace GDAXSharp.Specs.Services.Products
         class when_getting_a_product_ticker
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(ProductTickerFixture.Create()));
-            };
 
             Because of = () =>
                 product_ticker_result = Subject.GetProductTickerAsync(ProductType.BtcUsd).Result;
@@ -195,16 +163,8 @@ namespace GDAXSharp.Specs.Services.Products
         class when_getting_product_stats
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(ProductStatsFixture.Create()));
-            };
 
             Because of = () =>
                 product_stats_result = Subject.GetProductStatsAsync(ProductType.BtcUsd).Result;
@@ -221,16 +181,8 @@ namespace GDAXSharp.Specs.Services.Products
         class when_getting_product_trades
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(ProductTradesFixture.Create()));
-            };
 
             Because of = () =>
                 product_trades_result = Subject.GetTradesAsync(ProductType.BtcUsd).Result;
@@ -252,16 +204,8 @@ namespace GDAXSharp.Specs.Services.Products
         class when_getting_product_history
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(ProductHistoryFixture.Create()));
-            };
 
             Because of = () =>
                 product_history_response = Subject.GetHistoricRatesAsync(ProductType.BtcUsd, DateTime.Now.AddDays(-1), DateTime.Now, CandleGranularity.Minutes1).Result;

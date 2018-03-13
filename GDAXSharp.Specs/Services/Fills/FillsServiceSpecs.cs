@@ -24,21 +24,21 @@ namespace GDAXSharp.Specs.Services.Fills
         static IList<IList<FillResponse>> fill_response;
 
         Establish context = () =>
+        {
+            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                .Return(new HttpRequestMessage());
+
+            The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
+
             authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
+        };
 
         class when_requesting_all_fills
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(FillsResponseFixture.Create()));
-            };
 
             Because of = () =>
                 fill_response = Subject.GetAllFillsAsync(1).Result;
@@ -59,16 +59,8 @@ namespace GDAXSharp.Specs.Services.Fills
         class when_requesting_fills_by_order_id
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(FillsResponseFixture.Create()));
-            };
 
             Because of = () =>
                 fill_response = Subject.GetFillsByOrderIdAsync("d50ec984-77a8-460a-b958-66f114b0de9b", 1).Result;
@@ -89,16 +81,8 @@ namespace GDAXSharp.Specs.Services.Fills
         class when_requesting_fills_by_product_id
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(FillsResponseFixture.Create()));
-            };
 
             Because of = () =>
                 fill_response = Subject.GetFillsByProductIdAsync(ProductType.BtcUsd, 1).Result;

@@ -9,6 +9,7 @@ using GDAXSharp.Services.HttpRequest;
 using GDAXSharp.Services.Orders;
 using GDAXSharp.Services.Payments;
 using GDAXSharp.Services.Products;
+using GDAXSharp.Services.Reports;
 using GDAXSharp.Services.Withdrawals;
 using GDAXSharp.Utilities;
 
@@ -35,6 +36,7 @@ namespace GDAXSharp
             CurrenciesService = new CurrenciesService(httpClient, httpRequestMessageService, authenticator);
             FillsService = new FillsService(httpClient, httpRequestMessageService, authenticator);
             FundingsService = new FundingsService(httpClient, httpRequestMessageService, authenticator, queryBuilder);
+            ReportsService = new ReportsService(httpClient, httpRequestMessageService, authenticator);
         }
 
         public AccountsService AccountsService { get; }
@@ -56,5 +58,7 @@ namespace GDAXSharp
         public FillsService FillsService { get; }
 
         public FundingsService FundingsService { get; }
+
+        public ReportsService ReportsService { get; }
     }
 }

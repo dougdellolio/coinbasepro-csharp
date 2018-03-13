@@ -93,6 +93,12 @@
     <Compile Include="Authentication\IAuthenticator.cs" />
     <Compile Include="Services\CoinbaseAccounts\Models\CoinbaseAccount.cs" />
     <Compile Include="Services\CoinbaseAccounts\CoinbaseAccountsService.cs" />
+    <Compile Include="Services\Reports\Models\FileFormat.cs" />
+    <Compile Include="Services\Reports\Models\Report.cs" />
+    <Compile Include="Services\Reports\Models\ReportStatus.cs" />
+    <Compile Include="Services\Reports\Models\ReportType.cs" />
+    <Compile Include="Services\Reports\Models\Responses\ReportResponse.cs" />
+    <Compile Include="Services\Reports\ReportsService.cs" />
     <Compile Include="Shared\Currency.cs" />
     <Compile Include="Services\Deposits\Models\Deposit.cs" />
     <Compile Include="Services\Deposits\Models\Responses\DepositResponse.cs" />

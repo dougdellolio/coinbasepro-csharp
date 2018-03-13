@@ -31,21 +31,21 @@ namespace GDAXSharp.Specs.Services.Orders
         static Exception exception;
 
         Establish context = () =>
+        {
+            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
+                .Return(new HttpRequestMessage());
+
+            The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                .Return(Task.FromResult(new HttpResponseMessage()));
+
             authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
+        };
 
         class when_placing_a_market_order
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(OrderResponseFixture.CreateMarketOrder()));
-            };
 
             Because of = () =>
                 order_response_result = Subject.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M).Result;
@@ -73,16 +73,8 @@ namespace GDAXSharp.Specs.Services.Orders
         class when_placing_a_limit_order
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(OrderResponseFixture.CreateLimitOrder()));
-            };
 
             Because of = () =>
                 order_response_result = Subject.PlaceLimitOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, 0.1M, GoodTillTime.Min).Result;
@@ -110,16 +102,8 @@ namespace GDAXSharp.Specs.Services.Orders
         class when_placing_a_stop_order
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(OrderResponseFixture.CreateStopOrder()));
-            };
 
             Because of = () =>
                 order_response_result = Subject.PlaceStopOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, .1M).Result;
@@ -147,16 +131,8 @@ namespace GDAXSharp.Specs.Services.Orders
         class when_cancelling_all_orders
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(CancelOrderResponseFixture.Create()));
-            };
 
             Because of = () =>
                 cancel_order_response_result = Subject.CancelAllOrdersAsync().Result;
@@ -175,9 +151,6 @@ namespace GDAXSharp.Specs.Services.Orders
         {
             Establish context = () =>
             {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
                 The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
                     .Return(Task.FromResult(new HttpResponseMessage(HttpStatusCode.Accepted)));
 
@@ -199,9 +172,6 @@ namespace GDAXSharp.Specs.Services.Orders
         {
             Establish context = () =>
             {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
                 The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
                     .Return(Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound)));
 
@@ -222,16 +192,8 @@ namespace GDAXSharp.Specs.Services.Orders
         class when_getting_all_orders
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(OrderResponseFixture.CreateLimitOrderMany()));
-            };
 
             Because of = () =>
                 order_many_response_result = Subject.GetAllOrdersAsync().Result;
@@ -278,16 +240,8 @@ namespace GDAXSharp.Specs.Services.Orders
         class when_getting_all_orders_and_specifying_order_status
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(OrderResponseFixture.CreateLimitOrderMany(OrderStatus.Active)));
-            };
 
             Because of = () =>
                 order_many_response_result = Subject.GetAllOrdersAsync(OrderStatus.Active).Result;
@@ -334,16 +288,8 @@ namespace GDAXSharp.Specs.Services.Orders
         class when_getting_order_by_id
         {
             Establish context = () =>
-            {
-                The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                    .Return(new HttpRequestMessage());
-
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
-                    .Return(Task.FromResult(new HttpResponseMessage()));
-
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
                     .Return(Task.FromResult(OrderResponseFixture.CreateLimitOrder()));
-            };
 
             Because of = () =>
                 order_response_result = Subject.GetOrderByIdAsync("d0c5340b-6d6c-49d9-b567-48c4bfca13d2").Result;
