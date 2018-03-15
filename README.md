@@ -139,6 +139,21 @@ var accountResponse = gdaxClient.ReportsService.CreateNewAccountReportAsync(repo
 var fillsResponse = gdaxClient.ReportsService.CreateNewFillsReportAsync(reportDateFrom, reportDateTo, ProductType.BtcUsd, accountId, "me@email.com", FileFormat.Pdf);
 ````
 
+###### Overriding the HttpClient behaviour ######
+
+You can gain greater control of the http requests by implementing GDAXSharp.HttpClient.IHttpClient and passing that into the GDAXClient constructor.
+
+````
+var myWay = new MyNamespace.MyHttpClient();
+
+//create an authenticator with your apiKey, signature and passphrase
+var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>");
+
+//create the GDAX client and set the httpClient to my way of behaving
+var gdaxClient = new GDAXClient(authenticator, myWay);
+````
+
+
 <h1>Contributors</h1>
 
 Thanks for contributing!
