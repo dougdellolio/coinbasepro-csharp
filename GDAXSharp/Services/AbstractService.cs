@@ -44,7 +44,7 @@ namespace GDAXSharp.Services
                 ? httpRequestMessageService.CreateHttpRequestMessage(httpMethod, authenticator, uri)
                 : httpRequestMessageService.CreateHttpRequestMessage(httpMethod, authenticator, uri, content);
 
-            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
+            var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
             if (!httpResponseMessage.IsSuccessStatusCode)
@@ -68,7 +68,7 @@ namespace GDAXSharp.Services
                 ? httpRequestMessageService.CreateHttpRequestMessage(httpMethod, authenticator, uri)
                 : httpRequestMessageService.CreateHttpRequestMessage(httpMethod, authenticator, uri, content);
 
-            var httpResponseMessage = await httpClient.SendASync(httpRequestMessage).ConfigureAwait(false);
+            var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
             var firstPage = DeserializeObject<IList<T>>(contentBody);
