@@ -35,7 +35,7 @@ namespace GDAXSharp.Specs.Services.Orders
             The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
                 .Return(new HttpRequestMessage());
 
-            The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+            The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
                 .Return(Task.FromResult(new HttpResponseMessage()));
 
             authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
@@ -151,7 +151,7 @@ namespace GDAXSharp.Specs.Services.Orders
         {
             Establish context = () =>
             {
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
                     .Return(Task.FromResult(new HttpResponseMessage(HttpStatusCode.Accepted)));
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
@@ -172,7 +172,7 @@ namespace GDAXSharp.Specs.Services.Orders
         {
             Establish context = () =>
             {
-                The<IHttpClient>().WhenToldTo(p => p.SendASync(Param.IsAny<HttpRequestMessage>()))
+                The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
                     .Return(Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound)));
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))

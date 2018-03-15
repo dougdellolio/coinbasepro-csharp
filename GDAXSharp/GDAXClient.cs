@@ -1,4 +1,5 @@
 ﻿using GDAXSharp.Authentication;
+using GDAXSharp.HttpClient;
 using GDAXSharp.Services.Accounts;
 using GDAXSharp.Services.CoinbaseAccounts;
 using GDAXSharp.Services.Currencies;
@@ -18,10 +19,18 @@ namespace GDAXSharp
     public class GDAXClient
     {
         public GDAXClient(
-            IAuthenticator authenticator, 
-            bool sandBox = false)
+            IAuthenticator authenticator,
+            bool sandBox = false) 
+                    : this(authenticator, new HttpClient.HttpClient(), sandBox)
         {
-            var httpClient = new HttpClient.HttpClient();
+        }
+
+        public GDAXClient(
+            IAuthenticator authenticator,
+            IHttpClient httpClient,
+            bool sandBox = false
+            )
+        {       
             var clock = new Clock();
             var httpRequestMessageService = new HttpRequestMessageService(clock, sandBox);
             var queryBuilder = new QueryBuilder();
