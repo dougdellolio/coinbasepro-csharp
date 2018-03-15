@@ -139,7 +139,7 @@ var accountResponse = gdaxClient.ReportsService.CreateNewAccountReportAsync(repo
 var fillsResponse = gdaxClient.ReportsService.CreateNewFillsReportAsync(reportDateFrom, reportDateTo, ProductType.BtcUsd, accountId, "me@email.com", FileFormat.Pdf);
 ````
 
-###### Overriding the HttpClient behaviour ######
+###### Overriding the HttpClient behavior ######
 
 You can gain greater control of the http requests by implementing GDAXSharp.HttpClient.IHttpClient and passing that into the GDAXClient constructor.
 
