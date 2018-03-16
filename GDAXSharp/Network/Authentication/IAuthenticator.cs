@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Infrastructure.Authentication
+﻿namespace GDAXSharp.Network.Authentication
 {
     public interface IAuthenticator
     {

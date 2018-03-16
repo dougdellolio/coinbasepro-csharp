@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Infrastructure.Authentication;
-using GDAXSharp.Infrastructure.HttpClient;
-using GDAXSharp.Infrastructure.HttpRequest;
+using GDAXSharp.Network.Authentication;
+using GDAXSharp.Network.HttpClient;
+using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Deposits;
 using GDAXSharp.Services.Deposits.Models.Responses;
 using GDAXSharp.Services.Withdrawals.Models.Responses;

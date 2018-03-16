@@ -52,10 +52,10 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\Authentication\Authenticator.cs" />
+    <Compile Include="Network\Authentication\Authenticator.cs" />
     <Compile Include="GDAXClient.cs" />
-    <Compile Include="Infrastructure\HttpClient\HttpClient.cs" />
-    <Compile Include="Infrastructure\HttpClient\IHttpClient.cs" />
+    <Compile Include="Network\HttpClient\HttpClient.cs" />
+    <Compile Include="Network\HttpClient\IHttpClient.cs" />
     <Compile Include="Services\Accounts\Types\AccountEntryType.cs" />
     <Compile Include="Services\Accounts\Types\AccountHoldType.cs" />
     <Compile Include="Services\CoinbaseAccounts\Types\CoinbaseAccountType.cs" />
@@ -90,7 +90,7 @@
     <Compile Include="Services\AbstractService.cs" />
     <Compile Include="Services\Accounts\Models\Account.cs" />
     <Compile Include="Services\Accounts\AccountsService.cs" />
-    <Compile Include="Infrastructure\Authentication\IAuthenticator.cs" />
+    <Compile Include="Network\Authentication\IAuthenticator.cs" />
     <Compile Include="Services\CoinbaseAccounts\Models\CoinbaseAccount.cs" />
     <Compile Include="Services\CoinbaseAccounts\CoinbaseAccountsService.cs" />
     <Compile Include="Services\Reports\Types\FileFormat.cs" />
@@ -103,8 +103,8 @@
     <Compile Include="Services\Deposits\Models\Deposit.cs" />
     <Compile Include="Services\Deposits\Models\Responses\DepositResponse.cs" />
     <Compile Include="Services\Deposits\DepositsService.cs" />
-    <Compile Include="Infrastructure\HttpRequest\HttpRequestMessageService.cs" />
-    <Compile Include="Infrastructure\HttpRequest\IHttpRequestMessageService.cs" />
+    <Compile Include="Network\HttpRequest\HttpRequestMessageService.cs" />
+    <Compile Include="Network\HttpRequest\IHttpRequestMessageService.cs" />
     <Compile Include="Services\Orders\Models\Responses\CancelOrderResponse.cs" />
     <Compile Include="Services\Orders\Models\Order.cs" />
     <Compile Include="Services\Orders\Models\Responses\OrderResponse.cs" />

@@ -1,6 +1,6 @@
-﻿using GDAXSharp.Infrastructure.Authentication;
-using GDAXSharp.Infrastructure.HttpClient;
-using GDAXSharp.Infrastructure.HttpRequest;
+﻿using GDAXSharp.Network.Authentication;
+using GDAXSharp.Network.HttpClient;
+using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Accounts;
 using GDAXSharp.Services.CoinbaseAccounts;
 using GDAXSharp.Services.Currencies;

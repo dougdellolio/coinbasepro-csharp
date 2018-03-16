@@ -3,11 +3,11 @@ using System.Globalization;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
-using GDAXSharp.Infrastructure.Authentication;
+using GDAXSharp.Network.Authentication;
 using GDAXSharp.Shared.Utilities.Clock;
 using GDAXSharp.Shared.Utilities.Extensions;
 
-namespace GDAXSharp.Infrastructure.HttpRequest
+namespace GDAXSharp.Network.HttpRequest
 {
     public class HttpRequestMessageService : IHttpRequestMessageService
     {

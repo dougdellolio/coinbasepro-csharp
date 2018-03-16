@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GDAXSharp.Infrastructure.HttpClient
+namespace GDAXSharp.Network.HttpClient
 {
     public class HttpClient : IHttpClient
     {

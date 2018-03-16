@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
-using GDAXSharp.Infrastructure.Authentication;
+using GDAXSharp.Network.Authentication;
 
-namespace GDAXSharp.Infrastructure.HttpRequest
+namespace GDAXSharp.Network.HttpRequest
 {
     public interface IHttpRequestMessageService
     {

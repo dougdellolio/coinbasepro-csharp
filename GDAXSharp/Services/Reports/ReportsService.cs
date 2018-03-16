@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Infrastructure.Authentication;
-using GDAXSharp.Infrastructure.HttpClient;
-using GDAXSharp.Infrastructure.HttpRequest;
+using GDAXSharp.Network.Authentication;
+using GDAXSharp.Network.HttpClient;
+using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Reports.Models;
 using GDAXSharp.Services.Reports.Models.Responses;
 using GDAXSharp.Services.Reports.Types;
