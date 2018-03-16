@@ -20,7 +20,7 @@ namespace GDAXSharp.Services.CoinbaseAccounts
 
         public async Task<IEnumerable<CoinbaseAccount>> GetAllAccountsAsync()
         {
-            return await MakeServiceCall<List<CoinbaseAccount>>(HttpMethod.Get, "/coinbase-accounts");
+            return await SendServiceCall<List<CoinbaseAccount>>(HttpMethod.Get, "/coinbase-accounts");
         }
     }
 }

@@ -104,14 +104,14 @@ namespace GDAXSharp.Services.Orders
 
         private async Task<OrderResponse> PlaceOrderAsync(Order order)
         {
-            return await MakeServiceCall<OrderResponse>(HttpMethod.Post, "/orders", SerializeObject(order)).ConfigureAwait(false);
+            return await SendServiceCall<OrderResponse>(HttpMethod.Post, "/orders", SerializeObject(order)).ConfigureAwait(false);
         }
 
         public async Task<CancelOrderResponse> CancelAllOrdersAsync()
         {
             return new CancelOrderResponse
             {
-                OrderIds = await MakeServiceCall<IEnumerable<Guid>>(HttpMethod.Delete, "/orders").ConfigureAwait(false)
+                OrderIds = await SendServiceCall<IEnumerable<Guid>>(HttpMethod.Delete, "/orders").ConfigureAwait(false)
             };
         }
 
@@ -145,7 +145,7 @@ namespace GDAXSharp.Services.Orders
 
         public async Task<OrderResponse> GetOrderByIdAsync(string id)
         {
-            return await MakeServiceCall<OrderResponse>(HttpMethod.Get, $"/orders/{id}").ConfigureAwait(false);
+            return await SendServiceCall<OrderResponse>(HttpMethod.Get, $"/orders/{id}").ConfigureAwait(false);
         }
     }
 }

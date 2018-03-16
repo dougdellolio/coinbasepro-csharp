@@ -20,12 +20,12 @@ namespace GDAXSharp.Services.Accounts
 
         public async Task<IEnumerable<Account>> GetAllAccountsAsync()
         {
-            return await MakeServiceCall<List<Account>>(HttpMethod.Get, "/accounts");
+            return await SendServiceCall<List<Account>>(HttpMethod.Get, "/accounts");
         }
 
         public async Task<Account> GetAccountByIdAsync(string id)
         {
-            return await MakeServiceCall<Account>(HttpMethod.Get, $"/accounts/{id}");
+            return await SendServiceCall<Account>(HttpMethod.Get, $"/accounts/{id}");
         }
 
         public async Task<IList<IList<AccountHistory>>> GetAccountHistoryAsync(string id, int limit = 100, int numberOfPages = 0)

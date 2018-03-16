@@ -23,7 +23,10 @@ namespace GDAXSharp.Services.Fundings
             this.queryBuilder = queryBuilder;
         }
 
-        public async Task<IList<IList<Funding>>> GetAllFundingsAsync(int limit = 100, FundingStatus? status = null, int numberOfPages = 0)
+        public async Task<IList<IList<Funding>>> GetAllFundingsAsync(
+            int limit = 100, 
+            FundingStatus? status = null, 
+            int numberOfPages = 0)
         {
             var queryString = queryBuilder.BuildQuery(
                 new KeyValuePair<string, string>("limit", limit.ToString()),

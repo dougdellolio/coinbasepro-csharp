@@ -19,7 +19,7 @@ namespace GDAXSharp.Services.Currencies
 
         public async Task<IEnumerable<Models.Currency>> GetAllCurrenciesAsync()
         {
-            return await MakeServiceCall<List<Models.Currency>>(HttpMethod.Get, "/currencies").ConfigureAwait(false);
+            return await SendServiceCall<List<Models.Currency>>(HttpMethod.Get, "/currencies").ConfigureAwait(false);
         }
     }
 }

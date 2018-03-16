@@ -22,7 +22,10 @@ namespace GDAXSharp.Services.Deposits
         {
         }
 
-        public async Task<DepositResponse> DepositFundsAsync(string paymentMethodId, decimal amount, Currency currency)
+        public async Task<DepositResponse> DepositFundsAsync(
+            string paymentMethodId, 
+            decimal amount, 
+            Currency currency)
         {
             var newDeposit = new Deposit
             {
@@ -31,10 +34,13 @@ namespace GDAXSharp.Services.Deposits
                 PaymentMethodId = new Guid(paymentMethodId)
             };
 
-            return await MakeServiceCall<DepositResponse>(HttpMethod.Post, "/deposits/payment-method", SerializeObject(newDeposit)).ConfigureAwait(false);
+            return await SendServiceCall<DepositResponse>(HttpMethod.Post, "/deposits/payment-method", SerializeObject(newDeposit)).ConfigureAwait(false);
         }
 
-        public async Task<CoinbaseResponse> DepositCoinbaseFundsAsync(string coinbaseAccountId, decimal amount, Currency currency)
+        public async Task<CoinbaseResponse> DepositCoinbaseFundsAsync(
+            string coinbaseAccountId, 
+            decimal amount, 
+            Currency currency)
         {
             var newCoinbaseDeposit = new Coinbase
             {
@@ -43,7 +49,7 @@ namespace GDAXSharp.Services.Deposits
                 CoinbaseAccountId = coinbaseAccountId
             };
 
-            return await MakeServiceCall<CoinbaseResponse>(HttpMethod.Post, "/deposits/coinbase-account", SerializeObject(newCoinbaseDeposit)).ConfigureAwait(false);
+            return await SendServiceCall<CoinbaseResponse>(HttpMethod.Post, "/deposits/coinbase-account", SerializeObject(newCoinbaseDeposit)).ConfigureAwait(false);
         }
     }
 }

@@ -31,15 +31,14 @@ namespace GDAXSharp.Services.Products
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            return await MakeServiceCall<IEnumerable<Product>>(HttpMethod.Get, "/products");
+            return await SendServiceCall<IEnumerable<Product>>(HttpMethod.Get, "/products");
         }
 
         public async Task<ProductsOrderBookResponse> GetProductOrderBookAsync(
 			ProductType productId, 
 			ProductLevel productLevel = ProductLevel.One)
         {
-            var productsOrderBookJsonResponse = await MakeServiceCall<ProductsOrderBookJsonResponse>(HttpMethod.Get
-                , $"/products/{productId.GetEnumMemberValue()}/book/?level={(int) productLevel}").ConfigureAwait(false); 
+            var productsOrderBookJsonResponse = await SendServiceCall<ProductsOrderBookJsonResponse>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/book/?level={(int) productLevel}").ConfigureAwait(false);
             var productOrderBookResponse = ConvertProductOrderBookResponse(productsOrderBookJsonResponse, productLevel);
 
             return productOrderBookResponse;
@@ -47,12 +46,12 @@ namespace GDAXSharp.Services.Products
 
         public async Task<ProductTicker> GetProductTickerAsync(ProductType productId)
         {
-            return await MakeServiceCall<ProductTicker>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/ticker").ConfigureAwait(false); 
+            return await SendServiceCall<ProductTicker>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/ticker").ConfigureAwait(false); 
         }
 
         public async Task<ProductStats> GetProductStatsAsync(ProductType productId)
         {
-            return await MakeServiceCall<ProductStats>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/stats").ConfigureAwait(false);
+            return await SendServiceCall<ProductStats>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/stats").ConfigureAwait(false);
         }
 
         public async Task<IList<IList<ProductTrade>>> GetTradesAsync(
@@ -73,7 +72,7 @@ namespace GDAXSharp.Services.Products
         {
             const int maxPeriods = 300;
 
-            var rc = new List<Candle>();
+            var candleList = new List<Candle>();
 
             DateTime? batchEnd = end;
             DateTime batchStart;
@@ -89,12 +88,12 @@ namespace GDAXSharp.Services.Products
                 batchStart = batchEnd.Value.AddSeconds(-maxBatchPeriod);
                 if (batchStart < start) batchStart = start;
 
-                rc.AddRange(await GetHistoricRatesAsync(productPair, batchStart, batchEnd.Value, (int)granularity));
+                candleList.AddRange(await GetHistoricRatesAsync(productPair, batchStart, batchEnd.Value, (int)granularity));
 
-                batchEnd = rc.Last()?.Time;
+                batchEnd = candleList.Last()?.Time;
             } while (batchStart > start);
 
-            return rc;
+            return candleList;
         }
 
         private async Task<IList<Candle>> GetHistoricRatesAsync(
@@ -111,7 +110,7 @@ namespace GDAXSharp.Services.Products
                 new KeyValuePair<string, string>("end", isoEnd),
                 new KeyValuePair<string, string>("granularity", granularity.ToString()));
 
-            return await MakeServiceCall<IList<Candle>>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/candles" + queryString).ConfigureAwait(false);
+            return await SendServiceCall<IList<Candle>>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/candles" + queryString).ConfigureAwait(false);
         }
 
         private ProductsOrderBookResponse ConvertProductOrderBookResponse(

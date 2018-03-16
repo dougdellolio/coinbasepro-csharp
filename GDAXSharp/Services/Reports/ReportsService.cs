@@ -66,7 +66,7 @@ namespace GDAXSharp.Services.Reports
 
         private async Task<ReportResponse> CreateReport(string newReport)
         {
-            return await MakeServiceCall<ReportResponse>(HttpMethod.Post, "/reports", newReport);
+            return await SendServiceCall<ReportResponse>(HttpMethod.Post, "/reports", newReport);
         }
     }
 }

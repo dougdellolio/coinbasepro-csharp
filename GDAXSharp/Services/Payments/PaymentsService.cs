@@ -21,7 +21,7 @@ namespace GDAXSharp.Services.Payments
 
         public async Task<IEnumerable<PaymentMethod>> GetAllPaymentMethodsAsync()
         {
-            return await MakeServiceCall<IEnumerable<PaymentMethod>>(HttpMethod.Get, "/payment-methods");
+            return await SendServiceCall<IEnumerable<PaymentMethod>>(HttpMethod.Get, "/payment-methods");
         }
     }
 }

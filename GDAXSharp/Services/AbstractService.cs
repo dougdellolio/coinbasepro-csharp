@@ -104,7 +104,6 @@ namespace GDAXSharp.Services
             while (runCount > 1)
             {
                 var subsequentHttpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, uri + $"&after={subsequentPageAfterHeaderId}").ConfigureAwait(false);
-
                 if (!subsequentHttpResponseMessage.Headers.TryGetValues("cb-after", out var cursorHeaders))
                 {
                     break;
@@ -123,7 +122,7 @@ namespace GDAXSharp.Services
             return pagedList;
         }
 
-        protected async Task<T> MakeServiceCall<T>(
+        protected async Task<T> SendServiceCall<T>(
             HttpMethod httpMethod,
             string uri,
             string content = null)
