@@ -12,22 +12,19 @@ namespace GDAXSharp.Services.Fills
 {
     public class FillsService : AbstractService
     {
-        private readonly IAuthenticator authenticator;
-
         public FillsService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
-                : base(httpClient, httpRequestMessageService)
+                : base(httpClient, httpRequestMessageService, authenticator)
         {
-            this.authenticator = authenticator;
         }
 
         public async Task<IList<IList<FillResponse>>> GetAllFillsAsync(
             int limit = 100, 
             int numberOfPages = 0)
         {
-            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, authenticator, $"/fills?limit={limit}", numberOfPages: numberOfPages);
+            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, $"/fills?limit={limit}", numberOfPages: numberOfPages);
 
             return fills;
         }
@@ -37,7 +34,7 @@ namespace GDAXSharp.Services.Fills
             int limit = 100, 
             int numberOfPages = 0)
         {
-            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, authenticator, $"/fills?limit={limit}&order_id={orderId}", numberOfPages: numberOfPages);
+            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, $"/fills?limit={limit}&order_id={orderId}", numberOfPages: numberOfPages);
 
             return fills;
         }
@@ -47,7 +44,7 @@ namespace GDAXSharp.Services.Fills
             int limit = 100, 
             int numberOfPages = 0)
         {
-            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, authenticator, $"/fills?limit={limit}&product_id={productId.GetEnumMemberValue()}", numberOfPages: numberOfPages);
+            var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, $"/fills?limit={limit}&product_id={productId.GetEnumMemberValue()}", numberOfPages: numberOfPages);
 
             return fills;
         }

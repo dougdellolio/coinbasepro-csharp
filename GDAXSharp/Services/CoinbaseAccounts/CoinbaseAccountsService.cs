@@ -10,27 +10,17 @@ namespace GDAXSharp.Services.CoinbaseAccounts
 {
     public class CoinbaseAccountsService : AbstractService
     {
-        private readonly IHttpClient httpClient;
-
-        private readonly IAuthenticator authenticator;
-
         public CoinbaseAccountsService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
-                : base(httpClient, httpRequestMessageService)
+                : base(httpClient, httpRequestMessageService, authenticator)
         {
-            this.httpClient = httpClient;
-            this.authenticator = authenticator;
         }
 
         public async Task<IEnumerable<CoinbaseAccount>> GetAllAccountsAsync()
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/coinbase-accounts");
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var accounts = DeserializeObject<List<CoinbaseAccount>>(contentBody);
-
-            return accounts;
+            return await MakeServiceCall<List<CoinbaseAccount>>(HttpMethod.Get, "/coinbase-accounts");
         }
     }
 }

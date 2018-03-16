@@ -14,9 +14,11 @@ namespace GDAXSharp.Services
     {
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
+        private readonly IAuthenticator authenticator;
+
         private readonly IHttpClient httpClient;
 
-        private static JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings
+        private JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings
         {
             FloatParseHandling = FloatParseHandling.Decimal,
             NullValueHandling = NullValueHandling.Ignore,
@@ -28,15 +30,16 @@ namespace GDAXSharp.Services
 
         protected AbstractService(
             IHttpClient httpClient,
-            IHttpRequestMessageService httpRequestMessageService)
+            IHttpRequestMessageService httpRequestMessageService,
+            IAuthenticator authenticator)
         {
             this.httpRequestMessageService = httpRequestMessageService;
+            this.authenticator = authenticator;
             this.httpClient = httpClient;
         }
 
         protected async Task<HttpResponseMessage> SendHttpRequestMessageAsync(
             HttpMethod httpMethod,
-            IAuthenticator authenticator,
             string uri,
             string content = null)
         {
@@ -57,7 +60,6 @@ namespace GDAXSharp.Services
 
         protected async Task<IList<IList<T>>> SendHttpRequestMessagePagedAsync<T>(
             HttpMethod httpMethod,
-            IAuthenticator authenticator,
             string uri,
             string content = null,
             int numberOfPages = 0)
@@ -80,7 +82,7 @@ namespace GDAXSharp.Services
                 return pagedList;
             }
 
-            var subsequentPages = await GetAllSubsequentPages<T>(authenticator, uri, firstPageAfterCursorId.First(), numberOfPages);
+            var subsequentPages = await GetAllSubsequentPages<T>(uri, firstPageAfterCursorId.First(), numberOfPages);
 
             pagedList.AddRange(subsequentPages);
 
@@ -88,7 +90,6 @@ namespace GDAXSharp.Services
         }
 
         private async Task<IList<IList<T>>> GetAllSubsequentPages<T>(
-            IAuthenticator authenticator,
             string uri,
             string firstPageAfterCursorId, 
             int numberOfPages)
@@ -102,7 +103,7 @@ namespace GDAXSharp.Services
 
             while (runCount > 1)
             {
-                var subsequentHttpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, uri + $"&after={subsequentPageAfterHeaderId}").ConfigureAwait(false);
+                var subsequentHttpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, uri + $"&after={subsequentPageAfterHeaderId}").ConfigureAwait(false);
 
                 if (!subsequentHttpResponseMessage.Headers.TryGetValues("cb-after", out var cursorHeaders))
                 {
@@ -122,12 +123,23 @@ namespace GDAXSharp.Services
             return pagedList;
         }
 
-        protected static string SerializeObject(object value)
+        protected async Task<T> MakeServiceCall<T>(
+            HttpMethod httpMethod,
+            string uri,
+            string content = null)
+        {
+            var httpResponseMessage = await SendHttpRequestMessageAsync(httpMethod, uri, content);
+            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
+
+            return DeserializeObject<T>(contentBody);
+        }
+
+        protected string SerializeObject(object value)
         {
             return JsonConvert.SerializeObject(value, SerializerSettings);
         }
 
-        protected static T DeserializeObject<T>(string contentBody)
+        protected T DeserializeObject<T>(string contentBody)
         {
             return JsonConvert.DeserializeObject<T>(contentBody, SerializerSettings);
         }

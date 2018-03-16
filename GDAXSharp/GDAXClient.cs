@@ -28,8 +28,7 @@ namespace GDAXSharp
         public GDAXClient(
             IAuthenticator authenticator,
             IHttpClient httpClient,
-            bool sandBox = false
-            )
+            bool sandBox = false)
         {       
             var clock = new Clock();
             var httpRequestMessageService = new HttpRequestMessageService(clock, sandBox);

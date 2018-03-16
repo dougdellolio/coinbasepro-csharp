@@ -14,18 +14,12 @@ namespace GDAXSharp.Services.Deposits
 {
     public class DepositsService : AbstractService
     {
-        private readonly IHttpClient httpClient;
-
-        private readonly IAuthenticator authenticator;
-
         public DepositsService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator) 
-                : base(httpClient, httpRequestMessageService)
+            IAuthenticator authenticator)
+                : base(httpClient, httpRequestMessageService, authenticator)
         {
-            this.httpClient = httpClient;
-            this.authenticator = authenticator;
         }
 
         public async Task<DepositResponse> DepositFundsAsync(string paymentMethodId, decimal amount, Currency currency)
@@ -37,11 +31,7 @@ namespace GDAXSharp.Services.Deposits
                 PaymentMethodId = new Guid(paymentMethodId)
             };
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/deposits/payment-method", SerializeObject(newDeposit));
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var depositResponse = DeserializeObject<DepositResponse>(contentBody);
-
-            return depositResponse;
+            return await MakeServiceCall<DepositResponse>(HttpMethod.Post, "/deposits/payment-method", SerializeObject(newDeposit)).ConfigureAwait(false);
         }
 
         public async Task<CoinbaseResponse> DepositCoinbaseFundsAsync(string coinbaseAccountId, decimal amount, Currency currency)
@@ -53,11 +43,7 @@ namespace GDAXSharp.Services.Deposits
                 CoinbaseAccountId = coinbaseAccountId
             };
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/deposits/coinbase-account", SerializeObject(newCoinbaseDeposit));
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var depositResponse = DeserializeObject<CoinbaseResponse>(contentBody);
-
-            return depositResponse;
+            return await MakeServiceCall<CoinbaseResponse>(HttpMethod.Post, "/deposits/coinbase-account", SerializeObject(newCoinbaseDeposit)).ConfigureAwait(false);
         }
     }
 }

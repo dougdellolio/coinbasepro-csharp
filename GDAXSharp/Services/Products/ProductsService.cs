@@ -17,10 +17,6 @@ namespace GDAXSharp.Services.Products
 {
     public class ProductsService : AbstractService
     {
-        private readonly IHttpClient httpClient;
-
-        private readonly IAuthenticator authenticator;
-
         private readonly IQueryBuilder queryBuilder;
 
         public ProductsService(
@@ -28,30 +24,22 @@ namespace GDAXSharp.Services.Products
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator,
             IQueryBuilder queryBuilder)
-                : base(httpClient, httpRequestMessageService)
+                : base(httpClient, httpRequestMessageService, authenticator)
         {
-            this.httpClient = httpClient;
-            this.authenticator = authenticator;
             this.queryBuilder = queryBuilder;
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, "/products");
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productsResponse = DeserializeObject<IEnumerable<Product>>(contentBody);
-
-            return productsResponse;
+            return await MakeServiceCall<IEnumerable<Product>>(HttpMethod.Get, "/products");
         }
 
         public async Task<ProductsOrderBookResponse> GetProductOrderBookAsync(
 			ProductType productId, 
 			ProductLevel productLevel = ProductLevel.One)
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productId.GetEnumMemberValue()}/book/?level={(int)productLevel}");
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productsOrderBookJsonResponse = DeserializeObject<ProductsOrderBookJsonResponse>(contentBody);
-
+            var productsOrderBookJsonResponse = await MakeServiceCall<ProductsOrderBookJsonResponse>(HttpMethod.Get
+                , $"/products/{productId.GetEnumMemberValue()}/book/?level={(int) productLevel}").ConfigureAwait(false); 
             var productOrderBookResponse = ConvertProductOrderBookResponse(productsOrderBookJsonResponse, productLevel);
 
             return productOrderBookResponse;
@@ -59,20 +47,12 @@ namespace GDAXSharp.Services.Products
 
         public async Task<ProductTicker> GetProductTickerAsync(ProductType productId)
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productId.GetEnumMemberValue()}/ticker");
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productTickerResponse = DeserializeObject<ProductTicker>(contentBody);
-
-            return productTickerResponse;
+            return await MakeServiceCall<ProductTicker>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/ticker").ConfigureAwait(false); 
         }
 
         public async Task<ProductStats> GetProductStatsAsync(ProductType productId)
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productId.GetEnumMemberValue()}/stats");
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productStatsResponse = DeserializeObject<ProductStats>(contentBody);
-
-            return productStatsResponse;
+            return await MakeServiceCall<ProductStats>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/stats").ConfigureAwait(false);
         }
 
         public async Task<IList<IList<ProductTrade>>> GetTradesAsync(
@@ -80,7 +60,7 @@ namespace GDAXSharp.Services.Products
             int limit = 100,
             int numberOfPages = 0)
         {
-            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<ProductTrade>(HttpMethod.Get, authenticator, $"/products/{productId.GetEnumMemberValue()}/trades?limit={limit}", numberOfPages: numberOfPages);
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<ProductTrade>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/trades?limit={limit}", numberOfPages: numberOfPages);
 
             return httpResponseMessage;
         }
@@ -131,11 +111,7 @@ namespace GDAXSharp.Services.Products
                 new KeyValuePair<string, string>("end", isoEnd),
                 new KeyValuePair<string, string>("granularity", granularity.ToString()));
 
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/products/{productId.GetEnumMemberValue()}/candles" + queryString);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var productHistoryResponse = DeserializeObject<IList<Candle>>(contentBody);
-
-            return productHistoryResponse;
+            return await MakeServiceCall<IList<Candle>>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/candles" + queryString).ConfigureAwait(false);
         }
 
         private ProductsOrderBookResponse ConvertProductOrderBookResponse(

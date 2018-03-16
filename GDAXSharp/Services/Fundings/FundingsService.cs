@@ -11,8 +11,6 @@ namespace GDAXSharp.Services.Fundings
 {
     public class FundingsService : AbstractService
     {
-        private readonly IAuthenticator authenticator;
-
         private readonly IQueryBuilder queryBuilder;
 
         public FundingsService(
@@ -20,9 +18,8 @@ namespace GDAXSharp.Services.Fundings
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator,
             IQueryBuilder queryBuilder)
-                : base(httpClient, httpRequestMessageService)
+                : base(httpClient, httpRequestMessageService, authenticator)
         {
-            this.authenticator = authenticator;
             this.queryBuilder = queryBuilder;
         }
 
@@ -32,7 +29,7 @@ namespace GDAXSharp.Services.Fundings
                 new KeyValuePair<string, string>("limit", limit.ToString()),
                 new KeyValuePair<string, string>("status", status?.ToString().ToLower()));
 
-            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<Funding>(HttpMethod.Get, authenticator, "/funding" + queryString, numberOfPages: numberOfPages);
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<Funding>(HttpMethod.Get, "/funding" + queryString, numberOfPages: numberOfPages);
 
             return httpResponseMessage;
         }
