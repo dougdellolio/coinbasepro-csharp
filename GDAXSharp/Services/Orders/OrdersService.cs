@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
-using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Infrastructure.Authentication;
+using GDAXSharp.Infrastructure.HttpClient;
+using GDAXSharp.Infrastructure.HttpRequest;
 using GDAXSharp.Services.Orders.Models;
 using GDAXSharp.Services.Orders.Models.Responses;
-using GDAXSharp.Shared;
-using GDAXSharp.Utilities.Extensions;
+using GDAXSharp.Services.Orders.Types;
+using GDAXSharp.Shared.Types;
+using GDAXSharp.Shared.Utilities.Extensions;
 
 namespace GDAXSharp.Services.Orders
 {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
-using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Infrastructure.Authentication;
+using GDAXSharp.Infrastructure.HttpClient;
+using GDAXSharp.Infrastructure.HttpRequest;
 
 namespace GDAXSharp.Services.Currencies
 {

@@ -1,11 +1,11 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
-using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Infrastructure.Authentication;
+using GDAXSharp.Infrastructure.HttpClient;
+using GDAXSharp.Infrastructure.HttpRequest;
 using GDAXSharp.Services.Withdrawals.Models;
 using GDAXSharp.Services.Withdrawals.Models.Responses;
-using GDAXSharp.Shared;
+using GDAXSharp.Shared.Types;
 
 namespace GDAXSharp.Services.Withdrawals
 {

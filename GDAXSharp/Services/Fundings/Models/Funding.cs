@@ -1,4 +1,6 @@
 ﻿using System;
+using GDAXSharp.Services.Fundings.Types;
+using GDAXSharp.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -20,7 +22,7 @@ namespace GDAXSharp.Services.Fundings.Models
         public DateTime CreatedAt { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public Shared.Currency Currency { get; set; }
+        public Currency Currency { get; set; }
 
         public decimal RepaidAmount { get; set; }
 

@@ -2,12 +2,11 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
+using GDAXSharp.Infrastructure.Authentication;
+using GDAXSharp.Infrastructure.HttpClient;
+using GDAXSharp.Infrastructure.HttpRequest;
 using GDAXSharp.Services.Currencies;
-using GDAXSharp.Services.Currencies.Models;
-using GDAXSharp.Services.HttpRequest;
-using GDAXSharp.Specs.JsonFixtures.Currencies;
+using GDAXSharp.Specs.JsonFixtures.Services.Currencies;
 using Machine.Fakes;
 using Machine.Specifications;
 
@@ -18,7 +17,7 @@ namespace GDAXSharp.Specs.Services.Currencies
     {
         static Authenticator authenticator;
 
-        static IEnumerable<Currency> result;
+        static IEnumerable<GDAXSharp.Services.Currencies.Models.Currency> result;
 
         Establish context = () =>
         {
@@ -45,10 +44,10 @@ namespace GDAXSharp.Specs.Services.Currencies
 
             It should_return_a_correct_response = () =>
             {
-                result.First().Id.ShouldEqual(Shared.Currency.BTC);
+                result.First().Id.ShouldEqual(GDAXSharp.Shared.Types.Currency.BTC);
                 result.First().Name.ShouldEqual("Bitcoin");
                 result.First().MinSize.ShouldEqual(0.00000001M);
-                result.Skip(1).First().Id.ShouldEqual(Shared.Currency.USD);
+                result.Skip(1).First().Id.ShouldEqual(GDAXSharp.Shared.Types.Currency.USD);
                 result.Skip(1).First().Name.ShouldEqual("United States Dollar");
                 result.Skip(1).First().MinSize.ShouldEqual(0.01000000M);
             };

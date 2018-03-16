@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Utilities.Extensions;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
+using GDAXSharp.Infrastructure.Authentication;
+using GDAXSharp.Infrastructure.HttpClient;
+using GDAXSharp.Infrastructure.HttpRequest;
 using GDAXSharp.Services.Fills.Models.Responses;
-using GDAXSharp.Services.HttpRequest;
-using GDAXSharp.Shared;
+using GDAXSharp.Shared.Types;
+using GDAXSharp.Shared.Utilities.Extensions;
 
 namespace GDAXSharp.Services.Fills
 {

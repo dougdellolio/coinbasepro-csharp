@@ -1,5 +1,6 @@
 ﻿using System;
-using GDAXSharp.Shared;
+using GDAXSharp.Services.Reports.Types;
+using GDAXSharp.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 

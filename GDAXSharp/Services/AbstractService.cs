@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
-using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Infrastructure.Authentication;
+using GDAXSharp.Infrastructure.HttpClient;
+using GDAXSharp.Infrastructure.HttpRequest;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 

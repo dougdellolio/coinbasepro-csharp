@@ -4,14 +4,15 @@ using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Utilities.Extensions;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
-using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Infrastructure.Authentication;
+using GDAXSharp.Infrastructure.HttpClient;
+using GDAXSharp.Infrastructure.HttpRequest;
 using GDAXSharp.Services.Products.Models;
 using GDAXSharp.Services.Products.Models.Responses;
-using GDAXSharp.Shared;
-using GDAXSharp.Utilities;
+using GDAXSharp.Services.Products.Types;
+using GDAXSharp.Shared.Types;
+using GDAXSharp.Shared.Utilities.Extensions;
+using GDAXSharp.Shared.Utilities.Queries;
 
 namespace GDAXSharp.Services.Products
 {

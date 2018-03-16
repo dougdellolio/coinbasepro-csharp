@@ -1,5 +1,5 @@
 ﻿using System;
-using GDAXSharp.Services.Orders.Models;
+using GDAXSharp.Services.Orders.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 

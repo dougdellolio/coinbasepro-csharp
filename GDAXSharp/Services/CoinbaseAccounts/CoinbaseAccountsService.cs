@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
+using GDAXSharp.Infrastructure.Authentication;
+using GDAXSharp.Infrastructure.HttpClient;
+using GDAXSharp.Infrastructure.HttpRequest;
 using GDAXSharp.Services.CoinbaseAccounts.Models;
-using GDAXSharp.Services.HttpRequest;
 
 namespace GDAXSharp.Services.CoinbaseAccounts
 {

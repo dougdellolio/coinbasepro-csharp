@@ -1,5 +1,5 @@
 ﻿using System;
-using GDAXSharp.Shared;
+using GDAXSharp.Shared.Types;
 
 namespace GDAXSharp.Services.Fills.Models
 {

@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
+using GDAXSharp.Infrastructure.Authentication;
+using GDAXSharp.Infrastructure.HttpClient;
+using GDAXSharp.Infrastructure.HttpRequest;
 using GDAXSharp.Services.Fundings.Models;
-using GDAXSharp.Services.HttpRequest;
-using GDAXSharp.Utilities;
+using GDAXSharp.Services.Fundings.Types;
+using GDAXSharp.Shared.Utilities.Queries;
 
 namespace GDAXSharp.Services.Fundings
 {
