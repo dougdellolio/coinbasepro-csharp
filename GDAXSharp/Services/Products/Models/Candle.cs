@@ -1,10 +1,9 @@
 ﻿using System;
+using GDAXSharp.Shared.Utilities.Converters;
 using Newtonsoft.Json;
-using GDAXSharp.Utilities;
 
 namespace GDAXSharp.Services.Products.Models
 {
-    //  [ time, low, high, open, close, volume ]
     [JsonConverter(typeof(CandleConverter))]
     public class Candle
     {

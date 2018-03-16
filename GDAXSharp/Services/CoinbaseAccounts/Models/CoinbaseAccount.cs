@@ -1,4 +1,6 @@
 ﻿using System;
+using GDAXSharp.Services.CoinbaseAccounts.Types;
+using GDAXSharp.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -12,7 +14,7 @@ namespace GDAXSharp.Services.CoinbaseAccounts.Models
 
         public decimal Balance { get; set; }
 
-        public Shared.Currency Currency { get; set; }
+        public Currency Currency { get; set; }
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter))]

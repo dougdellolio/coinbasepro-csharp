@@ -1,29 +1,24 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
-using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Network.Authentication;
+using GDAXSharp.Network.HttpClient;
+using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Reports.Models;
 using GDAXSharp.Services.Reports.Models.Responses;
-using GDAXSharp.Shared;
+using GDAXSharp.Services.Reports.Types;
+using GDAXSharp.Shared.Types;
 
 namespace GDAXSharp.Services.Reports
 {
     public class ReportsService : AbstractService
     {
-        private readonly IHttpClient httpClient;
-
-        private readonly IAuthenticator authenticator;
-
         public ReportsService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
-                : base(httpClient, httpRequestMessageService)
+                : base(httpClient, httpRequestMessageService, authenticator)
         {
-            this.httpClient = httpClient;
-            this.authenticator = authenticator;
         }
 
         public async Task<ReportResponse> CreateNewAccountReportAsync(
@@ -72,11 +67,7 @@ namespace GDAXSharp.Services.Reports
 
         private async Task<ReportResponse> CreateReport(string newReport)
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/reports", newReport);
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var reportResponse = DeserializeObject<ReportResponse>(contentBody);
-
-            return reportResponse;
+            return await SendServiceCall<ReportResponse>(HttpMethod.Post, "/reports", newReport);
         }
     }
 }

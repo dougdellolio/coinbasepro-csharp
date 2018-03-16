@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
+using GDAXSharp.Network.Authentication;
+using GDAXSharp.Network.HttpClient;
+using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Fundings.Models;
-using GDAXSharp.Services.HttpRequest;
-using GDAXSharp.Utilities;
+using GDAXSharp.Services.Fundings.Types;
+using GDAXSharp.Shared.Utilities.Queries;
 
 namespace GDAXSharp.Services.Fundings
 {
     public class FundingsService : AbstractService
     {
-        private readonly IAuthenticator authenticator;
-
         private readonly IQueryBuilder queryBuilder;
 
         public FundingsService(
@@ -20,19 +19,21 @@ namespace GDAXSharp.Services.Fundings
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator,
             IQueryBuilder queryBuilder)
-                : base(httpClient, httpRequestMessageService)
+                : base(httpClient, httpRequestMessageService, authenticator)
         {
-            this.authenticator = authenticator;
             this.queryBuilder = queryBuilder;
         }
 
-        public async Task<IList<IList<Funding>>> GetAllFundingsAsync(int limit = 100, FundingStatus? status = null, int numberOfPages = 0)
+        public async Task<IList<IList<Funding>>> GetAllFundingsAsync(
+            int limit = 100, 
+            FundingStatus? status = null, 
+            int numberOfPages = 0)
         {
             var queryString = queryBuilder.BuildQuery(
                 new KeyValuePair<string, string>("limit", limit.ToString()),
                 new KeyValuePair<string, string>("status", status?.ToString().ToLower()));
 
-            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<Funding>(HttpMethod.Get, authenticator, "/funding" + queryString, numberOfPages: numberOfPages);
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<Funding>(HttpMethod.Get, "/funding" + queryString, numberOfPages: numberOfPages);
 
             return httpResponseMessage;
         }

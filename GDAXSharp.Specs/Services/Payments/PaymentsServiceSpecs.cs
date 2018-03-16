@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
-using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Network.Authentication;
+using GDAXSharp.Network.HttpClient;
+using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Payments;
 using GDAXSharp.Services.Payments.Models;
-using GDAXSharp.Shared;
-using GDAXSharp.Specs.JsonFixtures.Payments;
+using GDAXSharp.Shared.Types;
+using GDAXSharp.Specs.JsonFixtures.Services.Payments;
 using Machine.Fakes;
 using Machine.Specifications;
 

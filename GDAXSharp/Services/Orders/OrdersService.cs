@@ -3,31 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
-using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Network.Authentication;
+using GDAXSharp.Network.HttpClient;
+using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Orders.Models;
 using GDAXSharp.Services.Orders.Models.Responses;
-using GDAXSharp.Shared;
-using GDAXSharp.Utilities.Extensions;
+using GDAXSharp.Services.Orders.Types;
+using GDAXSharp.Shared.Types;
+using GDAXSharp.Shared.Utilities.Extensions;
 
 namespace GDAXSharp.Services.Orders
 {
     public class OrdersService : AbstractService
     {
-        private readonly IHttpClient httpClient;
-
-        private readonly IAuthenticator authenticator;
-
         public OrdersService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
             IAuthenticator authenticator)
-                : base(httpClient, httpRequestMessageService)
-
+                : base(httpClient, httpRequestMessageService, authenticator)
         {
-            this.httpClient = httpClient;
-            this.authenticator = authenticator;
         }
 
         public async Task<OrderResponse> PlaceMarketOrderAsync(
@@ -111,28 +105,20 @@ namespace GDAXSharp.Services.Orders
 
         private async Task<OrderResponse> PlaceOrderAsync(Order order)
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Post, authenticator, "/orders", SerializeObject(order));
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var orderResponse = DeserializeObject<OrderResponse>(contentBody);
-
-            return orderResponse;
+            return await SendServiceCall<OrderResponse>(HttpMethod.Post, "/orders", SerializeObject(order)).ConfigureAwait(false);
         }
 
         public async Task<CancelOrderResponse> CancelAllOrdersAsync()
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Delete, authenticator, "/orders");
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var orderResponse = DeserializeObject<IEnumerable<Guid>>(contentBody);
-
             return new CancelOrderResponse
             {
-                OrderIds = orderResponse
+                OrderIds = await SendServiceCall<IEnumerable<Guid>>(HttpMethod.Delete, "/orders").ConfigureAwait(false)
             };
         }
 
         public async Task<CancelOrderResponse> CancelOrderByIdAsync(string id)
         {
-            var httpRequestResponse = await SendHttpRequestMessageAsync(HttpMethod.Delete, authenticator, $"/orders/{id}");
+            var httpRequestResponse = await SendHttpRequestMessageAsync(HttpMethod.Delete, $"/orders/{id}");
 
             if (httpRequestResponse == null)
             {
@@ -149,22 +135,18 @@ namespace GDAXSharp.Services.Orders
         }
 
         public async Task<IList<IList<OrderResponse>>> GetAllOrdersAsync(
-            OrderStatus orderStatus = OrderStatus.All, 
-            int limit = 100, 
+            OrderStatus orderStatus = OrderStatus.All,
+            int limit = 100,
             int numberOfPages = 0)
         {
-            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<OrderResponse>(HttpMethod.Get, authenticator, $"/orders?limit={limit}&status={orderStatus.GetEnumMemberValue()}", numberOfPages: numberOfPages);
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<OrderResponse>(HttpMethod.Get, $"/orders?limit={limit}&status={orderStatus.GetEnumMemberValue()}", numberOfPages: numberOfPages);
 
             return httpResponseMessage;
         }
 
         public async Task<OrderResponse> GetOrderByIdAsync(string id)
         {
-            var httpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, authenticator, $"/orders/{id}");
-            var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
-            var orderResponse = DeserializeObject<OrderResponse>(contentBody);
-
-            return orderResponse;
+            return await SendServiceCall<OrderResponse>(HttpMethod.Get, $"/orders/{id}").ConfigureAwait(false);
         }
     }
 }

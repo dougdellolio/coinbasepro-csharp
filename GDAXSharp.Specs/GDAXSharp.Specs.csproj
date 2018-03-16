@@ -76,27 +76,27 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JsonFixtures\Accounts\AccountByIdResponseFixture.cs" />
-    <Compile Include="JsonFixtures\Accounts\AccountHoldsResponseFixture.cs" />
-    <Compile Include="JsonFixtures\Accounts\AccountsHistoryResponseFixture.cs" />
-    <Compile Include="JsonFixtures\Accounts\AllAccountsResponseFixture.cs" />
-    <Compile Include="JsonFixtures\CoinbaseAccounts\AllCoinbaseResponseFixture.cs" />
-    <Compile Include="JsonFixtures\Currencies\CurrenciesResponseFixture.cs" />
-    <Compile Include="JsonFixtures\Deposits\CoinbaseDepositResponseFixture.cs" />
-    <Compile Include="JsonFixtures\Deposits\DepositsResponseFixture.cs" />
-    <Compile Include="JsonFixtures\Fills\FillsResponseFixture.cs" />
-    <Compile Include="JsonFixtures\Fundings\FundingsResponseFixture.cs" />
-    <Compile Include="JsonFixtures\HttpResponseMessage\HttpResponseMessageFixture.cs" />
-    <Compile Include="JsonFixtures\Orders\CancelOrderResponseFixture.cs" />
-    <Compile Include="JsonFixtures\Orders\OrderResponseFixture.cs" />
-    <Compile Include="JsonFixtures\Payments\PaymentMethodsResponseFixture.cs" />
-    <Compile Include="JsonFixtures\Products\ProductsOrderBookResponseFixture.cs" />
-    <Compile Include="JsonFixtures\Products\ProductsResponseFixture.cs" />
-    <Compile Include="JsonFixtures\Products\ProductHistoryFixture.cs" />
-    <Compile Include="JsonFixtures\Products\ProductStatsFixture.cs" />
-    <Compile Include="JsonFixtures\Products\ProductTickerFixture.cs" />
-    <Compile Include="JsonFixtures\Products\ProductTradesFixture.cs" />
-    <Compile Include="JsonFixtures\Reports\ReportResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Accounts\AccountByIdResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Accounts\AccountHoldsResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Accounts\AccountsHistoryResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Accounts\AllAccountsResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\CoinbaseAccounts\AllCoinbaseResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Currencies\CurrenciesResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Deposits\CoinbaseDepositResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Deposits\DepositsResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Fills\FillsResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Fundings\FundingsResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Infrastructure\HttpResponseMessage\HttpResponseMessageFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Orders\CancelOrderResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Orders\OrderResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Payments\PaymentMethodsResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Products\ProductsOrderBookResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Products\ProductsResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Products\ProductHistoryFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Products\ProductStatsFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Products\ProductTickerFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Products\ProductTradesFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Reports\ReportResponseFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\CoinbaseWithdrawalResponseFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\CryptoWithdrawalResponseFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\WithdrawalsResponseFixture.cs" />
@@ -113,9 +113,9 @@
     <Compile Include="Services\Products\ProductsServiceSpecs.cs" />
     <Compile Include="Services\Reports\ReportsServiceSpecs.cs" />
     <Compile Include="Services\Withdrawals\WithdrawalsServiceSpecs.cs" />
-    <Compile Include="Utilities\Extensions\DateExtensionsSpecs.cs" />
-    <Compile Include="Utilities\Extensions\ProductTypeExtensionsSpecs.cs" />
-    <Compile Include="Utilities\QueryBuilderSpecs.cs" />
+    <Compile Include="Shared\Utilities\Extensions\DateExtensionsSpecs.cs" />
+    <Compile Include="Shared\Utilities\Extensions\ProductTypeExtensionsSpecs.cs" />
+    <Compile Include="Shared\Utilities\Queries\QueryBuilderSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

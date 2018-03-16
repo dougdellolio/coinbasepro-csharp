@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net.Http;
-using GDAXSharp.Authentication;
-using GDAXSharp.Services.HttpRequest;
-using GDAXSharp.Utilities;
+using GDAXSharp.Network.Authentication;
+using GDAXSharp.Network.HttpRequest;
+using GDAXSharp.Shared.Utilities.Clock;
 using Machine.Fakes;
 using Machine.Specifications;
 

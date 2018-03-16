@@ -1,4 +1,5 @@
-﻿using GDAXSharp.Shared;
+﻿using GDAXSharp.Services.Orders.Types;
+using GDAXSharp.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 

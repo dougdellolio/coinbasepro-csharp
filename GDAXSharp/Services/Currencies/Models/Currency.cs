@@ -2,7 +2,7 @@
 {
     public class Currency
     {
-        public Shared.Currency Id { get; set; }
+        public Shared.Types.Currency Id { get; set; }
 
         public string Name { get; set; }
 

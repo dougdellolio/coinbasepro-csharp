@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
-using GDAXSharp.Services.HttpRequest;
+using GDAXSharp.Network.Authentication;
+using GDAXSharp.Network.HttpClient;
+using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Withdrawals;
 using GDAXSharp.Services.Withdrawals.Models.Responses;
-using GDAXSharp.Shared;
+using GDAXSharp.Shared.Types;
 using GDAXSharp.Specs.JsonFixtures.Withdrawals;
 using Machine.Fakes;
 using Machine.Specifications;

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
+using GDAXSharp.Network.Authentication;
+using GDAXSharp.Network.HttpClient;
+using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Deposits;
 using GDAXSharp.Services.Deposits.Models.Responses;
-using GDAXSharp.Services.HttpRequest;
 using GDAXSharp.Services.Withdrawals.Models.Responses;
-using GDAXSharp.Shared;
-using GDAXSharp.Specs.JsonFixtures.Deposits;
+using GDAXSharp.Shared.Types;
+using GDAXSharp.Specs.JsonFixtures.Services.Deposits;
 using Machine.Fakes;
 using Machine.Specifications;
 

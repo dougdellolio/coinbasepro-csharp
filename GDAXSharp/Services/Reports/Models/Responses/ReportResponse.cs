@@ -1,4 +1,5 @@
 ﻿using System;
+using GDAXSharp.Services.Reports.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 

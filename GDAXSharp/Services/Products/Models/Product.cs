@@ -1,4 +1,4 @@
-﻿using GDAXSharp.Shared;
+﻿using GDAXSharp.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 

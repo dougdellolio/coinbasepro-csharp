@@ -1,18 +1,19 @@
-﻿using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
+﻿using GDAXSharp.Network.Authentication;
+using GDAXSharp.Network.HttpClient;
+using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Accounts;
 using GDAXSharp.Services.CoinbaseAccounts;
 using GDAXSharp.Services.Currencies;
 using GDAXSharp.Services.Deposits;
 using GDAXSharp.Services.Fills;
 using GDAXSharp.Services.Fundings;
-using GDAXSharp.Services.HttpRequest;
 using GDAXSharp.Services.Orders;
 using GDAXSharp.Services.Payments;
 using GDAXSharp.Services.Products;
 using GDAXSharp.Services.Reports;
 using GDAXSharp.Services.Withdrawals;
-using GDAXSharp.Utilities;
+using GDAXSharp.Shared.Utilities.Clock;
+using GDAXSharp.Shared.Utilities.Queries;
 
 namespace GDAXSharp
 {
@@ -21,15 +22,14 @@ namespace GDAXSharp
         public GDAXClient(
             IAuthenticator authenticator,
             bool sandBox = false) 
-                    : this(authenticator, new HttpClient.HttpClient(), sandBox)
+                    : this(authenticator, new HttpClient(), sandBox)
         {
         }
 
         public GDAXClient(
             IAuthenticator authenticator,
             IHttpClient httpClient,
-            bool sandBox = false
-            )
+            bool sandBox = false)
         {       
             var clock = new Clock();
             var httpRequestMessageService = new HttpRequestMessageService(clock, sandBox);

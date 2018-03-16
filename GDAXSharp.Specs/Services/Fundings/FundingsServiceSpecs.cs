@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Authentication;
-using GDAXSharp.HttpClient;
+using GDAXSharp.Network.Authentication;
+using GDAXSharp.Network.HttpClient;
+using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Fundings;
 using GDAXSharp.Services.Fundings.Models;
-using GDAXSharp.Services.HttpRequest;
-using GDAXSharp.Specs.JsonFixtures.Fundings;
-using GDAXSharp.Specs.JsonFixtures.HttpResponseMessage;
+using GDAXSharp.Services.Fundings.Types;
+using GDAXSharp.Shared.Types;
+using GDAXSharp.Specs.JsonFixtures.Infrastructure.HttpResponseMessage;
+using GDAXSharp.Specs.JsonFixtures.Services.Fundings;
 using Machine.Fakes;
 using Machine.Specifications;
 
@@ -52,7 +54,7 @@ namespace GDAXSharp.Specs.Services.Fundings
                 fundings_response.First().First().ProfileId.ShouldEqual("d881e5a6-58eb-47cd-b8e2-8d9f2e3ec6f6");
                 fundings_response.First().First().Amount.ShouldEqual(1057.6519956381537500M);
                 fundings_response.First().First().Status.ShouldEqual(FundingStatus.Settled);
-                fundings_response.First().First().Currency.ShouldEqual(Shared.Currency.USD);
+                fundings_response.First().First().Currency.ShouldEqual(Currency.USD);
                 fundings_response.First().First().RepaidAmount.ShouldEqual(1057.6519956381537500M);
                 fundings_response.First().First().DefaultAmount.ShouldEqual(0);
                 fundings_response.First().First().RepaidDefault.ShouldBeFalse();
@@ -62,7 +64,7 @@ namespace GDAXSharp.Specs.Services.Fundings
                 fundings_response.First().Skip(1).First().ProfileId.ShouldEqual("d881e5a6-58eb-47cd-b8e2-8d9f2e3ec6f6");
                 fundings_response.First().Skip(1).First().Amount.ShouldEqual(545.2400000000000000M);
                 fundings_response.First().Skip(1).First().Status.ShouldEqual(FundingStatus.Outstanding);
-                fundings_response.First().Skip(1).First().Currency.ShouldEqual(Shared.Currency.USD);
+                fundings_response.First().Skip(1).First().Currency.ShouldEqual(Currency.USD);
                 fundings_response.First().Skip(1).First().RepaidAmount.ShouldEqual(532.7580047716682500M);
             };
         }
