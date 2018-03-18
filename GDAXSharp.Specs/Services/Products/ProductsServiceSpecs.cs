@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.Authentication;
 using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Orders.Types;
 using GDAXSharp.Services.Products;
 using GDAXSharp.Services.Products.Models;
@@ -21,8 +19,6 @@ namespace GDAXSharp.Specs.Services.Products
     [Subject("ProductsService")]
     public class ProductsServiceSpecs : WithSubject<ProductsService>
     {
-        static Authenticator authenticator;
-
         static IEnumerable<Product> products_result;
 
         static ProductsOrderBookResponse product_order_books_response;
@@ -38,15 +34,8 @@ namespace GDAXSharp.Specs.Services.Products
         static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         Establish context = () =>
-        {
-            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                .Return(new HttpRequestMessage());
-
             The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
                 .Return(Task.FromResult(new HttpResponseMessage()));
-
-            authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
-        };
 
         class when_getting_all_products
         {

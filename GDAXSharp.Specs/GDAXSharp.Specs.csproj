@@ -86,7 +86,7 @@
     <Compile Include="JsonFixtures\Services\Deposits\DepositsResponseFixture.cs" />
     <Compile Include="JsonFixtures\Services\Fills\FillsResponseFixture.cs" />
     <Compile Include="JsonFixtures\Services\Fundings\FundingsResponseFixture.cs" />
-    <Compile Include="JsonFixtures\Infrastructure\HttpResponseMessage\HttpResponseMessageFixture.cs" />
+    <Compile Include="JsonFixtures\Network\HttpResponseMessage\HttpResponseMessageFixture.cs" />
     <Compile Include="JsonFixtures\Services\Orders\CancelOrderResponseFixture.cs" />
     <Compile Include="JsonFixtures\Services\Orders\OrderResponseFixture.cs" />
     <Compile Include="JsonFixtures\Services\Payments\PaymentMethodsResponseFixture.cs" />
@@ -97,6 +97,7 @@
     <Compile Include="JsonFixtures\Services\Products\ProductTickerFixture.cs" />
     <Compile Include="JsonFixtures\Services\Products\ProductTradesFixture.cs" />
     <Compile Include="JsonFixtures\Services\Reports\ReportResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\UserAccount\TrailingVolumeFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\CoinbaseWithdrawalResponseFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\CryptoWithdrawalResponseFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\WithdrawalsResponseFixture.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Services\Payments\PaymentsServiceSpecs.cs" />
     <Compile Include="Services\Products\ProductsServiceSpecs.cs" />
     <Compile Include="Services\Reports\ReportsServiceSpecs.cs" />
+    <Compile Include="Services\UserAccount\UserAccountServiceSpecs.cs" />
     <Compile Include="Services\Withdrawals\WithdrawalsServiceSpecs.cs" />
     <Compile Include="Shared\Utilities\Extensions\DateExtensionsSpecs.cs" />
     <Compile Include="Shared\Utilities\Extensions\ProductTypeExtensionsSpecs.cs" />

@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.Authentication;
 using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.CoinbaseAccounts;
 using GDAXSharp.Services.CoinbaseAccounts.Models;
 using GDAXSharp.Services.CoinbaseAccounts.Types;
@@ -19,16 +17,9 @@ namespace GDAXSharp.Specs.Services.CoinbaseAccounts
     [Subject("CoinbaseAccountsService")]
     public class CoinbaseAccountsServiceSpecs : WithSubject<CoinbaseAccountsService>
     {
-        static Authenticator authenticator;
-
         Establish context = () =>
-        {
-            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>())).Return(new HttpRequestMessage());
-
-            The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>())).Return(Task.FromResult(new HttpResponseMessage()));
-
-            authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
-        };
+            The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
+                .Return(Task.FromResult(new HttpResponseMessage()));
 
         class when_getting_all_coinbase_accounts
         {

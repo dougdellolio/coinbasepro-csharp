@@ -2,9 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.Authentication;
 using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Currencies;
 using GDAXSharp.Specs.JsonFixtures.Services.Currencies;
 using Machine.Fakes;
@@ -15,20 +13,11 @@ namespace GDAXSharp.Specs.Services.Currencies
     [Subject("CurrenciesService")]
     public class CurrenciesServiceSpecs : WithSubject<CurrenciesService>
     {
-        static Authenticator authenticator;
-
         static IEnumerable<GDAXSharp.Services.Currencies.Models.Currency> result;
 
         Establish context = () =>
-        {
-            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                .Return(new HttpRequestMessage());
-
             The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
                 .Return(Task.FromResult(new HttpResponseMessage()));
-
-            authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
-        };
 
         class when_getting_all_currencies
         {

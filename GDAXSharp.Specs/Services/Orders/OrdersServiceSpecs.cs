@@ -4,9 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.Authentication;
 using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Orders;
 using GDAXSharp.Services.Orders.Models.Responses;
 using GDAXSharp.Services.Orders.Types;
@@ -26,20 +24,11 @@ namespace GDAXSharp.Specs.Services.Orders
 
         static CancelOrderResponse cancel_order_response_result;
 
-        static Authenticator authenticator;
-
         static Exception exception;
 
         Establish context = () =>
-        {
-            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                .Return(new HttpRequestMessage());
-
             The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
                 .Return(Task.FromResult(new HttpResponseMessage()));
-
-            authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
-        };
 
         class when_placing_a_market_order
         {
