@@ -78,6 +78,9 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - CreateNewAccountReportAsync(startDate, endDate, accountId, productType, email, fileFormat) - generate new account report
 - CreateNewFillsReportAsync(startDate, endDate, productType, accountId, email, fileFormat) - generate new fills report
 
+###### User Account ######
+- GetTrailingVolumeAsync()- get 30-day trailing volume for all products
+
 <h1>Sandbox Support</h1>
 
 <i>Generate your key at https://public.sandbox.gdax.com/settings/api</i>
