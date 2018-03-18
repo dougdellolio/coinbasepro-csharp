@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.Authentication;
 using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Fills;
 using GDAXSharp.Services.Fills.Models.Responses;
 using GDAXSharp.Shared.Types;
-using GDAXSharp.Specs.JsonFixtures.Infrastructure.HttpResponseMessage;
+using GDAXSharp.Specs.JsonFixtures.Network.HttpResponseMessage;
 using GDAXSharp.Specs.JsonFixtures.Services.Fills;
 using Machine.Fakes;
 using Machine.Specifications;
@@ -19,20 +17,11 @@ namespace GDAXSharp.Specs.Services.Fills
     [Subject("FillsService")]
     public class FillsServiceSpecs : WithSubject<FillsService>
     {
-        static Authenticator authenticator;
-
         static IList<IList<FillResponse>> fill_response;
 
         Establish context = () =>
-        {
-            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                .Return(new HttpRequestMessage());
-
             The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
                 .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
-
-            authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
-        };
 
         class when_requesting_all_fills
         {

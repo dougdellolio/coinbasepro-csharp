@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.Authentication;
 using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Reports;
 using GDAXSharp.Services.Reports.Models.Responses;
 using GDAXSharp.Services.Reports.Types;
@@ -17,22 +15,13 @@ namespace GDAXSharp.Specs.Services.Reports
     [Subject("ReportsService")]
     public class ReportsServiceSpecs : WithSubject<ReportsService>
     {
-        static Authenticator authenticator;
-
         static ReportResponse account_report_response;
 
         static ReportResponse fills_report_response;
 
         Establish context = () =>
-        {
-            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                .Return(new HttpRequestMessage());
-
             The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
                 .Return(Task.FromResult(new HttpResponseMessage()));
-
-            authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
-        };
 
         class when_requesting_new_account_report
         {

@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.Authentication;
 using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Accounts;
 using GDAXSharp.Services.Accounts.Models;
 using GDAXSharp.Services.Accounts.Types;
 using GDAXSharp.Shared.Types;
-using GDAXSharp.Specs.JsonFixtures.Infrastructure.HttpResponseMessage;
+using GDAXSharp.Specs.JsonFixtures.Network.HttpResponseMessage;
 using GDAXSharp.Specs.JsonFixtures.Services.Accounts;
 using Machine.Fakes;
 using Machine.Specifications;
@@ -20,18 +18,9 @@ namespace GDAXSharp.Specs.Services.Accounts
     [Subject("AccountsService")]
     public class AccountsServiceSpecs : WithSubject<AccountsService>
     {
-        static Authenticator authenticator;
-
         Establish context = () =>
-        {
-            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                .Return(new HttpRequestMessage());
-
             The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
                 .Return(Task.FromResult(new HttpResponseMessage()));
-
-            authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
-        };
 
         class when_getting_all_accounts
         {

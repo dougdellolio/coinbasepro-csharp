@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.Authentication;
 using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Fundings;
 using GDAXSharp.Services.Fundings.Models;
 using GDAXSharp.Services.Fundings.Types;
 using GDAXSharp.Shared.Types;
-using GDAXSharp.Specs.JsonFixtures.Infrastructure.HttpResponseMessage;
+using GDAXSharp.Specs.JsonFixtures.Network.HttpResponseMessage;
 using GDAXSharp.Specs.JsonFixtures.Services.Fundings;
 using Machine.Fakes;
 using Machine.Specifications;
@@ -20,20 +18,11 @@ namespace GDAXSharp.Specs.Services.Fundings
     [Subject("FundingsService")]
     public class FundingsServiceSpecs : WithSubject<FundingsService>
     {
-        static Authenticator authenticator;
-
         static IList<IList<Funding>> fundings_response;
 
         Establish context = () =>
-        {
-            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<Authenticator>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                .Return(new HttpRequestMessage());
-
             The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
                 .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
-
-            authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
-        };
 
         class when_requesting_all_fundings
         {
