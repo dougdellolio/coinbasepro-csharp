@@ -17,9 +17,8 @@ namespace GDAXSharp.Services.Fundings
         public FundingsService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator,
             IQueryBuilder queryBuilder)
-                : base(httpClient, httpRequestMessageService, authenticator)
+                : base(httpClient, httpRequestMessageService)
         {
             this.queryBuilder = queryBuilder;
         }

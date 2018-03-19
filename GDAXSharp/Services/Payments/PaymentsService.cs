@@ -12,10 +12,8 @@ namespace GDAXSharp.Services.Payments
     {
         public PaymentsService(
             IHttpClient httpClient,
-            IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator)
-                : base(httpClient, httpRequestMessageService, authenticator)
-
+            IHttpRequestMessageService httpRequestMessageService)
+                : base(httpClient, httpRequestMessageService)
         {
         }
 

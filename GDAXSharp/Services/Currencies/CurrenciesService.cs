@@ -11,9 +11,8 @@ namespace GDAXSharp.Services.Currencies
     {
         public CurrenciesService(
             IHttpClient httpClient,
-            IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator)
-                : base(httpClient, httpRequestMessageService, authenticator)
+            IHttpRequestMessageService httpRequestMessageService)
+                : base(httpClient, httpRequestMessageService)
         {
         }
 
