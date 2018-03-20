@@ -52,6 +52,8 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\GDAXErrorMessage.cs" />
+    <Compile Include="Exceptions\GDAXSharpHttpException.cs" />
     <Compile Include="Network\Authentication\Authenticator.cs" />
     <Compile Include="GDAXClient.cs" />
     <Compile Include="Network\HttpClient\HttpClient.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="Services\Accounts\Types\AccountHoldType.cs" />
     <Compile Include="Services\CoinbaseAccounts\Types\CoinbaseAccountType.cs" />
     <Compile Include="Services\Fills\Types\FillLiquidity.cs" />
+    <Compile Include="Services\IEndPoint.cs" />
     <Compile Include="Services\Orders\Types\GoodTillTime.cs" />
     <Compile Include="Services\Orders\Types\OrderStatus.cs" />
     <Compile Include="Services\Orders\Types\TimeInForce.cs" />
