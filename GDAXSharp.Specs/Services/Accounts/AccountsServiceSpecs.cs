@@ -44,6 +44,7 @@ namespace GDAXSharp.Specs.Services.Accounts
                 result.First().Available.ShouldEqual(79.2266348066930000M);
                 result.First().Hold.ShouldEqual(1.0035025000000000M);
                 result.First().MarginEnabled.ShouldBeTrue();
+                result.First().ProfileId.ShouldEqual(new Guid("75da88c5-05bf-4f54-bc85-5c775bd68254"));
             };
         }
 
@@ -64,6 +65,7 @@ namespace GDAXSharp.Specs.Services.Accounts
                 result.Currency.ShouldEqual(Currency.USD);
                 result.Balance.ShouldEqual(1.100M);
                 result.Available.ShouldEqual(1.00M);
+                result.ProfileId.ShouldEqual(new Guid("75da88c5-05bf-4f54-bc85-5c775bd68254"));
             };
         }
 
