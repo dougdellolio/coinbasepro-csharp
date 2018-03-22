@@ -9,6 +9,8 @@ namespace GDAXSharp.Services.Accounts.Models
     {
         public Guid Id { get; set; }
 
+        public Guid ProfileId { get; set; }
+
         [JsonConverter(typeof(StringEnumConverter))]
         public Currency Currency { get; set; }
 
