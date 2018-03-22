@@ -1,5 +1,5 @@
-﻿using System;
-using GDAXSharp.Shared.Types;
+﻿using GDAXSharp.Shared.Types;
+using System;
 
 namespace GDAXSharp.Shared.Utilities.Extensions
 {
@@ -17,6 +17,13 @@ namespace GDAXSharp.Shared.Utilities.Extensions
             var quoteCurrency = value.GetEnumMemberValue().Split('-')[1];
 
             return (Currency)Enum.Parse(typeof(Currency), quoteCurrency);
+        }
+
+        public static string ToDasherizedUpper(this ProductType orderType)
+        {
+            var orderTypeString = orderType.ToString();
+
+            return orderTypeString.Insert(3, "-").ToUpper();
         }
     }
 }
