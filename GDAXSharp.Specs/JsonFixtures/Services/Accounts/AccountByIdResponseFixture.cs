@@ -10,7 +10,8 @@
     ""balance"": ""1.100"",
     ""holds"": ""0.100"",
     ""available"": ""1.00"",
-    ""currency"": ""USD""
+    ""currency"": ""USD"",
+    ""profile_id"": ""75da88c5-05bf-4f54-bc85-5c775bd68254""
 }";
 
             return json;
