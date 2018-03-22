@@ -13,7 +13,7 @@ namespace GDAXSharp.Specs.Services.HttpRequest
     {
         static HttpRequestMessage result_http_request_message;
 
-        private Establish context = () =>
+        Establish context = () =>
         {
             The<IClock>().WhenToldTo(p => p.GetTime()).Return(new DateTime(2017, 11, 22));
 
