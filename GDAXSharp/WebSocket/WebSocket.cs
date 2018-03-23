@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
+using WebSocket4Net;
 
 namespace GDAXSharp.WebSocket
 {
@@ -106,7 +107,11 @@ namespace GDAXSharp.WebSocket
 
         private void WebSocket_Closed(object sender, EventArgs e)
         {
-            new NotImplementedException("WebSocket Feed Closed");
+            if (WebSocketFeed.State == WebSocketState.Closed)
+            {
+                WebSocketFeed.Open();
+            }
+
         }
 
         public event EventHandler<TickerEventArgs> OnTickerReceived;

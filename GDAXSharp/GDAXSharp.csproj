@@ -93,7 +93,7 @@
     <Compile Include="WebSocket\IWebSocket.cs" />
     <Compile Include="WebSocket\Models\Request\TickerChannel.cs" />
     <Compile Include="WebSocket\Models\Response\BaseMessage.cs" />
-    <Compile Include="WebSocket\Models\Response\FeedOrder.cs" />
+    <Compile Include="WebSocket\Models\Response\Ticker.cs" />
     <Compile Include="WebSocket\Models\Response\WebSocketFeedEventArgs.cs" />
     <Compile Include="WebSocket\WebSocket.cs" />
     <Compile Include="Services\Accounts\Types\AccountEntryType.cs" />
