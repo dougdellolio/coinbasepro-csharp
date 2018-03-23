@@ -33,21 +33,21 @@ namespace GDAXSharp
             bool sandBox = false)
         {       
             var clock = new Clock();
-            var httpRequestMessageService = new HttpRequestMessageService(clock, sandBox);
+            var httpRequestMessageService = new HttpRequestMessageService(authenticator, clock, sandBox);
             var queryBuilder = new QueryBuilder();
 
-            AccountsService = new AccountsService(httpClient, httpRequestMessageService, authenticator);
-            CoinbaseAccountsService = new CoinbaseAccountsService(httpClient, httpRequestMessageService, authenticator);
-            OrdersService = new OrdersService(httpClient, httpRequestMessageService, authenticator);
-            PaymentsService = new PaymentsService(httpClient, httpRequestMessageService, authenticator);
-            WithdrawalsService = new WithdrawalsService(httpClient, httpRequestMessageService, authenticator);
-            DepositsService = new DepositsService(httpClient, httpRequestMessageService, authenticator);
-            ProductsService = new ProductsService(httpClient, httpRequestMessageService, authenticator, queryBuilder);
-            CurrenciesService = new CurrenciesService(httpClient, httpRequestMessageService, authenticator);
-            FillsService = new FillsService(httpClient, httpRequestMessageService, authenticator);
-            FundingsService = new FundingsService(httpClient, httpRequestMessageService, authenticator, queryBuilder);
-            ReportsService = new ReportsService(httpClient, httpRequestMessageService, authenticator);
-            UserAccountService = new UserAccountService(httpClient, httpRequestMessageService, authenticator);
+            AccountsService = new AccountsService(httpClient, httpRequestMessageService);
+            CoinbaseAccountsService = new CoinbaseAccountsService(httpClient, httpRequestMessageService);
+            OrdersService = new OrdersService(httpClient, httpRequestMessageService);
+            PaymentsService = new PaymentsService(httpClient, httpRequestMessageService);
+            WithdrawalsService = new WithdrawalsService(httpClient, httpRequestMessageService);
+            DepositsService = new DepositsService(httpClient, httpRequestMessageService);
+            ProductsService = new ProductsService(httpClient, httpRequestMessageService, queryBuilder);
+            CurrenciesService = new CurrenciesService(httpClient, httpRequestMessageService);
+            FillsService = new FillsService(httpClient, httpRequestMessageService);
+            FundingsService = new FundingsService(httpClient, httpRequestMessageService, queryBuilder);
+            ReportsService = new ReportsService(httpClient, httpRequestMessageService);
+            UserAccountService = new UserAccountService(httpClient, httpRequestMessageService);
         }
 
         public AccountsService AccountsService { get; }

@@ -23,9 +23,8 @@ namespace GDAXSharp.Services.Products
         public ProductsService(
             IHttpClient httpClient,
             IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator,
             IQueryBuilder queryBuilder)
-                : base(httpClient, httpRequestMessageService, authenticator)
+                : base(httpClient, httpRequestMessageService)
         {
             this.queryBuilder = queryBuilder;
         }

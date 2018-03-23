@@ -15,8 +15,6 @@ namespace GDAXSharp.Services
     {
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
-        private readonly IAuthenticator authenticator;
-
         private readonly IHttpClient httpClient;
 
         private JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings
@@ -31,11 +29,9 @@ namespace GDAXSharp.Services
 
         protected AbstractService(
             IHttpClient httpClient,
-            IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator)
+            IHttpRequestMessageService httpRequestMessageService)
         {
             this.httpRequestMessageService = httpRequestMessageService;
-            this.authenticator = authenticator;
             this.httpClient = httpClient;
         }
 
@@ -45,8 +41,8 @@ namespace GDAXSharp.Services
             string content = null)
         {
             var httpRequestMessage = content == null
-                ? httpRequestMessageService.CreateHttpRequestMessage(httpMethod, authenticator, uri)
-                : httpRequestMessageService.CreateHttpRequestMessage(httpMethod, authenticator, uri, content);
+                ? httpRequestMessageService.CreateHttpRequestMessage(httpMethod, uri)
+                : httpRequestMessageService.CreateHttpRequestMessage(httpMethod, uri, content);
 
             var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);
 

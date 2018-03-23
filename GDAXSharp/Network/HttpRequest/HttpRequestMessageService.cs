@@ -15,19 +15,21 @@ namespace GDAXSharp.Network.HttpRequest
 
         private const string SandBoxApiUri = "https://api-public.sandbox.gdax.com";
 
+        private readonly IAuthenticator authenticator;
+
         private readonly IClock clock;
 
         private readonly bool sandBox;
 
-        public HttpRequestMessageService(IClock clock, bool sandBox)
+        public HttpRequestMessageService(IAuthenticator authenticator, IClock clock, bool sandBox)
         {
+            this.authenticator = authenticator;
             this.clock = clock;
             this.sandBox = sandBox;
         }
 
         public HttpRequestMessage CreateHttpRequestMessage(
             HttpMethod httpMethod, 
-            IAuthenticator authenticator, 
             string requestUri, 
             string contentBody = "")
         {
@@ -45,18 +47,18 @@ namespace GDAXSharp.Network.HttpRequest
             var timeStamp = clock.GetTime().ToTimeStamp();
             var signedSignature = ComputeSignature(httpMethod, authenticator.UnsignedSignature, timeStamp, requestUri, contentBody);
 
-            AddHeaders(requestMessage, authenticator, signedSignature, timeStamp);
+            AddHeaders(requestMessage, signedSignature, timeStamp);
             return requestMessage;
         }
 
-        private string ComputeSignature(HttpMethod httpMethod, string secret, double timestamp, string requestUri, string contentBody = "")
+        private static string ComputeSignature(HttpMethod httpMethod, string secret, double timestamp, string requestUri, string contentBody = "")
         {
             var convertedString = Convert.FromBase64String(secret);
             var prehash = timestamp.ToString("F0", CultureInfo.InvariantCulture) + httpMethod.ToString().ToUpper() + requestUri + contentBody;
             return HashString(prehash, convertedString);
         }
 
-        private string HashString(string str, byte[] secret)
+        private static string HashString(string str, byte[] secret)
         {
             var bytes = Encoding.UTF8.GetBytes(str);
             using (var hmaccsha = new HMACSHA256(secret))
@@ -67,7 +69,6 @@ namespace GDAXSharp.Network.HttpRequest
 
         private void AddHeaders(
             HttpRequestMessage httpRequestMessage,
-            IAuthenticator authenticator,
             string signedSignature,
             double timeStamp)
         {

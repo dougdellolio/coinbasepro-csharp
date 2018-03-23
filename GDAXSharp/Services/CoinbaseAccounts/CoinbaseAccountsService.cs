@@ -12,9 +12,8 @@ namespace GDAXSharp.Services.CoinbaseAccounts
     {
         public CoinbaseAccountsService(
             IHttpClient httpClient,
-            IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator)
-                : base(httpClient, httpRequestMessageService, authenticator)
+            IHttpRequestMessageService httpRequestMessageService)
+                : base(httpClient, httpRequestMessageService)
         {
         }
 

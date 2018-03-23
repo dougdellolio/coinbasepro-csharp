@@ -16,9 +16,8 @@ namespace GDAXSharp.Services.Deposits
     {
         public DepositsService(
             IHttpClient httpClient,
-            IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator)
-                : base(httpClient, httpRequestMessageService, authenticator)
+            IHttpRequestMessageService httpRequestMessageService)
+                : base(httpClient, httpRequestMessageService)
         {
         }
 
