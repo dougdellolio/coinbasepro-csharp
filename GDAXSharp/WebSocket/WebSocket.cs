@@ -25,19 +25,19 @@ namespace GDAXSharp.WebSocket
 
         private readonly bool sandBox;
 
-        private ProductType[] ProductTypes { get; }
+        private ProductType[] ProductTypes { get; set; }
         private WebSocket4Net.WebSocket WebSocketFeed { get; set; }
 
-        public WebSocket(IAuthenticator authenticator, IClock clock, bool sandBox, params ProductType[] productTypes)
+        public WebSocket(IAuthenticator authenticator, IClock clock, bool sandBox)
         {
             this.authenticator = authenticator;
             this.clock = clock;
             this.sandBox = sandBox;
-            ProductTypes = productTypes;
         }
 
-        public void GetTickerChannel()
+        public void GetTickerChannel(params ProductType[] productTypes)
         {
+            ProductTypes = productTypes;
             if (ProductTypes.Length == 0)
             {
                 throw new ArgumentException("You must specify at least one product type");
@@ -55,10 +55,10 @@ namespace GDAXSharp.WebSocket
             WebSocketFeed.Open();
         }
 
-        private void WebSocket_Opened(object sender, System.EventArgs e)
+        private void WebSocket_Opened(object sender, EventArgs e)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("WebSocket Opened");
+            Console.WriteLine($"[{DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}] WebSocket Opened");
             Console.ResetColor();
 
             var timeStamp = clock.GetTime().ToTimeStamp();
@@ -91,59 +91,63 @@ namespace GDAXSharp.WebSocket
 
         private void WebSocket_MessageReceived(object sender, WebSocket4Net.MessageReceivedEventArgs e)
         {
-            string path = $@"C:\Users\Kevin Wilbrink\Desktop\GDAX\default_{DateTime.Now:yyyy-MM-dd HH}.txt";
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "GDAX");
 
             if (e.Message.Contains("ticker"))
             {
-                path = $@"C:\Users\Kevin Wilbrink\Desktop\GDAX\ticker_{DateTime.Now:yyyy-MM-dd HH}.txt";
+                path = Path.Combine(path, $"ticker_{DateTime.Now:yyyy-MM-dd HH}.txt");
 
                 Console.BackgroundColor = ConsoleColor.Blue;
-                Console.WriteLine($"Message: {e.Message}");
+                Console.WriteLine($"[{DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}] Message: {e.Message}");
                 Console.ResetColor();
 
             }
             else if (e.Message.Contains("l2update"))
             {
-                path = $@"C:\Users\Kevin Wilbrink\Desktop\GDAX\level2_{DateTime.Now:yyyy-MM-dd HH}.txt";
+                path = Path.Combine(path, $"level2_{DateTime.Now:yyyy-MM-dd HH}.txt");
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"Message: {e.Message}");
+                Console.WriteLine($"[{DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}] Message: {e.Message}");
                 Console.ResetColor();
             }
             else if (e.Message.Contains("match"))
             {
-                path = $@"C:\Users\Kevin Wilbrink\Desktop\GDAX\match_{DateTime.Now:yyyy-MM-dd HH}.txt";
+                path = Path.Combine(path, $"match_{DateTime.Now:yyyy-MM-dd HH}.txt");
 
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"Message: {e.Message}");
+                Console.WriteLine($"[{DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}] Message: {e.Message}");
                 Console.ResetColor();
             }
 
             else if (e.Message.Contains("snapshot"))
             {
-                path = $@"C:\Users\Kevin Wilbrink\Desktop\GDAX\snapshot_{DateTime.Now:yyyy-MM-dd HH}.txt";
+                path = Path.Combine(path, $"snapshot_{DateTime.Now:yyyy-MM-dd HH}.txt");
 
-                Console.WriteLine($"Message: {e.Message}");
+                Console.WriteLine($"[{DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}] Message: {e.Message}");
+            }
+            else
+            {
+                path = Path.Combine(path, $"default_{DateTime.Now:yyyy-MM-dd HH}.txt");
             }
 
             using (var fileStream = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.Read))
             using (var streamWriter = new StreamWriter(fileStream))
             {
-                streamWriter.WriteLine(e.Message);
+                streamWriter.WriteLine($"[{DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}] Message: {e.Message}");
             }
         }
 
         private void WebSocket_Error(object sender, SuperSocket.ClientEngine.ErrorEventArgs e)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"WebSocket error: {e.Exception.Message}");
+            Console.WriteLine($"[{DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}] WebSocket error: {e.Exception.Message}");
             Console.ResetColor();
         }
 
         private void WebSocket_Closed(object sender, System.EventArgs e)
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("WebSocket Closed");
+            Console.WriteLine($"[{DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}] WebSocket Closed");
             Console.ResetColor();
         }
     }

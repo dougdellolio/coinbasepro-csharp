@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GDAXSharp.Shared.Types;
+using Newtonsoft.Json;
 
 namespace GDAXSharp.WebSocket.Models.Response
 {

@@ -22,7 +22,7 @@ namespace GDAXSharp
     {
         public GDAXClient(
             IAuthenticator authenticator,
-            bool sandBox = false) 
+            bool sandBox = false)
                     : this(authenticator, new HttpClient(), sandBox)
         {
         }
@@ -31,7 +31,7 @@ namespace GDAXSharp
             IAuthenticator authenticator,
             IHttpClient httpClient,
             bool sandBox = false)
-        {       
+        {
             var clock = new Clock();
             var httpRequestMessageService = new HttpRequestMessageService(authenticator, clock, sandBox);
             var queryBuilder = new QueryBuilder();
