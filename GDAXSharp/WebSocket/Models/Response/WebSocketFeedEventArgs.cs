@@ -2,13 +2,13 @@
 
 namespace GDAXSharp.WebSocket.Models.Response
 {
-    public class WebSocketFeedEventArgs : EventArgs
+    public class TickerEventArgs : EventArgs
     {
-        public WebSocketFeedEventArgs(FeedOrder lastOrder)
+        public TickerEventArgs(Ticker lastOrder)
         {
             LastOrder = lastOrder;
         }
 
-        public FeedOrder LastOrder { get; }
+        public Ticker LastOrder { get; }
     }
 }

@@ -4,11 +4,8 @@ using System;
 
 namespace GDAXSharp.WebSocket.Models.Response
 {
-    public class FeedOrder
+    public class Ticker : BaseMessage // TODO: check if fields match API
     {
-        [JsonProperty("type")]
-        public string Type { get; set; }
-
         [JsonProperty("sequence")]
         public long Sequence { get; set; }
 
