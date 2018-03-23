@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GDAXSharp.Exceptions;
 using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Services.Orders;
 using GDAXSharp.Services.Orders.Models.Responses;
@@ -171,9 +172,10 @@ namespace GDAXSharp.Specs.Services.Orders
             Because of = () =>
                 exception = Catch.Exception(() => Subject.CancelOrderByIdAsync("144c6f8e-713f-4682-8435-5280fbe8b2b4").Result);
 
-            It should_have_correct_error_response_message = () =>
+            private It should_have_correct_error_response_message = () =>
             {
-                exception.InnerException.ShouldBeOfExactType<HttpRequestException>();
+                exception.InnerException.ShouldBeOfExactType<GDAXSharpHttpException>();
+                ((GDAXSharpHttpException) exception.InnerException)?.StatusCode.ShouldEqual(HttpStatusCode.NotFound);
                 exception.InnerException.ShouldContainErrorMessage("order not found");
             };
         }
