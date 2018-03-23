@@ -15,9 +15,8 @@ namespace GDAXSharp.Services.Reports
     {
         public ReportsService(
             IHttpClient httpClient,
-            IHttpRequestMessageService httpRequestMessageService,
-            IAuthenticator authenticator)
-                : base(httpClient, httpRequestMessageService, authenticator)
+            IHttpRequestMessageService httpRequestMessageService)
+                : base(httpClient, httpRequestMessageService)
         {
         }
 

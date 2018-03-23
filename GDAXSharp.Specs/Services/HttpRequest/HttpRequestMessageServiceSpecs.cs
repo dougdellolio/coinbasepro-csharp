@@ -11,15 +11,13 @@ namespace GDAXSharp.Specs.Services.HttpRequest
     [Subject("HttpRequestMessageService")]
     public class HttpRequestMessageServiceSpecs : WithSubject<HttpRequestMessageService>
     {
-        static Authenticator authenticator;
-
         static HttpRequestMessage result_http_request_message;
 
         Establish context = () =>
         {
             The<IClock>().WhenToldTo(p => p.GetTime()).Return(new DateTime(2017, 11, 22));
 
-            authenticator = new Authenticator("apiKey", new string('2', 100), "passPhrase");
+            Configure(x => x.For<IAuthenticator>().Use(new Authenticator("apiKey", new string('2', 100), "passPhrase")));
         };
 
         class when_making_a_request_not_on_sandbox
@@ -28,7 +26,7 @@ namespace GDAXSharp.Specs.Services.HttpRequest
                 Configure(x => x.For<bool>().Use(false));
 
             Because of = () =>
-                result_http_request_message = Subject.CreateHttpRequestMessage(HttpMethod.Get, authenticator, "/accounts");
+                result_http_request_message = Subject.CreateHttpRequestMessage(HttpMethod.Get, "/accounts");
 
             It should_have_a_result = () =>
                 result_http_request_message.ShouldNotBeNull();
@@ -51,7 +49,7 @@ namespace GDAXSharp.Specs.Services.HttpRequest
                 Configure(x => x.For<bool>().Use(true));
 
             Because of = () =>
-                result_http_request_message = Subject.CreateHttpRequestMessage(HttpMethod.Get, authenticator, "/accounts");
+                result_http_request_message = Subject.CreateHttpRequestMessage(HttpMethod.Get, "/accounts");
 
             It should_have_a_result = () =>
                 result_http_request_message.ShouldNotBeNull();

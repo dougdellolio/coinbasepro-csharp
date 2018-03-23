@@ -1,5 +1,4 @@
 ﻿using System.Net.Http;
-using GDAXSharp.Network.Authentication;
 
 namespace GDAXSharp.Network.HttpRequest
 {
@@ -7,7 +6,6 @@ namespace GDAXSharp.Network.HttpRequest
     {
         HttpRequestMessage CreateHttpRequestMessage(
             HttpMethod httpMethod,
-            IAuthenticator authenticator,
             string requestUri,
             string contentBody = "");
     }
