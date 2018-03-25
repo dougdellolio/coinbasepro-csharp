@@ -114,7 +114,6 @@ namespace GDAXSharp.WebSocket
                     var level2 = JsonConvert.DeserializeObject<Level2>(json);
                     OnLevel2UpdateReceived?.Invoke(sender, new WebfeedEventArgs<Level2>(level2));
                     break;
-
             }
         }
 
