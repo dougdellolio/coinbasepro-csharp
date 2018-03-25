@@ -4,7 +4,7 @@ using System;
 
 namespace GDAXSharp.WebSocket.Models.Response
 {
-    public class Ticker : BaseMessage // TODO: check if fields match API
+    public class Ticker : BaseMessage
     {
         [JsonProperty("sequence")]
         public long Sequence { get; set; }

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using WebSocket4Net;
 
 namespace GDAXSharp.WebSocket
@@ -26,13 +27,15 @@ namespace GDAXSharp.WebSocket
 
         private readonly bool _sandBox;
 
+        private CancellationToken CancellationToken { get; set; }
         private ProductType[] ProductTypes { get; set; }
         private WebSocket4Net.WebSocket WebSocketFeed { get; set; }
 
-        public WebSocket(IAuthenticator authenticator, IClock clock, bool sandBox)
+        public WebSocket(IAuthenticator authenticator, IClock clock, CancellationToken cancellationToken, bool sandBox = false)
         {
             _authenticator = authenticator;
             _clock = clock;
+            CancellationToken = cancellationToken;
             _sandBox = sandBox;
         }
 
@@ -71,6 +74,11 @@ namespace GDAXSharp.WebSocket
                     },
                     new Channel()
                     {
+                        Name = "level2",
+                        ProductIds = convProductTypes
+                    },
+                    new Channel()
+                    {
                         Name = "user",
                         ProductIds = convProductTypes
                     }
@@ -92,28 +100,41 @@ namespace GDAXSharp.WebSocket
             switch (response.Type)
             {
                 case ResponseType.Subscriptions:
+                    // TODO: Implement this and more?
                     break;
                 case ResponseType.Ticker:
                     var ticker = JsonConvert.DeserializeObject<Ticker>(json);
-                    OnTickerReceived?.Invoke(sender, new TickerEventArgs(ticker));
+                    OnTickerReceived?.Invoke(sender, new WebfeedEventArgs<Ticker>(ticker));
                     break;
+                case ResponseType.Snapshot:
+                    var snapshot = JsonConvert.DeserializeObject<Snapshot>(json);
+                    OnSnapShotReceived?.Invoke(sender, new WebfeedEventArgs<Snapshot>(snapshot));
+                    break;
+                case ResponseType.L2update:
+                    var level2 = JsonConvert.DeserializeObject<Level2>(json);
+                    OnLevel2UpdateReceived?.Invoke(sender, new WebfeedEventArgs<Level2>(level2));
+                    break;
+
             }
         }
 
         private void WebSocket_Error(object sender, SuperSocket.ClientEngine.ErrorEventArgs e)
         {
-            new NotImplementedException($"WebSocket Feed Error: {e.Exception.Message}");
+            new Exception($"WebSocket Feed Error: {e.Exception.Message}");
         }
 
         private void WebSocket_Closed(object sender, EventArgs e)
         {
-            if (WebSocketFeed.State == WebSocketState.Closed)
+            if (WebSocketFeed.State == WebSocketState.Closed && !CancellationToken.IsCancellationRequested)
             {
-                WebSocketFeed.Open();
+                WebSocketFeed.Dispose();
+                GetTickerChannel(ProductTypes);
             }
 
         }
 
-        public event EventHandler<TickerEventArgs> OnTickerReceived;
+        public event EventHandler<WebfeedEventArgs<Ticker>> OnTickerReceived;
+        public event EventHandler<WebfeedEventArgs<Snapshot>> OnSnapShotReceived;
+        public event EventHandler<WebfeedEventArgs<Level2>> OnLevel2UpdateReceived;
     }
 }

@@ -93,6 +93,8 @@
     <Compile Include="WebSocket\IWebSocket.cs" />
     <Compile Include="WebSocket\Models\Request\TickerChannel.cs" />
     <Compile Include="WebSocket\Models\Response\BaseMessage.cs" />
+    <Compile Include="WebSocket\Models\Response\Level2.cs" />
+    <Compile Include="WebSocket\Models\Response\Snapshot.cs" />
     <Compile Include="WebSocket\Models\Response\Ticker.cs" />
     <Compile Include="WebSocket\Models\Response\WebSocketFeedEventArgs.cs" />
     <Compile Include="WebSocket\WebSocket.cs" />
