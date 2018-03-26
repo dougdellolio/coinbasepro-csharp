@@ -5,6 +5,7 @@ using GDAXSharp.Shared.Utilities.Extensions;
 using GDAXSharp.WebSocket.Models.Request;
 using GDAXSharp.WebSocket.Models.Response;
 using Newtonsoft.Json;
+using SuperSocket.ClientEngine;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -65,19 +66,19 @@ namespace GDAXSharp.WebSocket
             {
                 Type = "subscribe",
                 ProductIds = convProductTypes,
-                Channels = new List<Channel>()
+                Channels = new List<Channel>
                 {
-                    new Channel()
+                    new Channel
                     {
                         Name = "ticker",
                         ProductIds = convProductTypes
                     },
-                    new Channel()
+                    new Channel
                     {
                         Name = "level2",
                         ProductIds = convProductTypes
                     },
-                    new Channel()
+                    new Channel
                     {
                         Name = "user",
                         ProductIds = convProductTypes
@@ -92,8 +93,14 @@ namespace GDAXSharp.WebSocket
             WebSocketFeed.Send(json);
         }
 
-        private void WebSocket_MessageReceived(object sender, WebSocket4Net.MessageReceivedEventArgs e)
+        private void WebSocket_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
+            if (CancellationToken.IsCancellationRequested)
+            {
+                WebSocketFeed.Close();
+                return;
+            }
+
             var json = e.Message;
             var response = JsonConvert.DeserializeObject<BaseMessage>(json);
 
@@ -117,19 +124,17 @@ namespace GDAXSharp.WebSocket
             }
         }
 
-        private void WebSocket_Error(object sender, SuperSocket.ClientEngine.ErrorEventArgs e)
+        private void WebSocket_Error(object sender, ErrorEventArgs e)
         {
             new Exception($"WebSocket Feed Error: {e.Exception.Message}");
         }
 
         private void WebSocket_Closed(object sender, EventArgs e)
         {
-            if (WebSocketFeed.State == WebSocketState.Closed && !CancellationToken.IsCancellationRequested)
-            {
-                WebSocketFeed.Dispose();
-                GetTickerChannel(ProductTypes);
-            }
+            if (WebSocketFeed.State != WebSocketState.Closed || CancellationToken.IsCancellationRequested) return;
 
+            WebSocketFeed.Dispose();
+            GetTickerChannel(ProductTypes);
         }
 
         public event EventHandler<WebfeedEventArgs<Ticker>> OnTickerReceived;
