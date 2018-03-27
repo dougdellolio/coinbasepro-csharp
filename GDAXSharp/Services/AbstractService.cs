@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using GDAXSharp.Exceptions;
 using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace GDAXSharp.Services
 {
@@ -102,13 +101,13 @@ namespace GDAXSharp.Services
 
         private async Task<IList<IList<T>>> GetAllSubsequentPages<T>(
             string uri,
-            string firstPageAfterCursorId, 
+            string firstPageAfterCursorId,
             int numberOfPages)
         {
             var pagedList = new List<IList<T>>();
             var subsequentPageAfterHeaderId = firstPageAfterCursorId;
 
-            var runCount = numberOfPages == 0 
+            var runCount = numberOfPages == 0
                 ? int.MaxValue
                 : numberOfPages;
 

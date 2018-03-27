@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-
-namespace GDAXSharp.Network.Authentication
+﻿namespace GDAXSharp.Network.Authentication
 {
     public interface IAuthenticator
     {
@@ -9,7 +7,5 @@ namespace GDAXSharp.Network.Authentication
         string UnsignedSignature { get; }
 
         string Passphrase { get; }
-
-        string ComputeSignature(HttpMethod httpMethod, string secret, double timestamp, string requestUri, string contentBody = "");
     }
 }

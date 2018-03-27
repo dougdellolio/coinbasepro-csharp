@@ -1,4 +1,5 @@
-﻿using GDAXSharp.Network.Authentication;
+﻿using GDAXSharp.Network;
+using GDAXSharp.Network.Authentication;
 using GDAXSharp.Shared.Types;
 using GDAXSharp.Shared.Utilities.Clock;
 using GDAXSharp.Shared.Utilities.Extensions;
@@ -9,35 +10,25 @@ using SuperSocket.ClientEngine;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using WebSocket4Net;
 
 namespace GDAXSharp.WebSocket
 {
-    public class WebSocket : IWebSocket
+    public class WebSocket : AbstractRequest, IWebSocket
     {
         private const string ApiUri = "wss://ws-feed.gdax.com";
 
         private const string SandBoxApiUri = "wss://ws-feed-public.sandbox.gdax.com";
 
-        private readonly IAuthenticator _authenticator;
-
-        private readonly IClock _clock;
-
-        private readonly bool _sandBox;
-
         private CancellationToken CancellationToken { get; set; }
         private ProductType[] ProductTypes { get; set; }
         private WebSocket4Net.WebSocket WebSocketFeed { get; set; }
 
-        public WebSocket(IAuthenticator authenticator, IClock clock, CancellationToken cancellationToken, bool sandBox = false)
+        public WebSocket(IAuthenticator authenticator, IClock clock, CancellationToken cancellationToken, bool sandBox = false) : base(authenticator, clock, sandBox)
         {
-            _authenticator = authenticator;
-            _clock = clock;
             CancellationToken = cancellationToken;
-            _sandBox = sandBox;
         }
 
         public void GetTickerChannel(params ProductType[] productTypes)
@@ -48,7 +39,7 @@ namespace GDAXSharp.WebSocket
                 throw new ArgumentException("You must specify at least one product type");
             }
 
-            var socketUrl = _sandBox ? SandBoxApiUri : ApiUri;
+            var socketUrl = SandBox ? SandBoxApiUri : ApiUri;
 
             WebSocketFeed = new WebSocket4Net.WebSocket(socketUrl);
             WebSocketFeed.Closed += WebSocket_Closed;
@@ -60,34 +51,34 @@ namespace GDAXSharp.WebSocket
 
         private void WebSocket_Opened(object sender, EventArgs e)
         {
-            var timeStamp = _clock.GetTime().ToTimeStamp();
-            var convProductTypes = ProductTypes.ToList();
+            var timeStamp = Clock.GetTime().ToTimeStamp();
             var json = JsonConvert.SerializeObject(new TickerChannel
             {
                 Type = "subscribe",
-                ProductIds = convProductTypes,
+                ProductIds = ProductTypes,
                 Channels = new List<Channel>
                 {
                     new Channel
                     {
                         Name = "ticker",
-                        ProductIds = convProductTypes
+                        ProductIds = ProductTypes
                     },
                     new Channel
                     {
                         Name = "level2",
-                        ProductIds = convProductTypes
+                        ProductIds = ProductTypes
                     },
                     new Channel
                     {
                         Name = "user",
-                        ProductIds = convProductTypes
+
+                        ProductIds = ProductTypes
                     }
                 },
                 Timestamp = timeStamp.ToString("F0", CultureInfo.InvariantCulture),
-                Key = _authenticator.ApiKey,
-                Passphrase = _authenticator.Passphrase,
-                Signature = _authenticator.ComputeSignature(HttpMethod.Get, _authenticator.UnsignedSignature, timeStamp, "/users/self/verify", null)
+                Key = Authenticator.ApiKey,
+                Passphrase = Authenticator.Passphrase,
+                Signature = ComputeSignature(HttpMethod.Get, Authenticator.UnsignedSignature, timeStamp, "/users/self/verify", null)
             });
 
             WebSocketFeed.Send(json);
