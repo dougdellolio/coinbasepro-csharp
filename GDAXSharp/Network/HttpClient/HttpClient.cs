@@ -6,6 +6,8 @@ namespace GDAXSharp.Network.HttpClient
 {
     public class HttpClient : IHttpClient
     {
+        private static readonly HttpClient Client = new HttpClient();
+
         public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)
         {
             return await SendAsync(httpRequestMessage, CancellationToken.None);
@@ -15,11 +17,8 @@ namespace GDAXSharp.Network.HttpClient
             HttpRequestMessage httpRequestMessage,
             CancellationToken cancellationToken)
         {
-            using (var httpClient = new System.Net.Http.HttpClient())
-            {
-                var result = await httpClient.SendAsync(httpRequestMessage, cancellationToken);
+                var result = await Client.SendAsync(httpRequestMessage, cancellationToken);
                 return result;
-            }
         }
 
         public async Task<string> ReadAsStringAsync(HttpResponseMessage httpRequestMessage)
