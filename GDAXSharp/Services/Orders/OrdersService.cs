@@ -118,25 +118,10 @@ namespace GDAXSharp.Services.Orders
 
         public async Task<CancelOrderResponse> CancelOrderByIdAsync(string id)
         {
-            try
+            return new CancelOrderResponse
             {
-                return new CancelOrderResponse
-                {
-                    OrderIds = await SendServiceCall<IEnumerable<Guid>>(HttpMethod.Delete, $"/orders/{id}")
-                };
-            }
-            catch (GDAXSharpHttpException error)
-            {
-                if (error.StatusCode == HttpStatusCode.NotFound)
-                {
-                    return new CancelOrderResponse
-                    {
-                        OrderIds = Enumerable.Empty<Guid>()
-                    };
-                }
-
-                throw;
-            }
+                OrderIds = await SendServiceCall<IEnumerable<Guid>>(HttpMethod.Delete, $"/orders/{id}")
+            };
         }
 
         public async Task<IList<IList<OrderResponse>>> GetAllOrdersAsync(

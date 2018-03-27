@@ -145,7 +145,7 @@ namespace GDAXSharp.Specs.Services.Orders
                     .Return(Task.FromResult(new HttpResponseMessage(HttpStatusCode.Accepted)));
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(CancelOrderResponseFixture.Create()));
+                    .Return(Task.FromResult(CancelOrderResponseFixture.CreateOne()));
             };
 
             Because of = () =>
@@ -192,7 +192,7 @@ namespace GDAXSharp.Specs.Services.Orders
             It should_have_correct_number_of_orders = () =>
                 order_many_response_result.First().Count.ShouldEqual(2);
 
-            private It should_have_correct_orders = () =>
+            It should_have_correct_orders = () =>
             {
                 order_many_response_result.First().First().Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
                 order_many_response_result.First().First().Price.ShouldEqual(0.10000000M);
