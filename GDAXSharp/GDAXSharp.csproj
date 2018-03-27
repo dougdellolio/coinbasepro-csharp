@@ -89,7 +89,6 @@
     <Compile Include="Network\HttpClient\HttpClient.cs" />
     <Compile Include="Network\HttpClient\IHttpClient.cs" />
     <Compile Include="Shared\Types\ResponseType.cs" />
-    <Compile Include="Shared\Types\Side.cs" />
     <Compile Include="WebSocket\IWebSocket.cs" />
     <Compile Include="WebSocket\Models\Request\TickerChannel.cs" />
     <Compile Include="WebSocket\Models\Response\BaseMessage.cs" />

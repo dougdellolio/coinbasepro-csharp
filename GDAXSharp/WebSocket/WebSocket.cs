@@ -61,7 +61,7 @@ namespace GDAXSharp.WebSocket
         private void WebSocket_Opened(object sender, EventArgs e)
         {
             var timeStamp = _clock.GetTime().ToTimeStamp();
-            var convProductTypes = ProductTypes.Select(productType => productType.ToDasherizedUpper()).ToList();
+            var convProductTypes = ProductTypes.ToList();
             var json = JsonConvert.SerializeObject(new TickerChannel
             {
                 Type = "subscribe",
