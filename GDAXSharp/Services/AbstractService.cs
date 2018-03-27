@@ -3,7 +3,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using GDAXSharp.Exceptions;
-using GDAXSharp.Network.Authentication;
 using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
 using Newtonsoft.Json;
@@ -35,7 +34,7 @@ namespace GDAXSharp.Services
             this.httpClient = httpClient;
         }
 
-        protected async Task<HttpResponseMessage> SendHttpRequestMessageAsync(
+        private async Task<HttpResponseMessage> SendHttpRequestMessageAsync(
             HttpMethod httpMethod,
             string uri,
             string content = null)

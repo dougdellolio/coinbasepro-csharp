@@ -172,7 +172,7 @@ namespace GDAXSharp.Specs.Services.Orders
             Because of = () =>
                 exception = Catch.Exception(() => Subject.CancelOrderByIdAsync("144c6f8e-713f-4682-8435-5280fbe8b2b4").Result);
 
-            private It should_have_correct_error_response_message = () =>
+            It should_have_correct_error_response_message = () =>
             {
                 exception.InnerException.ShouldBeOfExactType<GDAXSharpHttpException>();
                 ((GDAXSharpHttpException) exception.InnerException)?.StatusCode.ShouldEqual(HttpStatusCode.NotFound);
