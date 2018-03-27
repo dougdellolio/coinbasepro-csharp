@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using GDAXSharp.Network.Authentication;
 using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.UserAccount.Models;

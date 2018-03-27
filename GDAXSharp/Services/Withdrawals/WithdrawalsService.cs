@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.Authentication;
 using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Withdrawals.Models;

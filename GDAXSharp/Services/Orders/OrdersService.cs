@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.Authentication;
+using GDAXSharp.Exceptions;
 using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Orders.Models;
@@ -117,19 +118,9 @@ namespace GDAXSharp.Services.Orders
 
         public async Task<CancelOrderResponse> CancelOrderByIdAsync(string id)
         {
-            var httpRequestResponse = await SendHttpRequestMessageAsync(HttpMethod.Delete, $"/orders/{id}");
-
-            if (httpRequestResponse == null)
-            {
-                return new CancelOrderResponse
-                {
-                    OrderIds = Enumerable.Empty<Guid>()
-                };
-            }
-
             return new CancelOrderResponse
             {
-                OrderIds = new List<Guid> { new Guid(id) }
+                OrderIds = await SendServiceCall<IEnumerable<Guid>>(HttpMethod.Delete, $"/orders/{id}")
             };
         }
 

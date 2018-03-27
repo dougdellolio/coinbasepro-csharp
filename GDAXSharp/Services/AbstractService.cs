@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.Authentication;
+using GDAXSharp.Exceptions;
 using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
 using Newtonsoft.Json;
@@ -34,7 +34,7 @@ namespace GDAXSharp.Services
             this.httpClient = httpClient;
         }
 
-        protected async Task<HttpResponseMessage> SendHttpRequestMessageAsync(
+        private async Task<HttpResponseMessage> SendHttpRequestMessageAsync(
             HttpMethod httpMethod,
             string uri,
             string content = null)
@@ -44,14 +44,33 @@ namespace GDAXSharp.Services
                 : httpRequestMessageService.CreateHttpRequestMessage(httpMethod, uri, content);
 
             var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);
+
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                return httpResponseMessage;
+            }
+            
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
-            if (!httpResponseMessage.IsSuccessStatusCode)
+            string errorMessage;
+
+            try
             {
-                throw new HttpRequestException(contentBody);
+                var jsonMsg = DeserializeObject<GDAXErrorMessage>(contentBody);
+                errorMessage = jsonMsg.Message;
+            }
+            catch
+            {
+                errorMessage = contentBody;
             }
 
-            return httpResponseMessage;
+            throw new GDAXSharpHttpException(errorMessage)
+            {
+                StatusCode = httpResponseMessage.StatusCode,
+                RequestMessage = httpRequestMessage,
+                ResponseMessage = httpResponseMessage,
+                EndPoint = new EndPoint(httpMethod, uri, content)
+            };
         }
 
         protected async Task<IList<IList<T>>> SendHttpRequestMessagePagedAsync<T>(
@@ -62,11 +81,7 @@ namespace GDAXSharp.Services
         {
             var pagedList = new List<IList<T>>();
 
-            var httpRequestMessage = content == null
-                ? httpRequestMessageService.CreateHttpRequestMessage(httpMethod, uri)
-                : httpRequestMessageService.CreateHttpRequestMessage(httpMethod, uri, content);
-
-            var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);
+            var httpResponseMessage = await SendHttpRequestMessageAsync(httpMethod, uri, content);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
             var firstPage = DeserializeObject<IList<T>>(contentBody);
@@ -134,7 +149,7 @@ namespace GDAXSharp.Services
             return JsonConvert.SerializeObject(value, SerializerSettings);
         }
 
-        protected T DeserializeObject<T>(string contentBody)
+        private T DeserializeObject<T>(string contentBody)
         {
             return JsonConvert.DeserializeObject<T>(contentBody, SerializerSettings);
         }

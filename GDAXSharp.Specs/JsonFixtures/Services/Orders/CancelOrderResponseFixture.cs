@@ -13,6 +13,16 @@
             return json;
         }
 
+        public static string CreateOne()
+        {
+            var json = @"
+[
+    ""144c6f8e-713f-4682-8435-5280fbe8b2b4""
+]";
+
+            return json;
+        }
+
         public static string CreateEmpty()
         {
             var json = @"

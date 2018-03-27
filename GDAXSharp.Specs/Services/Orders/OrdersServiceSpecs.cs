@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GDAXSharp.Exceptions;
 using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Services.Orders;
 using GDAXSharp.Services.Orders.Models.Responses;
@@ -144,7 +145,7 @@ namespace GDAXSharp.Specs.Services.Orders
                     .Return(Task.FromResult(new HttpResponseMessage(HttpStatusCode.Accepted)));
 
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(CancelOrderResponseFixture.Create()));
+                    .Return(Task.FromResult(CancelOrderResponseFixture.CreateOne()));
             };
 
             Because of = () =>
@@ -173,7 +174,8 @@ namespace GDAXSharp.Specs.Services.Orders
 
             It should_have_correct_error_response_message = () =>
             {
-                exception.InnerException.ShouldBeOfExactType<HttpRequestException>();
+                exception.InnerException.ShouldBeOfExactType<GDAXSharpHttpException>();
+                ((GDAXSharpHttpException) exception.InnerException)?.StatusCode.ShouldEqual(HttpStatusCode.NotFound);
                 exception.InnerException.ShouldContainErrorMessage("order not found");
             };
         }
@@ -190,7 +192,7 @@ namespace GDAXSharp.Specs.Services.Orders
             It should_have_correct_number_of_orders = () =>
                 order_many_response_result.First().Count.ShouldEqual(2);
 
-            private It should_have_correct_orders = () =>
+            It should_have_correct_orders = () =>
             {
                 order_many_response_result.First().First().Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
                 order_many_response_result.First().First().Price.ShouldEqual(0.10000000M);
