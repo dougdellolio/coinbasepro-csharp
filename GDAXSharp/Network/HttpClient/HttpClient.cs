@@ -6,7 +6,7 @@ namespace GDAXSharp.Network.HttpClient
 {
     public class HttpClient : IHttpClient
     {
-        private static readonly HttpClient Client = new HttpClient();
+        private static readonly System.Net.Http.HttpClient Client = new System.Net.Http.HttpClient();
 
         public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)
         {
