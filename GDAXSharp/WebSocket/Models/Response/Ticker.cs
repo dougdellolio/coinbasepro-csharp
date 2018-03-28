@@ -31,6 +31,6 @@ namespace GDAXSharp.WebSocket.Models.Response
 
         public long TradeId { get; set; }
 
-        public string LastSize { get; set; }
+        public decimal LastSize { get; set; }
     }
 }

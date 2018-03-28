@@ -9,11 +9,12 @@ namespace GDAXSharp.WebSocket.Models.Request
 {
     public class TickerChannel
     {
+        [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public ActionType Type { get; set; }
 
         [JsonProperty("product_ids", ItemConverterType = typeof(StringEnumConverter))]
-        public ProductType[] ProductIds { get; set; }
+        public List<ProductType> ProductIds { get; set; }
 
         [JsonProperty("channels")]
         public List<Channel> Channels { get; set; }
@@ -33,10 +34,17 @@ namespace GDAXSharp.WebSocket.Models.Request
 
     public class Channel
     {
+        [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty("name")]
         public ChannelType Name { get; set; }
 
         [JsonProperty("product_ids", ItemConverterType = typeof(StringEnumConverter))]
-        public ProductType[] ProductIds { get; set; }
+        public List<ProductType> ProductIds { get; set; }
+
+        public Channel(ChannelType name, List<ProductType> productIds)
+        {
+            Name = name;
+            ProductIds = productIds;
+        }
     }
 }

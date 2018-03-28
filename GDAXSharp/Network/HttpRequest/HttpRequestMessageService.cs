@@ -14,7 +14,10 @@ namespace GDAXSharp.Network.HttpRequest
 
         private const string SandBoxApiUri = "https://api-public.sandbox.gdax.com";
 
-        public HttpRequestMessageService(IAuthenticator authenticator, IClock clock, bool sandBox) : base(authenticator, clock, sandBox)
+        public HttpRequestMessageService(
+            IAuthenticator authenticator,
+            IClock clock,
+            bool sandBox) : base(authenticator, clock, sandBox)
         {
         }
 
