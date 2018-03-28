@@ -5,6 +5,7 @@ using GDAXSharp.Shared.Utilities.Clock;
 using GDAXSharp.Shared.Utilities.Extensions;
 using GDAXSharp.WebSocket.Models.Request;
 using GDAXSharp.WebSocket.Models.Response;
+using GDAXSharp.WebSocket.Types;
 using Newtonsoft.Json;
 using SuperSocket.ClientEngine;
 using System;
@@ -60,18 +61,17 @@ namespace GDAXSharp.WebSocket
                 {
                     new Channel
                     {
-                        Name = "ticker",
+                        Name = ChannelType.Ticker,
                         ProductIds = ProductTypes
                     },
                     new Channel
                     {
-                        Name = "level2",
+                        Name = ChannelType.Level2,
                         ProductIds = ProductTypes
                     },
                     new Channel
                     {
-                        Name = "user",
-
+                        Name = ChannelType.User,
                         ProductIds = ProductTypes
                     }
                 },
@@ -108,7 +108,7 @@ namespace GDAXSharp.WebSocket
                     var snapshot = JsonConvert.DeserializeObject<Snapshot>(json);
                     OnSnapShotReceived?.Invoke(sender, new WebfeedEventArgs<Snapshot>(snapshot));
                     break;
-                case ResponseType.L2update:
+                case ResponseType.L2Update:
                     var level2 = JsonConvert.DeserializeObject<Level2>(json);
                     OnLevel2UpdateReceived?.Invoke(sender, new WebfeedEventArgs<Level2>(level2));
                     break;

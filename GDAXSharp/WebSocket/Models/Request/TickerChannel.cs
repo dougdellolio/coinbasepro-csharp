@@ -1,4 +1,5 @@
 ﻿using GDAXSharp.Shared.Types;
+using GDAXSharp.WebSocket.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace GDAXSharp.WebSocket.Models.Request
     public class Channel
     {
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public ChannelType Name { get; set; }
 
         [JsonProperty("product_ids", ItemConverterType = typeof(StringEnumConverter))]
         public ProductType[] ProductIds { get; set; }

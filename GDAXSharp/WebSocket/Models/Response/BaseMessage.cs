@@ -1,4 +1,4 @@
-﻿using GDAXSharp.Shared.Types;
+﻿using GDAXSharp.WebSocket.Types;
 
 namespace GDAXSharp.WebSocket.Models.Response
 {

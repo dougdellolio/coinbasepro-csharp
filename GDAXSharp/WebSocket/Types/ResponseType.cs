@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GDAXSharp.Shared.Types
+namespace GDAXSharp.WebSocket.Types
 {
     [JsonConverter(typeof(StringEnumConverter), true)]
     public enum ResponseType
@@ -10,7 +10,7 @@ namespace GDAXSharp.Shared.Types
         Heartbeat,
         Ticker,
         Snapshot,
-        L2update,
+        L2Update,
         Received,
         Open,
         Done,
