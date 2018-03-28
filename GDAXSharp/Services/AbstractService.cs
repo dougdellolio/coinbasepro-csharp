@@ -1,3 +1,4 @@
+using GDAXSharp.Exceptions;
 using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
 using Newtonsoft.Json;
@@ -48,7 +49,7 @@ namespace GDAXSharp.Services
             {
                 return httpResponseMessage;
             }
-            
+
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
             string errorMessage;
