@@ -89,7 +89,8 @@ namespace GDAXSharp.Services.Products
 
                 candleList.AddRange(await GetHistoricRatesAsync(productPair, batchStart, batchEnd.Value, (int)granularity));
 
-                batchEnd = candleList.Last()?.Time;
+                batchEnd = candleList.LastOrDefault()?.Time;
+
             } while (batchStart > start);
 
             return candleList;
