@@ -84,12 +84,21 @@
   <ItemGroup>
     <Compile Include="Exceptions\GDAXErrorMessage.cs" />
     <Compile Include="Exceptions\GDAXSharpHttpException.cs" />
+    <Compile Include="Exceptions\GDAXSharpWebSocketException.cs" />
     <Compile Include="Network\AbstractRequest.cs" />
     <Compile Include="Network\Authentication\Authenticator.cs" />
     <Compile Include="GDAXClient.cs" />
     <Compile Include="Network\HttpClient\HttpClient.cs" />
     <Compile Include="Network\HttpClient\IHttpClient.cs" />
     <Compile Include="Shared\Utilities\JsonConfig.cs" />
+    <Compile Include="WebSocket\Models\Response\Done.cs" />
+    <Compile Include="WebSocket\Models\Response\Error.cs" />
+    <Compile Include="WebSocket\Models\Response\Hearthbeat.cs" />
+    <Compile Include="WebSocket\Models\Response\LastMatch.cs" />
+    <Compile Include="WebSocket\Models\Response\Match.cs" />
+    <Compile Include="WebSocket\Models\Response\Open.cs" />
+    <Compile Include="WebSocket\Models\Response\Received.cs" />
+    <Compile Include="WebSocket\Models\Response\Subscription.cs" />
     <Compile Include="WebSocket\Types\ActionType.cs" />
     <Compile Include="WebSocket\Types\ResponseType.cs" />
     <Compile Include="WebSocket\IWebSocket.cs" />

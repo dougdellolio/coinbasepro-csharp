@@ -79,12 +79,22 @@ namespace GDAXSharp.WebSocket
         {
             if (WebSocketFeed == null || WebSocketFeed.State != WebSocketState.Open)
             {
-                throw new GDAXSharpHttpException($"Websocket needs to be in the opened state, current state is {WebSocketFeed?.State ?? WebSocketState.None}");
+                throw new GDAXSharpWebSocketException($"Websocket needs to be in the opened state, current state is {WebSocketFeed?.State ?? WebSocketState.None}")
+                {
+                    WebSocket = WebSocketFeed,
+                    StatusCode = WebSocketFeed?.State ?? WebSocketState.None,
+                    ErrorEvent = null
+                };
             }
 
             if (StopWebSocket)
             {
-                throw new GDAXSharpHttpException("Websocket can't be stopped");
+                throw new GDAXSharpWebSocketException("Websocket can't be stopped")
+                {
+                    WebSocket = WebSocketFeed,
+                    StatusCode = WebSocketFeed?.State ?? WebSocketState.None,
+                    ErrorEvent = null
+                };
             }
 
             StopWebSocket = true;
@@ -135,6 +145,8 @@ namespace GDAXSharp.WebSocket
             var json = e.Message;
             var response = JsonConfig.DeserializeObject<BaseMessage>(json);
 
+            System.IO.File.WriteAllText($@"C:\Users\Kevin Wilbrink\Desktop\GDAX\{response.Type.ToString()}", json);
+
             switch (response.Type)
             {
                 case ResponseType.Subscriptions:
@@ -176,7 +188,13 @@ namespace GDAXSharp.WebSocket
 
         private void WebSocket_Error(object sender, ErrorEventArgs e)
         {
-            throw new GDAXSharpHttpException($"WebSocket Feed Error: {e.Exception.Message}");
+            throw new GDAXSharpWebSocketException($"WebSocket Feed Error: {e.Exception.Message}")
+            {
+                WebSocket = WebSocketFeed,
+                StatusCode = WebSocketFeed.State,
+                ErrorEvent = e
+
+            };
         }
 
         private void WebSocket_Closed(object sender, EventArgs e)

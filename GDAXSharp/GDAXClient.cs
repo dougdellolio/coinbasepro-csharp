@@ -15,7 +15,6 @@ using GDAXSharp.Services.UserAccount;
 using GDAXSharp.Services.Withdrawals;
 using GDAXSharp.Shared.Utilities.Clock;
 using GDAXSharp.Shared.Utilities.Queries;
-using System.Threading;
 
 namespace GDAXSharp
 {
@@ -23,16 +22,14 @@ namespace GDAXSharp
     {
         public GDAXClient(
             IAuthenticator authenticator,
-            CancellationToken cancellationToken,
             bool sandBox = false)
-            : this(authenticator, new HttpClient(), cancellationToken, sandBox)
+            : this(authenticator, new HttpClient(), sandBox)
         {
         }
 
         public GDAXClient(
             IAuthenticator authenticator,
             IHttpClient httpClient,
-            CancellationToken cancellationToken,
             bool sandBox = false)
         {
             var clock = new Clock();
