@@ -3,9 +3,9 @@ using Newtonsoft.Json.Serialization;
 
 namespace GDAXSharp.Shared.Utilities
 {
-    public abstract class AbstractJson
+    internal static class JsonConfig
     {
-        private JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings
+        private static JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings
         {
             FloatParseHandling = FloatParseHandling.Decimal,
             NullValueHandling = NullValueHandling.Ignore,
@@ -15,12 +15,12 @@ namespace GDAXSharp.Shared.Utilities
             }
         };
 
-        protected string SerializeObject(object value)
+        internal static string SerializeObject(object value)
         {
             return JsonConvert.SerializeObject(value, SerializerSettings);
         }
 
-        protected T DeserializeObject<T>(string contentBody)
+        internal static T DeserializeObject<T>(string contentBody)
         {
             return JsonConvert.DeserializeObject<T>(contentBody, SerializerSettings);
         }

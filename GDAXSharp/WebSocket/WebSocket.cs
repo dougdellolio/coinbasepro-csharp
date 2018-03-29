@@ -2,6 +2,7 @@
 using GDAXSharp.Network;
 using GDAXSharp.Network.Authentication;
 using GDAXSharp.Shared.Types;
+using GDAXSharp.Shared.Utilities;
 using GDAXSharp.Shared.Utilities.Clock;
 using GDAXSharp.Shared.Utilities.Extensions;
 using GDAXSharp.WebSocket.Models.Request;
@@ -12,7 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
-using System.Threading;
 using WebSocket4Net;
 
 namespace GDAXSharp.WebSocket
@@ -26,11 +26,9 @@ namespace GDAXSharp.WebSocket
         internal WebSocket(
             IAuthenticator authenticator,
             IClock clock,
-            CancellationToken cancellationToken,
             bool sandBox = false)
                 : base(authenticator, clock, sandBox)
         {
-            CancellationToken = cancellationToken;
         }
 
         ~WebSocket()
@@ -39,7 +37,7 @@ namespace GDAXSharp.WebSocket
             WebSocketFeed.Dispose();
         }
 
-        private CancellationToken CancellationToken { get; }
+        private bool StopWebSocket { get; set; }
 
         private List<ProductType> ProductTypes { get; set; }
 
@@ -51,13 +49,16 @@ namespace GDAXSharp.WebSocket
         {
             if (WebSocketFeed != null && WebSocketFeed.State != WebSocketState.Closed)
             {
-                throw new GDAXSharpHttpException($"Websocket needs to be in the closed state, current state is {WebSocketFeed.State}");
+                throw new GDAXSharpHttpException(
+                    $"Websocket needs to be in the closed state, current state is {WebSocketFeed.State}");
             }
 
             if (productTypes.Count == 0)
             {
                 throw new ArgumentException("You must specify at least one product type");
             }
+
+            StopWebSocket = false;
 
             ProductTypes = productTypes;
             ChannelTypes = channelTypes;
@@ -72,6 +73,21 @@ namespace GDAXSharp.WebSocket
             WebSocketFeed.MessageReceived += WebSocket_MessageReceived;
             WebSocketFeed.Opened += WebSocket_Opened;
             WebSocketFeed.Open();
+        }
+
+        public void Stop()
+        {
+            if (WebSocketFeed == null || WebSocketFeed.State != WebSocketState.Open)
+            {
+                throw new GDAXSharpHttpException($"Websocket needs to be in the opened state, current state is {WebSocketFeed?.State ?? WebSocketState.None}");
+            }
+
+            if (StopWebSocket)
+            {
+                throw new GDAXSharpHttpException("Websocket can't be stopped");
+            }
+
+            StopWebSocket = true;
         }
 
         private void WebSocket_Opened(object sender, EventArgs e)
@@ -93,7 +109,7 @@ namespace GDAXSharp.WebSocket
             }
 
             var timeStamp = Clock.GetTime().ToTimeStamp();
-            var json = SerializeObject(new TickerChannel
+            var json = JsonConfig.SerializeObject(new TickerChannel
             {
                 Type = ActionType.Subscribe,
                 ProductIds = ProductTypes,
@@ -101,7 +117,8 @@ namespace GDAXSharp.WebSocket
                 Timestamp = timeStamp.ToString("F0", CultureInfo.InvariantCulture),
                 Key = Authenticator.ApiKey,
                 Passphrase = Authenticator.Passphrase,
-                Signature = ComputeSignature(HttpMethod.Get, Authenticator.UnsignedSignature, timeStamp, "/users/self/verify", null)
+                Signature = ComputeSignature(HttpMethod.Get, Authenticator.UnsignedSignature, timeStamp,
+                    "/users/self/verify", null)
             });
 
             WebSocketFeed.Send(json);
@@ -109,29 +126,29 @@ namespace GDAXSharp.WebSocket
 
         private void WebSocket_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
-            if (CancellationToken.IsCancellationRequested)
+            if (StopWebSocket)
             {
                 WebSocketFeed.Close();
                 return;
             }
 
             var json = e.Message;
-            var response = DeserializeObject<BaseMessage>(json);
+            var response = JsonConfig.DeserializeObject<BaseMessage>(json);
 
             switch (response.Type)
             {
                 case ResponseType.Subscriptions:
                     break;
                 case ResponseType.Ticker:
-                    var ticker = DeserializeObject<Ticker>(json);
+                    var ticker = JsonConfig.DeserializeObject<Ticker>(json);
                     OnTickerReceived?.Invoke(sender, new WebfeedEventArgs<Ticker>(ticker));
                     break;
                 case ResponseType.Snapshot:
-                    var snapshot = DeserializeObject<Snapshot>(json);
+                    var snapshot = JsonConfig.DeserializeObject<Snapshot>(json);
                     OnSnapShotReceived?.Invoke(sender, new WebfeedEventArgs<Snapshot>(snapshot));
                     break;
                 case ResponseType.L2Update:
-                    var level2 = DeserializeObject<Level2>(json);
+                    var level2 = JsonConfig.DeserializeObject<Level2>(json);
                     OnLevel2UpdateReceived?.Invoke(sender, new WebfeedEventArgs<Level2>(level2));
                     break;
                 case ResponseType.Heartbeat:
@@ -164,7 +181,7 @@ namespace GDAXSharp.WebSocket
 
         private void WebSocket_Closed(object sender, EventArgs e)
         {
-            if (WebSocketFeed.State != WebSocketState.Closed || CancellationToken.IsCancellationRequested) return;
+            if (WebSocketFeed.State != WebSocketState.Closed || StopWebSocket) return;
 
             WebSocketFeed.Dispose();
             Start(ProductTypes, ChannelTypes);

@@ -37,7 +37,7 @@ namespace GDAXSharp
         {
             var clock = new Clock();
             var httpRequestMessageService = new HttpRequestMessageService(authenticator, clock, sandBox);
-            var webSocket = new WebSocket.WebSocket(authenticator, clock, cancellationToken, sandBox);
+            var webSocket = new WebSocket.WebSocket(authenticator, clock, sandBox);
             var queryBuilder = new QueryBuilder();
 
             AccountsService = new AccountsService(httpClient, httpRequestMessageService);

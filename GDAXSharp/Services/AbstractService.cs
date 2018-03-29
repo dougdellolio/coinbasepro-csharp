@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GDAXSharp.Services
 {
-    public abstract class AbstractService : AbstractJson
+    public abstract class AbstractService
     {
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
@@ -45,7 +45,7 @@ namespace GDAXSharp.Services
 
             try
             {
-                var jsonMsg = DeserializeObject<GDAXErrorMessage>(contentBody);
+                var jsonMsg = JsonConfig.DeserializeObject<GDAXErrorMessage>(contentBody);
                 errorMessage = jsonMsg.Message;
             }
             catch
@@ -73,7 +73,7 @@ namespace GDAXSharp.Services
             var httpResponseMessage = await SendHttpRequestMessageAsync(httpMethod, uri, content);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
-            var firstPage = DeserializeObject<IList<T>>(contentBody);
+            var firstPage = JsonConfig.DeserializeObject<IList<T>>(contentBody);
 
             pagedList.Add(firstPage);
 
@@ -112,7 +112,7 @@ namespace GDAXSharp.Services
                 subsequentPageAfterHeaderId = cursorHeaders.First();
 
                 var subsequentContentBody = await httpClient.ReadAsStringAsync(subsequentHttpResponseMessage).ConfigureAwait(false);
-                var page = DeserializeObject<IList<T>>(subsequentContentBody);
+                var page = JsonConfig.DeserializeObject<IList<T>>(subsequentContentBody);
 
                 pagedList.Add(page);
 
@@ -130,7 +130,7 @@ namespace GDAXSharp.Services
             var httpResponseMessage = await SendHttpRequestMessageAsync(httpMethod, uri, content);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
-            return DeserializeObject<T>(contentBody);
+            return JsonConfig.DeserializeObject<T>(contentBody);
         }
     }
 }

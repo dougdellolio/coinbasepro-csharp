@@ -1,13 +1,14 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
+﻿using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Deposits.Models;
 using GDAXSharp.Services.Deposits.Models.Responses;
 using GDAXSharp.Services.Withdrawals.Models;
 using GDAXSharp.Services.Withdrawals.Models.Responses;
 using GDAXSharp.Shared.Types;
+using GDAXSharp.Shared.Utilities;
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace GDAXSharp.Services.Deposits
 {
@@ -32,7 +33,7 @@ namespace GDAXSharp.Services.Deposits
                 PaymentMethodId = new Guid(paymentMethodId)
             };
 
-            return await SendServiceCall<DepositResponse>(HttpMethod.Post, "/deposits/payment-method", SerializeObject(newDeposit)).ConfigureAwait(false);
+            return await SendServiceCall<DepositResponse>(HttpMethod.Post, "/deposits/payment-method", JsonConfig.SerializeObject(newDeposit)).ConfigureAwait(false);
         }
 
         public async Task<CoinbaseResponse> DepositCoinbaseFundsAsync(
@@ -47,7 +48,7 @@ namespace GDAXSharp.Services.Deposits
                 CoinbaseAccountId = coinbaseAccountId
             };
 
-            return await SendServiceCall<CoinbaseResponse>(HttpMethod.Post, "/deposits/coinbase-account", SerializeObject(newCoinbaseDeposit)).ConfigureAwait(false);
+            return await SendServiceCall<CoinbaseResponse>(HttpMethod.Post, "/deposits/coinbase-account", JsonConfig.SerializeObject(newCoinbaseDeposit)).ConfigureAwait(false);
         }
     }
 }

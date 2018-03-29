@@ -89,7 +89,7 @@
     <Compile Include="GDAXClient.cs" />
     <Compile Include="Network\HttpClient\HttpClient.cs" />
     <Compile Include="Network\HttpClient\IHttpClient.cs" />
-    <Compile Include="Shared\Utilities\AbstractJson.cs" />
+    <Compile Include="Shared\Utilities\JsonConfig.cs" />
     <Compile Include="WebSocket\Types\ActionType.cs" />
     <Compile Include="WebSocket\Types\ResponseType.cs" />
     <Compile Include="WebSocket\IWebSocket.cs" />
