@@ -19,7 +19,7 @@ namespace GDAXSharp.Services.Fills
         }
 
         public async Task<IList<IList<FillResponse>>> GetAllFillsAsync(
-            int limit = 100, 
+            int limit = 100,
             int numberOfPages = 0)
         {
             var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, $"/fills?limit={limit}", numberOfPages: numberOfPages);
@@ -28,8 +28,8 @@ namespace GDAXSharp.Services.Fills
         }
 
         public async Task<IList<IList<FillResponse>>> GetFillsByOrderIdAsync(
-            string orderId, 
-            int limit = 100, 
+            string orderId,
+            int limit = 100,
             int numberOfPages = 0)
         {
             var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, $"/fills?limit={limit}&order_id={orderId}", numberOfPages: numberOfPages);
@@ -38,8 +38,8 @@ namespace GDAXSharp.Services.Fills
         }
 
         public async Task<IList<IList<FillResponse>>> GetFillsByProductIdAsync(
-            ProductType productId, 
-            int limit = 100, 
+            ProductType productId,
+            int limit = 100,
             int numberOfPages = 0)
         {
             var fills = await SendHttpRequestMessagePagedAsync<FillResponse>(HttpMethod.Get, $"/fills?limit={limit}&product_id={productId.GetEnumMemberValue()}", numberOfPages: numberOfPages);

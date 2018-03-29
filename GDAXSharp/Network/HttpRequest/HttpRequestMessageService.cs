@@ -17,7 +17,8 @@ namespace GDAXSharp.Network.HttpRequest
         public HttpRequestMessageService(
             IAuthenticator authenticator,
             IClock clock,
-            bool sandBox) : base(authenticator, clock, sandBox)
+            bool sandBox)
+                : base(authenticator, clock, sandBox)
         {
         }
 

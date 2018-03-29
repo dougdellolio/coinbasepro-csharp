@@ -1,8 +1,7 @@
 using GDAXSharp.Exceptions;
 using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using GDAXSharp.Shared.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -10,21 +9,11 @@ using System.Threading.Tasks;
 
 namespace GDAXSharp.Services
 {
-    public abstract class AbstractService
+    public abstract class AbstractService : AbstractJson
     {
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
         private readonly IHttpClient httpClient;
-
-        private JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings
-        {
-            FloatParseHandling = FloatParseHandling.Decimal,
-            NullValueHandling = NullValueHandling.Ignore,
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new SnakeCaseNamingStrategy()
-            }
-        };
 
         protected AbstractService(
             IHttpClient httpClient,
@@ -142,16 +131,6 @@ namespace GDAXSharp.Services
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
             return DeserializeObject<T>(contentBody);
-        }
-
-        protected string SerializeObject(object value)
-        {
-            return JsonConvert.SerializeObject(value, SerializerSettings);
-        }
-
-        private T DeserializeObject<T>(string contentBody)
-        {
-            return JsonConvert.DeserializeObject<T>(contentBody, SerializerSettings);
         }
     }
 }

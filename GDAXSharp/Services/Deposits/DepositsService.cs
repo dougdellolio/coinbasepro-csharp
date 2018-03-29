@@ -21,8 +21,8 @@ namespace GDAXSharp.Services.Deposits
         }
 
         public async Task<DepositResponse> DepositFundsAsync(
-            string paymentMethodId, 
-            decimal amount, 
+            string paymentMethodId,
+            decimal amount,
             Currency currency)
         {
             var newDeposit = new Deposit
@@ -36,8 +36,8 @@ namespace GDAXSharp.Services.Deposits
         }
 
         public async Task<CoinbaseResponse> DepositCoinbaseFundsAsync(
-            string coinbaseAccountId, 
-            decimal amount, 
+            string coinbaseAccountId,
+            decimal amount,
             Currency currency)
         {
             var newCoinbaseDeposit = new Coinbase

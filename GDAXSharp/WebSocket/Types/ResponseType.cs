@@ -1,9 +1,7 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using System.Runtime.Serialization;
 
 namespace GDAXSharp.WebSocket.Types
 {
-    [JsonConverter(typeof(StringEnumConverter), true)]
     public enum ResponseType
     {
         Subscriptions,
@@ -15,6 +13,8 @@ namespace GDAXSharp.WebSocket.Types
         Open,
         Done,
         Match,
+        [EnumMember(Value = "last_match")]
+        LastMatch,
         Change,
         Activate,
         Error

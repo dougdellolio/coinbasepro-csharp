@@ -7,7 +7,6 @@ using GDAXSharp.Shared.Utilities.Extensions;
 using GDAXSharp.WebSocket.Models.Request;
 using GDAXSharp.WebSocket.Models.Response;
 using GDAXSharp.WebSocket.Types;
-using Newtonsoft.Json;
 using SuperSocket.ClientEngine;
 using System;
 using System.Collections.Generic;
@@ -63,7 +62,9 @@ namespace GDAXSharp.WebSocket
             ProductTypes = productTypes;
             ChannelTypes = channelTypes;
 
-            var socketUrl = SandBox ? SandBoxApiUri : ApiUri;
+            var socketUrl = SandBox
+                ? SandBoxApiUri
+                : ApiUri;
 
             WebSocketFeed = new WebSocket4Net.WebSocket(socketUrl);
             WebSocketFeed.Closed += WebSocket_Closed;
@@ -92,7 +93,7 @@ namespace GDAXSharp.WebSocket
             }
 
             var timeStamp = Clock.GetTime().ToTimeStamp();
-            var json = JsonConvert.SerializeObject(new TickerChannel
+            var json = SerializeObject(new TickerChannel
             {
                 Type = ActionType.Subscribe,
                 ProductIds = ProductTypes,
@@ -115,25 +116,44 @@ namespace GDAXSharp.WebSocket
             }
 
             var json = e.Message;
-            var response = JsonConvert.DeserializeObject<BaseMessage>(json);
+            var response = DeserializeObject<BaseMessage>(json);
 
             switch (response.Type)
             {
                 case ResponseType.Subscriptions:
-                    // TODO: Implement this and more?
                     break;
                 case ResponseType.Ticker:
-                    var ticker = JsonConvert.DeserializeObject<Ticker>(json);
+                    var ticker = DeserializeObject<Ticker>(json);
                     OnTickerReceived?.Invoke(sender, new WebfeedEventArgs<Ticker>(ticker));
                     break;
                 case ResponseType.Snapshot:
-                    var snapshot = JsonConvert.DeserializeObject<Snapshot>(json);
+                    var snapshot = DeserializeObject<Snapshot>(json);
                     OnSnapShotReceived?.Invoke(sender, new WebfeedEventArgs<Snapshot>(snapshot));
                     break;
                 case ResponseType.L2Update:
-                    var level2 = JsonConvert.DeserializeObject<Level2>(json);
+                    var level2 = DeserializeObject<Level2>(json);
                     OnLevel2UpdateReceived?.Invoke(sender, new WebfeedEventArgs<Level2>(level2));
                     break;
+                case ResponseType.Heartbeat:
+                    break;
+                case ResponseType.Received:
+                    break;
+                case ResponseType.Open:
+                    break;
+                case ResponseType.Done:
+                    break;
+                case ResponseType.Match:
+                    break;
+                case ResponseType.LastMatch:
+                    break;
+                case ResponseType.Change:
+                    break;
+                case ResponseType.Activate:
+                    break;
+                case ResponseType.Error:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

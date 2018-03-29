@@ -1,4 +1,5 @@
 ﻿using GDAXSharp.Network.Authentication;
+using GDAXSharp.Shared.Utilities;
 using GDAXSharp.Shared.Utilities.Clock;
 using System;
 using System.Globalization;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace GDAXSharp.Network
 {
-    public class AbstractRequest
+    public class AbstractRequest : AbstractJson
     {
         protected readonly IAuthenticator Authenticator;
 
