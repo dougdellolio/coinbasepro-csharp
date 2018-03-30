@@ -20,6 +20,21 @@ var gdaxClient = new GDAXSharp.GDAXClient(authenticator);
 
 //use one of the services 
 var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
+
+//use the websocket feed
+var productTypes = new List<ProductType>() { ProductType.BtcEur, ProductType.BtcUsd };
+var channels = new List<ChannelType>() {ChannelType.Full, ChannelType.User} // When not providing any channels, the socket will subscribe to all channels
+
+var webSocket = gdax.WebSocket;
+webSocket.Start(productTypes, channels);
+
+// EventHandler for the heartbeat response type
+webSocket.OnHeartbeatReceived += WebSocket_OnHeartbeatReceived;
+
+private static void WebSocket_OnHeartbeatReceived(object sender, WebfeedEventArgs<Heartbeat> e)
+{
+  throw new NotImplementedException();
+}
 ````
 
 <h1>What services are provided?</h1>
@@ -80,6 +95,20 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 
 ###### User Account ######
 - GetTrailingVolumeAsync() - get 30-day trailing volume for all products
+
+###### Websocket Feed ######
+- Start(productTypes, channelTypes) - Starts the websocket feed based on product(s) and channel(s)
+- Stop() - Stops the websocket feed
+- OnTickerReceived - EventHandler for data with response type `ticker`
+- OnSnapShotReceived - EventHandler for data with response type `snapshot`
+- OnLevel2UpdateReceived - EventHandler for data with response type `level2`
+- OnHeartbeatReceived - EventHandler for data with response type `heartbeat`
+- OnReceivedReceived - EventHandler for data with response type `received`
+- OnOpenReceived - EventHandler for data with response type `open`
+- OnDoneReceived - EventHandler for data with response type `done`
+- OnMatchReceived - EventHandler for data with response type `match`
+- OnLastMatchReceived - EventHandler for data with response type `last match`
+- OnErrorReceived - EventHandler for data with response type `error`
 
 <h1>Sandbox Support</h1>
 
