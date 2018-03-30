@@ -2,11 +2,14 @@
 using GDAXSharp.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 
 namespace GDAXSharp.Services.Orders.Models
 {
     public class Order
     {
+        public Guid ClientOid { get; set; }
+
         [JsonConverter(typeof(StringEnumConverter))]
         public OrderSide Side { get; set; }
 
