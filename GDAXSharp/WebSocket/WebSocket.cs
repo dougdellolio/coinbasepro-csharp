@@ -185,12 +185,6 @@ namespace GDAXSharp.WebSocket
                     var lastMatch = JsonConfig.DeserializeObject<LastMatch>(json);
                     OnLastMatchReceived?.Invoke(sender, new WebfeedEventArgs<LastMatch>(lastMatch));
                     break;
-                case ResponseType.Change:
-                    // Throw an error? Didn't receive anything with this response type
-                    break;
-                case ResponseType.Activate:
-                    // Throw an error? Didn't receive anything with this response type
-                    break;
                 case ResponseType.Error:
                     var error = JsonConfig.DeserializeObject<Error>(json);
                     OnErrorReceived?.Invoke(sender, new WebfeedEventArgs<Error>(error));

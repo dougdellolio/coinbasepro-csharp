@@ -15,11 +15,13 @@ namespace GDAXSharp.Exceptions
         {
         }
 
-        public GDAXSharpWebSocketException(string message) : base(message)
+        public GDAXSharpWebSocketException(string message)
+            : base(message)
         {
         }
 
-        public GDAXSharpWebSocketException(string message, Exception inner) : base(message, inner)
+        public GDAXSharpWebSocketException(string message, Exception inner)
+            : base(message, inner)
         {
         }
     }

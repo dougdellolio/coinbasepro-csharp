@@ -22,6 +22,6 @@ namespace GDAXSharp.WebSocket.Models.Response
 
         public long Sequence { get; set; }
 
-        public System.DateTimeOffset Time { get; set; }
+        public DateTimeOffset Time { get; set; }
     }
 }
