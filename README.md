@@ -20,21 +20,6 @@ var gdaxClient = new GDAXSharp.GDAXClient(authenticator);
 
 //use one of the services 
 var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
-
-//use the websocket feed
-var productTypes = new List<ProductType>() { ProductType.BtcEur, ProductType.BtcUsd };
-var channels = new List<ChannelType>() {ChannelType.Full, ChannelType.User} // When not providing any channels, the socket will subscribe to all channels
-
-var webSocket = gdax.WebSocket;
-webSocket.Start(productTypes, channels);
-
-// EventHandler for the heartbeat response type
-webSocket.OnHeartbeatReceived += WebSocket_OnHeartbeatReceived;
-
-private static void WebSocket_OnHeartbeatReceived(object sender, WebfeedEventArgs<Heartbeat> e)
-{
-  throw new NotImplementedException();
-}
 ````
 
 <h1>What services are provided?</h1>
@@ -96,9 +81,40 @@ private static void WebSocket_OnHeartbeatReceived(object sender, WebfeedEventArg
 ###### User Account ######
 - GetTrailingVolumeAsync() - get 30-day trailing volume for all products
 
-###### Websocket Feed ######
+<h1>WebSocket Feed support</h1>
+<h2>How to use?</h2>
+
+````
+//create an authenticator with your apiKey, apiSecret and passphrase
+var authenticator = new Authenticator("<apiKey>", "<apiSecret>", "<passphrase>");
+
+//create the GDAX client
+var gdaxClient = new GDAXSharp.GDAXClient(authenticator);
+
+//use the websocket feed
+var productTypes = new List<ProductType>() { ProductType.BtcEur, ProductType.BtcUsd };
+var channels = new List<ChannelType>() {ChannelType.Full, ChannelType.User} // When not providing any channels, the socket will subscribe to all channels
+
+var webSocket = gdax.WebSocket;
+webSocket.Start(productTypes, channels);
+
+// EventHandler for the heartbeat response type
+webSocket.OnHeartbeatReceived += WebSocket_OnHeartbeatReceived;
+
+private static void WebSocket_OnHeartbeatReceived(object sender, WebfeedEventArgs<Heartbeat> e)
+{
+  throw new NotImplementedException();
+}
+````
+
+<h2>Available functions</h2>
+These are the starting and stopping methods:
+
 - Start(productTypes, channelTypes) - Starts the websocket feed based on product(s) and channel(s)
 - Stop() - Stops the websocket feed
+
+The following methods are EventHandlers:
+
 - OnTickerReceived - EventHandler for data with response type `ticker`
 - OnSnapShotReceived - EventHandler for data with response type `snapshot`
 - OnLevel2UpdateReceived - EventHandler for data with response type `level2`
@@ -195,8 +211,8 @@ Thanks for contributing!
 - @DontFretBrett
 - @chrisw000
 - @confessore
+- @sotam
 
 <h1>Bugs or questions?</h1>
 
 Please open an issue for any bugs or questions
-
