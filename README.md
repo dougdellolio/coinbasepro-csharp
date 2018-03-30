@@ -34,10 +34,10 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - GetAllAccountsAsync() - get all coinbase accounts
 
 ###### Orders ######
-- PlaceMarketOrderAsync(orderSide, productPair, size) - place market order
-- PlaceLimitOrderAsync(orderSide, productPair, size, price, timeInForce, postOnly) - place limit order with time in force
-- PlaceLimitOrderAsync(orderSide, productPair, size, price, cancelAfter, postOnly) - place limit order with cancel after date
-- PlaceStopOrderAsync(orderSide, productPair, size, stopPrice) - place stop order with stop price
+- PlaceMarketOrderAsync(orderSide, productPair, size, clientOId) - place market order
+- PlaceLimitOrderAsync(orderSide, productPair, size, price, timeInForce, postOnly, clientOId) - place limit order with time in force
+- PlaceLimitOrderAsync(orderSide, productPair, size, price, cancelAfter, postOnly, clientOId) - place limit order with cancel after date
+- PlaceStopOrderAsync(orderSide, productPair, size, stopPrice, clientOId) - place stop order with stop price
 - CancelAllOrdersAsync() - cancel all orders
 - CancelOrderByIdAsync(id) - cancel order by id
 - GetAllOrdersAsync(orderStatus, limit, numberOfPages) - get all, active or pending orders (paged response)
