@@ -93,13 +93,14 @@
     <Compile Include="Shared\Utilities\JsonConfig.cs" />
     <Compile Include="WebSocket\Models\Response\Done.cs" />
     <Compile Include="WebSocket\Models\Response\Error.cs" />
-    <Compile Include="WebSocket\Models\Response\Hearthbeat.cs" />
+    <Compile Include="WebSocket\Models\Response\Heartbeat.cs" />
     <Compile Include="WebSocket\Models\Response\LastMatch.cs" />
     <Compile Include="WebSocket\Models\Response\Match.cs" />
     <Compile Include="WebSocket\Models\Response\Open.cs" />
     <Compile Include="WebSocket\Models\Response\Received.cs" />
     <Compile Include="WebSocket\Models\Response\Subscription.cs" />
     <Compile Include="WebSocket\Types\ActionType.cs" />
+    <Compile Include="WebSocket\Types\DoneReasonType.cs" />
     <Compile Include="WebSocket\Types\ResponseType.cs" />
     <Compile Include="WebSocket\IWebSocket.cs" />
     <Compile Include="WebSocket\Models\Request\TickerChannel.cs" />

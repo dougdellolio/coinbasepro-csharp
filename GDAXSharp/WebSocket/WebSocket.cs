@@ -79,10 +79,10 @@ namespace GDAXSharp.WebSocket
         {
             if (WebSocketFeed == null || WebSocketFeed.State != WebSocketState.Open)
             {
-                throw new GDAXSharpWebSocketException($"Websocket needs to be in the opened state, current state is {WebSocketFeed?.State ?? WebSocketState.None}")
+                throw new GDAXSharpWebSocketException($"Websocket needs to be in the opened state, current state is {WebSocketFeed.State}")
                 {
                     WebSocket = WebSocketFeed,
-                    StatusCode = WebSocketFeed?.State ?? WebSocketState.None,
+                    StatusCode = WebSocketFeed.State,
                     ErrorEvent = null
                 };
             }
@@ -92,7 +92,7 @@ namespace GDAXSharp.WebSocket
                 throw new GDAXSharpWebSocketException("Websocket can't be stopped")
                 {
                     WebSocket = WebSocketFeed,
-                    StatusCode = WebSocketFeed?.State ?? WebSocketState.None,
+                    StatusCode = WebSocketFeed.State,
                     ErrorEvent = null
                 };
             }
@@ -145,8 +145,6 @@ namespace GDAXSharp.WebSocket
             var json = e.Message;
             var response = JsonConfig.DeserializeObject<BaseMessage>(json);
 
-            System.IO.File.WriteAllText($@"C:\Users\Kevin Wilbrink\Desktop\GDAX\{response.Type.ToString()}", json);
-
             switch (response.Type)
             {
                 case ResponseType.Subscriptions:
@@ -164,22 +162,38 @@ namespace GDAXSharp.WebSocket
                     OnLevel2UpdateReceived?.Invoke(sender, new WebfeedEventArgs<Level2>(level2));
                     break;
                 case ResponseType.Heartbeat:
+                    var heartbeat = JsonConfig.DeserializeObject<Heartbeat>(json);
+                    OnHeartbeatReceived?.Invoke(sender, new WebfeedEventArgs<Heartbeat>(heartbeat));
                     break;
                 case ResponseType.Received:
+                    var received = JsonConfig.DeserializeObject<Received>(json);
+                    OnReceivedReceived?.Invoke(sender, new WebfeedEventArgs<Received>(received));
                     break;
                 case ResponseType.Open:
+                    var open = JsonConfig.DeserializeObject<Open>(json);
+                    OnOpenReceived?.Invoke(sender, new WebfeedEventArgs<Open>(open));
                     break;
                 case ResponseType.Done:
+                    var done = JsonConfig.DeserializeObject<Done>(json);
+                    OnDoneReceived?.Invoke(sender, new WebfeedEventArgs<Done>(done));
                     break;
                 case ResponseType.Match:
+                    var match = JsonConfig.DeserializeObject<Match>(json);
+                    OnMatchReceived?.Invoke(sender, new WebfeedEventArgs<Match>(match));
                     break;
                 case ResponseType.LastMatch:
+                    var lastMatch = JsonConfig.DeserializeObject<LastMatch>(json);
+                    OnLastMatchReceived?.Invoke(sender, new WebfeedEventArgs<LastMatch>(lastMatch));
                     break;
                 case ResponseType.Change:
+                    // Throw an error? Didn't receive anything with this response type
                     break;
                 case ResponseType.Activate:
+                    // Throw an error? Didn't receive anything with this response type
                     break;
                 case ResponseType.Error:
+                    var error = JsonConfig.DeserializeObject<Error>(json);
+                    OnErrorReceived?.Invoke(sender, new WebfeedEventArgs<Error>(error));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -208,5 +222,12 @@ namespace GDAXSharp.WebSocket
         public event EventHandler<WebfeedEventArgs<Ticker>> OnTickerReceived;
         public event EventHandler<WebfeedEventArgs<Snapshot>> OnSnapShotReceived;
         public event EventHandler<WebfeedEventArgs<Level2>> OnLevel2UpdateReceived;
+        public event EventHandler<WebfeedEventArgs<Heartbeat>> OnHeartbeatReceived;
+        public event EventHandler<WebfeedEventArgs<Received>> OnReceivedReceived;
+        public event EventHandler<WebfeedEventArgs<Open>> OnOpenReceived;
+        public event EventHandler<WebfeedEventArgs<Done>> OnDoneReceived;
+        public event EventHandler<WebfeedEventArgs<Match>> OnMatchReceived;
+        public event EventHandler<WebfeedEventArgs<LastMatch>> OnLastMatchReceived;
+        public event EventHandler<WebfeedEventArgs<Error>> OnErrorReceived;
     }
 }

@@ -1,11 +1,12 @@
 ﻿using GDAXSharp.Services.Orders.Types;
 using GDAXSharp.Shared.Types;
+using System;
 
 namespace GDAXSharp.WebSocket.Models.Response
 {
     public class Received : BaseMessage
     {
-        public string OrderId { get; set; }
+        public Guid OrderId { get; set; }
 
         public OrderType OrderType { get; set; }
 
@@ -15,7 +16,7 @@ namespace GDAXSharp.WebSocket.Models.Response
 
         public OrderSide Side { get; set; }
 
-        public string ClientOid { get; set; } // Should this be GUID? Format I saw was cb07245e-3670-40bc-bd83-6990fce769d3
+        public Guid ClientOid { get; set; }
 
         public ProductType ProductId { get; set; }
 

@@ -4,7 +4,7 @@ using System;
 
 namespace GDAXSharp.WebSocket.Models.Response
 {
-    public class LastMatch : BaseMessage
+    public class Match : BaseMessage
     {
         public long TradeId { get; set; }
 
