@@ -1,7 +1,7 @@
-﻿using System;
-using GDAXSharp.Shared.Types;
+﻿using GDAXSharp.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 
 namespace GDAXSharp.Services.Accounts.Models
 {
@@ -19,11 +19,5 @@ namespace GDAXSharp.Services.Accounts.Models
         public decimal Hold { get; set; }
 
         public decimal Available { get; set; }
-
-        public bool MarginEnabled { get; set; }
-
-        public decimal FundedAmount { get; set; }
-
-        public decimal DefaultAmount { get; set; }
     }
 }
