@@ -33,8 +33,8 @@ namespace GDAXSharp.WebSocket
 
         ~WebSocket()
         {
-            WebSocketFeed.Close();
-            WebSocketFeed.Dispose();
+            WebSocketFeed?.Close();
+            WebSocketFeed?.Dispose();
         }
 
         private bool StopWebSocket { get; set; }
