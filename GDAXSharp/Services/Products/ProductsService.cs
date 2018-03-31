@@ -34,7 +34,7 @@ namespace GDAXSharp.Services.Products
         }
 
         public async Task<ProductsOrderBookResponse> GetProductOrderBookAsync(
-			ProductType productId, 
+			ProductType productId,
 			ProductLevel productLevel = ProductLevel.One)
         {
             var productsOrderBookJsonResponse = await SendServiceCall<ProductsOrderBookJsonResponse>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/book/?level={(int) productLevel}").ConfigureAwait(false);
@@ -45,7 +45,7 @@ namespace GDAXSharp.Services.Products
 
         public async Task<ProductTicker> GetProductTickerAsync(ProductType productId)
         {
-            return await SendServiceCall<ProductTicker>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/ticker").ConfigureAwait(false); 
+            return await SendServiceCall<ProductTicker>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/ticker").ConfigureAwait(false);
         }
 
         public async Task<ProductStats> GetProductStatsAsync(ProductType productId)
@@ -64,9 +64,9 @@ namespace GDAXSharp.Services.Products
         }
 
         public async Task<IList<Candle>> GetHistoricRatesAsync(
-			ProductType productPair, 
-			DateTime start, 
-			DateTime end, 
+			ProductType productPair,
+			DateTime start,
+			DateTime end,
 			CandleGranularity granularity)
         {
             const int maxPeriods = 300;
@@ -97,9 +97,9 @@ namespace GDAXSharp.Services.Products
         }
 
         private async Task<IList<Candle>> GetHistoricRatesAsync(
-			ProductType productId, 
-			DateTime start, 
-			DateTime end, 
+			ProductType productId,
+			DateTime start,
+			DateTime end,
 			int granularity)
         {
             var isoStart = start.ToString("s");

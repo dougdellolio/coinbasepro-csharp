@@ -1,10 +1,11 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
+﻿using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Withdrawals.Models;
 using GDAXSharp.Services.Withdrawals.Models.Responses;
 using GDAXSharp.Shared.Types;
+using GDAXSharp.Shared.Utilities;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace GDAXSharp.Services.Withdrawals
 {
@@ -29,7 +30,7 @@ namespace GDAXSharp.Services.Withdrawals
                 PaymentMethodId = paymentMethodId
             };
 
-            return await SendServiceCall<WithdrawalResponse>(HttpMethod.Post, "/withdrawals/payment-method", SerializeObject(newWithdrawal)).ConfigureAwait(false);
+            return await SendServiceCall<WithdrawalResponse>(HttpMethod.Post, "/withdrawals/payment-method", JsonConfig.SerializeObject(newWithdrawal)).ConfigureAwait(false);
         }
 
         public async Task<CoinbaseResponse> WithdrawToCoinbaseAsync(
@@ -44,7 +45,7 @@ namespace GDAXSharp.Services.Withdrawals
                 CoinbaseAccountId = coinbaseAccountId
             };
 
-            return await SendServiceCall<CoinbaseResponse>(HttpMethod.Post, "/withdrawals/coinbase-account", SerializeObject(newCoinbaseWithdrawal)).ConfigureAwait(false);
+            return await SendServiceCall<CoinbaseResponse>(HttpMethod.Post, "/withdrawals/coinbase-account", JsonConfig.SerializeObject(newCoinbaseWithdrawal)).ConfigureAwait(false);
         }
 
         public async Task<CryptoResponse> WithdrawToCryptoAsync(
@@ -59,7 +60,7 @@ namespace GDAXSharp.Services.Withdrawals
                 CryptoAddress = cryptoAddress
             };
 
-            return await SendServiceCall<CryptoResponse>(HttpMethod.Post, "/withdrawals/crypto", SerializeObject(newCryptoWithdrawal)).ConfigureAwait(false);
+            return await SendServiceCall<CryptoResponse>(HttpMethod.Post, "/withdrawals/crypto", JsonConfig.SerializeObject(newCryptoWithdrawal)).ConfigureAwait(false);
         }
     }
 }

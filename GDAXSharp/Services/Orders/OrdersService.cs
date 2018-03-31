@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using GDAXSharp.Exceptions;
-using GDAXSharp.Network.HttpClient;
+﻿using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Orders.Models;
 using GDAXSharp.Services.Orders.Models.Responses;
 using GDAXSharp.Services.Orders.Types;
 using GDAXSharp.Shared.Types;
 using GDAXSharp.Shared.Utilities.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+using GDAXSharp.Shared.Utilities;
 
 namespace GDAXSharp.Services.Orders
 {
@@ -105,7 +103,7 @@ namespace GDAXSharp.Services.Orders
 
         private async Task<OrderResponse> PlaceOrderAsync(Order order)
         {
-            return await SendServiceCall<OrderResponse>(HttpMethod.Post, "/orders", SerializeObject(order)).ConfigureAwait(false);
+            return await SendServiceCall<OrderResponse>(HttpMethod.Post, "/orders", JsonConfig.SerializeObject(order)).ConfigureAwait(false);
         }
 
         public async Task<CancelOrderResponse> CancelAllOrdersAsync()
