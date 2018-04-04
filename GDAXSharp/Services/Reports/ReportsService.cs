@@ -1,12 +1,13 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
+﻿using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Reports.Models;
 using GDAXSharp.Services.Reports.Models.Responses;
 using GDAXSharp.Services.Reports.Types;
 using GDAXSharp.Shared.Types;
+using GDAXSharp.Shared.Utilities;
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace GDAXSharp.Services.Reports
 {
@@ -27,7 +28,7 @@ namespace GDAXSharp.Services.Reports
             string email = null,
             FileFormat fileFormat = FileFormat.Pdf)
         {
-            var newReport = SerializeObject(new Report
+            var newReport = JsonConfig.SerializeObject(new Report
             {
                 ReportType = ReportType.Account,
                 StartDate = startDate,
@@ -49,7 +50,7 @@ namespace GDAXSharp.Services.Reports
             string email = null,
             FileFormat fileFormat = FileFormat.Pdf)
         {
-            var newReport = SerializeObject(new Report
+            var newReport = JsonConfig.SerializeObject(new Report
             {
                 ReportType = ReportType.Fills,
                 StartDate = startDate,
