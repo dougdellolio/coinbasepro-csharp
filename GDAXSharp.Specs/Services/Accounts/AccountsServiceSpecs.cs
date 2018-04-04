@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
+﻿using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Services.Accounts;
 using GDAXSharp.Services.Accounts.Models;
 using GDAXSharp.Services.Accounts.Types;
@@ -12,6 +7,11 @@ using GDAXSharp.Specs.JsonFixtures.Network.HttpResponseMessage;
 using GDAXSharp.Specs.JsonFixtures.Services.Accounts;
 using Machine.Fakes;
 using Machine.Specifications;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace GDAXSharp.Specs.Services.Accounts
 {
@@ -43,7 +43,6 @@ namespace GDAXSharp.Specs.Services.Accounts
                 result.First().Balance.ShouldEqual(80.2301373066930000M);
                 result.First().Available.ShouldEqual(79.2266348066930000M);
                 result.First().Hold.ShouldEqual(1.0035025000000000M);
-                result.First().MarginEnabled.ShouldBeTrue();
                 result.First().ProfileId.ShouldEqual(new Guid("75da88c5-05bf-4f54-bc85-5c775bd68254"));
             };
         }
