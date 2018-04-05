@@ -25,7 +25,7 @@ namespace GDAXSharp.Services.Orders
             OrderSide side,
             ProductType productId,
             decimal size,
-            Guid clientOid = new Guid())
+            Guid? clientOid = null)
         {
             var order = new Order
             {
@@ -46,7 +46,7 @@ namespace GDAXSharp.Services.Orders
             decimal price,
             TimeInForce timeInForce = TimeInForce.Gtc,
             bool postOnly = true,
-            Guid clientOid = new Guid())
+            Guid? clientOid = null)
         {
             var order = new Order
             {
@@ -70,7 +70,7 @@ namespace GDAXSharp.Services.Orders
             decimal price,
             GoodTillTime cancelAfter,
             bool postOnly = true,
-            Guid clientOid = new Guid())
+            Guid? clientOid = null)
         {
             var order = new Order
             {
@@ -93,7 +93,7 @@ namespace GDAXSharp.Services.Orders
             ProductType productId,
             decimal size,
             decimal stopPrice,
-            Guid clientOid = new Guid())
+            Guid? clientOid = null)
         {
             var order = new Order
             {

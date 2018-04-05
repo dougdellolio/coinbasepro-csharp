@@ -8,7 +8,7 @@ namespace GDAXSharp.Services.Orders.Models
 {
     public class Order
     {
-        public Guid ClientOid { get; set; }
+        public Guid? ClientOid { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public OrderSide Side { get; set; }
