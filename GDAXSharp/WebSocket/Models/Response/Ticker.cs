@@ -1,4 +1,5 @@
 ﻿using GDAXSharp.Services.Orders.Types;
+using Newtonsoft.Json;
 using System;
 
 namespace GDAXSharp.WebSocket.Models.Response
@@ -11,14 +12,19 @@ namespace GDAXSharp.WebSocket.Models.Response
 
         public decimal Price { get; set; }
 
+        [JsonProperty("open_24h")]
         public decimal Open24H { get; set; }
 
+        [JsonProperty("volume_24h")]
         public decimal Volume24H { get; set; }
 
+        [JsonProperty("low_24h")]
         public decimal Low24H { get; set; }
 
+        [JsonProperty("high)24h")]
         public decimal High24H { get; set; }
 
+        [JsonProperty("volume_30d")]
         public decimal Volume30D { get; set; }
 
         public decimal BestBid { get; set; }
