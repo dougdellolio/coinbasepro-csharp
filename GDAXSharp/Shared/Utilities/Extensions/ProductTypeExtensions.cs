@@ -1,5 +1,5 @@
-﻿using System;
-using GDAXSharp.Shared.Types;
+﻿using GDAXSharp.Shared.Types;
+using System;
 
 namespace GDAXSharp.Shared.Utilities.Extensions
 {

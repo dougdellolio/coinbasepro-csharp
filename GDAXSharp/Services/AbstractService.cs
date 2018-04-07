@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using GDAXSharp.Exceptions;
 using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using GDAXSharp.Shared.Utilities;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace GDAXSharp.Services
 {
@@ -15,16 +14,6 @@ namespace GDAXSharp.Services
         private readonly IHttpRequestMessageService httpRequestMessageService;
 
         private readonly IHttpClient httpClient;
-
-        private JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings
-        {
-            FloatParseHandling = FloatParseHandling.Decimal,
-            NullValueHandling = NullValueHandling.Ignore,
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new SnakeCaseNamingStrategy()
-            }
-        };
 
         protected AbstractService(
             IHttpClient httpClient,
@@ -49,14 +38,14 @@ namespace GDAXSharp.Services
             {
                 return httpResponseMessage;
             }
-            
+
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
             string errorMessage;
 
             try
             {
-                var jsonMsg = DeserializeObject<GDAXErrorMessage>(contentBody);
+                var jsonMsg = JsonConfig.DeserializeObject<GDAXErrorMessage>(contentBody);
                 errorMessage = jsonMsg.Message;
             }
             catch
@@ -84,7 +73,7 @@ namespace GDAXSharp.Services
             var httpResponseMessage = await SendHttpRequestMessageAsync(httpMethod, uri, content);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
-            var firstPage = DeserializeObject<IList<T>>(contentBody);
+            var firstPage = JsonConfig.DeserializeObject<IList<T>>(contentBody);
 
             pagedList.Add(firstPage);
 
@@ -102,13 +91,13 @@ namespace GDAXSharp.Services
 
         private async Task<IList<IList<T>>> GetAllSubsequentPages<T>(
             string uri,
-            string firstPageAfterCursorId, 
+            string firstPageAfterCursorId,
             int numberOfPages)
         {
             var pagedList = new List<IList<T>>();
             var subsequentPageAfterHeaderId = firstPageAfterCursorId;
 
-            var runCount = numberOfPages == 0 
+            var runCount = numberOfPages == 0
                 ? int.MaxValue
                 : numberOfPages;
 
@@ -123,7 +112,7 @@ namespace GDAXSharp.Services
                 subsequentPageAfterHeaderId = cursorHeaders.First();
 
                 var subsequentContentBody = await httpClient.ReadAsStringAsync(subsequentHttpResponseMessage).ConfigureAwait(false);
-                var page = DeserializeObject<IList<T>>(subsequentContentBody);
+                var page = JsonConfig.DeserializeObject<IList<T>>(subsequentContentBody);
 
                 pagedList.Add(page);
 
@@ -141,17 +130,7 @@ namespace GDAXSharp.Services
             var httpResponseMessage = await SendHttpRequestMessageAsync(httpMethod, uri, content);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
-            return DeserializeObject<T>(contentBody);
-        }
-
-        protected string SerializeObject(object value)
-        {
-            return JsonConvert.SerializeObject(value, SerializerSettings);
-        }
-
-        private T DeserializeObject<T>(string contentBody)
-        {
-            return JsonConvert.DeserializeObject<T>(contentBody, SerializerSettings);
+            return JsonConfig.DeserializeObject<T>(contentBody);
         }
     }
 }

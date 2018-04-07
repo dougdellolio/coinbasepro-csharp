@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GDAXSharp.Shared.Utilities;
 
 namespace GDAXSharp.Services.Orders
 {
@@ -110,7 +111,7 @@ namespace GDAXSharp.Services.Orders
 
         private async Task<OrderResponse> PlaceOrderAsync(Order order)
         {
-            return await SendServiceCall<OrderResponse>(HttpMethod.Post, "/orders", SerializeObject(order)).ConfigureAwait(false);
+            return await SendServiceCall<OrderResponse>(HttpMethod.Post, "/orders", JsonConfig.SerializeObject(order)).ConfigureAwait(false);
         }
 
         public async Task<CancelOrderResponse> CancelAllOrdersAsync()
