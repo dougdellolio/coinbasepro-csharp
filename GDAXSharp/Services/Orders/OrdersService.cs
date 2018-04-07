@@ -25,14 +25,16 @@ namespace GDAXSharp.Services.Orders
         public async Task<OrderResponse> PlaceMarketOrderAsync(
             OrderSide side,
             ProductType productId,
-            decimal size)
+            decimal size,
+            Guid? clientOid = null)
         {
             var order = new Order
             {
                 Side = side,
                 ProductId = productId,
                 OrderType = OrderType.Market,
-                Size = size
+                Size = size,
+                ClientOid = clientOid
             };
 
             return await PlaceOrderAsync(order);
@@ -44,7 +46,8 @@ namespace GDAXSharp.Services.Orders
             decimal size,
             decimal price,
             TimeInForce timeInForce = TimeInForce.Gtc,
-            bool postOnly = true)
+            bool postOnly = true,
+            Guid? clientOid = null)
         {
             var order = new Order
             {
@@ -54,7 +57,8 @@ namespace GDAXSharp.Services.Orders
                 Price = price,
                 Size = size,
                 TimeInForce = timeInForce,
-                PostOnly = postOnly
+                PostOnly = postOnly,
+                ClientOid = clientOid
             };
 
             return await PlaceOrderAsync(order);
@@ -66,7 +70,8 @@ namespace GDAXSharp.Services.Orders
             decimal size,
             decimal price,
             GoodTillTime cancelAfter,
-            bool postOnly = true)
+            bool postOnly = true,
+            Guid? clientOid = null)
         {
             var order = new Order
             {
@@ -77,7 +82,8 @@ namespace GDAXSharp.Services.Orders
                 Size = size,
                 TimeInForce = TimeInForce.Gtt,
                 CancelAfter = cancelAfter,
-                PostOnly = postOnly
+                PostOnly = postOnly,
+                ClientOid = clientOid
             };
 
             return await PlaceOrderAsync(order);
@@ -87,7 +93,8 @@ namespace GDAXSharp.Services.Orders
             OrderSide side,
             ProductType productId,
             decimal size,
-            decimal stopPrice)
+            decimal stopPrice,
+            Guid? clientOid = null)
         {
             var order = new Order
             {
@@ -95,7 +102,8 @@ namespace GDAXSharp.Services.Orders
                 ProductId = productId,
                 OrderType = OrderType.Stop,
                 Price = stopPrice,
-                Size = size
+                Size = size,
+                ClientOid = clientOid
             };
 
             return await PlaceOrderAsync(order);
