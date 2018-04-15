@@ -81,8 +81,8 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 ###### User Account ######
 - GetTrailingVolumeAsync() - get 30-day trailing volume for all products
 
-<h1>WebSocket Feed support</h1>
-<h2>How to use?</h2>
+<h1>WebSocket Feed</h1>
+<h2>How to use</h2>
 
 ````
 //create an authenticator with your apiKey, apiSecret and passphrase
@@ -95,7 +95,7 @@ var gdaxClient = new GDAXSharp.GDAXClient(authenticator);
 var productTypes = new List<ProductType>() { ProductType.BtcEur, ProductType.BtcUsd };
 var channels = new List<ChannelType>() {ChannelType.Full, ChannelType.User} // When not providing any channels, the socket will subscribe to all channels
 
-var webSocket = gdax.WebSocket;
+var webSocket = gdaxClient.WebSocket;
 webSocket.Start(productTypes, channels);
 
 // EventHandler for the heartbeat response type

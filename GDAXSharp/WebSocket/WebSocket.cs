@@ -50,7 +50,7 @@ namespace GDAXSharp.WebSocket
             if (WebSocketFeed != null && WebSocketFeed.State != WebSocketState.Closed)
             {
                 throw new GDAXSharpHttpException(
-                    $"Websocket needs to be in the closed state, current state is {WebSocketFeed.State}");
+                    $"Websocket needs to be in the closed state. The current state is {WebSocketFeed.State}");
             }
 
             if (productTypes.Count == 0)
@@ -79,22 +79,27 @@ namespace GDAXSharp.WebSocket
         {
             if (WebSocketFeed == null || WebSocketFeed.State != WebSocketState.Open)
             {
-                throw new GDAXSharpWebSocketException($"Websocket needs to be in the opened state, current state is {WebSocketFeed.State}")
-                {
-                    WebSocket = WebSocketFeed,
-                    StatusCode = WebSocketFeed.State,
-                    ErrorEvent = null
-                };
+                if (WebSocketFeed != null)
+                    throw new GDAXSharpWebSocketException(
+                        $"Websocket needs to be in the opened state. The current state is {WebSocketFeed.State}")
+                    {
+                        WebSocket = WebSocketFeed,
+                        StatusCode = WebSocketFeed.State,
+                        ErrorEvent = null
+                    };
             }
 
             if (StopWebSocket)
             {
-                throw new GDAXSharpWebSocketException("Websocket can't be stopped")
+                if (WebSocketFeed != null)
                 {
-                    WebSocket = WebSocketFeed,
-                    StatusCode = WebSocketFeed.State,
-                    ErrorEvent = null
-                };
+                    throw new GDAXSharpWebSocketException("Websocket can't be stopped")
+                    {
+                        WebSocket = WebSocketFeed,
+                        StatusCode = WebSocketFeed.State,
+                        ErrorEvent = null
+                    };
+                }
             }
 
             StopWebSocket = true;
@@ -201,13 +206,15 @@ namespace GDAXSharp.WebSocket
                 WebSocket = WebSocketFeed,
                 StatusCode = WebSocketFeed.State,
                 ErrorEvent = e
-
             };
         }
 
         private void WebSocket_Closed(object sender, EventArgs e)
         {
-            if (WebSocketFeed.State != WebSocketState.Closed || StopWebSocket) return;
+            if (WebSocketFeed.State != WebSocketState.Closed || StopWebSocket)
+            {
+                return;
+            }
 
             WebSocketFeed.Dispose();
             Start(ProductTypes, ChannelTypes);
