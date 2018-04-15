@@ -82,7 +82,7 @@ namespace GDAXSharp.WebSocket
             webSocketFeed.Open(webSocket);
         }
 
-        private void WebSocket_Opened(object sender, EventArgs e)
+        public void WebSocket_Opened(object sender, EventArgs e)
         {
             var channels = GetChannels();
 
