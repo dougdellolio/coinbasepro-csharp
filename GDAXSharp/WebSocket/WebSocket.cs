@@ -17,117 +17,80 @@ using WebSocket4Net;
 
 namespace GDAXSharp.WebSocket
 {
-    public class WebSocket : AbstractRequest, IWebSocket
+    public class WebSocket : AbstractRequest
     {
+        private readonly IWebSocketFeed webSocketFeed;
+
+        private readonly WebSocket4Net.WebSocket webSocket;
+
+        private bool stopWebSocket;
+
+        private List<ProductType> productTypes;
+
+        private List<ChannelType> channelTypes;
+
         private const string ApiUri = "wss://ws-feed.gdax.com";
 
         private const string SandBoxApiUri = "wss://ws-feed-public.sandbox.gdax.com";
 
-        internal WebSocket(
+        public WebSocket(
+            IWebSocketFeed webSocketFeed,
             IAuthenticator authenticator,
             IClock clock,
             bool sandBox = false)
                 : base(authenticator, clock, sandBox)
         {
-        }
-
-        ~WebSocket()
-        {
-            WebSocketFeed?.Close();
-            WebSocketFeed?.Dispose();
-        }
-
-        private bool StopWebSocket { get; set; }
-
-        private List<ProductType> ProductTypes { get; set; }
-
-        private List<ChannelType> ChannelTypes { get; set; }
-
-        private WebSocket4Net.WebSocket WebSocketFeed { get; set; }
-
-        public void Start(List<ProductType> productTypes, List<ChannelType> channelTypes = null)
-        {
-            if (WebSocketFeed != null && WebSocketFeed.State != WebSocketState.Closed)
-            {
-                throw new GDAXSharpHttpException(
-                    $"Websocket needs to be in the closed state. The current state is {WebSocketFeed.State}");
-            }
-
-            if (productTypes.Count == 0)
-            {
-                throw new ArgumentException("You must specify at least one product type");
-            }
-
-            StopWebSocket = false;
-
-            ProductTypes = productTypes;
-            ChannelTypes = channelTypes;
+            this.webSocketFeed = webSocketFeed;
 
             var socketUrl = SandBox
                 ? SandBoxApiUri
                 : ApiUri;
 
-            WebSocketFeed = new WebSocket4Net.WebSocket(socketUrl);
-            WebSocketFeed.Closed += WebSocket_Closed;
-            WebSocketFeed.Error += WebSocket_Error;
-            WebSocketFeed.MessageReceived += WebSocket_MessageReceived;
-            WebSocketFeed.Opened += WebSocket_Opened;
-            WebSocketFeed.Open();
+            webSocket = webSocketFeed.Create(socketUrl);
         }
 
-        public void Stop()
+        ~WebSocket()
         {
-            if (WebSocketFeed == null || WebSocketFeed.State != WebSocketState.Open)
+            webSocketFeed?.Close(webSocket);
+            webSocketFeed?.Dispose(webSocket);
+        }
+
+        public void Start(
+            List<ProductType> providedProductTypes, 
+            List<ChannelType> providedChannelTypes = null)
+        {
+            if (webSocket != null && webSocket.State != WebSocketState.Closed)
             {
-                if (WebSocketFeed != null)
-                    throw new GDAXSharpWebSocketException(
-                        $"Websocket needs to be in the opened state. The current state is {WebSocketFeed.State}")
-                    {
-                        WebSocket = WebSocketFeed,
-                        StatusCode = WebSocketFeed.State,
-                        ErrorEvent = null
-                    };
+                throw new GDAXSharpHttpException(
+                    $"Websocket needs to be in the closed state. The current state is {webSocket.State}");
             }
 
-            if (StopWebSocket)
+            if (providedProductTypes.Count == 0)
             {
-                if (WebSocketFeed != null)
-                {
-                    throw new GDAXSharpWebSocketException("Websocket can't be stopped")
-                    {
-                        WebSocket = WebSocketFeed,
-                        StatusCode = WebSocketFeed.State,
-                        ErrorEvent = null
-                    };
-                }
+                throw new ArgumentException("You must specify at least one product type");
             }
 
-            StopWebSocket = true;
+            stopWebSocket = false;
+
+            productTypes = providedProductTypes;
+            channelTypes = providedChannelTypes;
+
+            webSocketFeed.Closed += WebSocket_Closed;
+            webSocketFeed.Error += WebSocket_Error;
+            webSocketFeed.MessageReceived += WebSocket_MessageReceived;
+            webSocketFeed.Opened += WebSocket_Opened;
+            webSocketFeed.Open(webSocket);
         }
 
         private void WebSocket_Opened(object sender, EventArgs e)
         {
-            var channels = new List<Channel>();
-            if (ChannelTypes == null || ChannelTypes.Count == 0)
-            {
-                foreach (ChannelType channelType in Enum.GetValues(typeof(ChannelType)))
-                {
-                    channels.Add(new Channel(channelType, ProductTypes));
-                }
-            }
-            else
-            {
-                foreach (var channelType in ChannelTypes)
-                {
-                    channels.Add(new Channel(channelType, ProductTypes));
-                }
-            }
+            var channels = GetChannels();
 
             var timeStamp = Clock.GetTime().ToTimeStamp();
             var json = JsonConfig.SerializeObject(new TickerChannel
             {
                 Type = ActionType.Subscribe,
-                ProductIds = ProductTypes,
+                ProductIds = productTypes,
                 Channels = channels,
                 Timestamp = timeStamp.ToString("F0", CultureInfo.InvariantCulture),
                 Key = Authenticator.ApiKey,
@@ -136,14 +99,35 @@ namespace GDAXSharp.WebSocket
                     "/users/self/verify", null)
             });
 
-            WebSocketFeed.Send(json);
+            webSocketFeed.Send(webSocket, json);
+        }
+
+        private List<Channel> GetChannels()
+        {
+            var channels = new List<Channel>();
+            if (channelTypes == null || channelTypes.Count == 0)
+            {
+                foreach (ChannelType channelType in Enum.GetValues(typeof(ChannelType)))
+                {
+                    channels.Add(new Channel(channelType, productTypes));
+                }
+            }
+            else
+            {
+                foreach (var channelType in channelTypes)
+                {
+                    channels.Add(new Channel(channelType, productTypes));
+                }
+            }
+
+            return channels;
         }
 
         private void WebSocket_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
-            if (StopWebSocket)
+            if (stopWebSocket)
             {
-                WebSocketFeed.Close();
+                webSocketFeed.Close(webSocket);
                 return;
             }
 
@@ -203,21 +187,21 @@ namespace GDAXSharp.WebSocket
         {
             throw new GDAXSharpWebSocketException($"WebSocket Feed Error: {e.Exception.Message}")
             {
-                WebSocket = WebSocketFeed,
-                StatusCode = WebSocketFeed.State,
+                WebSocket = webSocket,
+                StatusCode = webSocket.State,
                 ErrorEvent = e
             };
         }
 
         private void WebSocket_Closed(object sender, EventArgs e)
         {
-            if (WebSocketFeed.State != WebSocketState.Closed || StopWebSocket)
+            if (webSocket.State != WebSocketState.Closed || stopWebSocket)
             {
                 return;
             }
 
-            WebSocketFeed.Dispose();
-            Start(ProductTypes, ChannelTypes);
+            webSocketFeed.Dispose(webSocket);
+            Start(productTypes, channelTypes);
         }
 
         public event EventHandler<WebfeedEventArgs<Ticker>> OnTickerReceived;

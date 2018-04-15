@@ -99,10 +99,11 @@
     <Compile Include="WebSocket\Models\Response\Open.cs" />
     <Compile Include="WebSocket\Models\Response\Received.cs" />
     <Compile Include="WebSocket\Models\Response\Subscription.cs" />
+    <Compile Include="WebSocket\WebSocketFeed.cs" />
     <Compile Include="WebSocket\Types\ActionType.cs" />
     <Compile Include="WebSocket\Types\DoneReasonType.cs" />
     <Compile Include="WebSocket\Types\ResponseType.cs" />
-    <Compile Include="WebSocket\IWebSocket.cs" />
+    <Compile Include="WebSocket\IWebSocketFeed.cs" />
     <Compile Include="WebSocket\Models\Request\TickerChannel.cs" />
     <Compile Include="WebSocket\Models\Response\BaseMessage.cs" />
     <Compile Include="WebSocket\Models\Response\Level2.cs" />
