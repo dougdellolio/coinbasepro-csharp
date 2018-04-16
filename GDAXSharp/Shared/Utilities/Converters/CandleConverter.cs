@@ -21,10 +21,10 @@ namespace GDAXSharp.Shared.Utilities.Converters
             return new Candle
             {
                 Time = UnixEpoch.AddSeconds((long)jarray.ElementAt(0)),
-                Low = (decimal)jarray.ElementAt(1),
-                High = (decimal)jarray.ElementAt(2),
-                Open = (decimal)jarray.ElementAt(3),
-                Close = (decimal)jarray.ElementAt(4),
+                Low = (decimal?)jarray.ElementAt(1),
+                High = (decimal?)jarray.ElementAt(2),
+                Open = (decimal?)jarray.ElementAt(3),
+                Close = (decimal?)jarray.ElementAt(4),
                 Volume = (decimal)jarray.ElementAt(5)
             };
         }
