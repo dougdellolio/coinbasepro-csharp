@@ -1,5 +1,6 @@
 ﻿using System;
 using GDAXSharp.Exceptions;
+using GDAXSharp.Shared;
 using WebSocket4Net;
 using SuperSocket.ClientEngine;
 
@@ -7,12 +8,20 @@ namespace GDAXSharp.WebSocket
 {
     public class WebSocketFeed : IWebSocketFeed
     {
-        public WebSocket4Net.WebSocket Create(string socketUrl)
+        private readonly WebSocket4Net.WebSocket webSocketFeed;
+
+        public WebSocketFeed(bool sandBox)
         {
-            return new WebSocket4Net.WebSocket(socketUrl);
+            var socketUrl = sandBox
+                ? ApiUris.WebsocketUriSandbox
+                : ApiUris.WebsocketUri;
+
+            webSocketFeed = new WebSocket4Net.WebSocket(socketUrl);
         }
 
-        public void Stop(WebSocket4Net.WebSocket webSocketFeed)
+        public WebSocketState State => webSocketFeed.State;
+
+        public void Stop()
         {
             if (webSocketFeed == null || webSocketFeed.State != WebSocketState.Open)
             {
@@ -21,7 +30,7 @@ namespace GDAXSharp.WebSocket
                     throw new GDAXSharpWebSocketException(
                         $"Websocket needs to be in the opened state. The current state is {webSocketFeed.State}")
                     {
-                        WebSocket = webSocketFeed,
+                        WebSocketFeed = this,
                         StatusCode = webSocketFeed.State,
                         ErrorEvent = null
                     };
@@ -32,7 +41,7 @@ namespace GDAXSharp.WebSocket
             {
                 throw new GDAXSharpWebSocketException("Websocket can't be stopped")
                 {
-                    WebSocket = webSocketFeed,
+                    WebSocketFeed = this,
                     StatusCode = webSocketFeed.State,
                     ErrorEvent = null
                 };
@@ -41,31 +50,40 @@ namespace GDAXSharp.WebSocket
             webSocketFeed.Close();
         }
 
-        public void Close(WebSocket4Net.WebSocket webSocket)
+        public void Close()
         {
-            webSocket.Close();
+            webSocketFeed.Close();
         }
 
-        public void Dispose(WebSocket4Net.WebSocket webSocket)
+        public void Dispose()
         {
-            webSocket.Dispose();
+            webSocketFeed.Dispose();
         }
 
-
-        public void Send(WebSocket4Net.WebSocket webSocket, string json)
+        public void Send(string json)
         {
-            webSocket.Send(json);
+            webSocketFeed.Send(json);
         }
 
-        public void Open(WebSocket4Net.WebSocket webSocket)
+        public void Open()
         {
-            webSocket.Open();
+            webSocketFeed.Open();
+        }
+
+        public void SetEvents()
+        {
+            webSocketFeed.MessageReceived += MessageReceived;
+            webSocketFeed.Closed += Closed;
+            webSocketFeed.Error += Error;
+            webSocketFeed.Opened += Opened;
         }
 
         public event EventHandler<ErrorEventArgs> Error;
-        public event EventHandler<DataReceivedEventArgs> DataReceived;
+
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
+
         public event EventHandler Closed;
+
         public event EventHandler Opened;
     }
 }

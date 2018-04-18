@@ -6,21 +6,21 @@ namespace GDAXSharp.WebSocket
 {
     public interface IWebSocketFeed
     {
-        WebSocket4Net.WebSocket Create(string socketUrl);
+        WebSocketState State { get; }
 
-        void Stop(WebSocket4Net.WebSocket webSocket);
+        void Stop();
 
-        void Close(WebSocket4Net.WebSocket webSocket);
+        void Close();
 
-        void Dispose(WebSocket4Net.WebSocket webSocket);
+        void Dispose();
 
-        void Send(WebSocket4Net.WebSocket webSocket, string json);
+        void Send(string json);
 
-        void Open(WebSocket4Net.WebSocket webSocket);
+        void Open();
+
+        void SetEvents();
 
         event EventHandler<ErrorEventArgs> Error;
-
-        event EventHandler<DataReceivedEventArgs> DataReceived;
 
         event EventHandler<MessageReceivedEventArgs> MessageReceived;
 
