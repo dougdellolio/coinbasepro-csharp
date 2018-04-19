@@ -24,31 +24,7 @@ namespace GDAXSharp.WebSocket
 
         public void Stop()
         {
-            if (webSocketFeed == null || webSocketFeed.State != WebSocketState.Open)
-            {
-                if (webSocketFeed != null)
-                {
-                    throw new GDAXSharpWebSocketException(
-                        $"Websocket needs to be in the opened state. The current state is {webSocketFeed.State}")
-                    {
-                        WebSocketFeed = this,
-                        StatusCode = webSocketFeed.State,
-                        ErrorEvent = null
-                    };
-                }
-            }
-
-            if (webSocketFeed != null)
-            {
-                throw new GDAXSharpWebSocketException("Websocket can't be stopped")
-                {
-                    WebSocketFeed = this,
-                    StatusCode = webSocketFeed.State,
-                    ErrorEvent = null
-                };
-            }
-
-            webSocketFeed.Close();
+            Close();
         }
 
         public void Close()
@@ -69,17 +45,17 @@ namespace GDAXSharp.WebSocket
         public void Open()
         {
             webSocketFeed.Open();
-        }
 
-        public void SetEvents()
-        {
             webSocketFeed.MessageReceived += MessageReceived;
             webSocketFeed.Closed += Closed;
             webSocketFeed.Error += Error;
             webSocketFeed.Opened += Opened;
         }
 
-        public void Invoke<T>(EventHandler<WebfeedEventArgs<T>> onReceived, object sender, WebfeedEventArgs<T> webfeedEventArgs)
+        public void Invoke<T>(
+            EventHandler<WebfeedEventArgs<T>> onReceived,
+            object sender,
+            WebfeedEventArgs<T> webfeedEventArgs)
         {
             onReceived?.Invoke(sender, webfeedEventArgs);
         }

@@ -19,8 +19,6 @@ namespace GDAXSharp.WebSocket
 
         void Open();
 
-        void SetEvents();
-
         event EventHandler Closed;
 
         event EventHandler Opened;
@@ -33,6 +31,5 @@ namespace GDAXSharp.WebSocket
             EventHandler<WebfeedEventArgs<T>> onReceived,
             object sender, 
             WebfeedEventArgs<T> webfeedEventArgs);
-
     }
 }

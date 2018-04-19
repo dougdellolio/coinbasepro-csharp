@@ -85,23 +85,46 @@ namespace GDAXSharp.Specs.WebSocket
                     websocket_feed.Raise(e => e.Opened += null, EventArgs.Empty);
                 };
 
-                It should_have_opened_the_feed = () =>
+                It should_have_called_send = () =>
                     The<IWebSocketFeed>().
                         WasToldTo(p => p.Send(Param.IsAny<string>()));
             }
 
             class when_closed_is_called
             {
-                Because of = () =>
+                class with_websocket_state_open
                 {
-                    Subject.Start(product_type_inputs, channel_type_inputs);
+                    Establish context = () =>
+                        The<IWebSocketFeed>().WhenToldTo(p => p.State).Return(WebSocketState.Open);
 
-                    websocket_feed.Raise(e => e.Closed += null, EventArgs.Empty);
-                };
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, channel_type_inputs);
 
-                It should_have_opened_the_feed = () =>
-                    The<IWebSocketFeed>().
-                        WasToldTo(p => p.Dispose());
+                        websocket_feed.Raise(e => e.Closed += null, EventArgs.Empty);
+                    };
+
+                    It should_not_have_called_dispose = () =>
+                        The<IWebSocketFeed>().
+                            WasNotToldTo(p => p.Dispose());
+                }
+
+                class with_websocket_state_in_non_open_state
+                {
+                    Establish context = () =>
+                        The<IWebSocketFeed>().WhenToldTo(p => p.State).Return(WebSocketState.Closed);
+
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, channel_type_inputs);
+
+                        websocket_feed.Raise(e => e.Closed += null, EventArgs.Empty);
+                    };
+
+                    It should_have_called_dispose = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Dispose());
+                }
             }
 
             class when_message_received_is_called

@@ -30,6 +30,8 @@ namespace GDAXSharp.WebSocket
 
         private List<ChannelType> channelTypes;
 
+        public WebSocketState State => webSocketFeed.State;
+
         public WebSocket(
             IWebSocketFeed webSocketFeed,
             IAuthenticator authenticator,
@@ -64,8 +66,23 @@ namespace GDAXSharp.WebSocket
             webSocketFeed.Error += WebSocket_Error;
             webSocketFeed.MessageReceived += WebSocket_MessageReceived;
             webSocketFeed.Opened += WebSocket_Opened;
-            webSocketFeed.SetEvents();
             webSocketFeed.Open();
+        }
+
+        public void Stop()
+        {
+            if (webSocketFeed.State != WebSocketState.Open)
+            {
+                throw new GDAXSharpWebSocketException(
+                    $"Websocket needs to be in the opened state. The current state is {webSocketFeed.State}")
+                {
+                    WebSocketFeed = webSocketFeed,
+                    StatusCode = webSocketFeed.State,
+                    ErrorEvent = null
+                };
+            }
+
+            stopWebSocket = true;
         }
 
         public void WebSocket_Opened(object sender, EventArgs e)
@@ -91,27 +108,6 @@ namespace GDAXSharp.WebSocket
             });
 
             webSocketFeed.Send(json);
-        }
-
-        private List<Channel> GetChannels()
-        {
-            var channels = new List<Channel>();
-            if (channelTypes == null || channelTypes.Count == 0)
-            {
-                foreach (ChannelType channelType in Enum.GetValues(typeof(ChannelType)))
-                {
-                    channels.Add(new Channel(channelType, productTypes));
-                }
-            }
-            else
-            {
-                foreach (var channelType in channelTypes)
-                {
-                    channels.Add(new Channel(channelType, productTypes));
-                }
-            }
-
-            return channels;
         }
 
         public void WebSocket_MessageReceived(object sender, MessageReceivedEventArgs e)
@@ -188,8 +184,34 @@ namespace GDAXSharp.WebSocket
 
         public void WebSocket_Closed(object sender, EventArgs e)
         {
+            if (webSocketFeed.State != WebSocketState.Closed || stopWebSocket)
+            {
+                return;
+            }
+
             webSocketFeed.Dispose();
             Start(productTypes, channelTypes);
+        }
+
+        private List<Channel> GetChannels()
+        {
+            var channels = new List<Channel>();
+            if (channelTypes == null || channelTypes.Count == 0)
+            {
+                foreach (ChannelType channelType in Enum.GetValues(typeof(ChannelType)))
+                {
+                    channels.Add(new Channel(channelType, productTypes));
+                }
+            }
+            else
+            {
+                foreach (var channelType in channelTypes)
+                {
+                    channels.Add(new Channel(channelType, productTypes));
+                }
+            }
+
+            return channels;
         }
 
         public event EventHandler<WebfeedEventArgs<Ticker>> OnTickerReceived;
