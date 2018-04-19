@@ -128,6 +128,7 @@
     <Compile Include="JsonFixtures\Services\Products\ProductTradesFixture.cs" />
     <Compile Include="JsonFixtures\Services\Reports\ReportResponseFixture.cs" />
     <Compile Include="JsonFixtures\Services\UserAccount\TrailingVolumeFixture.cs" />
+    <Compile Include="JsonFixtures\Websocket\WebSocketTypeResponseFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\CoinbaseWithdrawalResponseFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\CryptoWithdrawalResponseFixture.cs" />
     <Compile Include="JsonFixtures\Withdrawals\WithdrawalsResponseFixture.cs" />

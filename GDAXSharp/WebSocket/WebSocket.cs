@@ -47,7 +47,7 @@ namespace GDAXSharp.WebSocket
         }
 
         public void Start(
-            List<ProductType> providedProductTypes, 
+            List<ProductType> providedProductTypes,
             List<ChannelType> providedChannelTypes = null)
         {
             if (providedProductTypes.Count == 0)
@@ -128,46 +128,48 @@ namespace GDAXSharp.WebSocket
             switch (response.Type)
             {
                 case ResponseType.Subscriptions:
+                    var subscription = JsonConfig.DeserializeObject<Subscription>(json);
+                    webSocketFeed.Invoke(OnSubscriptionReceived, sender, new WebfeedEventArgs<Subscription>(subscription));
                     break;
                 case ResponseType.Ticker:
                     var ticker = JsonConfig.DeserializeObject<Ticker>(json);
-                    OnTickerReceived?.Invoke(sender, new WebfeedEventArgs<Ticker>(ticker));
+                    webSocketFeed.Invoke(OnTickerReceived, sender, new WebfeedEventArgs<Ticker>(ticker));
                     break;
                 case ResponseType.Snapshot:
                     var snapshot = JsonConfig.DeserializeObject<Snapshot>(json);
-                    OnSnapShotReceived?.Invoke(sender, new WebfeedEventArgs<Snapshot>(snapshot));
+                    webSocketFeed.Invoke(OnSnapShotReceived, sender, new WebfeedEventArgs<Snapshot>(snapshot));
                     break;
                 case ResponseType.L2Update:
                     var level2 = JsonConfig.DeserializeObject<Level2>(json);
-                    OnLevel2UpdateReceived?.Invoke(sender, new WebfeedEventArgs<Level2>(level2));
+                    webSocketFeed.Invoke(OnLevel2UpdateReceived, sender, new WebfeedEventArgs<Level2>(level2));
                     break;
                 case ResponseType.Heartbeat:
                     var heartbeat = JsonConfig.DeserializeObject<Heartbeat>(json);
-                    OnHeartbeatReceived?.Invoke(sender, new WebfeedEventArgs<Heartbeat>(heartbeat));
+                    webSocketFeed.Invoke(OnHeartbeatReceived, sender, new WebfeedEventArgs<Heartbeat>(heartbeat));
                     break;
                 case ResponseType.Received:
                     var received = JsonConfig.DeserializeObject<Received>(json);
-                    OnReceivedReceived?.Invoke(sender, new WebfeedEventArgs<Received>(received));
+                    webSocketFeed.Invoke(OnReceivedReceived, sender, new WebfeedEventArgs<Received>(received));
                     break;
                 case ResponseType.Open:
                     var open = JsonConfig.DeserializeObject<Open>(json);
-                    OnOpenReceived?.Invoke(sender, new WebfeedEventArgs<Open>(open));
+                    webSocketFeed.Invoke(OnOpenReceived, sender, new WebfeedEventArgs<Open>(open));
                     break;
                 case ResponseType.Done:
                     var done = JsonConfig.DeserializeObject<Done>(json);
-                    OnDoneReceived?.Invoke(sender, new WebfeedEventArgs<Done>(done));
+                    webSocketFeed.Invoke(OnDoneReceived, sender, new WebfeedEventArgs<Done>(done));
                     break;
                 case ResponseType.Match:
                     var match = JsonConfig.DeserializeObject<Match>(json);
-                    OnMatchReceived?.Invoke(sender, new WebfeedEventArgs<Match>(match));
+                    webSocketFeed.Invoke(OnMatchReceived, sender, new WebfeedEventArgs<Match>(match));
                     break;
                 case ResponseType.LastMatch:
                     var lastMatch = JsonConfig.DeserializeObject<LastMatch>(json);
-                    OnLastMatchReceived?.Invoke(sender, new WebfeedEventArgs<LastMatch>(lastMatch));
+                    webSocketFeed.Invoke(OnLastMatchReceived, sender, new WebfeedEventArgs<LastMatch>(lastMatch));
                     break;
                 case ResponseType.Error:
                     var error = JsonConfig.DeserializeObject<Error>(json);
-                    OnErrorReceived?.Invoke(sender, new WebfeedEventArgs<Error>(error));
+                    webSocketFeed.Invoke(OnErrorReceived, sender, new WebfeedEventArgs<Error>(error));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -191,6 +193,7 @@ namespace GDAXSharp.WebSocket
         }
 
         public event EventHandler<WebfeedEventArgs<Ticker>> OnTickerReceived;
+        public event EventHandler<WebfeedEventArgs<Subscription>> OnSubscriptionReceived;
         public event EventHandler<WebfeedEventArgs<Snapshot>> OnSnapShotReceived;
         public event EventHandler<WebfeedEventArgs<Level2>> OnLevel2UpdateReceived;
         public event EventHandler<WebfeedEventArgs<Heartbeat>> OnHeartbeatReceived;

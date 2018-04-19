@@ -1,4 +1,5 @@
 ﻿using System;
+using GDAXSharp.WebSocket.Models.Response;
 using SuperSocket.ClientEngine;
 using WebSocket4Net;
 
@@ -20,12 +21,18 @@ namespace GDAXSharp.WebSocket
 
         void SetEvents();
 
+        event EventHandler Closed;
+
+        event EventHandler Opened;
+
         event EventHandler<ErrorEventArgs> Error;
 
         event EventHandler<MessageReceivedEventArgs> MessageReceived;
 
-        event EventHandler Closed;
+        void Invoke<T>(
+            EventHandler<WebfeedEventArgs<T>> onReceived,
+            object sender, 
+            WebfeedEventArgs<T> webfeedEventArgs);
 
-        event EventHandler Opened;
     }
 }

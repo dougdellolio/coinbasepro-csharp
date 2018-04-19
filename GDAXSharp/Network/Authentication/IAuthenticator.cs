@@ -10,8 +10,12 @@ namespace GDAXSharp.Network.Authentication
 
         string Passphrase { get; }
 
-        string ComputeSignature
-            (HttpMethod httpMethod, string secret, double timestamp, string requestUri, string contentBody = "");
+        string ComputeSignature(
+            HttpMethod httpMethod, 
+            string secret, 
+            double timestamp, 
+            string requestUri, 
+            string contentBody = "");
 
         string HashString(string str, byte[] secret);
 

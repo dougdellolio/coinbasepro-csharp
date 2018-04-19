@@ -24,8 +24,12 @@ namespace GDAXSharp.Network.Authentication
 
         public string Passphrase { get; }
 
-        public string ComputeSignature
-            (HttpMethod httpMethod, string secret, double timestamp, string requestUri, string contentBody = "")
+        public string ComputeSignature(
+            HttpMethod httpMethod, 
+            string secret, 
+            double timestamp, 
+            string requestUri, 
+            string contentBody = "")
         {
             var convertedString = Convert.FromBase64String(secret);
             var prehash = timestamp.ToString("F0", CultureInfo.InvariantCulture) + httpMethod.ToString().ToUpper() + requestUri + contentBody;

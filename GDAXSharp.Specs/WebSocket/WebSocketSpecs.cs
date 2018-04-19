@@ -7,7 +7,10 @@ using Machine.Specifications;
 using System;
 using System.Net.Http;
 using GDAXSharp.Network.Authentication;
+using GDAXSharp.Specs.JsonFixtures.Websocket;
+using GDAXSharp.WebSocket.Models.Response;
 using Moq;
+using WebSocket4Net;
 using It = Machine.Specifications.It;
 
 namespace GDAXSharp.Specs.WebSocket
@@ -99,6 +102,122 @@ namespace GDAXSharp.Specs.WebSocket
                 It should_have_opened_the_feed = () =>
                     The<IWebSocketFeed>().
                         WasToldTo(p => p.Dispose());
+            }
+
+            class when_message_received_is_called
+            {
+                class when_response_type_is_snapshot
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, channel_type_inputs);
+
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateSnapshotResponse()));
+                    };
+
+                    It should_have_invoked_snapshot_response = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Snapshot>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Snapshot>>()));
+                }
+
+                class when_response_type_is_subscription
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, channel_type_inputs);
+
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateSubscriptionResponse()));
+                    };
+
+                    It should_have_invoked_subscription_response = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Subscription>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Subscription>>()));
+                }
+
+                class when_response_type_is_ticker
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, channel_type_inputs);
+
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateTickerResponse()));
+                    };
+
+                    It should_have_invoked_ticker_response = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Ticker>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Ticker>>()));
+                }
+
+                class when_response_type_is_l2update
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, channel_type_inputs);
+
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateLevel2Response()));
+                    };
+
+                    It should_have_invoked_l2_response = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Level2>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Level2>>()));
+                }
+
+                class when_response_type_is_heartbeat
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, channel_type_inputs);
+
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateHeartbeatResponse()));
+                    };
+
+                    It should_have_invoked_heartbeat_response = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Heartbeat>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Heartbeat>>()));
+
+                }
+
+                class when_response_type_is_received
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, channel_type_inputs);
+
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateReceivedResponse()));
+                    };
+
+                    It should_have_invoked_received_response = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Received>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Received>>()));
+                }
+
+                class when_response_type_is_open
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, channel_type_inputs);
+
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateOpenResponse()));
+                    };
+
+                    It should_have_invoked_open_response = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Open>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Open>>()));
+                }
+
+                class when_response_type_is_done
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, channel_type_inputs);
+
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateDoneResponse()));
+                    };
+
+                    It should_have_invoked_done_response = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Done>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Done>>()));
+                }
             }
         }
     }

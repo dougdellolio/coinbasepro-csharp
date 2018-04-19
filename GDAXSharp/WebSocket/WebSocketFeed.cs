@@ -1,6 +1,7 @@
 ﻿using System;
 using GDAXSharp.Exceptions;
 using GDAXSharp.Shared;
+using GDAXSharp.WebSocket.Models.Response;
 using WebSocket4Net;
 using SuperSocket.ClientEngine;
 
@@ -78,12 +79,14 @@ namespace GDAXSharp.WebSocket
             webSocketFeed.Opened += Opened;
         }
 
-        public event EventHandler<ErrorEventArgs> Error;
-
-        public event EventHandler<MessageReceivedEventArgs> MessageReceived;
-
-        public event EventHandler Closed;
+        public void Invoke<T>(EventHandler<WebfeedEventArgs<T>> onReceived, object sender, WebfeedEventArgs<T> webfeedEventArgs)
+        {
+            onReceived?.Invoke(sender, webfeedEventArgs);
+        }
 
         public event EventHandler Opened;
+        public event EventHandler Closed;
+        public event EventHandler<ErrorEventArgs> Error;
+        public event EventHandler<MessageReceivedEventArgs> MessageReceived;
     }
 }
