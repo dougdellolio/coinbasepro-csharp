@@ -5,21 +5,26 @@ using System;
 using System.Globalization;
 using System.Net.Http;
 using System.Text;
+using GDAXSharp.Shared;
 
 namespace GDAXSharp.Network.HttpRequest
 {
-    public class HttpRequestMessageService : AbstractRequest, IHttpRequestMessageService
+    public class HttpRequestMessageService : IHttpRequestMessageService
     {
-        private const string ApiUri = "https://api.gdax.com";
+        private readonly IAuthenticator authenticator;
 
-        private const string SandBoxApiUri = "https://api-public.sandbox.gdax.com";
+        private readonly IClock clock;
+
+        private readonly bool sandBox;
 
         public HttpRequestMessageService(
             IAuthenticator authenticator,
             IClock clock,
             bool sandBox)
-                : base(authenticator, clock, sandBox)
         {
+            this.authenticator = authenticator;
+            this.clock = clock;
+            this.sandBox = sandBox;
         }
 
         public HttpRequestMessage CreateHttpRequestMessage(
@@ -27,19 +32,19 @@ namespace GDAXSharp.Network.HttpRequest
             string requestUri,
             string contentBody = "")
         {
-            var baseUri = SandBox
-                ? SandBoxApiUri
-                : ApiUri;
+            var apiUri = sandBox
+                ? ApiUris.ApiUriSandbox
+                : ApiUris.ApiUri;
 
-            var requestMessage = new HttpRequestMessage(httpMethod, new Uri(new Uri(baseUri), requestUri))
+            var requestMessage = new HttpRequestMessage(httpMethod, new Uri(new Uri(apiUri), requestUri))
             {
                 Content = contentBody == string.Empty
                     ? null
                     : new StringContent(contentBody, Encoding.UTF8, "application/json")
             };
 
-            var timeStamp = Clock.GetTime().ToTimeStamp();
-            var signedSignature = ComputeSignature(httpMethod, Authenticator.UnsignedSignature, timeStamp, requestUri, contentBody);
+            var timeStamp = clock.GetTime().ToTimeStamp();
+            var signedSignature = authenticator.ComputeSignature(httpMethod, authenticator.UnsignedSignature, timeStamp, requestUri, contentBody);
 
             AddHeaders(requestMessage, signedSignature, timeStamp);
             return requestMessage;
@@ -51,10 +56,10 @@ namespace GDAXSharp.Network.HttpRequest
             double timeStamp)
         {
             httpRequestMessage.Headers.Add("User-Agent", "GDAXClient");
-            httpRequestMessage.Headers.Add("CB-ACCESS-KEY", Authenticator.ApiKey);
+            httpRequestMessage.Headers.Add("CB-ACCESS-KEY", authenticator.ApiKey);
             httpRequestMessage.Headers.Add("CB-ACCESS-TIMESTAMP", timeStamp.ToString("F0", CultureInfo.InvariantCulture));
             httpRequestMessage.Headers.Add("CB-ACCESS-SIGN", signedSignature);
-            httpRequestMessage.Headers.Add("CB-ACCESS-PASSPHRASE", Authenticator.Passphrase);
+            httpRequestMessage.Headers.Add("CB-ACCESS-PASSPHRASE", authenticator.Passphrase);
         }
     }
 }

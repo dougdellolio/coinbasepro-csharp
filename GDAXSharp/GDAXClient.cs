@@ -13,8 +13,10 @@ using GDAXSharp.Services.Products;
 using GDAXSharp.Services.Reports;
 using GDAXSharp.Services.UserAccount;
 using GDAXSharp.Services.Withdrawals;
+using GDAXSharp.Shared;
 using GDAXSharp.Shared.Utilities.Clock;
 using GDAXSharp.Shared.Utilities.Queries;
+using GDAXSharp.WebSocket;
 
 namespace GDAXSharp
 {
@@ -23,7 +25,7 @@ namespace GDAXSharp
         public GDAXClient(
             IAuthenticator authenticator,
             bool sandBox = false)
-            : this(authenticator, new HttpClient(), sandBox)
+                : this(authenticator, new HttpClient(), sandBox)
         {
         }
 
@@ -34,7 +36,7 @@ namespace GDAXSharp
         {
             var clock = new Clock();
             var httpRequestMessageService = new HttpRequestMessageService(authenticator, clock, sandBox);
-            var webSocket = new WebSocket.WebSocket(authenticator, clock, sandBox);
+            var webSocketFeed = new WebSocketFeed(sandBox);
             var queryBuilder = new QueryBuilder();
 
             AccountsService = new AccountsService(httpClient, httpRequestMessageService);
@@ -49,7 +51,7 @@ namespace GDAXSharp
             FundingsService = new FundingsService(httpClient, httpRequestMessageService, queryBuilder);
             ReportsService = new ReportsService(httpClient, httpRequestMessageService);
             UserAccountService = new UserAccountService(httpClient, httpRequestMessageService);
-            WebSocket = webSocket;
+            WebSocket = new WebSocket.WebSocket(webSocketFeed, authenticator, clock);
         }
 
         public AccountsService AccountsService { get; }

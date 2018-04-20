@@ -1,5 +1,4 @@
 ﻿using GDAXSharp.Exceptions;
-using GDAXSharp.Network;
 using GDAXSharp.Network.Authentication;
 using GDAXSharp.Shared.Types;
 using GDAXSharp.Shared.Utilities;
@@ -17,128 +16,105 @@ using WebSocket4Net;
 
 namespace GDAXSharp.WebSocket
 {
-    public class WebSocket : AbstractRequest, IWebSocket
+    public class WebSocket
     {
-        private const string ApiUri = "wss://ws-feed.gdax.com";
+        private readonly IWebSocketFeed webSocketFeed;
 
-        private const string SandBoxApiUri = "wss://ws-feed-public.sandbox.gdax.com";
+        private readonly IAuthenticator authenticator;
 
-        internal WebSocket(
+        private readonly IClock clock;
+
+        private bool stopWebSocket;
+
+        private List<ProductType> productTypes;
+
+        private List<ChannelType> channelTypes;
+
+        public WebSocketState State => webSocketFeed.State;
+
+        public WebSocket(
+            IWebSocketFeed webSocketFeed,
             IAuthenticator authenticator,
-            IClock clock,
-            bool sandBox = false)
-                : base(authenticator, clock, sandBox)
+            IClock clock)
         {
+            this.webSocketFeed = webSocketFeed;
+            this.authenticator = authenticator;
+            this.clock = clock;
         }
 
         ~WebSocket()
         {
-            WebSocketFeed?.Close();
-            WebSocketFeed?.Dispose();
+            webSocketFeed?.Close();
+            webSocketFeed?.Dispose();
         }
 
-        private bool StopWebSocket { get; set; }
-
-        private List<ProductType> ProductTypes { get; set; }
-
-        private List<ChannelType> ChannelTypes { get; set; }
-
-        private WebSocket4Net.WebSocket WebSocketFeed { get; set; }
-
-        public void Start(List<ProductType> productTypes, List<ChannelType> channelTypes = null)
+        public void Start(
+            List<ProductType> providedProductTypes,
+            List<ChannelType> providedChannelTypes = null)
         {
-            if (WebSocketFeed != null && WebSocketFeed.State != WebSocketState.Closed)
+            if (providedProductTypes.Count == 0)
             {
-                throw new GDAXSharpHttpException(
-                    $"Websocket needs to be in the closed state, current state is {WebSocketFeed.State}");
+                throw new ArgumentException("You must specify at least one product type");
             }
 
+            stopWebSocket = false;
+
+            productTypes = providedProductTypes;
+            channelTypes = providedChannelTypes;
+
+            webSocketFeed.Closed += WebSocket_Closed;
+            webSocketFeed.Error += WebSocket_Error;
+            webSocketFeed.MessageReceived += WebSocket_MessageReceived;
+            webSocketFeed.Opened += WebSocket_Opened;
+            webSocketFeed.Open();
+        }
+
+        public void Stop()
+        {
+            if (webSocketFeed.State != WebSocketState.Open)
+            {
+                throw new GDAXSharpWebSocketException(
+                    $"Websocket needs to be in the opened state. The current state is {webSocketFeed.State}")
+                {
+                    WebSocketFeed = webSocketFeed,
+                    StatusCode = webSocketFeed.State,
+                    ErrorEvent = null
+                };
+            }
+
+            stopWebSocket = true;
+        }
+
+        public void WebSocket_Opened(object sender, EventArgs e)
+        {
             if (productTypes.Count == 0)
             {
                 throw new ArgumentException("You must specify at least one product type");
             }
 
-            StopWebSocket = false;
+            var channels = GetChannels();
 
-            ProductTypes = productTypes;
-            ChannelTypes = channelTypes;
-
-            var socketUrl = SandBox
-                ? SandBoxApiUri
-                : ApiUri;
-
-            WebSocketFeed = new WebSocket4Net.WebSocket(socketUrl);
-            WebSocketFeed.Closed += WebSocket_Closed;
-            WebSocketFeed.Error += WebSocket_Error;
-            WebSocketFeed.MessageReceived += WebSocket_MessageReceived;
-            WebSocketFeed.Opened += WebSocket_Opened;
-            WebSocketFeed.Open();
-        }
-
-        public void Stop()
-        {
-            if (WebSocketFeed == null || WebSocketFeed.State != WebSocketState.Open)
-            {
-                throw new GDAXSharpWebSocketException($"Websocket needs to be in the opened state, current state is {WebSocketFeed.State}")
-                {
-                    WebSocket = WebSocketFeed,
-                    StatusCode = WebSocketFeed.State,
-                    ErrorEvent = null
-                };
-            }
-
-            if (StopWebSocket)
-            {
-                throw new GDAXSharpWebSocketException("Websocket can't be stopped")
-                {
-                    WebSocket = WebSocketFeed,
-                    StatusCode = WebSocketFeed.State,
-                    ErrorEvent = null
-                };
-            }
-
-            StopWebSocket = true;
-        }
-
-        private void WebSocket_Opened(object sender, EventArgs e)
-        {
-            var channels = new List<Channel>();
-            if (ChannelTypes == null || ChannelTypes.Count == 0)
-            {
-                foreach (ChannelType channelType in Enum.GetValues(typeof(ChannelType)))
-                {
-                    channels.Add(new Channel(channelType, ProductTypes));
-                }
-            }
-            else
-            {
-                foreach (var channelType in ChannelTypes)
-                {
-                    channels.Add(new Channel(channelType, ProductTypes));
-                }
-            }
-
-            var timeStamp = Clock.GetTime().ToTimeStamp();
+            var timeStamp = clock.GetTime().ToTimeStamp();
             var json = JsonConfig.SerializeObject(new TickerChannel
             {
                 Type = ActionType.Subscribe,
-                ProductIds = ProductTypes,
+                ProductIds = productTypes,
                 Channels = channels,
                 Timestamp = timeStamp.ToString("F0", CultureInfo.InvariantCulture),
-                Key = Authenticator.ApiKey,
-                Passphrase = Authenticator.Passphrase,
-                Signature = ComputeSignature(HttpMethod.Get, Authenticator.UnsignedSignature, timeStamp,
-                    "/users/self/verify", null)
+                Key = authenticator.ApiKey,
+                Passphrase = authenticator.Passphrase,
+                Signature = authenticator.ComputeSignature(HttpMethod.Get, authenticator.UnsignedSignature, timeStamp,
+                    "/users/self/verify")
             });
 
-            WebSocketFeed.Send(json);
+            webSocketFeed.Send(json);
         }
 
-        private void WebSocket_MessageReceived(object sender, MessageReceivedEventArgs e)
+        public void WebSocket_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
-            if (StopWebSocket)
+            if (stopWebSocket)
             {
-                WebSocketFeed.Close();
+                webSocketFeed.Close();
                 return;
             }
 
@@ -148,72 +124,98 @@ namespace GDAXSharp.WebSocket
             switch (response.Type)
             {
                 case ResponseType.Subscriptions:
+                    var subscription = JsonConfig.DeserializeObject<Subscription>(json);
+                    webSocketFeed.Invoke(OnSubscriptionReceived, sender, new WebfeedEventArgs<Subscription>(subscription));
                     break;
                 case ResponseType.Ticker:
                     var ticker = JsonConfig.DeserializeObject<Ticker>(json);
-                    OnTickerReceived?.Invoke(sender, new WebfeedEventArgs<Ticker>(ticker));
+                    webSocketFeed.Invoke(OnTickerReceived, sender, new WebfeedEventArgs<Ticker>(ticker));
                     break;
                 case ResponseType.Snapshot:
                     var snapshot = JsonConfig.DeserializeObject<Snapshot>(json);
-                    OnSnapShotReceived?.Invoke(sender, new WebfeedEventArgs<Snapshot>(snapshot));
+                    webSocketFeed.Invoke(OnSnapShotReceived, sender, new WebfeedEventArgs<Snapshot>(snapshot));
                     break;
                 case ResponseType.L2Update:
                     var level2 = JsonConfig.DeserializeObject<Level2>(json);
-                    OnLevel2UpdateReceived?.Invoke(sender, new WebfeedEventArgs<Level2>(level2));
+                    webSocketFeed.Invoke(OnLevel2UpdateReceived, sender, new WebfeedEventArgs<Level2>(level2));
                     break;
                 case ResponseType.Heartbeat:
                     var heartbeat = JsonConfig.DeserializeObject<Heartbeat>(json);
-                    OnHeartbeatReceived?.Invoke(sender, new WebfeedEventArgs<Heartbeat>(heartbeat));
+                    webSocketFeed.Invoke(OnHeartbeatReceived, sender, new WebfeedEventArgs<Heartbeat>(heartbeat));
                     break;
                 case ResponseType.Received:
                     var received = JsonConfig.DeserializeObject<Received>(json);
-                    OnReceivedReceived?.Invoke(sender, new WebfeedEventArgs<Received>(received));
+                    webSocketFeed.Invoke(OnReceivedReceived, sender, new WebfeedEventArgs<Received>(received));
                     break;
                 case ResponseType.Open:
                     var open = JsonConfig.DeserializeObject<Open>(json);
-                    OnOpenReceived?.Invoke(sender, new WebfeedEventArgs<Open>(open));
+                    webSocketFeed.Invoke(OnOpenReceived, sender, new WebfeedEventArgs<Open>(open));
                     break;
                 case ResponseType.Done:
                     var done = JsonConfig.DeserializeObject<Done>(json);
-                    OnDoneReceived?.Invoke(sender, new WebfeedEventArgs<Done>(done));
+                    webSocketFeed.Invoke(OnDoneReceived, sender, new WebfeedEventArgs<Done>(done));
                     break;
                 case ResponseType.Match:
                     var match = JsonConfig.DeserializeObject<Match>(json);
-                    OnMatchReceived?.Invoke(sender, new WebfeedEventArgs<Match>(match));
+                    webSocketFeed.Invoke(OnMatchReceived, sender, new WebfeedEventArgs<Match>(match));
                     break;
                 case ResponseType.LastMatch:
                     var lastMatch = JsonConfig.DeserializeObject<LastMatch>(json);
-                    OnLastMatchReceived?.Invoke(sender, new WebfeedEventArgs<LastMatch>(lastMatch));
+                    webSocketFeed.Invoke(OnLastMatchReceived, sender, new WebfeedEventArgs<LastMatch>(lastMatch));
                     break;
                 case ResponseType.Error:
                     var error = JsonConfig.DeserializeObject<Error>(json);
-                    OnErrorReceived?.Invoke(sender, new WebfeedEventArgs<Error>(error));
+                    webSocketFeed.Invoke(OnErrorReceived, sender, new WebfeedEventArgs<Error>(error));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private void WebSocket_Error(object sender, ErrorEventArgs e)
+        public void WebSocket_Error(object sender, ErrorEventArgs e)
         {
             throw new GDAXSharpWebSocketException($"WebSocket Feed Error: {e.Exception.Message}")
             {
-                WebSocket = WebSocketFeed,
-                StatusCode = WebSocketFeed.State,
+                WebSocketFeed = webSocketFeed,
+                StatusCode = webSocketFeed.State,
                 ErrorEvent = e
-
             };
         }
 
-        private void WebSocket_Closed(object sender, EventArgs e)
+        public void WebSocket_Closed(object sender, EventArgs e)
         {
-            if (WebSocketFeed.State != WebSocketState.Closed || StopWebSocket) return;
+            if (webSocketFeed.State != WebSocketState.Closed || stopWebSocket)
+            {
+                return;
+            }
 
-            WebSocketFeed.Dispose();
-            Start(ProductTypes, ChannelTypes);
+            webSocketFeed.Dispose();
+            Start(productTypes, channelTypes);
+        }
+
+        private List<Channel> GetChannels()
+        {
+            var channels = new List<Channel>();
+            if (channelTypes == null || channelTypes.Count == 0)
+            {
+                foreach (ChannelType channelType in Enum.GetValues(typeof(ChannelType)))
+                {
+                    channels.Add(new Channel(channelType, productTypes));
+                }
+            }
+            else
+            {
+                foreach (var channelType in channelTypes)
+                {
+                    channels.Add(new Channel(channelType, productTypes));
+                }
+            }
+
+            return channels;
         }
 
         public event EventHandler<WebfeedEventArgs<Ticker>> OnTickerReceived;
+        public event EventHandler<WebfeedEventArgs<Subscription>> OnSubscriptionReceived;
         public event EventHandler<WebfeedEventArgs<Snapshot>> OnSnapShotReceived;
         public event EventHandler<WebfeedEventArgs<Level2>> OnLevel2UpdateReceived;
         public event EventHandler<WebfeedEventArgs<Heartbeat>> OnHeartbeatReceived;

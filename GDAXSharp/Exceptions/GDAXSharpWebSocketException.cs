@@ -1,5 +1,6 @@
 ﻿using SuperSocket.ClientEngine;
 using System;
+using GDAXSharp.WebSocket;
 
 namespace GDAXSharp.Exceptions
 {
@@ -7,7 +8,7 @@ namespace GDAXSharp.Exceptions
     {
         public WebSocket4Net.WebSocketState StatusCode { get; set; }
 
-        public WebSocket4Net.WebSocket WebSocket { get; set; }
+        public IWebSocketFeed WebSocketFeed { get; set; }
 
         public ErrorEventArgs ErrorEvent { get; set; }
 
