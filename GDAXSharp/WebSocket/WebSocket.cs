@@ -204,7 +204,9 @@ namespace GDAXSharp.WebSocket
         {
             webSocketFeed.Invoke(OnWebSocketClose, sender, new WebfeedEventArgs<EventArgs>(e));
 
-            webSocketFeed.Dispose();
+            // un-needed check ...
+            if (webSocketFeed.State != WebSocketState.Closed )
+                webSocketFeed.Dispose();
 
             if (!stopWebSocket)
             {
