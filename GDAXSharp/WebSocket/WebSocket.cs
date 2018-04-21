@@ -83,6 +83,15 @@ namespace GDAXSharp.WebSocket
             }
 
             stopWebSocket = true;
+
+            var timeStamp = Clock.GetTime().ToTimeStamp();
+            var json = JsonConfig.SerializeObject(new TickerChannel
+            {
+                Type = ActionType.Unsubscribe
+            });
+
+            webSocketFeed.Send(json);
+            webSocketFeed.Close();
         }
 
         public void WebSocket_Opened(object sender, EventArgs e)
@@ -116,7 +125,6 @@ namespace GDAXSharp.WebSocket
         {
             if (stopWebSocket)
             {
-                webSocketFeed.Close();
                 return;
             }
 
