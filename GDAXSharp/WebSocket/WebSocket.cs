@@ -83,8 +83,7 @@ namespace GDAXSharp.WebSocket
             }
 
             stopWebSocket = true;
-
-            var timeStamp = Clock.GetTime().ToTimeStamp();
+            
             var json = JsonConfig.SerializeObject(new TickerChannel
             {
                 Type = ActionType.Unsubscribe
