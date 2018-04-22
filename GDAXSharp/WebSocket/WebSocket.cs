@@ -183,7 +183,7 @@ namespace GDAXSharp.WebSocket
 
         public void WebSocket_Error(object sender, ErrorEventArgs e)
         {
-            if(OnWebSocketError != null )
+            if(OnWebSocketError != null)
             { 
                 webSocketFeed.Invoke(OnWebSocketError, sender, new WebfeedEventArgs<EventArgs>(e));
             }
@@ -196,23 +196,18 @@ namespace GDAXSharp.WebSocket
                     ErrorEvent = e
                 };
             }
-
-
         }
 
         public void WebSocket_Closed(object sender, EventArgs e)
         {
-            webSocketFeed.Invoke(OnWebSocketClose, sender, new WebfeedEventArgs<EventArgs>(e));
-
-            // un-needed check ...
-            if (webSocketFeed.State == WebSocketState.Closed )
-                webSocketFeed.Dispose();
+            webSocketFeed.Invoke(OnWebSocketClose, sender, new WebfeedEventArgs<EventArgs>(e));    
+            
+            webSocketFeed.Dispose();
 
             if (!stopWebSocket)
             {
                 Start(productTypes, channelTypes);
-            }
-            
+            }           
         }
 
         private List<Channel> GetChannels()
@@ -247,8 +242,6 @@ namespace GDAXSharp.WebSocket
         public event EventHandler<WebfeedEventArgs<Match>> OnMatchReceived;
         public event EventHandler<WebfeedEventArgs<LastMatch>> OnLastMatchReceived;
         public event EventHandler<WebfeedEventArgs<Error>> OnErrorReceived;
-
-
         public event EventHandler<WebfeedEventArgs<EventArgs>> OnWebSocketError;
         public event EventHandler<WebfeedEventArgs<EventArgs>> OnWebSocketClose;
         public event EventHandler<WebfeedEventArgs<EventArgs>> OnWebSocketOpenAndSubscribed;
