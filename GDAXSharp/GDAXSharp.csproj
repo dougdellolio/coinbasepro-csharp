@@ -89,6 +89,7 @@
     <Compile Include="GDAXClient.cs" />
     <Compile Include="Network\HttpClient\HttpClient.cs" />
     <Compile Include="Network\HttpClient\IHttpClient.cs" />
+    <Compile Include="Services\Orders\Types\StopType.cs" />
     <Compile Include="Shared\ApiUris.cs" />
     <Compile Include="Shared\Utilities\JsonConfig.cs" />
     <Compile Include="WebSocket\Models\Response\Done.cs" />
