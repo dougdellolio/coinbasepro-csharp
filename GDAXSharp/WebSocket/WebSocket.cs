@@ -185,7 +185,7 @@ namespace GDAXSharp.WebSocket
         {
             if(OnWebSocketError != null)
             { 
-                webSocketFeed.Invoke(OnWebSocketError, sender, new WebfeedEventArgs<EventArgs>(e));
+                webSocketFeed.Invoke(OnWebSocketError, sender, new WebfeedEventArgs<ErrorEventArgs>(e));
             }
             else
             {
@@ -242,7 +242,7 @@ namespace GDAXSharp.WebSocket
         public event EventHandler<WebfeedEventArgs<Match>> OnMatchReceived;
         public event EventHandler<WebfeedEventArgs<LastMatch>> OnLastMatchReceived;
         public event EventHandler<WebfeedEventArgs<Error>> OnErrorReceived;
-        public event EventHandler<WebfeedEventArgs<EventArgs>> OnWebSocketError;
+        public event EventHandler<WebfeedEventArgs<ErrorEventArgs>> OnWebSocketError;
         public event EventHandler<WebfeedEventArgs<EventArgs>> OnWebSocketClose;
         public event EventHandler<WebfeedEventArgs<EventArgs>> OnWebSocketOpenAndSubscribed;
     }
