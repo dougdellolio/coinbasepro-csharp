@@ -212,6 +212,7 @@ Thanks for contributing!
 - @chrisw000
 - @confessore
 - @sotam
+- @BradForsythe
 
 <h1>Bugs or questions?</h1>
 
