@@ -83,6 +83,14 @@ namespace GDAXSharp.WebSocket
             }
 
             stopWebSocket = true;
+            
+            var json = JsonConfig.SerializeObject(new TickerChannel
+            {
+                Type = ActionType.Unsubscribe
+            });
+
+            webSocketFeed.Send(json);
+            webSocketFeed.Close();
         }
 
         public void WebSocket_Opened(object sender, EventArgs e)
@@ -108,13 +116,14 @@ namespace GDAXSharp.WebSocket
             });
 
             webSocketFeed.Send(json);
+
+            webSocketFeed.Invoke(OnWebSocketOpenAndSubscribed, sender, new WebfeedEventArgs<EventArgs>(e));
         }
 
         public void WebSocket_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
             if (stopWebSocket)
             {
-                webSocketFeed.Close();
                 return;
             }
 
@@ -174,23 +183,31 @@ namespace GDAXSharp.WebSocket
 
         public void WebSocket_Error(object sender, ErrorEventArgs e)
         {
-            throw new GDAXSharpWebSocketException($"WebSocket Feed Error: {e.Exception.Message}")
+            if(OnWebSocketError != null)
+            { 
+                webSocketFeed.Invoke(OnWebSocketError, sender, new WebfeedEventArgs<ErrorEventArgs>(e));
+            }
+            else
             {
-                WebSocketFeed = webSocketFeed,
-                StatusCode = webSocketFeed.State,
-                ErrorEvent = e
-            };
+                throw new GDAXSharpWebSocketException($"WebSocket Feed Error: {e.Exception.Message}")
+                {
+                    WebSocketFeed = webSocketFeed,
+                    StatusCode = webSocketFeed.State,
+                    ErrorEvent = e
+                };
+            }
         }
 
         public void WebSocket_Closed(object sender, EventArgs e)
         {
-            if (webSocketFeed.State != WebSocketState.Closed || stopWebSocket)
-            {
-                return;
-            }
-
+            webSocketFeed.Invoke(OnWebSocketClose, sender, new WebfeedEventArgs<EventArgs>(e));    
+            
             webSocketFeed.Dispose();
-            Start(productTypes, channelTypes);
+
+            if (!stopWebSocket)
+            {
+                Start(productTypes, channelTypes);
+            }           
         }
 
         private List<Channel> GetChannels()
@@ -225,5 +242,8 @@ namespace GDAXSharp.WebSocket
         public event EventHandler<WebfeedEventArgs<Match>> OnMatchReceived;
         public event EventHandler<WebfeedEventArgs<LastMatch>> OnLastMatchReceived;
         public event EventHandler<WebfeedEventArgs<Error>> OnErrorReceived;
+        public event EventHandler<WebfeedEventArgs<ErrorEventArgs>> OnWebSocketError;
+        public event EventHandler<WebfeedEventArgs<EventArgs>> OnWebSocketClose;
+        public event EventHandler<WebfeedEventArgs<EventArgs>> OnWebSocketOpenAndSubscribed;
     }
 }

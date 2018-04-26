@@ -92,28 +92,6 @@ namespace GDAXSharp.Specs.WebSocket
 
             class when_closed_is_called
             {
-                class with_websocket_state_open
-                {
-                    Establish context = () =>
-                        The<IWebSocketFeed>().WhenToldTo(p => p.State).Return(WebSocketState.Open);
-
-                    Because of = () =>
-                    {
-                        Subject.Start(product_type_inputs, channel_type_inputs);
-
-                        websocket_feed.Raise(e => e.Closed += null, EventArgs.Empty);
-                    };
-
-                    It should_not_have_called_dispose = () =>
-                        The<IWebSocketFeed>().
-                            WasNotToldTo(p => p.Dispose());
-                }
-
-                class with_websocket_state_in_non_open_state
-                {
-                    Establish context = () =>
-                        The<IWebSocketFeed>().WhenToldTo(p => p.State).Return(WebSocketState.Closed);
-
                     Because of = () =>
                     {
                         Subject.Start(product_type_inputs, channel_type_inputs);
@@ -124,7 +102,6 @@ namespace GDAXSharp.Specs.WebSocket
                     It should_have_called_dispose = () =>
                         The<IWebSocketFeed>().
                             WasToldTo(p => p.Dispose());
-                }
             }
 
             class when_message_received_is_called
