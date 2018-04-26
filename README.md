@@ -201,7 +201,6 @@ var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>")
 var gdaxClient = new GDAXClient(authenticator, myWay);
 ````
 
-
 <h1>Contributors</h1>
 
 Thanks for contributing!
