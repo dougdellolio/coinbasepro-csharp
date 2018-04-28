@@ -105,7 +105,9 @@ namespace GDAXSharp.Services.Orders
                 OrderType = OrderType.Limit,
                 Price = limitPrice,
                 Size = size,
-                StopType = side == OrderSide.Buy ? StopType.Entry : StopType.Loss,
+                StopType = side == OrderSide.Buy 
+                    ? StopType.Entry
+                    : StopType.Loss,
                 StopPrice = stopPrice,
                 ClientOid = clientOid,
                 PostOnly = postOnly,
