@@ -1,4 +1,5 @@
 ﻿using GDAXSharp.Network.Authentication;
+using System;
 using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Accounts;
@@ -36,7 +37,7 @@ namespace GDAXSharp
         {
             var clock = new Clock();
             var httpRequestMessageService = new HttpRequestMessageService(authenticator, clock, sandBox);
-            var webSocketFeed = new WebSocketFeed(sandBox);
+            var createWebSocketFeed = (Func<IWebSocketFeed>)(() => new WebSocketFeed(sandBox));
             var queryBuilder = new QueryBuilder();
 
             AccountsService = new AccountsService(httpClient, httpRequestMessageService);
@@ -51,7 +52,7 @@ namespace GDAXSharp
             FundingsService = new FundingsService(httpClient, httpRequestMessageService, queryBuilder);
             ReportsService = new ReportsService(httpClient, httpRequestMessageService);
             UserAccountService = new UserAccountService(httpClient, httpRequestMessageService);
-            WebSocket = new WebSocket.WebSocket(webSocketFeed, authenticator, clock);
+            WebSocket = new WebSocket.WebSocket(createWebSocketFeed, authenticator, clock);
         }
 
         public AccountsService AccountsService { get; }
