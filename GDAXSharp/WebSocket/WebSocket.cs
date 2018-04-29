@@ -18,7 +18,7 @@ namespace GDAXSharp.WebSocket
 {
     public class WebSocket
     {
-        private readonly IWebSocketFeed webSocketFeed;
+        private readonly Func<IWebSocketFeed> createWebSocketFeed;
 
         private readonly IAuthenticator authenticator;
 
@@ -30,14 +30,16 @@ namespace GDAXSharp.WebSocket
 
         private List<ChannelType> channelTypes;
 
+        private IWebSocketFeed webSocketFeed;
+
         public WebSocketState State => webSocketFeed.State;
 
         public WebSocket(
-            IWebSocketFeed webSocketFeed,
+            Func<IWebSocketFeed> createWebSocketFeed,
             IAuthenticator authenticator,
             IClock clock)
         {
-            this.webSocketFeed = webSocketFeed;
+            this.createWebSocketFeed = createWebSocketFeed;
             this.authenticator = authenticator;
             this.clock = clock;
         }
@@ -62,6 +64,7 @@ namespace GDAXSharp.WebSocket
             productTypes = providedProductTypes;
             channelTypes = providedChannelTypes;
 
+            webSocketFeed = createWebSocketFeed();
             webSocketFeed.Closed += WebSocket_Closed;
             webSocketFeed.Error += WebSocket_Error;
             webSocketFeed.MessageReceived += WebSocket_MessageReceived;
