@@ -14,7 +14,6 @@ using GDAXSharp.Services.Products;
 using GDAXSharp.Services.Reports;
 using GDAXSharp.Services.UserAccount;
 using GDAXSharp.Services.Withdrawals;
-using GDAXSharp.Shared;
 using GDAXSharp.Shared.Utilities.Clock;
 using GDAXSharp.Shared.Utilities.Queries;
 using GDAXSharp.WebSocket;

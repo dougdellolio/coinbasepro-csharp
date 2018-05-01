@@ -11,6 +11,7 @@ using SuperSocket.ClientEngine;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using WebSocket4Net;
 
@@ -86,7 +87,7 @@ namespace GDAXSharp.WebSocket
             }
 
             stopWebSocket = true;
-            
+
             var json = JsonConfig.SerializeObject(new TickerChannel
             {
                 Type = ActionType.Unsubscribe
@@ -186,8 +187,8 @@ namespace GDAXSharp.WebSocket
 
         public void WebSocket_Error(object sender, ErrorEventArgs e)
         {
-            if(OnWebSocketError != null)
-            { 
+            if (OnWebSocketError != null)
+            {
                 webSocketFeed.Invoke(OnWebSocketError, sender, new WebfeedEventArgs<ErrorEventArgs>(e));
             }
             else
@@ -203,20 +204,20 @@ namespace GDAXSharp.WebSocket
 
         public void WebSocket_Closed(object sender, EventArgs e)
         {
-            webSocketFeed.Invoke(OnWebSocketClose, sender, new WebfeedEventArgs<EventArgs>(e));    
-            
+            webSocketFeed.Invoke(OnWebSocketClose, sender, new WebfeedEventArgs<EventArgs>(e));
+
             webSocketFeed.Dispose();
 
             if (!stopWebSocket)
             {
                 Start(productTypes, channelTypes);
-            }           
+            }
         }
 
         private List<Channel> GetChannels()
         {
             var channels = new List<Channel>();
-            if (channelTypes == null || channelTypes.Count == 0)
+            if (channelTypes == null || channelTypes.Any())
             {
                 foreach (ChannelType channelType in Enum.GetValues(typeof(ChannelType)))
                 {
