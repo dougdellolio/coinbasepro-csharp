@@ -76,31 +76,7 @@ namespace GDAXSharp.Specs.JsonFixtures.Services.Orders
             return json;
         }
 
-	    public static string CreateStopLimitOrder()
-	    {
-		    var json = @"
-{
-    ""id"": ""d0c5340b-6d6c-49d9-b567-48c4bfca13d2"",
-    ""price"": ""0.10000000"",
-    ""size"": ""0.01000000"",
-    ""product_id"": ""BTC-USD"",
-    ""side"": ""buy"",
-    ""stp"": ""dc"",
-    ""type"": ""limit"",
-    ""time_in_force"": ""GTC"",
-    ""post_only"": false,
-    ""created_at"": ""2016-12-08T24:00:00Z"",
-    ""fill_fees"": ""0.0000000000000000"",
-    ""filled_size"": ""0.00000000"",
-    ""executed_value"": ""0.0000000000000000"",
-    ""status"": ""pending"",
-    ""settled"": false
-}";
-
-		    return json;
-	    }
-
-	    public static string CreateLimitOrderMany(OrderStatus orderStatus = OrderStatus.Pending)
+        public static string CreateLimitOrderMany(OrderStatus orderStatus = OrderStatus.Pending)
         {
             var json = $@"
 [
