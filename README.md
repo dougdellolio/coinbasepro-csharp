@@ -236,6 +236,8 @@ Thanks for contributing!
 - @confessore
 - @sotam
 - @BradForsythe
+- @zaccharles
+- @BraveSirAndrew
 
 <h1>Bugs or questions?</h1>
 
