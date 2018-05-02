@@ -107,17 +107,9 @@ namespace GDAXSharp.WebSocket
             var channels = GetChannels();
 
             var timeStamp = clock.GetTime().ToTimeStamp();
-            var json = JsonConfig.SerializeObject(new TickerChannel
-            {
-                Type = ActionType.Subscribe,
-                ProductIds = productTypes,
-                Channels = channels,
-                Timestamp = timeStamp.ToString("F0", CultureInfo.InvariantCulture),
-                Key = authenticator.ApiKey,
-                Passphrase = authenticator.Passphrase,
-                Signature = authenticator.ComputeSignature(HttpMethod.Get, authenticator.UnsignedSignature, timeStamp,
-                    "/users/self/verify")
-            });
+            var withAuthentication = authenticator != null;
+
+            var json = SubscribeMessage(withAuthentication, channels, timeStamp);
 
             webSocketFeed.Send(json);
 
@@ -233,6 +225,32 @@ namespace GDAXSharp.WebSocket
             }
 
             return channels;
+        }
+
+        private string SubscribeMessage(bool withAuthentication, List<Channel> channels, double timeStamp)
+        {
+            if (withAuthentication)
+            {
+                return JsonConfig.SerializeObject(new TickerChannel
+                {
+                    Type = ActionType.Subscribe,
+                    ProductIds = productTypes,
+                    Channels = channels,
+                    Timestamp = timeStamp.ToString("F0", CultureInfo.InvariantCulture),
+                    Key = authenticator.ApiKey,
+                    Passphrase = authenticator.Passphrase,
+                    Signature = authenticator.ComputeSignature(HttpMethod.Get, authenticator.UnsignedSignature, timeStamp,
+                        "/users/self/verify")
+                });
+            }
+
+            return JsonConfig.SerializeObject(new TickerChannel
+            {
+                Type = ActionType.Subscribe,
+                ProductIds = productTypes,
+                Channels = channels,
+                Timestamp = timeStamp.ToString("F0", CultureInfo.InvariantCulture),
+            });
         }
 
         public event EventHandler<WebfeedEventArgs<Ticker>> OnTickerReceived;

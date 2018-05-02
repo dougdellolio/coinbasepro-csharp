@@ -23,6 +23,12 @@ namespace GDAXSharp
     public class GDAXClient
     {
         public GDAXClient(
+            bool sandBox = false)
+                : this(null, new HttpClient(), sandBox)
+        {
+        }
+
+        public GDAXClient(
             IAuthenticator authenticator,
             bool sandBox = false)
                 : this(authenticator, new HttpClient(), sandBox)
