@@ -29,7 +29,7 @@ namespace GDAXSharp.Specs.WebSocket
             product_type_inputs = new List<ProductType>();
             channel_type_inputs = new List<ChannelType>();
             product_type_inputs.Add(ProductType.BtcUsd);
-            channel_type_inputs.Add(ChannelType.Full);
+            channel_type_inputs.Add(ChannelType.Level2);
         };
 
         class when_creating_a_websocket_feed
@@ -78,30 +78,50 @@ namespace GDAXSharp.Specs.WebSocket
 
             class when_opened_is_called
             {
-                Because of = () =>
+                class with_authentication
                 {
-                    Subject.Start(product_type_inputs, channel_type_inputs);
-
-                    websocket_feed.Raise(e => e.Opened += null, EventArgs.Empty);
-                };
-
-                It should_have_called_send = () =>
-                    The<IWebSocketFeed>().
-                        WasToldTo(p => p.Send(Param.IsAny<string>()));
-            }
-
-            class when_closed_is_called
-            {
                     Because of = () =>
                     {
                         Subject.Start(product_type_inputs, channel_type_inputs);
 
-                        websocket_feed.Raise(e => e.Closed += null, EventArgs.Empty);
+                        websocket_feed.Raise(e => e.Opened += null, EventArgs.Empty);
                     };
 
-                    It should_have_called_dispose = () =>
+                    It should_have_called_send_with_authentication_properties = () =>
                         The<IWebSocketFeed>().
-                            WasToldTo(p => p.Dispose());
+                            WasToldTo(p => p.Send(@"{""type"":""subscribe"",""product_ids"":[""BTC-USD""],""channels"":[{""name"":""full"",""product_ids"":[""BTC-USD""]},{""name"":""heartbeat"",""product_ids"":[""BTC-USD""]},{""name"":""level2"",""product_ids"":[""BTC-USD""]},{""name"":""matches"",""product_ids"":[""BTC-USD""]},{""name"":""ticker"",""product_ids"":[""BTC-USD""]},{""name"":""user"",""product_ids"":[""BTC-USD""]}],""key"":""key"",""passphrase"":""passphrase"",""timestamp"":""-62135596800""}"));
+                }
+
+                class without_authentication
+                {
+                    Establish context = () =>
+                        Configure(x => x.For<IAuthenticator>().Use((Authenticator)null));
+
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, channel_type_inputs);
+
+                        websocket_feed.Raise(e => e.Opened += null, EventArgs.Empty);
+                    };
+
+                    It should_have_called_send_without_authentication_properties = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Send(@"{""type"":""subscribe"",""product_ids"":[""BTC-USD""],""channels"":[{""name"":""full"",""product_ids"":[""BTC-USD""]},{""name"":""heartbeat"",""product_ids"":[""BTC-USD""]},{""name"":""level2"",""product_ids"":[""BTC-USD""]},{""name"":""matches"",""product_ids"":[""BTC-USD""]},{""name"":""ticker"",""product_ids"":[""BTC-USD""]},{""name"":""user"",""product_ids"":[""BTC-USD""]}],""timestamp"":""-62135596800""}"));
+                }
+            }
+
+            class when_closed_is_called
+            {
+                Because of = () =>
+                {
+                    Subject.Start(product_type_inputs, channel_type_inputs);
+
+                    websocket_feed.Raise(e => e.Closed += null, EventArgs.Empty);
+                };
+
+                It should_have_called_dispose = () =>
+                    The<IWebSocketFeed>().
+                        WasToldTo(p => p.Dispose());
             }
 
             class when_message_received_is_called
