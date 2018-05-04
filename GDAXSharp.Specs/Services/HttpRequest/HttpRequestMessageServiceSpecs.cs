@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using GDAXSharp.Exceptions;
 using GDAXSharp.Network.Authentication;
 using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Shared.Utilities.Clock;
@@ -64,6 +65,43 @@ namespace GDAXSharp.Specs.Services.HttpRequest
                 result_http_request_message.Headers.ToString().ShouldContain("CB-ACCESS-TIMESTAMP");
                 result_http_request_message.Headers.ToString().ShouldContain("CB-ACCESS-PASSPHRASE");
             };
+        }
+
+        class when_making_a_request_without_authenticator_from_service
+        {
+            static Exception exception;
+
+            Establish context = () =>
+            {
+                Configure(x => x.For<bool>().Use(false));
+                Configure(x => x.For<IAuthenticator>().Use((IAuthenticator)null));
+            };
+
+            Because of = () =>
+                exception = Catch.Exception(() => Subject.CreateHttpRequestMessage(HttpMethod.Get, "/accounts"));
+
+            It should_throw_an_error = () =>
+                exception.ShouldBeOfExactType<GDAXSharpHttpException>();
+
+            It should_contain_a_message = () =>
+                exception.Message.ShouldContain("Please provide an authenticator to the client to request");
+        }
+
+        class when_making_a_request_with_authenticator_from_service
+        {
+            static Exception exception;
+
+            Establish context = () =>
+            {
+                Configure(x => x.For<bool>().Use(false));
+                Configure(x => x.For<IAuthenticator>().Use((IAuthenticator)null));
+            };
+
+            Because of = () =>
+                exception = Catch.Exception(() => Subject.CreateHttpRequestMessage(HttpMethod.Get, "/accounts"));
+
+            It should_not_throw_an_error = () =>
+                exception.ShouldNotBeNull();
         }
     }
 }

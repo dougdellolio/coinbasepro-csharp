@@ -11,6 +11,7 @@ using SuperSocket.ClientEngine;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using WebSocket4Net;
 
@@ -86,7 +87,7 @@ namespace GDAXSharp.WebSocket
             }
 
             stopWebSocket = true;
-            
+
             var json = JsonConfig.SerializeObject(new TickerChannel
             {
                 Type = ActionType.Unsubscribe
@@ -106,17 +107,9 @@ namespace GDAXSharp.WebSocket
             var channels = GetChannels();
 
             var timeStamp = clock.GetTime().ToTimeStamp();
-            var json = JsonConfig.SerializeObject(new TickerChannel
-            {
-                Type = ActionType.Subscribe,
-                ProductIds = productTypes,
-                Channels = channels,
-                Timestamp = timeStamp.ToString("F0", CultureInfo.InvariantCulture),
-                Key = authenticator.ApiKey,
-                Passphrase = authenticator.Passphrase,
-                Signature = authenticator.ComputeSignature(HttpMethod.Get, authenticator.UnsignedSignature, timeStamp,
-                    "/users/self/verify")
-            });
+            var withAuthentication = authenticator != null;
+
+            var json = SubscribeMessage(withAuthentication, channels, timeStamp);
 
             webSocketFeed.Send(json);
 
@@ -186,8 +179,8 @@ namespace GDAXSharp.WebSocket
 
         public void WebSocket_Error(object sender, ErrorEventArgs e)
         {
-            if(OnWebSocketError != null)
-            { 
+            if (OnWebSocketError != null)
+            {
                 webSocketFeed.Invoke(OnWebSocketError, sender, new WebfeedEventArgs<ErrorEventArgs>(e));
             }
             else
@@ -203,20 +196,20 @@ namespace GDAXSharp.WebSocket
 
         public void WebSocket_Closed(object sender, EventArgs e)
         {
-            webSocketFeed.Invoke(OnWebSocketClose, sender, new WebfeedEventArgs<EventArgs>(e));    
-            
+            webSocketFeed.Invoke(OnWebSocketClose, sender, new WebfeedEventArgs<EventArgs>(e));
+
             webSocketFeed.Dispose();
 
             if (!stopWebSocket)
             {
                 Start(productTypes, channelTypes);
-            }           
+            }
         }
 
         private List<Channel> GetChannels()
         {
             var channels = new List<Channel>();
-            if (channelTypes == null || channelTypes.Count == 0)
+            if (channelTypes == null || channelTypes.Any())
             {
                 foreach (ChannelType channelType in Enum.GetValues(typeof(ChannelType)))
                 {
@@ -232,6 +225,32 @@ namespace GDAXSharp.WebSocket
             }
 
             return channels;
+        }
+
+        private string SubscribeMessage(bool withAuthentication, List<Channel> channels, double timeStamp)
+        {
+            if (withAuthentication)
+            {
+                return JsonConfig.SerializeObject(new TickerChannel
+                {
+                    Type = ActionType.Subscribe,
+                    ProductIds = productTypes,
+                    Channels = channels,
+                    Timestamp = timeStamp.ToString("F0", CultureInfo.InvariantCulture),
+                    Key = authenticator.ApiKey,
+                    Passphrase = authenticator.Passphrase,
+                    Signature = authenticator.ComputeSignature(HttpMethod.Get, authenticator.UnsignedSignature, timeStamp,
+                        "/users/self/verify")
+                });
+            }
+
+            return JsonConfig.SerializeObject(new TickerChannel
+            {
+                Type = ActionType.Subscribe,
+                ProductIds = productTypes,
+                Channels = channels,
+                Timestamp = timeStamp.ToString("F0", CultureInfo.InvariantCulture),
+            });
         }
 
         public event EventHandler<WebfeedEventArgs<Ticker>> OnTickerReceived;

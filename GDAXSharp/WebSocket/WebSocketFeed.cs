@@ -1,5 +1,4 @@
 ﻿using System;
-using GDAXSharp.Exceptions;
 using GDAXSharp.Shared;
 using GDAXSharp.WebSocket.Models.Response;
 using WebSocket4Net;

@@ -5,6 +5,7 @@ using System;
 using System.Globalization;
 using System.Net.Http;
 using System.Text;
+using GDAXSharp.Exceptions;
 using GDAXSharp.Shared;
 
 namespace GDAXSharp.Network.HttpRequest
@@ -32,6 +33,11 @@ namespace GDAXSharp.Network.HttpRequest
             string requestUri,
             string contentBody = "")
         {
+            if (authenticator == null)
+            {
+                throw new GDAXSharpHttpException($"Please provide an authenticator to the client to request \"{requestUri}\"");
+            }
+
             var apiUri = sandBox
                 ? ApiUris.ApiUriSandbox
                 : ApiUris.ApiUri;
