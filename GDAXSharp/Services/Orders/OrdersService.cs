@@ -98,7 +98,7 @@ namespace GDAXSharp.Services.Orders
             bool postOnly = true,
             Guid? clientOid = null)
         {
-            var order = new Order
+            var order = new StopLimitOrder
             {
                 Side = side,
                 ProductId = productId,
@@ -136,7 +136,7 @@ namespace GDAXSharp.Services.Orders
             return await PlaceOrderAsync(order);
         }
 
-        private async Task<OrderResponse> PlaceOrderAsync(Order order)
+        private async Task<OrderResponse> PlaceOrderAsync(object order)
         {
             return await SendServiceCall<OrderResponse>(HttpMethod.Post, "/orders", JsonConfig.SerializeObject(order)).ConfigureAwait(false);
         }

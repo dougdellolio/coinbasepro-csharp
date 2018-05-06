@@ -1,12 +1,12 @@
-﻿using GDAXSharp.Services.Orders.Types;
+﻿using System;
+using GDAXSharp.Services.Orders.Types;
 using GDAXSharp.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
 
 namespace GDAXSharp.Services.Orders.Models
 {
-    public class Order
+    public class StopLimitOrder
     {
         public Guid? ClientOid { get; set; }
 
@@ -16,6 +16,13 @@ namespace GDAXSharp.Services.Orders.Models
         public decimal Size { get; set; }
 
         public decimal Price { get; set; }
+
+        [JsonProperty("stop")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public StopType StopType { get; set; }
+
+        [JsonProperty("stop_price")]
+        public decimal StopPrice { get; set; }
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter))]
@@ -31,5 +38,7 @@ namespace GDAXSharp.Services.Orders.Models
         public GoodTillTime CancelAfter { get; set; }
 
         public bool PostOnly { get; set; }
+
+
     }
 }

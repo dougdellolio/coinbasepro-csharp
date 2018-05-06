@@ -118,6 +118,7 @@
     <Compile Include="JsonFixtures\Services\Fundings\FundingsResponseFixture.cs" />
     <Compile Include="JsonFixtures\Network\HttpResponseMessage\HttpResponseMessageFixture.cs" />
     <Compile Include="JsonFixtures\Services\Orders\CancelOrderResponseFixture.cs" />
+    <Compile Include="JsonFixtures\Services\Orders\OrderRequestFixture.cs" />
     <Compile Include="JsonFixtures\Services\Orders\OrderResponseFixture.cs" />
     <Compile Include="JsonFixtures\Services\Payments\PaymentMethodsResponseFixture.cs" />
     <Compile Include="JsonFixtures\Services\Products\ProductsOrderBookResponseFixture.cs" />
