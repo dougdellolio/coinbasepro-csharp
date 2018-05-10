@@ -25,19 +25,23 @@ namespace GDAXSharp.Services.Orders
         public async Task<OrderResponse> PlaceMarketOrderAsync(
             OrderSide side,
             ProductType productId,
-            decimal size,
+            decimal amount,
+            MarketOrderAmountType amountType = MarketOrderAmountType.Size,
             Guid? clientOid = null)
         {
-            var order = new Order
+            return await PlaceOrderAsync(new Order
             {
                 Side = side,
                 ProductId = productId,
                 OrderType = OrderType.Market,
-                Size = size,
-                ClientOid = clientOid
-            };
-
-            return await PlaceOrderAsync(order);
+                ClientOid = clientOid,
+                Funds = amountType == MarketOrderAmountType.Funds  
+                    ? amount
+                    : (decimal?) null,
+                Size = amountType == MarketOrderAmountType.Size
+                    ? amount
+                    : (decimal?)null,
+            });
         }
 
         public async Task<OrderResponse> PlaceLimitOrderAsync(

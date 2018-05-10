@@ -13,7 +13,9 @@ namespace GDAXSharp.Services.Orders.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public OrderSide Side { get; set; }
 
-        public decimal Size { get; set; }
+        public decimal? Size { get; set; }
+
+        public decimal? Funds { get; set; }
 
         public decimal Price { get; set; }
 
