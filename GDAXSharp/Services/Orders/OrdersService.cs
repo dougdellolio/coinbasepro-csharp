@@ -99,7 +99,7 @@ namespace GDAXSharp.Services.Orders
             decimal size,
             decimal stopPrice,
             decimal limitPrice,
-            bool postOnly = true,
+            bool postOnly = false,
             Guid? clientOid = null)
         {
             var order = new Order
