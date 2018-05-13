@@ -109,12 +109,12 @@ namespace GDAXSharp.Services.Orders
                 OrderType = OrderType.Limit,
                 Price = limitPrice,
                 Size = size,
-                StopType = side == OrderSide.Buy 
+                Stop = side == OrderSide.Buy 
                     ? StopType.Entry
                     : StopType.Loss,
                 StopPrice = stopPrice,
                 ClientOid = clientOid,
-                PostOnly = postOnly,
+                PostOnly = postOnly
             };
 
             return await PlaceOrderAsync(order);
