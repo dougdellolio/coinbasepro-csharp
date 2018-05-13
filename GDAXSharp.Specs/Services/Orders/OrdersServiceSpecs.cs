@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using GDAXSharp.Exceptions;
 using GDAXSharp.Network.HttpClient;
+using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Services.Orders;
 using GDAXSharp.Services.Orders.Models.Responses;
 using GDAXSharp.Services.Orders.Types;
@@ -95,11 +96,20 @@ namespace GDAXSharp.Specs.Services.Orders
         class when_placing_a_limit_order
         {
             Establish context = () =>
-                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(OrderResponseFixture.CreateLimitOrder()));
+            {
+                //The<IHttpClient>().
+                //    WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).
+                //    Return(Task.FromResult(OrderResponseFixture.CreateLimitOrder()));
+
+                //The<IHttpRequestMessageService>().
+                //    WhenToldTo(p => p.CreateHttpRequestMessage(HttpMethod.Post, "/orders", OrderResponseFixture.CreateLimitOrder())).Return(new HttpRequestMessage(HttpMethod.Post, OrderRequestFixture.CreateLimitOrderRequest()));
+            };
 
             Because of = () =>
                 order_response_result = Subject.PlaceLimitOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, 0.1M, GoodTillTime.Min).Result;
+
+            It should_send_the_correct_request = () =>
+                The<IHttpClient>().WasToldTo(p => p.SendAsync(new HttpRequestMessage(HttpMethod.Post, OrderRequestFixture.CreateLimitOrderRequest())));
 
             It should_have_correct_order_information = () =>
             {
@@ -150,34 +160,34 @@ namespace GDAXSharp.Specs.Services.Orders
             };
         }
 
-	    class when_placing_a_stop_limit_order
-	    {
-		    Establish context = () =>
-			    The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-				    .Return(Task.FromResult(OrderResponseFixture.CreateStopLimitOrder()));
+        class when_placing_a_stop_limit_order
+        {
+            Establish context = () =>
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(OrderResponseFixture.CreateStopLimitOrder()));
 
-			Because of = () =>
-				order_response_result = Subject.PlaceStopLimitOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, .1M, .1M, false).Result;
+            Because of = () =>
+                order_response_result = Subject.PlaceStopLimitOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, .1M, .1M, false).Result;
 
-		    It should_have_correct_order_information = () =>
-		    {
-			    order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
-			    order_response_result.Price.ShouldEqual(0.10000000M);
-			    order_response_result.Size.ShouldEqual(0.01000000M);
-			    order_response_result.ProductId.ShouldEqual(ProductType.BtcUsd);
-			    order_response_result.Side.ShouldEqual(OrderSide.Buy);
-			    order_response_result.Stp.ShouldEqual("dc");
-			    order_response_result.OrderType.ShouldEqual(OrderType.Limit);
-			    order_response_result.TimeInForce.ShouldEqual(TimeInForce.Gtc);
-			    order_response_result.PostOnly.ShouldBeFalse();
-			    order_response_result.CreatedAt.ShouldEqual(new DateTime(2016, 12, 9));
-			    order_response_result.FillFees.ShouldEqual(0.0000000000000000M);
-			    order_response_result.FilledSize.ShouldEqual(0.00000000M);
-			    order_response_result.ExecutedValue.ShouldEqual(0.0000000000000000M);
-			    order_response_result.Status.ShouldEqual(OrderStatus.Pending);
-			    order_response_result.Settled.ShouldBeFalse();
-			};
-	    }
+            It should_have_correct_order_information = () =>
+            {
+                order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
+                order_response_result.Price.ShouldEqual(0.10000000M);
+                order_response_result.Size.ShouldEqual(0.01000000M);
+                order_response_result.ProductId.ShouldEqual(ProductType.BtcUsd);
+                order_response_result.Side.ShouldEqual(OrderSide.Buy);
+                order_response_result.Stp.ShouldEqual("dc");
+                order_response_result.OrderType.ShouldEqual(OrderType.Limit);
+                order_response_result.TimeInForce.ShouldEqual(TimeInForce.Gtc);
+                order_response_result.PostOnly.ShouldBeFalse();
+                order_response_result.CreatedAt.ShouldEqual(new DateTime(2016, 12, 9));
+                order_response_result.FillFees.ShouldEqual(0.0000000000000000M);
+                order_response_result.FilledSize.ShouldEqual(0.00000000M);
+                order_response_result.ExecutedValue.ShouldEqual(0.0000000000000000M);
+                order_response_result.Status.ShouldEqual(OrderStatus.Pending);
+                order_response_result.Settled.ShouldBeFalse();
+            };
+        }
 
         class when_cancelling_all_orders
         {
@@ -236,7 +246,7 @@ namespace GDAXSharp.Specs.Services.Orders
             It should_have_correct_error_response_message = () =>
             {
                 exception.InnerException.ShouldBeOfExactType<GDAXSharpHttpException>();
-                ((GDAXSharpHttpException) exception.InnerException)?.StatusCode.ShouldEqual(HttpStatusCode.NotFound);
+                ((GDAXSharpHttpException)exception.InnerException)?.StatusCode.ShouldEqual(HttpStatusCode.NotFound);
                 exception.InnerException.ShouldContainErrorMessage("order not found");
             };
         }
@@ -318,7 +328,7 @@ namespace GDAXSharp.Specs.Services.Orders
                 order_many_response_result.First().First().ExecutedValue.ShouldEqual(0.0000000000000000M);
                 order_many_response_result.First().First().Status.ShouldEqual(OrderStatus.Active);
                 order_many_response_result.First().First().Settled.ShouldBeFalse();
-                
+
                 order_many_response_result.First().Skip(1).First().Id.ShouldEqual(new Guid("8b99b139-58f2-4ab2-8e7a-c11c846e3022"));
                 order_many_response_result.First().Skip(1).First().Price.ShouldEqual(0.10000000M);
                 order_many_response_result.First().Skip(1).First().Size.ShouldEqual(0.01000000M);
@@ -364,6 +374,12 @@ namespace GDAXSharp.Specs.Services.Orders
                 order_response_result.Status.ShouldEqual(OrderStatus.Pending);
                 order_response_result.Settled.ShouldBeFalse();
             };
+        }
+
+        private static void VerifyRequestContent(IHttpClient httpClient, string content)
+        {
+            httpClient.WasToldTo(p => p.SendAsync(Param<HttpRequestMessage>.Matches(r =>
+                    r.Content.ReadAsStringAsync().Result == content)));
         }
     }
 }
