@@ -1,203 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{454A0FAC-C580-4674-AE58-6D8E6658685B}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GDAXSharp</RootNamespace>
+    <TargetFrameworks>netstandard1.3</TargetFrameworks>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git://github.com/dougdellolio/gdax-csharp</RepositoryUrl>
     <AssemblyName>GDAXSharp</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <RootNamespace>GDAXSharp</RootNamespace>
+    <Authors>Doug Dellolio</Authors>
+    <LangVersion>latest</LangVersion>    
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="SuperSocket.ClientEngine, Version=0.10.0.0, Culture=neutral, PublicKeyToken=ee9af13f57f00acc, processorArchitecture=MSIL">
-      <HintPath>..\packages\SuperSocket.ClientEngine.Core.0.10.0\lib\net45\SuperSocket.ClientEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Collections.Specialized, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Collections.Specialized.4.3.0\lib\net46\System.Collections.Specialized.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Net.NameResolution, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.NameResolution.4.3.0\lib\net46\System.Net.NameResolution.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Security, Version=4.0.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Security.4.3.2\lib\net46\System.Net.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Remoting" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
+    <PackageReference Include="Castle.Core" Version="4.2.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="WebSocket4Net" Version="0.15.2" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+    <PackageReference Include="System.Net.Http" Version="4.3.3" />
+  </ItemGroup>
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Serialization" />
-    <Reference Include="WebSocket4Net, Version=0.15.2.11, Culture=neutral, PublicKeyToken=eb4e154b696bf72a, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebSocket4Net.0.15.2\lib\net45\WebSocket4Net.dll</HintPath>
-    </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Exceptions\GDAXErrorMessage.cs" />
-    <Compile Include="Exceptions\GDAXSharpHttpException.cs" />
-    <Compile Include="Exceptions\GDAXSharpWebSocketException.cs" />
-    <Compile Include="Network\Authentication\Authenticator.cs" />
-    <Compile Include="GDAXClient.cs" />
-    <Compile Include="Network\HttpClient\HttpClient.cs" />
-    <Compile Include="Network\HttpClient\IHttpClient.cs" />
-    <Compile Include="Services\Orders\Types\MarketOrderAmountType.cs" />
-    <Compile Include="Shared\ApiUris.cs" />
-    <Compile Include="Shared\Utilities\JsonConfig.cs" />
-    <Compile Include="WebSocket\Models\Response\Done.cs" />
-    <Compile Include="WebSocket\Models\Response\Error.cs" />
-    <Compile Include="WebSocket\Models\Response\Heartbeat.cs" />
-    <Compile Include="WebSocket\Models\Response\LastMatch.cs" />
-    <Compile Include="WebSocket\Models\Response\Match.cs" />
-    <Compile Include="WebSocket\Models\Response\Open.cs" />
-    <Compile Include="WebSocket\Models\Response\Received.cs" />
-    <Compile Include="WebSocket\Models\Response\Subscription.cs" />
-    <Compile Include="WebSocket\WebSocketFeed.cs" />
-    <Compile Include="WebSocket\Types\ActionType.cs" />
-    <Compile Include="WebSocket\Types\DoneReasonType.cs" />
-    <Compile Include="WebSocket\Types\ResponseType.cs" />
-    <Compile Include="WebSocket\IWebSocketFeed.cs" />
-    <Compile Include="WebSocket\Models\Request\TickerChannel.cs" />
-    <Compile Include="WebSocket\Models\Response\BaseMessage.cs" />
-    <Compile Include="WebSocket\Models\Response\Level2.cs" />
-    <Compile Include="WebSocket\Models\Response\Snapshot.cs" />
-    <Compile Include="WebSocket\Models\Response\Ticker.cs" />
-    <Compile Include="WebSocket\Models\Response\WebSocketFeedEventArgs.cs" />
-    <Compile Include="WebSocket\Types\ChannelType.cs" />
-    <Compile Include="WebSocket\WebSocket.cs" />
-    <Compile Include="Services\Accounts\Types\AccountEntryType.cs" />
-    <Compile Include="Services\Accounts\Types\AccountHoldType.cs" />
-    <Compile Include="Services\CoinbaseAccounts\Types\CoinbaseAccountType.cs" />
-    <Compile Include="Services\Fills\Types\FillLiquidity.cs" />
-    <Compile Include="Services\IEndPoint.cs" />
-    <Compile Include="Services\Orders\Types\GoodTillTime.cs" />
-    <Compile Include="Services\Orders\Types\OrderStatus.cs" />
-    <Compile Include="Services\Orders\Types\TimeInForce.cs" />
-    <Compile Include="Services\Accounts\Models\AccountHistory.cs" />
-    <Compile Include="Services\Accounts\Models\AccountHold.cs" />
-    <Compile Include="Services\Currencies\CurrenciesService.cs" />
-    <Compile Include="Services\Currencies\Models\Currency.cs" />
-    <Compile Include="Services\Fills\FillsService.cs" />
-    <Compile Include="Services\Fills\Models\Fill.cs" />
-    <Compile Include="Services\Fills\Models\Responses\FillResponse.cs" />
-    <Compile Include="Services\Fundings\FundingsService.cs" />
-    <Compile Include="Services\Fundings\Types\FundingStatus.cs" />
-    <Compile Include="Services\Fundings\Models\Funding.cs" />
-    <Compile Include="Services\Products\Models\Ask.cs" />
-    <Compile Include="Services\Products\Models\Bid.cs" />
-    <Compile Include="Services\Products\Models\Candle.cs" />
-    <Compile Include="Services\Products\Types\CandleGranularity.cs" />
-    <Compile Include="Services\Products\Models\Product.cs" />
-    <Compile Include="Services\Products\Types\ProductLevel.cs" />
-    <Compile Include="Services\Products\Types\ProductStats.cs" />
-    <Compile Include="Services\Products\Types\ProductTicker.cs" />
-    <Compile Include="Services\Products\Models\ProductTrade.cs" />
-    <Compile Include="Services\Products\Models\Quote.cs" />
-    <Compile Include="Services\Products\Models\Responses\ProductsOrderBookResponse.cs" />
-    <Compile Include="Services\Products\Models\Responses\ProductsOrderBookJsonResponse.cs" />
-    <Compile Include="Services\Products\ProductsService.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AbstractService.cs" />
-    <Compile Include="Services\Accounts\Models\Account.cs" />
-    <Compile Include="Services\Accounts\AccountsService.cs" />
-    <Compile Include="Network\Authentication\IAuthenticator.cs" />
-    <Compile Include="Services\CoinbaseAccounts\Models\CoinbaseAccount.cs" />
-    <Compile Include="Services\CoinbaseAccounts\CoinbaseAccountsService.cs" />
-    <Compile Include="Services\Reports\Types\FileFormat.cs" />
-    <Compile Include="Services\Reports\Models\Report.cs" />
-    <Compile Include="Services\Reports\Types\ReportStatus.cs" />
-    <Compile Include="Services\Reports\Types\ReportType.cs" />
-    <Compile Include="Services\Reports\Models\Responses\ReportResponse.cs" />
-    <Compile Include="Services\Reports\ReportsService.cs" />
-    <Compile Include="Services\UserAccount\Models\TrailingVolume.cs" />
-    <Compile Include="Services\UserAccount\UserAccountService.cs" />
-    <Compile Include="Shared\Types\Currency.cs" />
-    <Compile Include="Services\Deposits\Models\Deposit.cs" />
-    <Compile Include="Services\Deposits\Models\Responses\DepositResponse.cs" />
-    <Compile Include="Services\Deposits\DepositsService.cs" />
-    <Compile Include="Network\HttpRequest\HttpRequestMessageService.cs" />
-    <Compile Include="Network\HttpRequest\IHttpRequestMessageService.cs" />
-    <Compile Include="Services\Orders\Models\Responses\CancelOrderResponse.cs" />
-    <Compile Include="Services\Orders\Models\Order.cs" />
-    <Compile Include="Services\Orders\Models\Responses\OrderResponse.cs" />
-    <Compile Include="Services\Orders\Types\OrderSide.cs" />
-    <Compile Include="Services\Orders\OrdersService.cs" />
-    <Compile Include="Services\Orders\Types\OrderType.cs" />
-    <Compile Include="Shared\Types\ProductType.cs" />
-    <Compile Include="Services\Payments\Models\PaymentMethod.cs" />
-    <Compile Include="Services\Payments\PaymentsService.cs" />
-    <Compile Include="Services\Withdrawals\Models\Coinbase.cs" />
-    <Compile Include="Services\Withdrawals\Models\Responses\CoinbaseResponse.cs" />
-    <Compile Include="Services\Withdrawals\Models\Crypto.cs" />
-    <Compile Include="Services\Withdrawals\Models\Responses\CryptoResponse.cs" />
-    <Compile Include="Services\Withdrawals\Models\Withdrawal.cs" />
-    <Compile Include="Services\Withdrawals\Models\Responses\WithdrawalResponse.cs" />
-    <Compile Include="Services\Withdrawals\WithdrawalsService.cs" />
-    <Compile Include="Shared\Utilities\Converters\CandleConverter.cs" />
-    <Compile Include="Shared\Utilities\Clock\Clock.cs" />
-    <Compile Include="Shared\Utilities\Extensions\DateExtensions.cs" />
-    <Compile Include="Shared\Utilities\Extensions\EnumExtensions.cs" />
-    <Compile Include="Shared\Utilities\Extensions\ProductTypeExtensions.cs" />
-    <Compile Include="Shared\Utilities\Clock\IClock.cs" />
-    <Compile Include="Shared\Utilities\Queries\IQueryBuilder.cs" />
-    <Compile Include="Shared\Utilities\Queries\QueryBuilder.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  
 </Project>

@@ -1,5 +1,8 @@
 language: csharp
-solution: GDAXSharp.sln
+dotnet: 2.0.0
+dist: trusty
+
 script:
-  - xbuild /p:Configuration=Release GDAXSharp.sln
-  - mono ./packages/Machine.Specifications.Runner.Console.0.9.3/tools/mspec.exe ./GDAXSharp.Specs/bin/Release/GDAXSharp.Specs.dll
+  - msbuild /t:restore GDAXSharp.sln /p:RestorePackagesPath=packages/
+  - msbuild /t:build GDAXSharp.sln /p:Configuration=Release
+  - mono packages/machine.specifications.runner.console/0.9.3/tools/mspec-clr4.exe ./GDAXSharp.Specs/bin/Release/net461/GDAXSharp.Specs.dll
