@@ -28,26 +28,36 @@ namespace GDAXSharp.Specs.Services.Orders
 
         static Exception exception;
 
+        static HttpRequestMessage message;
+
         Establish context = () =>
-        {
             The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
                 .Return(Task.FromResult(new HttpResponseMessage()));
-
-            The<IHttpRequestMessageService>().WhenToldTo(p => p.CreateHttpRequestMessage(Param.IsAny<HttpMethod>(), Param.IsAny<string>(), Param.IsAny<string>()))
-                .Return<HttpMethod, string, string>((httpMethod, uri, content) => OrderRequestFixture.CreateRequest(content));
-        };
 
         class when_placing_a_market_order
         {
             Establish context = () =>
-                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(OrderResponseFixture.CreateMarketOrder()));
+            {
+                message = new HttpRequestMessage(HttpMethod.Post, OrderRequestFixture.CreateMarketOrderRequest());
+
+                The<IHttpClient>().
+                    WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).
+                    Return(Task.FromResult(OrderResponseFixture.CreateMarketOrder()));
+
+                The<IHttpRequestMessageService>().
+                    WhenToldTo(p =>
+                        p.CreateHttpRequestMessage(HttpMethod.Post, "/orders"
+                            , OrderRequestFixture.CreateMarketOrderRequest())).
+                    Return(message);
+            };
 
             Because of = () =>
                 order_response_result = Subject.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M).Result;
 
             It should_send_the_correct_request = () =>
-                VerifyRequestContent(The<IHttpClient>(), OrderRequestFixture.CreateMarketOrderRequest());
+                   The<IHttpClient>().
+                       WasToldTo(p =>
+                           p.SendAsync(message));
 
             It should_have_correct_order_information = () =>
             {
@@ -72,14 +82,27 @@ namespace GDAXSharp.Specs.Services.Orders
         class when_placing_a_limit_order
         {
             Establish context = () =>
-                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(OrderResponseFixture.CreateLimitOrder()));
+            {
+                message = new HttpRequestMessage(HttpMethod.Post, OrderRequestFixture.CreateLimitOrderRequest());
+
+                The<IHttpClient>().
+                    WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).
+                    Return(Task.FromResult(OrderResponseFixture.CreateLimitOrder()));
+
+                The<IHttpRequestMessageService>().
+                    WhenToldTo(p =>
+                        p.CreateHttpRequestMessage(HttpMethod.Post, "/orders"
+                            , OrderRequestFixture.CreateLimitOrderRequest())).
+                    Return(message);
+            };
 
             Because of = () =>
                 order_response_result = Subject.PlaceLimitOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, 0.1M, GoodTillTime.Min).Result;
 
             It should_send_the_correct_request = () =>
-                VerifyRequestContent(The<IHttpClient>(), OrderRequestFixture.CreateLimitOrderRequest());
+                The<IHttpClient>().
+                    WasToldTo(p =>
+                        p.SendAsync(message));
 
             It should_have_correct_order_information = () =>
             {
@@ -104,14 +127,27 @@ namespace GDAXSharp.Specs.Services.Orders
         class when_placing_a_stop_order
         {
             Establish context = () =>
-                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(OrderResponseFixture.CreateStopOrder()));
+            {
+                message = new HttpRequestMessage(HttpMethod.Post, OrderRequestFixture.CreateStopOrderRequest());
+
+                The<IHttpClient>().
+                    WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).
+                    Return(Task.FromResult(OrderResponseFixture.CreateStopOrder()));
+
+                The<IHttpRequestMessageService>().
+                    WhenToldTo(p =>
+                        p.CreateHttpRequestMessage(HttpMethod.Post, "/orders"
+                            , OrderRequestFixture.CreateStopOrderRequest())).
+                    Return(message);
+            };
 
             Because of = () =>
                 order_response_result = Subject.PlaceStopOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, .1M).Result;
 
             It should_send_the_correct_request = () =>
-                VerifyRequestContent(The<IHttpClient>(), OrderRequestFixture.CreateStopOrderRequest());
+                The<IHttpClient>().
+                    WasToldTo(p =>
+                        p.SendAsync(message));
 
             It should_have_correct_order_information = () =>
             {
@@ -136,14 +172,28 @@ namespace GDAXSharp.Specs.Services.Orders
         class when_placing_a_stop_limit_order
         {
             Establish context = () =>
-                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(OrderResponseFixture.CreateStopLimitOrder()));
+            {
+                message = new HttpRequestMessage(HttpMethod.Post, OrderRequestFixture.CreateStopLimitOrderRequest());
+
+                The<IHttpClient>().
+                    WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).
+                    Return(Task.FromResult(OrderResponseFixture.CreateStopLimitOrder()));
+
+                The<IHttpRequestMessageService>().
+                    WhenToldTo(p =>
+                        p.CreateHttpRequestMessage(HttpMethod.Post, "/orders"
+                            , OrderRequestFixture.CreateStopLimitOrderRequest())).
+                    Return(message);
+            };
+
 
             Because of = () =>
                 order_response_result = Subject.PlaceStopLimitOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, .1M, .1M).Result;
 
             It should_send_the_correct_request = () =>
-                VerifyRequestContent(The<IHttpClient>(), OrderRequestFixture.CreateStopLimitOrderRequest());
+                The<IHttpClient>().
+                    WasToldTo(p =>
+                        p.SendAsync(message));
 
             It should_have_correct_order_information = () =>
             {
@@ -350,12 +400,6 @@ namespace GDAXSharp.Specs.Services.Orders
                 order_response_result.Status.ShouldEqual(OrderStatus.Pending);
                 order_response_result.Settled.ShouldBeFalse();
             };
-        }
-
-        private static void VerifyRequestContent(IHttpClient httpClient, string content)
-        {
-            httpClient.WasToldTo(p => p.SendAsync(Param<HttpRequestMessage>.Matches(r =>
-                r.Content.ReadAsStringAsync().Result == content)));
         }
     }
 }
