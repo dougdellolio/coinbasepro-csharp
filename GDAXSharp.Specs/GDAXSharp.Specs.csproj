@@ -1,11 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp2.0</TargetFrameworks>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>git://github.com/dougdellolio/gdax-csharp</RepositoryUrl>
-    <AssemblyName>GDAXSharp.Specs</AssemblyName>
-    <RootNamespace>GDAXSharp.Specs</RootNamespace>
     <Authors>Doug Dellolio</Authors>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
