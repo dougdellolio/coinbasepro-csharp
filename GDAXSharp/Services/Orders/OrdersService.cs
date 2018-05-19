@@ -35,12 +35,12 @@ namespace GDAXSharp.Services.Orders
                 ProductId = productId,
                 OrderType = OrderType.Market,
                 ClientOid = clientOid,
-                Funds = amountType == MarketOrderAmountType.Funds  
-                    ? amount
-                    : (decimal?) null,
-                Size = amountType == MarketOrderAmountType.Size
+                Funds = amountType == MarketOrderAmountType.Funds
                     ? amount
                     : (decimal?)null,
+                Size = amountType == MarketOrderAmountType.Size
+                    ? amount
+                    : (decimal?)null
             });
         }
 
@@ -88,6 +88,33 @@ namespace GDAXSharp.Services.Orders
                 CancelAfter = cancelAfter,
                 PostOnly = postOnly,
                 ClientOid = clientOid
+            };
+
+            return await PlaceOrderAsync(order);
+        }
+
+        public async Task<OrderResponse> PlaceStopLimitOrderAsync(
+            OrderSide side,
+            ProductType productId,
+            decimal size,
+            decimal stopPrice,
+            decimal limitPrice,
+            bool postOnly = false,
+            Guid? clientOid = null)
+        {
+            var order = new Order
+            {
+                Side = side,
+                ProductId = productId,
+                OrderType = OrderType.Limit,
+                Price = limitPrice,
+                Size = size,
+                Stop = side == OrderSide.Buy
+                    ? StopType.Entry
+                    : StopType.Loss,
+                StopPrice = stopPrice,
+                ClientOid = clientOid,
+                PostOnly = postOnly
             };
 
             return await PlaceOrderAsync(order);

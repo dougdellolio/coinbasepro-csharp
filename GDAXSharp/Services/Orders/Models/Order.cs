@@ -19,6 +19,11 @@ namespace GDAXSharp.Services.Orders.Models
 
         public decimal Price { get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
+        public StopType? Stop { get; set; }
+
+        public decimal? StopPrice { get; set; }
+
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter))]
         public OrderType OrderType { get; set; }
