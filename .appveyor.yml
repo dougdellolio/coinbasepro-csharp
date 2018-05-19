@@ -1,5 +1,15 @@
 version: 1.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+image: Visual Studio 2017
+configuration: Release
+platform: Any CPU
+before_build:
+- cmd: nuget.exe restore GDAXSharp.sln
+build:
+  project: GDAXSharp.sln
+  verbosity: minimal
 test:
   assemblies:
     only:
-      - mspec '**\*.Specs.dll'
+    - '**\*.Specs.dll'
