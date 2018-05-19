@@ -6,7 +6,7 @@ namespace GDAXSharp.Specs.JsonFixtures.Services.Orders
     {
         public static HttpRequestMessage CreateRequest(string content)
         {
-            return new HttpRequestMessage(HttpMethod.Get, "")
+            return new HttpRequestMessage(HttpMethod.Post, "")
             {
                 Content = new StringContent(content)
             };
