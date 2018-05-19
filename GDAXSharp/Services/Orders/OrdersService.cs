@@ -35,12 +35,12 @@ namespace GDAXSharp.Services.Orders
                 ProductId = productId,
                 OrderType = OrderType.Market,
                 ClientOid = clientOid,
-                Funds = amountType == MarketOrderAmountType.Funds  
-                    ? amount
-                    : (decimal?) null,
-                Size = amountType == MarketOrderAmountType.Size
+                Funds = amountType == MarketOrderAmountType.Funds
                     ? amount
                     : (decimal?)null,
+                Size = amountType == MarketOrderAmountType.Size
+                    ? amount
+                    : (decimal?)null
             });
         }
 
@@ -109,7 +109,7 @@ namespace GDAXSharp.Services.Orders
                 OrderType = OrderType.Limit,
                 Price = limitPrice,
                 Size = size,
-                Stop = side == OrderSide.Buy 
+                Stop = side == OrderSide.Buy
                     ? StopType.Entry
                     : StopType.Loss,
                 StopPrice = stopPrice,
