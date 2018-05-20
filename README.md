@@ -38,6 +38,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 - PlaceLimitOrderAsync(orderSide, productPair, size, price, timeInForce, postOnly, clientOId) - place limit order with time in force
 - PlaceLimitOrderAsync(orderSide, productPair, size, price, cancelAfter, postOnly, clientOId) - place limit order with cancel after date
 - PlaceStopOrderAsync(orderSide, productPair, size, stopPrice, clientOId) - place stop order with stop price
+- PlaceStopLimitOrderAsync(orderSide, productPair, size, stopPrice, limitPrice, postOnly, clientOId) - place stop limit order
 - CancelAllOrdersAsync() - cancel all orders
 - CancelOrderByIdAsync(id) - cancel order by id
 - GetAllOrdersAsync(orderStatus, limit, numberOfPages) - get all, active or pending orders (paged response)
