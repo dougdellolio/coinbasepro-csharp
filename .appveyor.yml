@@ -1,14 +1,16 @@
-version: '{build}.{branch}'
+version: '{build}'
 image: Visual Studio 2017
 configuration: Release
 platform: Any CPU
 before_build:
-- cmd: nuget.exe restore GDAXSharp.sln
+- ps: >-
+    nuget.exe restore GDAXSharp.sln
+
+    GitVersion.exe /output buildserver
 build:
   project: GDAXSharp.sln
-  verbosity: minimal
+  verbosity: normal
 test:
   assemblies:
     only:
     - '**\*.Specs.dll'
-    
