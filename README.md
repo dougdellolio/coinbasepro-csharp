@@ -3,7 +3,7 @@ GDAX API C# Client Library - https://docs.gdax.com/
 
 
 [![Build status](https://ci.appveyor.com/api/projects/status/maqa3anaaxhcwamt?svg=true)](https://ci.appveyor.com/project/dougdellolio/gdax-csharp)
-<a href="https://travis-ci.org/dougdellolio/gdax-csharp"><img src="https://travis-ci.org/dougdellolio/gdax-csharp.svg?branch=master"></a> [![NuGet](https://img.shields.io/nuget/v/GDAX.Api.ClientLibrary.svg)](https://www.nuget.org/packages/GDAX.Api.ClientLibrary/)
+[![NuGet](https://img.shields.io/nuget/v/GDAX.Api.ClientLibrary.svg)](https://www.nuget.org/packages/GDAX.Api.ClientLibrary/)
 [![NuGet](https://img.shields.io/nuget/dt/GDAX.Api.ClientLibrary.svg)](https://www.nuget.org/packages/GDAX.Api.ClientLibrary/)
 <h1>How to Install</h1>
 
