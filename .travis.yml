@@ -1,5 +1,0 @@
-language: csharp
-solution: GDAXSharp.sln
-script:
-  - xbuild /p:Configuration=Release GDAXSharp.sln
-  - mono ./packages/Machine.Specifications.Runner.Console.0.9.3/tools/mspec.exe ./GDAXSharp.Specs/bin/Release/GDAXSharp.Specs.dll
