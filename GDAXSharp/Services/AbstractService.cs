@@ -2,6 +2,7 @@ using GDAXSharp.Exceptions;
 using GDAXSharp.Network.HttpClient;
 using GDAXSharp.Network.HttpRequest;
 using GDAXSharp.Shared.Utilities;
+using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -36,6 +37,8 @@ namespace GDAXSharp.Services
 
             if (httpResponseMessage.IsSuccessStatusCode)
             {
+                Log.Verbose("@httpResponseMessage", httpResponseMessage);
+
                 return httpResponseMessage;
             }
 
@@ -53,13 +56,17 @@ namespace GDAXSharp.Services
                 errorMessage = contentBody;
             }
 
-            throw new GDAXSharpHttpException(errorMessage)
-            {
-                StatusCode = httpResponseMessage.StatusCode,
-                RequestMessage = httpRequestMessage,
-                ResponseMessage = httpResponseMessage,
-                EndPoint = new EndPoint(httpMethod, uri, content)
-            };
+            var ex = new GDAXSharpHttpException(errorMessage)
+                            {
+                                StatusCode = httpResponseMessage.StatusCode,
+                                RequestMessage = httpRequestMessage,
+                                ResponseMessage = httpResponseMessage,
+                                EndPoint = new EndPoint(httpMethod, uri, content)
+                            };
+
+            Log.Error("REST request about to throw {@GDAXSharpHttpException}", ex);
+
+            throw ex;
         }
 
         protected async Task<IList<IList<T>>> SendHttpRequestMessagePagedAsync<T>(
@@ -127,6 +134,8 @@ namespace GDAXSharp.Services
             string uri,
             string content = null)
         {
+            Log.Debug("GDAXSharp REST {HttpMethod} {Uri} {Content}", httpMethod, uri, content);
+
             var httpResponseMessage = await SendHttpRequestMessageAsync(httpMethod, uri, content);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 

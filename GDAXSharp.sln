@@ -9,7 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GDAXSharp.Specs", "GDAXShar
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other files", "Other files", "{7201D122-5E2F-46A3-9895-DA3588E54CB9}"
 	ProjectSection(SolutionItems) = preProject
-		.travis.yml = .travis.yml
+		.appveyor.yml = .appveyor.yml
+		.GitVersion.yml = .GitVersion.yml
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection

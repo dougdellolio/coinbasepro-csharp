@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Serilog;
 
 namespace GDAXSharp.Shared.Utilities
 {
@@ -12,6 +13,16 @@ namespace GDAXSharp.Shared.Utilities
             ContractResolver = new DefaultContractResolver
             {
                 NamingStrategy = new SnakeCaseNamingStrategy()
+            },
+            Error = delegate(object sender, ErrorEventArgs args)
+            {
+                if (args.CurrentObject == args.ErrorContext.OriginalObject)
+                {
+                    Log.Error("Json serialization error @OriginalObject @Member @ErrorMessage"
+                                                            , args.ErrorContext.OriginalObject
+                                                            , args.ErrorContext.Member
+                                                            , args.ErrorContext.Error.Message);
+                }
             }
         };
 
