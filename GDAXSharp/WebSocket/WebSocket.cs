@@ -178,7 +178,7 @@ namespace GDAXSharp.WebSocket
                     webSocketFeed.Invoke(OnErrorReceived, sender, new WebfeedEventArgs<Error>(error));
                     break;
                 default:
-                    Log.Debug("Unknown ResponseType {ResponseType} {@Response}", response.Type, response);
+                    Log.Error("Unknown ResponseType {@ResponseJson}", json);
                     throw new ArgumentOutOfRangeException();
             }
         }

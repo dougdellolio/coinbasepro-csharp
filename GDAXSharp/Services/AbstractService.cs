@@ -134,7 +134,7 @@ namespace GDAXSharp.Services
             string uri,
             string content = null)
         {
-            Log.Debug("GDAXSharp REST {HttpMethod} {Uri} {Content}", httpMethod, uri, content);
+            Log.Debug("REST {HttpMethod} {Uri} {Content}", httpMethod, uri, content);
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(httpMethod, uri, content);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);

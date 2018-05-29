@@ -4,6 +4,7 @@ namespace GDAXSharp.WebSocket.Types
 {
     public enum ResponseType
     {
+        Unknown = 0,
         Subscriptions,
         Heartbeat,
         Ticker,
