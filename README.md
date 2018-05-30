@@ -232,6 +232,29 @@ var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>")
 var gdaxClient = new GDAXClient(authenticator, myWay);
 ````
 
+<h1>Logging</h1>
+
+Logging is provided by Serilog - https://github.com/serilog/serilog
+
+````
+//configure the application logging to output to console and a file called log.txt
+Serilog.Log.Logger = new LoggerConfiguration()
+				.MinimumLevel.Debug()
+				.WriteTo.Console()
+				.WriteTo.File("log.txt",
+					rollingInterval: RollingInterval.Day,
+					rollOnFileSizeLimit: true)
+				.CreateLogger();
+
+//create an authenticator with your apiKey, signature and passphrase
+var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>");
+
+//create the GDAX client
+var gdaxClient = new GDAXClient(authenticator);
+
+//use one of the services 
+var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
+````
 
 <h1>Contributors</h1>
 

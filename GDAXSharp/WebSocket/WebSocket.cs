@@ -7,6 +7,7 @@ using GDAXSharp.Shared.Utilities.Extensions;
 using GDAXSharp.WebSocket.Models.Request;
 using GDAXSharp.WebSocket.Models.Response;
 using GDAXSharp.WebSocket.Types;
+using Serilog;
 using SuperSocket.ClientEngine;
 using System;
 using System.Collections.Generic;
@@ -52,18 +53,18 @@ namespace GDAXSharp.WebSocket
         }
 
         public void Start(
-            List<ProductType> providedProductTypes,
-            List<ChannelType> providedChannelTypes = null)
+            List<ProductType> productTypes,
+            List<ChannelType> channelTypes = null)
         {
-            if (providedProductTypes.Count == 0)
+            if (productTypes.Count == 0)
             {
-                throw new ArgumentException("You must specify at least one product type");
+                throw new ArgumentException($"You must specify at least one {nameof(productTypes)}");
             }
 
             stopWebSocket = false;
 
-            productTypes = providedProductTypes;
-            channelTypes = providedChannelTypes;
+            this.productTypes = productTypes;
+            this.channelTypes = channelTypes;
 
             webSocketFeed = createWebSocketFeed();
             webSocketFeed.Closed += WebSocket_Closed;
@@ -71,6 +72,8 @@ namespace GDAXSharp.WebSocket
             webSocketFeed.MessageReceived += WebSocket_MessageReceived;
             webSocketFeed.Opened += WebSocket_Opened;
             webSocketFeed.Open();
+
+            Log.Information("WebSocket started with {@ProductTypes} {@ChannelTypes}", this.productTypes, this.channelTypes);
         }
 
         public void Stop()
@@ -95,13 +98,15 @@ namespace GDAXSharp.WebSocket
 
             webSocketFeed.Send(json);
             webSocketFeed.Close();
+
+            Log.Information("WebSocket stopped");
         }
 
         public void WebSocket_Opened(object sender, EventArgs e)
         {
             if (productTypes.Count == 0)
             {
-                throw new ArgumentException("You must specify at least one product type");
+                throw new ArgumentException($"You must specify at least one {nameof(productTypes)}");
             }
 
             var channels = GetChannels();
@@ -173,6 +178,7 @@ namespace GDAXSharp.WebSocket
                     webSocketFeed.Invoke(OnErrorReceived, sender, new WebfeedEventArgs<Error>(error));
                     break;
                 default:
+                    Log.Error("Unknown ResponseType {@ResponseJson}", json);
                     throw new ArgumentOutOfRangeException();
             }
         }

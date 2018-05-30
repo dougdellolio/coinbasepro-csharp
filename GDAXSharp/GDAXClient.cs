@@ -17,6 +17,7 @@ using GDAXSharp.Services.Withdrawals;
 using GDAXSharp.Shared.Utilities.Clock;
 using GDAXSharp.Shared.Utilities.Queries;
 using GDAXSharp.WebSocket;
+using Serilog;
 
 namespace GDAXSharp
 {
@@ -58,6 +59,8 @@ namespace GDAXSharp
             ReportsService = new ReportsService(httpClient, httpRequestMessageService);
             UserAccountService = new UserAccountService(httpClient, httpRequestMessageService);
             WebSocket = new WebSocket.WebSocket(createWebSocketFeed, authenticator, clock);
+
+            Log.Information("GDAXClient constructed");
         }
 
         public AccountsService AccountsService { get; }
