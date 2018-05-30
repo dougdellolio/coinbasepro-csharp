@@ -18,7 +18,7 @@ namespace GDAXSharp.Shared.Utilities
             {
                 if (args.CurrentObject == args.ErrorContext.OriginalObject)
                 {
-                    Log.Error("Json serialization error @OriginalObject @Member @ErrorMessage"
+                    Log.Error("Json serialization error {@OriginalObject} {@Member} {@ErrorMessage}"
                                                             , args.ErrorContext.OriginalObject
                                                             , args.ErrorContext.Member
                                                             , args.ErrorContext.Error.Message);
