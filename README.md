@@ -156,13 +156,13 @@ Logging is provided by Serilog; https://github.com/serilog/serilog
 
 ````
 //configure the application logging to output to console and a file called log.txt
-Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Debug()
-            .WriteTo.Console()
-            .WriteTo.File("log.txt",
-                rollingInterval: RollingInterval.Day,
-                rollOnFileSizeLimit: true)
-            .CreateLogger();
+Serilog.Log.Logger = new LoggerConfiguration()
+						.MinimumLevel.Debug()
+						.WriteTo.Console()
+						.WriteTo.File("log.txt",
+							rollingInterval: RollingInterval.Day,
+							rollOnFileSizeLimit: true)
+						.CreateLogger();
 
 //create an authenticator with your apiKey, signature and passphrase
 var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>");
