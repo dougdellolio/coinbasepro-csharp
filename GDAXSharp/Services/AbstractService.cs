@@ -57,12 +57,12 @@ namespace GDAXSharp.Services
             }
 
             var ex = new GDAXSharpHttpException(errorMessage)
-                            {
-                                StatusCode = httpResponseMessage.StatusCode,
-                                RequestMessage = httpRequestMessage,
-                                ResponseMessage = httpResponseMessage,
-                                EndPoint = new EndPoint(httpMethod, uri, content)
-                            };
+            {
+                StatusCode = httpResponseMessage.StatusCode,
+                RequestMessage = httpRequestMessage,
+                ResponseMessage = httpResponseMessage,
+                EndPoint = new EndPoint(httpMethod, uri, content)
+            };
 
             Log.Error("REST request about to throw {@GDAXSharpHttpException}", ex);
 
