@@ -131,7 +131,7 @@ namespace GDAXSharp.WebSocket
             var json = e.Message;
             if (!json.TryDeserializeObject<BaseMessage>(out var response))
             {
-                Log.Error("Unknown ResponseType {@ResponseJson}. Ignoring message received", json);
+                Log.Error("Could not deserialize response because the type doesn't exist {@ResponseJson}.", json);
             }
 
             switch (response?.Type)
@@ -181,7 +181,7 @@ namespace GDAXSharp.WebSocket
                     webSocketFeed.Invoke(OnErrorReceived, sender, new WebfeedEventArgs<Error>(error));
                     break;
                 default:
-                    Log.Error("Unknown ResponseType {@ResponseJson}. Ignoring message received", json);
+                    Log.Error("Unknown ResponseType {@ResponseJson}. Ignoring message received.", json);
                     break;
             }
         }
