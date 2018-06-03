@@ -10,6 +10,8 @@ using GDAXSharp.Network.Authentication;
 using GDAXSharp.Specs.JsonFixtures.Websocket;
 using GDAXSharp.WebSocket.Models.Response;
 using Moq;
+using Serilog;
+using Serilog.Sinks.TestCorrelator;
 using WebSocket4Net;
 using It = Machine.Specifications.It;
 
@@ -74,6 +76,9 @@ namespace GDAXSharp.Specs.WebSocket
                         Param.IsAny<double>(),
                         Param.IsAny<string>(),
                         Param.IsAny<string>()));
+
+                Log.Logger = new LoggerConfiguration().WriteTo.Sink(new TestCorrelatorSink()).
+                    CreateLogger();
             };
 
             class when_opened_is_called
@@ -237,6 +242,24 @@ namespace GDAXSharp.Specs.WebSocket
                     It should_have_invoked_done_response = () =>
                         The<IWebSocketFeed>().
                             WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Done>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Done>>()));
+                }
+
+                class when_response_type_doesnt_match_a_type
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, channel_type_inputs);
+
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateRandomResponse()));
+                    };
+
+                    It should_have_logged = () =>
+                        TestCorrelator.GetLogEventsFromCurrentContext().
+                            ShouldContain(p => p.MessageTemplate.Text.Contains("Unknown ResponseType"));
+
+                    It should_not_have_called_invoke = () =>
+                        The<IWebSocketFeed>().
+                            WasNotToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<BaseMessage>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<BaseMessage>>()));
                 }
             }
         }
