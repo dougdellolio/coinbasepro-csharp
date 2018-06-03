@@ -151,29 +151,6 @@ The following methods are EventHandlers:
 - OnLastMatchReceived - EventHandler for data with response type `last match`
 - OnErrorReceived - EventHandler for data with response type `error`
 
-<h1>Logging</h1>
-Logging is provided by Serilog; https://github.com/serilog/serilog
-
-````
-//configure the application logging to output to console and a file called log.txt
-Serilog.Log.Logger = new LoggerConfiguration()
-						.MinimumLevel.Debug()
-						.WriteTo.Console()
-						.WriteTo.File("log.txt",
-							rollingInterval: RollingInterval.Day,
-							rollOnFileSizeLimit: true)
-						.CreateLogger();
-
-//create an authenticator with your apiKey, signature and passphrase
-var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>");
-
-//create the GDAX client and set the sandbox flag to true
-var gdaxClient = new GDAXClient(authenticator, true);
-
-//use one of the services 
-var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
-````
-
 <h1>Sandbox Support</h1>
 
 <i>Generate your key at https://public.sandbox.gdax.com/settings/api</i>
