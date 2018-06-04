@@ -75,6 +75,8 @@ namespace GDAXSharp.Services
             string content = null,
             int numberOfPages = 0)
         {
+            Log.Debug("REST {HttpMethod} {Uri} {Content} {NumberOfPages}", httpMethod, uri, content, numberOfPages);
+
             var pagedList = new List<IList<T>>();
 
             var httpResponseMessage = await SendHttpRequestMessageAsync(httpMethod, uri, content);
@@ -110,6 +112,8 @@ namespace GDAXSharp.Services
 
             while (runCount > 1)
             {
+                Log.Debug("REST {HttpMethod} {Uri} {PageAfter} ", HttpMethod.Get, uri, subsequentPageAfterHeaderId);
+
                 var subsequentHttpResponseMessage = await SendHttpRequestMessageAsync(HttpMethod.Get, uri + $"&after={subsequentPageAfterHeaderId}").ConfigureAwait(false);
                 if (!subsequentHttpResponseMessage.Headers.TryGetValues("cb-after", out var cursorHeaders))
                 {
