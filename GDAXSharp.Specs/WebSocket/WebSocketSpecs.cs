@@ -244,6 +244,51 @@ namespace GDAXSharp.Specs.WebSocket
                             WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Done>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Done>>()));
                 }
 
+                class when_response_type_is_change
+                {
+                    class with_size
+                    {
+                        Because of = () =>
+                        {
+                            Subject.Start(product_type_inputs, channel_type_inputs);
+
+                            websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateChangeResponse(true)));
+                        };
+
+                        It should_have_invoked_change_response = () =>
+                            The<IWebSocketFeed>().
+                                WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Change>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Change>>()));
+                    }
+
+                    class with_funds
+                    {
+                        Because of = () =>
+                        {
+                            Subject.Start(product_type_inputs, channel_type_inputs);
+
+                            websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateChangeResponse(false)));
+                        };
+
+                        It should_have_invoked_change_response = () =>
+                            The<IWebSocketFeed>().
+                                WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Change>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Change>>()));
+                    }
+                }
+
+                class when_response_type_is_activate
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, channel_type_inputs);
+
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateActivateResponse()));
+                    };
+
+                    It should_have_invoked_activate_response = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Activate>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Activate>>()));
+                }
+
                 class when_response_type_doesnt_match_a_type
                 {
                     Because of = () =>

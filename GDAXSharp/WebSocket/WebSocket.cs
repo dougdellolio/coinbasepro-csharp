@@ -180,6 +180,14 @@ namespace GDAXSharp.WebSocket
                     var error = JsonConfig.DeserializeObject<Error>(json);
                     webSocketFeed.Invoke(OnErrorReceived, sender, new WebfeedEventArgs<Error>(error));
                     break;
+                case ResponseType.Change:
+                    var change = JsonConfig.DeserializeObject<Change>(json);
+                    webSocketFeed.Invoke(OnChangeReceived, sender, new WebfeedEventArgs<Change>(change));
+                    break;
+                case ResponseType.Activate:
+                    var activate = JsonConfig.DeserializeObject<Activate>(json);
+                    webSocketFeed.Invoke(OnActivateReceived, sender, new WebfeedEventArgs<Activate>(activate));
+                    break;
                 default:
                     Log.Error("Unknown ResponseType {@ResponseJson}. Ignoring message received.", json);
                     break;
@@ -269,6 +277,8 @@ namespace GDAXSharp.WebSocket
         public event EventHandler<WebfeedEventArgs<Heartbeat>> OnHeartbeatReceived;
         public event EventHandler<WebfeedEventArgs<Received>> OnReceivedReceived;
         public event EventHandler<WebfeedEventArgs<Open>> OnOpenReceived;
+        public event EventHandler<WebfeedEventArgs<Change>> OnChangeReceived;
+        public event EventHandler<WebfeedEventArgs<Activate>> OnActivateReceived;
         public event EventHandler<WebfeedEventArgs<Done>> OnDoneReceived;
         public event EventHandler<WebfeedEventArgs<Match>> OnMatchReceived;
         public event EventHandler<WebfeedEventArgs<LastMatch>> OnLastMatchReceived;
