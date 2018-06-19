@@ -153,6 +153,56 @@
 }";
         }
 
+        public static string CreateActivateResponse()
+        {
+            return @"
+{
+    ""type"": ""activate"",
+    ""product_id"": ""BTC-USD"",
+    ""timestamp"": ""1483736448.299000"",
+    ""user_id"": ""12"",
+    ""profile_id"": ""30000727-d308-cf50-7b1c-c06deb1934fc"",
+    ""order_id"": ""7b52009b-64fd-0a2a-49e6-d8a939753077"",
+    ""stop_type"": ""entry"",
+    ""side"": ""buy"",
+    ""stop_price"": ""80"",
+    ""size"": ""2"",
+    ""funds"": ""50"",
+    ""taker_fee_rate"": ""0.0025"",
+    ""private"": true
+}";
+        }
+
+        public static string CreateChangeResponse(bool withSize)
+        {
+
+            return withSize
+                ? @"
+{
+    ""type"": ""change"",
+    ""time"": ""2014-11-07T08:19:27.028459Z"",
+    ""sequence"": 80,
+    ""order_id"": ""ac928c66-ca53-498f-9c13-a110027a60e8"",
+    ""product_id"": ""BTC-USD"",
+    ""new_size"": ""5.23512"",
+    ""old_size"": ""12.234412"",
+    ""price"": ""400.23"",
+    ""side"": ""sell""
+}"
+                : @"{
+    ""type"": ""change"",
+    ""time"": ""2014-11-07T08:19:27.028459Z"",
+    ""sequence"": 80,
+    ""order_id"": ""ac928c66-ca53-498f-9c13-a110027a60e8"",
+    ""product_id"": ""BTC-USD"",
+    ""new_funds"": ""5.23512"",
+    ""old_funds"": ""12.234412"",
+    ""price"": ""400.23"",
+    ""side"": ""sell""
+}";
+
+        }
+
         public static string CreateRandomResponse()
         {
             return @"
