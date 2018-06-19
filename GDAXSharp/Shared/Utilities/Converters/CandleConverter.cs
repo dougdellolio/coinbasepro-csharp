@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using GDAXSharp.Services.Products.Models;
+using CoinbasePro.Services.Products.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace GDAXSharp.Shared.Utilities.Converters
+namespace CoinbasePro.Shared.Utilities.Converters
 {
     public class CandleConverter : JsonConverter
     {

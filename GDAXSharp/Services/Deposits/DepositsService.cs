@@ -1,16 +1,16 @@
-﻿using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
-using GDAXSharp.Services.Deposits.Models;
-using GDAXSharp.Services.Deposits.Models.Responses;
-using GDAXSharp.Services.Withdrawals.Models;
-using GDAXSharp.Services.Withdrawals.Models.Responses;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Shared.Utilities;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Network.HttpRequest;
+using CoinbasePro.Services.Deposits.Models;
+using CoinbasePro.Services.Deposits.Models.Responses;
+using CoinbasePro.Services.Withdrawals.Models;
+using CoinbasePro.Services.Withdrawals.Models.Responses;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Shared.Utilities;
 
-namespace GDAXSharp.Services.Deposits
+namespace CoinbasePro.Services.Deposits
 {
     public class DepositsService : AbstractService
     {

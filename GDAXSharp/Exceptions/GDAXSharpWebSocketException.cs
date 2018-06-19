@@ -1,8 +1,8 @@
 ﻿using SuperSocket.ClientEngine;
 using System;
-using GDAXSharp.WebSocket;
+using CoinbasePro.WebSocket;
 
-namespace GDAXSharp.Exceptions
+namespace CoinbasePro.Exceptions
 {
     public class GDAXSharpWebSocketException : Exception
     {

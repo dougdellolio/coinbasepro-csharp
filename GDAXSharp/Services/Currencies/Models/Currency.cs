@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Services.Currencies.Models
+﻿namespace CoinbasePro.Services.Currencies.Models
 {
     public class Currency
     {

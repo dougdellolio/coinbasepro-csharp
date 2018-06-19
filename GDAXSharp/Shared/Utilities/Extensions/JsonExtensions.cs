@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Shared.Utilities.Extensions
+﻿namespace CoinbasePro.Shared.Utilities.Extensions
 {
     public static class JsonExtensions
     {

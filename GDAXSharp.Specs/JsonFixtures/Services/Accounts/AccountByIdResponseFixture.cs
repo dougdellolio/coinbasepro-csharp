@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Specs.JsonFixtures.Services.Accounts
+﻿namespace CoinbasePro.Specs.JsonFixtures.Services.Accounts
 {
     public static class AccountByIdResponseFixture
     {

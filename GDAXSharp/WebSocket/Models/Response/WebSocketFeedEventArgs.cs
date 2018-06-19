@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXSharp.WebSocket.Models.Response
+namespace CoinbasePro.WebSocket.Models.Response
 {
     public class WebfeedEventArgs<T> : EventArgs
     {

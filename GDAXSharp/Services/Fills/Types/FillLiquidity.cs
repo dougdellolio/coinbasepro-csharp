@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace GDAXSharp.Services.Fills.Types
+namespace CoinbasePro.Services.Fills.Types
 {
     public enum FillLiquidity
     {

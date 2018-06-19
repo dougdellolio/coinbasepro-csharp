@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GDAXSharp", "GDAXSharp\GDAXSharp.csproj", "{454A0FAC-C580-4674-AE58-6D8E6658685B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinbasePro", "GDAXSharp\CoinbasePro.csproj", "{454A0FAC-C580-4674-AE58-6D8E6658685B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GDAXSharp.Specs", "GDAXSharp.Specs\GDAXSharp.Specs.csproj", "{3F1CF230-DEFD-4D8E-8BA5-B8CB86218800}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinbasePro.Specs", "GDAXSharp.Specs\CoinbasePro.Specs.csproj", "{3F1CF230-DEFD-4D8E-8BA5-B8CB86218800}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other files", "Other files", "{7201D122-5E2F-46A3-9895-DA3588E54CB9}"
 	ProjectSection(SolutionItems) = preProject

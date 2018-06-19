@@ -1,9 +1,9 @@
-﻿using GDAXSharp.Shared.Types;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
+using CoinbasePro.Shared.Types;
 
-namespace GDAXSharp.Services.Accounts.Models
+namespace CoinbasePro.Services.Accounts.Models
 {
     public class Account
     {

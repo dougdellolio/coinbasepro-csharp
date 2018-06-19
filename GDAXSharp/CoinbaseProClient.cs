@@ -1,42 +1,42 @@
-﻿using GDAXSharp.Network.Authentication;
-using System;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
-using GDAXSharp.Services.Accounts;
-using GDAXSharp.Services.CoinbaseAccounts;
-using GDAXSharp.Services.Currencies;
-using GDAXSharp.Services.Deposits;
-using GDAXSharp.Services.Fills;
-using GDAXSharp.Services.Fundings;
-using GDAXSharp.Services.Orders;
-using GDAXSharp.Services.Payments;
-using GDAXSharp.Services.Products;
-using GDAXSharp.Services.Reports;
-using GDAXSharp.Services.UserAccount;
-using GDAXSharp.Services.Withdrawals;
-using GDAXSharp.Shared.Utilities.Clock;
-using GDAXSharp.Shared.Utilities.Queries;
-using GDAXSharp.WebSocket;
+﻿using System;
+using CoinbasePro.Network.Authentication;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Network.HttpRequest;
+using CoinbasePro.Services.Accounts;
+using CoinbasePro.Services.CoinbaseAccounts;
+using CoinbasePro.Services.Currencies;
+using CoinbasePro.Services.Deposits;
+using CoinbasePro.Services.Fills;
+using CoinbasePro.Services.Fundings;
+using CoinbasePro.Services.Orders;
+using CoinbasePro.Services.Payments;
+using CoinbasePro.Services.Products;
+using CoinbasePro.Services.Reports;
+using CoinbasePro.Services.UserAccount;
+using CoinbasePro.Services.Withdrawals;
+using CoinbasePro.Shared.Utilities.Clock;
+using CoinbasePro.Shared.Utilities.Queries;
+using CoinbasePro.WebSocket;
 using Serilog;
 
-namespace GDAXSharp
+namespace CoinbasePro
 {
-    public class GDAXClient
+    public class CoinbaseProClient
     {
-        public GDAXClient(
+        public CoinbaseProClient(
             bool sandBox = false)
                 : this(null, new HttpClient(), sandBox)
         {
         }
 
-        public GDAXClient(
+        public CoinbaseProClient(
             IAuthenticator authenticator,
             bool sandBox = false)
                 : this(authenticator, new HttpClient(), sandBox)
         {
         }
 
-        public GDAXClient(
+        public CoinbaseProClient(
             IAuthenticator authenticator,
             IHttpClient httpClient,
             bool sandBox = false)
@@ -60,7 +60,7 @@ namespace GDAXSharp
             UserAccountService = new UserAccountService(httpClient, httpRequestMessageService);
             WebSocket = new WebSocket.WebSocket(createWebSocketFeed, authenticator, clock);
 
-            Log.Information("GDAXClient constructed");
+            Log.Information("CoinbaseProClient constructed");
         }
 
         public AccountsService AccountsService { get; }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GDAXSharp.Services.Products.Models.Responses
+namespace CoinbasePro.Services.Products.Models.Responses
 {
     public class ProductsOrderBookResponse
     {

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace GDAXSharp.Services.Orders.Types
+namespace CoinbasePro.Services.Orders.Types
 {
     public enum StopType
     {

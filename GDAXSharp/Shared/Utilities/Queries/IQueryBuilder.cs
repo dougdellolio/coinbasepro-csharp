@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GDAXSharp.Shared.Utilities.Queries
+namespace CoinbasePro.Shared.Utilities.Queries
 {
     public interface IQueryBuilder
     {

@@ -1,6 +1,6 @@
-﻿using GDAXSharp.Shared.Types;
+﻿using CoinbasePro.Shared.Types;
 
-namespace GDAXSharp.WebSocket.Models.Response
+namespace CoinbasePro.WebSocket.Models.Response
 {
     public class Heartbeat : BaseMessage
     {

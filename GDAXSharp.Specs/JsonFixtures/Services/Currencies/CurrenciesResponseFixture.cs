@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Specs.JsonFixtures.Services.Currencies
+﻿namespace CoinbasePro.Specs.JsonFixtures.Services.Currencies
 {
     public static class CurrenciesResponseFixture
     {

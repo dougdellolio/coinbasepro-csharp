@@ -1,14 +1,14 @@
-﻿using GDAXSharp.Network.Authentication;
-using GDAXSharp.Shared.Utilities.Clock;
-using GDAXSharp.Shared.Utilities.Extensions;
+﻿using CoinbasePro.Shared.Utilities.Extensions;
 using System;
 using System.Globalization;
 using System.Net.Http;
 using System.Text;
-using GDAXSharp.Exceptions;
-using GDAXSharp.Shared;
+using CoinbasePro.Exceptions;
+using CoinbasePro.Network.Authentication;
+using CoinbasePro.Shared;
+using CoinbasePro.Shared.Utilities.Clock;
 
-namespace GDAXSharp.Network.HttpRequest
+namespace CoinbasePro.Network.HttpRequest
 {
     public class HttpRequestMessageService : IHttpRequestMessageService
     {
@@ -61,7 +61,7 @@ namespace GDAXSharp.Network.HttpRequest
             string signedSignature,
             double timeStamp)
         {
-            httpRequestMessage.Headers.Add("User-Agent", "GDAXClient");
+            httpRequestMessage.Headers.Add("User-Agent", "CoinbaseProClient");
             httpRequestMessage.Headers.Add("CB-ACCESS-KEY", authenticator.ApiKey);
             httpRequestMessage.Headers.Add("CB-ACCESS-TIMESTAMP", timeStamp.ToString("F0", CultureInfo.InvariantCulture));
             httpRequestMessage.Headers.Add("CB-ACCESS-SIGN", signedSignature);

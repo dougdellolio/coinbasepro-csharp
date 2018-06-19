@@ -4,18 +4,18 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Exceptions;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
-using GDAXSharp.Services.Orders;
-using GDAXSharp.Services.Orders.Models.Responses;
-using GDAXSharp.Services.Orders.Types;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Specs.JsonFixtures.Services.Orders;
+using CoinbasePro.Exceptions;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Network.HttpRequest;
+using CoinbasePro.Services.Orders;
+using CoinbasePro.Services.Orders.Models.Responses;
+using CoinbasePro.Services.Orders.Types;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Specs.JsonFixtures.Services.Orders;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXSharp.Specs.Services.Orders
+namespace CoinbasePro.Specs.Services.Orders
 {
     [Subject("OrdersService")]
     public class OrdersServiceSpecs : WithSubject<OrdersService>

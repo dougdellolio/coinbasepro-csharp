@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using Serilog;
 
-namespace GDAXSharp.Shared.Utilities
+namespace CoinbasePro.Shared.Utilities
 {
     internal static class JsonConfig
     {

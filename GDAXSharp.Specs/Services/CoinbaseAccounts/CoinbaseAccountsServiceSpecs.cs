@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Services.CoinbaseAccounts;
-using GDAXSharp.Services.CoinbaseAccounts.Models;
-using GDAXSharp.Services.CoinbaseAccounts.Types;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Specs.JsonFixtures.Services.CoinbaseAccounts;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Services.CoinbaseAccounts;
+using CoinbasePro.Services.CoinbaseAccounts.Models;
+using CoinbasePro.Services.CoinbaseAccounts.Types;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Specs.JsonFixtures.Services.CoinbaseAccounts;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXSharp.Specs.Services.CoinbaseAccounts
+namespace CoinbasePro.Specs.Services.CoinbaseAccounts
 {
     [Subject("CoinbaseAccountsService")]
     public class CoinbaseAccountsServiceSpecs : WithSubject<CoinbaseAccountsService>

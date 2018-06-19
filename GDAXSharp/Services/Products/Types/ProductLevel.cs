@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Services.Products.Types
+﻿namespace CoinbasePro.Services.Products.Types
 {
     public enum ProductLevel
     {

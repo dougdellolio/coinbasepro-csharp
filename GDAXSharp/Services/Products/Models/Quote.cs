@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXSharp.Services.Products.Models
+namespace CoinbasePro.Services.Products.Models
 {
     public class Quote
     {

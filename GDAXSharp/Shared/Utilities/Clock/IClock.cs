@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXSharp.Shared.Utilities.Clock
+namespace CoinbasePro.Shared.Utilities.Clock
 {
     public interface IClock
     {

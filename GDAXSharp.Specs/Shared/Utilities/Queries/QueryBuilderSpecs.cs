@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using GDAXSharp.Shared.Utilities.Queries;
+using CoinbasePro.Shared.Utilities.Queries;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXSharp.Specs.Shared.Utilities.Queries
+namespace CoinbasePro.Specs.Shared.Utilities.Queries
 {
     [Subject("QueryBuilder")]
     public class QueryBuilderSpecs : WithSubject<QueryBuilder>

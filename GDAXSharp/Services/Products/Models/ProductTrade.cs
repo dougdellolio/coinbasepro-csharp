@@ -1,9 +1,9 @@
 ﻿using System;
-using GDAXSharp.Services.Orders.Types;
+using CoinbasePro.Services.Orders.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GDAXSharp.Services.Products.Models
+namespace CoinbasePro.Services.Products.Models
 {
     public class ProductTrade
     {

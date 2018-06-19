@@ -1,6 +1,6 @@
-﻿using GDAXSharp.Services.Reports.Types;
+﻿using CoinbasePro.Services.Reports.Types;
 
-namespace GDAXSharp.Specs.JsonFixtures.Services.Reports
+namespace CoinbasePro.Specs.JsonFixtures.Services.Reports
 {
     public static class ReportResponseFixture
     {

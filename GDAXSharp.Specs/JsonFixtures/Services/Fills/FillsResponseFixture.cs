@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Specs.JsonFixtures.Services.Fills
+﻿namespace CoinbasePro.Specs.JsonFixtures.Services.Fills
 {
     class FillsResponseFixture
     {

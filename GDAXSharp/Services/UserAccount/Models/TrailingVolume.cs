@@ -1,9 +1,9 @@
 ﻿using System;
-using GDAXSharp.Shared.Types;
+using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GDAXSharp.Services.UserAccount.Models
+namespace CoinbasePro.Services.UserAccount.Models
 {
     public class TrailingVolume
     {

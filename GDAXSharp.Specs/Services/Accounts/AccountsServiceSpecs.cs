@@ -1,19 +1,19 @@
-﻿using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Services.Accounts;
-using GDAXSharp.Services.Accounts.Models;
-using GDAXSharp.Services.Accounts.Types;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Specs.JsonFixtures.Network.HttpResponseMessage;
-using GDAXSharp.Specs.JsonFixtures.Services.Accounts;
-using Machine.Fakes;
+﻿using Machine.Fakes;
 using Machine.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Services.Accounts;
+using CoinbasePro.Services.Accounts.Models;
+using CoinbasePro.Services.Accounts.Types;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Specs.JsonFixtures.Network.HttpResponseMessage;
+using CoinbasePro.Specs.JsonFixtures.Services.Accounts;
 
-namespace GDAXSharp.Specs.Services.Accounts
+namespace CoinbasePro.Specs.Services.Accounts
 {
     [Subject("AccountsService")]
     public class AccountsServiceSpecs : WithSubject<AccountsService>

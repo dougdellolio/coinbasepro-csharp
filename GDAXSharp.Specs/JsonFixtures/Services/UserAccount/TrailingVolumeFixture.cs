@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Specs.JsonFixtures.Services.UserAccount
+﻿namespace CoinbasePro.Specs.JsonFixtures.Services.UserAccount
 {
     public static class TrailingVolumeFixture
     {

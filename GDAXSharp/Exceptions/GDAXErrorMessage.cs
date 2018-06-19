@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Exceptions
+﻿namespace CoinbasePro.Exceptions
 {
     public class GDAXErrorMessage
     {

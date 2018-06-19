@@ -1,14 +1,14 @@
-using GDAXSharp.Exceptions;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
-using GDAXSharp.Shared.Utilities;
 using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using CoinbasePro.Exceptions;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Network.HttpRequest;
+using CoinbasePro.Shared.Utilities;
 
-namespace GDAXSharp.Services
+namespace CoinbasePro.Services
 {
     public abstract class AbstractService
     {

@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace GDAXSharp.Network.Authentication
+namespace CoinbasePro.Network.Authentication
 {
     public class Authenticator : IAuthenticator
     {

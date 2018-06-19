@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Services.Orders.Types
+﻿namespace CoinbasePro.Services.Orders.Types
 {
     public enum MarketOrderAmountType
     {

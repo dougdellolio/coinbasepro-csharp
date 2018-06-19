@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace GDAXSharp.Shared.Types
+namespace CoinbasePro.Shared.Types
 {
     public enum ProductType
     {

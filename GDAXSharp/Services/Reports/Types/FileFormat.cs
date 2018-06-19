@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace GDAXSharp.Services.Reports.Types
+namespace CoinbasePro.Services.Reports.Types
 {
     public enum FileFormat
     {

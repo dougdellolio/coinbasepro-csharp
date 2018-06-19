@@ -1,8 +1,8 @@
-﻿using GDAXSharp.Services.Orders.Types;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
+using CoinbasePro.Services.Orders.Types;
 
-namespace GDAXSharp.WebSocket.Models.Response
+namespace CoinbasePro.WebSocket.Models.Response
 {
     public class Ticker : BaseMessage
     {

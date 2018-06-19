@@ -1,7 +1,7 @@
-﻿using GDAXSharp.Shared.Types;
-using System;
+﻿using System;
+using CoinbasePro.Shared.Types;
 
-namespace GDAXSharp.Shared.Utilities.Extensions
+namespace CoinbasePro.Shared.Utilities.Extensions
 {
     public static class ProductTypeExtensions
     {

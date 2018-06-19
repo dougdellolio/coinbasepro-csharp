@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Shared
+﻿namespace CoinbasePro.Shared
 {
     public class ApiUris
     {

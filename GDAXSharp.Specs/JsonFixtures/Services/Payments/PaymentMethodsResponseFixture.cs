@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Specs.JsonFixtures.Services.Payments
+﻿namespace CoinbasePro.Specs.JsonFixtures.Services.Payments
 {
     public static class PaymentMethodsResponseFixture
     {

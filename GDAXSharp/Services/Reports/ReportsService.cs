@@ -1,15 +1,15 @@
-﻿using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
-using GDAXSharp.Services.Reports.Models;
-using GDAXSharp.Services.Reports.Models.Responses;
-using GDAXSharp.Services.Reports.Types;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Shared.Utilities;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Network.HttpRequest;
+using CoinbasePro.Services.Reports.Models;
+using CoinbasePro.Services.Reports.Models.Responses;
+using CoinbasePro.Services.Reports.Types;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Shared.Utilities;
 
-namespace GDAXSharp.Services.Reports
+namespace CoinbasePro.Services.Reports
 {
     public class ReportsService : AbstractService
     {

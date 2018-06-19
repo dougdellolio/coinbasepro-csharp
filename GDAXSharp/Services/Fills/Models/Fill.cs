@@ -1,7 +1,7 @@
 ﻿using System;
-using GDAXSharp.Shared.Types;
+using CoinbasePro.Shared.Types;
 
-namespace GDAXSharp.Services.Fills.Models
+namespace CoinbasePro.Services.Fills.Models
 {
     public class Fill
     {

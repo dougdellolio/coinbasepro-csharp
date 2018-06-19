@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
-using GDAXSharp.Services.Fills.Models.Responses;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Shared.Utilities.Extensions;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Network.HttpRequest;
+using CoinbasePro.Services.Fills.Models.Responses;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Shared.Utilities.Extensions;
 
-namespace GDAXSharp.Services.Fills
+namespace CoinbasePro.Services.Fills
 {
     public class FillsService : AbstractService
     {

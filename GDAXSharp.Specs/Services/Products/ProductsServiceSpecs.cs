@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Services.Orders.Types;
-using GDAXSharp.Services.Products;
-using GDAXSharp.Services.Products.Models;
-using GDAXSharp.Services.Products.Models.Responses;
-using GDAXSharp.Services.Products.Types;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Specs.JsonFixtures.Services.Products;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Services.Orders.Types;
+using CoinbasePro.Services.Products;
+using CoinbasePro.Services.Products.Models;
+using CoinbasePro.Services.Products.Models.Responses;
+using CoinbasePro.Services.Products.Types;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Specs.JsonFixtures.Services.Products;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXSharp.Specs.Services.Products
+namespace CoinbasePro.Specs.Services.Products
 {
     [Subject("ProductsService")]
     public class ProductsServiceSpecs : WithSubject<ProductsService>

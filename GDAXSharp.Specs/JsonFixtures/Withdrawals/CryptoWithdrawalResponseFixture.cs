@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Specs.JsonFixtures.Withdrawals
+﻿namespace CoinbasePro.Specs.JsonFixtures.Withdrawals
 {
     public static class CryptoWithdrawalResponseFixture
     {

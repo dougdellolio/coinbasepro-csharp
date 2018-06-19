@@ -4,16 +4,16 @@ using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
-using GDAXSharp.Services.Products.Models;
-using GDAXSharp.Services.Products.Models.Responses;
-using GDAXSharp.Services.Products.Types;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Shared.Utilities.Extensions;
-using GDAXSharp.Shared.Utilities.Queries;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Network.HttpRequest;
+using CoinbasePro.Services.Products.Models;
+using CoinbasePro.Services.Products.Models.Responses;
+using CoinbasePro.Services.Products.Types;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Shared.Utilities.Queries;
+using CoinbasePro.Shared.Utilities.Extensions;
 
-namespace GDAXSharp.Services.Products
+namespace CoinbasePro.Services.Products
 {
     public class ProductsService : AbstractService
     {

@@ -1,8 +1,8 @@
-﻿using GDAXSharp.Shared.Types;
-using GDAXSharp.Shared.Utilities.Extensions;
+﻿using CoinbasePro.Shared.Types;
+using CoinbasePro.Shared.Utilities.Extensions;
 using Machine.Specifications;
 
-namespace GDAXSharp.Specs.Shared.Utilities.Extensions
+namespace CoinbasePro.Specs.Shared.Utilities.Extensions
 {
     [Subject("ProductTypeExtensions")]
     public class ProductTypeExtensionsSpecs

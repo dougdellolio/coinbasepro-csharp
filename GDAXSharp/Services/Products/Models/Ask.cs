@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Services.Products.Models
+﻿namespace CoinbasePro.Services.Products.Models
 {
     public class Ask : Quote
     {

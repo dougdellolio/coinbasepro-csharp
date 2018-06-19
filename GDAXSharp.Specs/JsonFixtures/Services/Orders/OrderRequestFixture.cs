@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace GDAXSharp.Specs.JsonFixtures.Services.Orders
+namespace CoinbasePro.Specs.JsonFixtures.Services.Orders
 {
     public static class OrderRequestFixture
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using GDAXSharp.Shared.Types;
+using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GDAXSharp.Services.Payments.Models
+namespace CoinbasePro.Services.Payments.Models
 {
     public class PaymentMethod
     {

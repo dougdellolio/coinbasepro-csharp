@@ -1,24 +1,24 @@
 ﻿using System.Collections.Generic;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.WebSocket;
-using GDAXSharp.WebSocket.Types;
 using Machine.Fakes;
 using Machine.Specifications;
 using System;
 using System.Net.Http;
-using GDAXSharp.Network.Authentication;
-using GDAXSharp.Specs.JsonFixtures.Websocket;
-using GDAXSharp.WebSocket.Models.Response;
+using CoinbasePro.Network.Authentication;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Specs.JsonFixtures.Websocket;
+using CoinbasePro.WebSocket;
+using CoinbasePro.WebSocket.Models.Response;
+using CoinbasePro.WebSocket.Types;
 using Moq;
 using Serilog;
 using Serilog.Sinks.TestCorrelator;
 using WebSocket4Net;
 using It = Machine.Specifications.It;
 
-namespace GDAXSharp.Specs.WebSocket
+namespace CoinbasePro.Specs.WebSocket
 {
-    [Subject(typeof(GDAXSharp.WebSocket.WebSocket))]
-    class WebSocketSpecs : WithSubject<GDAXSharp.WebSocket.WebSocket>
+    [Subject(typeof(global::CoinbasePro.WebSocket.WebSocket))]
+    class WebSocketSpecs : WithSubject<global::CoinbasePro.WebSocket.WebSocket>
     {
         static Exception exception;
 

@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.WebSocket.Models.Response
+﻿namespace CoinbasePro.WebSocket.Models.Response
 {
     public class Error : BaseMessage
     {

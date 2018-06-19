@@ -1,8 +1,8 @@
 ﻿using System;
-using GDAXSharp.Shared.Utilities.Converters;
+using CoinbasePro.Shared.Utilities.Converters;
 using Newtonsoft.Json;
 
-namespace GDAXSharp.Services.Products.Models
+namespace CoinbasePro.Services.Products.Models
 {
     [JsonConverter(typeof(CandleConverter))]
     public class Candle

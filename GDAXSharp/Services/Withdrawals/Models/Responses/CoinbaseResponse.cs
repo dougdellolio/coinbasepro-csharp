@@ -1,9 +1,9 @@
 ﻿using System;
-using GDAXSharp.Shared.Types;
+using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GDAXSharp.Services.Withdrawals.Models.Responses
+namespace CoinbasePro.Services.Withdrawals.Models.Responses
 {
     public class CoinbaseResponse
     {

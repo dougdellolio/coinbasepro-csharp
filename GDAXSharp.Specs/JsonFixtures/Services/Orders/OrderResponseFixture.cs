@@ -1,6 +1,6 @@
-﻿using GDAXSharp.Services.Orders.Types;
+﻿using CoinbasePro.Services.Orders.Types;
 
-namespace GDAXSharp.Specs.JsonFixtures.Services.Orders
+namespace CoinbasePro.Specs.JsonFixtures.Services.Orders
 {
     public static class OrderResponseFixture
     {

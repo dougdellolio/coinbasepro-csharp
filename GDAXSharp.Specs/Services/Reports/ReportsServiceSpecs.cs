@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Services.Reports;
-using GDAXSharp.Services.Reports.Models.Responses;
-using GDAXSharp.Services.Reports.Types;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Specs.JsonFixtures.Services.Reports;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Services.Reports;
+using CoinbasePro.Services.Reports.Models.Responses;
+using CoinbasePro.Services.Reports.Types;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Specs.JsonFixtures.Services.Reports;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXSharp.Specs.Services.Reports
+namespace CoinbasePro.Specs.Services.Reports
 {
     [Subject("ReportsService")]
     public class ReportsServiceSpecs : WithSubject<ReportsService>

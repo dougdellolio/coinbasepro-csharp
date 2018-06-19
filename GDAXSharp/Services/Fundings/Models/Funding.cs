@@ -1,10 +1,10 @@
 ﻿using System;
-using GDAXSharp.Services.Fundings.Types;
-using GDAXSharp.Shared.Types;
+using CoinbasePro.Services.Fundings.Types;
+using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GDAXSharp.Services.Fundings.Models
+namespace CoinbasePro.Services.Fundings.Models
 {
     public class Funding
     {

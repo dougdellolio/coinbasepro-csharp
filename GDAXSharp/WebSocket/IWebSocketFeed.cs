@@ -1,9 +1,9 @@
 ﻿using System;
-using GDAXSharp.WebSocket.Models.Response;
+using CoinbasePro.WebSocket.Models.Response;
 using SuperSocket.ClientEngine;
 using WebSocket4Net;
 
-namespace GDAXSharp.WebSocket
+namespace CoinbasePro.WebSocket
 {
     public interface IWebSocketFeed
     {

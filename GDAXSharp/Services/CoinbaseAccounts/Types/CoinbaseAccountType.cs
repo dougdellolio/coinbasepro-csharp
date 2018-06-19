@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace GDAXSharp.Services.CoinbaseAccounts.Types
+namespace CoinbasePro.Services.CoinbaseAccounts.Types
 {
     public enum CoinbaseAccountType
     {

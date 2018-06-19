@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Services.Fills;
-using GDAXSharp.Services.Fills.Models.Responses;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Specs.JsonFixtures.Network.HttpResponseMessage;
-using GDAXSharp.Specs.JsonFixtures.Services.Fills;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Services.Fills;
+using CoinbasePro.Services.Fills.Models.Responses;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Specs.JsonFixtures.Network.HttpResponseMessage;
+using CoinbasePro.Specs.JsonFixtures.Services.Fills;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXSharp.Specs.Services.Fills
+namespace CoinbasePro.Specs.Services.Fills
 {
     [Subject("FillsService")]
     public class FillsServiceSpecs : WithSubject<FillsService>

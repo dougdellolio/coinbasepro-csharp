@@ -1,11 +1,11 @@
-﻿using GDAXSharp.Shared.Types;
-using GDAXSharp.WebSocket.Types;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.WebSocket.Types;
 
 
-namespace GDAXSharp.WebSocket.Models.Request
+namespace CoinbasePro.WebSocket.Models.Request
 {
     public class TickerChannel
     {

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Services.Deposits;
-using GDAXSharp.Services.Deposits.Models.Responses;
-using GDAXSharp.Services.Withdrawals.Models.Responses;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Specs.JsonFixtures.Services.Deposits;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Services.Deposits;
+using CoinbasePro.Services.Deposits.Models.Responses;
+using CoinbasePro.Services.Withdrawals.Models.Responses;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Specs.JsonFixtures.Services.Deposits;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXSharp.Specs.Services.Deposits
+namespace CoinbasePro.Specs.Services.Deposits
 {
     [Subject("DepositsService")]
     public class DepositsServiceSpecs : WithSubject<DepositsService>

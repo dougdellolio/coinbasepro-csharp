@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace GDAXSharp.Services.Fundings.Types
+namespace CoinbasePro.Services.Fundings.Types
 {
     public enum FundingStatus
     {

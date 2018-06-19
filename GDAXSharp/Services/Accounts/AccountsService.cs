@@ -1,11 +1,11 @@
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
-using GDAXSharp.Services.Accounts.Models;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Network.HttpRequest;
+using CoinbasePro.Services.Accounts.Models;
 
-namespace GDAXSharp.Services.Accounts
+namespace CoinbasePro.Services.Accounts
 {
     public class AccountsService : AbstractService
     {

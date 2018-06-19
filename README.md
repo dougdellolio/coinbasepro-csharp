@@ -1,5 +1,5 @@
 # gdax-csharp
-GDAX API C# Client Library - https://docs.gdax.com/
+CoinbasePro API C# Client Library - https://docs.gdax.com/
 
 
 [![Build status](https://ci.appveyor.com/api/projects/status/maqa3anaaxhcwamt?svg=true)](https://ci.appveyor.com/project/dougdellolio/gdax-csharp)
@@ -17,11 +17,11 @@ GDAX API C# Client Library - https://docs.gdax.com/
 //create an authenticator with your apiKey, apiSecret and passphrase
 var authenticator = new Authenticator("<apiKey>", "<apiSecret>", "<passphrase>");
 
-//create the GDAX client
-var gdaxClient = new GDAXSharp.GDAXClient(authenticator);
+//create the CoinbasePro client
+var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator);
 
 //use one of the services 
-var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
+var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 ````
 
 <h1>What services are provided?</h1>
@@ -91,14 +91,14 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 //create an authenticator with your apiKey, apiSecret and passphrase
 var authenticator = new Authenticator("<apiKey>", "<apiSecret>", "<passphrase>");
 
-//create the GDAX client
-var gdaxClient = new GDAXSharp.GDAXClient(authenticator);
+//create the CoinbasePro client
+var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator);
 
 //use the websocket feed
 var productTypes = new List<ProductType>() { ProductType.BtcEur, ProductType.BtcUsd };
-var channels = new List<ChannelType>() {ChannelType.Full, ChannelType.User} // When not providing any channels, the socket will subscribe to all channels
+var channels = new List<ChannelType>() { ChannelType.Full, ChannelType.Use r} // When not providing any channels, the socket will subscribe to all channels
 
-var webSocket = gdaxClient.WebSocket;
+var webSocket = coinbaseProClient .WebSocket;
 webSocket.Start(productTypes, channels);
 
 // EventHandler for the heartbeat response type
@@ -113,14 +113,14 @@ private static void WebSocket_OnHeartbeatReceived(object sender, WebfeedEventArg
 <h2>How to use without authentication</h2>
 
 ````
-//create the GDAX client without an authenticator
-var gdaxClient = new GDAXSharp.GDAXClient();
+//create the CoinbasePro client without an authenticator
+var coinbaseProClient = new CoinbasePro.CoinbaseProClient();
 
 //use the websocket feed
 var productTypes = new List<ProductType>() { ProductType.BtcEur, ProductType.BtcUsd };
-var channels = new List<ChannelType>() {ChannelType.Full, ChannelType.User} // When not providing any channels, the socket will subscribe to all channels
+var channels = new List<ChannelType>() { ChannelType.Full, ChannelType.User }; // When not providing any channels, the socket will subscribe to all channels
 
-var webSocket = gdaxClient.WebSocket;
+var webSocket = coinbaseProClient.WebSocket;
 webSocket.Start(productTypes, channels);
 
 // EventHandler for the heartbeat response type
@@ -164,11 +164,11 @@ The following methods are EventHandlers:
 //create an authenticator with your apiKey, signature and passphrase
 var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>");
 
-//create the GDAX client and set the sandbox flag to true
-var gdaxClient = new GDAXClient(authenticator, true);
+//create the CoinbasePro client and set the sandbox flag to true
+var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator, true);
 
 //use one of the services 
-var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
+var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
 ````
 
 <h1>Examples</h1>
@@ -177,19 +177,19 @@ var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Bu
 
 ````
 //by size
-var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
+var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
 
 //by funds
-var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 50, MarketOrderAmountType.Funds);
+var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 50, MarketOrderAmountType.Funds);
 ````
 
 ###### Place a limit order ######
 
-`var response = await gdaxClient.OrdersService.PlaceLimitOrderAsync(OrderSide.Sell, ProductType.EthUsd, 1, 400.0M);`
+`var response = await coinbaseProClient.OrdersService.PlaceLimitOrderAsync(OrderSide.Sell, ProductType.EthUsd, 1, 400.0M);`
 
 ###### Cancel all open or un-settled orders ######
 
-`var response = await gdaxClient.OrdersService.CancelAllOrdersAsync();`
+`var response = await coinbaseProClient.OrdersService.CancelAllOrdersAsync();`
 
 ###### Getting account history (<i>paged response</i>) ######
 
@@ -197,7 +197,7 @@ var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Bu
 //the limit is the amount of items per page - in this case it would be 2 items (default is 100)
 //you can also specify the number of pages to request - in this case it would be the first 5 pages (default is 0 which will request all pages)
 //some routes may require the number of pages to be specified as there are rate limits
-var accountHistoryResponse = await gdaxClient.AccountsService.GetAccountHistoryAsync("ef56a389", 2, 5);
+var accountHistoryResponse = await coinbaseProClient.AccountsService.GetAccountHistoryAsync("ef56a389", 2, 5);
 
 //retrieve by page number - this would return the first page of the response (latest first)
 var firstPage = accountHistoryResponse.ToList()[0];
@@ -217,15 +217,15 @@ var reportDateTo = new DateTime(2018, 1, 1);
 var accountId = "29318029382";
 
 //generate and email accounts report csv
-var accountResponse = gdaxClient.ReportsService.CreateNewAccountReportAsync(reportDateFrom, reportDateTo, accountId, ProductType.BtcUsd, "me@email.com", FileFormat.Csv);
+var accountResponse = coinbaseProClient.ReportsService.CreateNewAccountReportAsync(reportDateFrom, reportDateTo, accountId, ProductType.BtcUsd, "me@email.com", FileFormat.Csv);
 
 //generate and email fills report pdf
-var fillsResponse = gdaxClient.ReportsService.CreateNewFillsReportAsync(reportDateFrom, reportDateTo, ProductType.BtcUsd, accountId, "me@email.com", FileFormat.Pdf);
+var fillsResponse = coinbaseProClient.ReportsService.CreateNewFillsReportAsync(reportDateFrom, reportDateTo, ProductType.BtcUsd, accountId, "me@email.com", FileFormat.Pdf);
 ````
 
 ###### Overriding the HttpClient behavior ######
 
-You can gain greater control of the http requests by implementing GDAXSharp.HttpClient.IHttpClient and passing that into the GDAXClient constructor.
+You can gain greater control of the http requests by implementing CoinbasePro.HttpClient.IHttpClient and passing that into the CoinbasePro constructor.
 
 ````
 var myWay = new MyNamespace.MyHttpClient();
@@ -233,8 +233,8 @@ var myWay = new MyNamespace.MyHttpClient();
 //create an authenticator with your apiKey, signature and passphrase
 var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>");
 
-//create the GDAX client and set the httpClient to my way of behaving
-var gdaxClient = new GDAXClient(authenticator, myWay);
+//create the CoinbasePro client and set the httpClient to my way of behaving
+var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator, myWay);
 ````
 
 <h1>Logging</h1>
@@ -254,11 +254,11 @@ Serilog.Log.Logger = new LoggerConfiguration()
 //create an authenticator with your apiKey, signature and passphrase
 var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>");
 
-//create the GDAX client
-var gdaxClient = new GDAXClient(authenticator);
+//create the CoinbasePro client
+var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator);
 
 //use one of the services 
-var response = await gdaxClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
+var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
 ````
 
 <h1>Contributors</h1>

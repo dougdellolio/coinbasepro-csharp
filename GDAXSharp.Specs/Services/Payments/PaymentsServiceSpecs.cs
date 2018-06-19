@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Services.Payments;
-using GDAXSharp.Services.Payments.Models;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Specs.JsonFixtures.Services.Payments;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Services.Payments;
+using CoinbasePro.Services.Payments.Models;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Specs.JsonFixtures.Services.Payments;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXSharp.Specs.Services.Payments
+namespace CoinbasePro.Specs.Services.Payments
 {
     [Subject("PaymentsService")]
     public class PaymentsServiceSpecs : WithSubject<PaymentsService>

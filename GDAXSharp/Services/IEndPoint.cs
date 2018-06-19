@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace GDAXSharp.Services
+namespace CoinbasePro.Services
 {
     public interface IEndPoint
     {

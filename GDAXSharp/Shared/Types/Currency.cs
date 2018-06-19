@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Shared.Types
+﻿namespace CoinbasePro.Shared.Types
 {
     public enum Currency
     {

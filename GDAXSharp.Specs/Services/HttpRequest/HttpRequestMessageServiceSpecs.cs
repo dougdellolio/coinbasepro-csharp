@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Net.Http;
-using GDAXSharp.Exceptions;
-using GDAXSharp.Network.Authentication;
-using GDAXSharp.Network.HttpRequest;
-using GDAXSharp.Shared.Utilities.Clock;
+using CoinbasePro.Exceptions;
+using CoinbasePro.Network.Authentication;
+using CoinbasePro.Network.HttpRequest;
+using CoinbasePro.Shared.Utilities.Clock;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXSharp.Specs.Services.HttpRequest
+namespace CoinbasePro.Specs.Services.HttpRequest
 {
     [Subject("HttpRequestMessageService")]
     public class HttpRequestMessageServiceSpecs : WithSubject<HttpRequestMessageService>

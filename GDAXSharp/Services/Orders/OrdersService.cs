@@ -1,17 +1,17 @@
-﻿using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
-using GDAXSharp.Services.Orders.Models;
-using GDAXSharp.Services.Orders.Models.Responses;
-using GDAXSharp.Services.Orders.Types;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Shared.Utilities.Extensions;
+﻿using CoinbasePro.Shared.Utilities.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Shared.Utilities;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Network.HttpRequest;
+using CoinbasePro.Services.Orders.Models;
+using CoinbasePro.Services.Orders.Models.Responses;
+using CoinbasePro.Services.Orders.Types;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Shared.Utilities;
 
-namespace GDAXSharp.Services.Orders
+namespace CoinbasePro.Services.Orders
 {
     public class OrdersService : AbstractService
     {

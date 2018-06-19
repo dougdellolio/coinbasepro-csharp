@@ -1,10 +1,10 @@
 ﻿using System;
-using GDAXSharp.Services.Accounts.Types;
-using GDAXSharp.Shared.Types;
+using CoinbasePro.Services.Accounts.Types;
+using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GDAXSharp.Services.Accounts.Models
+namespace CoinbasePro.Services.Accounts.Models
 {
     public class AccountHistory
     {

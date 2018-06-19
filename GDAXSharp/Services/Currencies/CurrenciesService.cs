@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Network.HttpRequest;
 
-namespace GDAXSharp.Services.Currencies
+namespace CoinbasePro.Services.Currencies
 {
     public class CurrenciesService : AbstractService
     {

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
-using GDAXSharp.Services.Payments.Models;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Network.HttpRequest;
+using CoinbasePro.Services.Payments.Models;
 
-namespace GDAXSharp.Services.Payments
+namespace CoinbasePro.Services.Payments
 {
     public class PaymentsService : AbstractService
     {

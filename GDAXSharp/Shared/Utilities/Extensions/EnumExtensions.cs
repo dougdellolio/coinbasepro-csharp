@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace GDAXSharp.Shared.Utilities.Extensions
+namespace CoinbasePro.Shared.Utilities.Extensions
 {
     public static class EnumExtensions
     {

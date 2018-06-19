@@ -1,7 +1,7 @@
-﻿using GDAXSharp.WebSocket.Models.Request;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CoinbasePro.WebSocket.Models.Request;
 
-namespace GDAXSharp.WebSocket.Models.Response
+namespace CoinbasePro.WebSocket.Models.Response
 {
     public class Subscription : BaseMessage
     {

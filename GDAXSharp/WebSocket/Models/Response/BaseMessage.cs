@@ -1,6 +1,6 @@
-﻿using GDAXSharp.WebSocket.Types;
+﻿using CoinbasePro.WebSocket.Types;
 
-namespace GDAXSharp.WebSocket.Models.Response
+namespace CoinbasePro.WebSocket.Models.Response
 {
     public class BaseMessage
     {

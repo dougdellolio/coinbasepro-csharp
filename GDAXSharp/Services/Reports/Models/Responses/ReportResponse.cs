@@ -1,9 +1,9 @@
 ﻿using System;
-using GDAXSharp.Services.Reports.Types;
+using CoinbasePro.Services.Reports.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GDAXSharp.Services.Reports.Models.Responses
+namespace CoinbasePro.Services.Reports.Models.Responses
 {
     public class ReportResponse
     {

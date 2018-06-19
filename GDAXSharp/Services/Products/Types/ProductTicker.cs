@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GDAXSharp.Services.Products.Types
+namespace CoinbasePro.Services.Products.Types
 {
     public class ProductTicker
     {

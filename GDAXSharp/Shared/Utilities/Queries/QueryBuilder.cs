@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace GDAXSharp.Shared.Utilities.Queries
+namespace CoinbasePro.Shared.Utilities.Queries
 {
     public class QueryBuilder : IQueryBuilder
     {

@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GDAXSharp.Network.HttpClient
+namespace CoinbasePro.Network.HttpClient
 {
     public class HttpClient : IHttpClient
     {

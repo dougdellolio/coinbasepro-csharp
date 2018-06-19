@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Services.Withdrawals;
-using GDAXSharp.Services.Withdrawals.Models.Responses;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Specs.JsonFixtures.Withdrawals;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Services.Withdrawals;
+using CoinbasePro.Services.Withdrawals.Models.Responses;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Specs.JsonFixtures.Withdrawals;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXSharp.Specs.Services.Withdrawals
+namespace CoinbasePro.Specs.Services.Withdrawals
 {
     [Subject("WithdrawalsService")]
     public class WithdrawalsServiceSpecs : WithSubject<WithdrawalsService>

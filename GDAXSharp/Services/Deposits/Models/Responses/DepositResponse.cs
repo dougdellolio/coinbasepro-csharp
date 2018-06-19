@@ -1,9 +1,9 @@
 ﻿using System;
-using GDAXSharp.Shared.Types;
+using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GDAXSharp.Services.Deposits.Models.Responses
+namespace CoinbasePro.Services.Deposits.Models.Responses
 {
     public class DepositResponse
     {

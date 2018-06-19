@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace GDAXSharp.Network.HttpRequest
+namespace CoinbasePro.Network.HttpRequest
 {
     public interface IHttpRequestMessageService
     {

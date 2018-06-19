@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace GDAXSharp.WebSocket.Types
+namespace CoinbasePro.WebSocket.Types
 {
     public enum ActionType
     {

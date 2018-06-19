@@ -2,18 +2,19 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Services.Currencies;
-using GDAXSharp.Specs.JsonFixtures.Services.Currencies;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Services.Currencies;
+using CoinbasePro.Services.Currencies.Models;
+using CoinbasePro.Specs.JsonFixtures.Services.Currencies;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXSharp.Specs.Services.Currencies
+namespace CoinbasePro.Specs.Services.Currencies
 {
     [Subject("CurrenciesService")]
     public class CurrenciesServiceSpecs : WithSubject<CurrenciesService>
     {
-        static IEnumerable<GDAXSharp.Services.Currencies.Models.Currency> result;
+        static IEnumerable<Currency> result;
 
         Establish context = () =>
             The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
@@ -33,10 +34,10 @@ namespace GDAXSharp.Specs.Services.Currencies
 
             It should_return_a_correct_response = () =>
             {
-                result.First().Id.ShouldEqual(GDAXSharp.Shared.Types.Currency.BTC);
+                result.First().Id.ShouldEqual(global::CoinbasePro.Shared.Types.Currency.BTC);
                 result.First().Name.ShouldEqual("Bitcoin");
                 result.First().MinSize.ShouldEqual(0.00000001M);
-                result.Skip(1).First().Id.ShouldEqual(GDAXSharp.Shared.Types.Currency.USD);
+                result.Skip(1).First().Id.ShouldEqual(global::CoinbasePro.Shared.Types.Currency.USD);
                 result.Skip(1).First().Name.ShouldEqual("United States Dollar");
                 result.Skip(1).First().MinSize.ShouldEqual(0.01000000M);
             };

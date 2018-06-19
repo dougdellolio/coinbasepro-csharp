@@ -1,9 +1,9 @@
-﻿using GDAXSharp.Services.Orders.Types;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.WebSocket.Types;
-using System;
+﻿using System;
+using CoinbasePro.Services.Orders.Types;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.WebSocket.Types;
 
-namespace GDAXSharp.WebSocket.Models.Response
+namespace CoinbasePro.WebSocket.Models.Response
 {
     public class Done : BaseMessage
     {

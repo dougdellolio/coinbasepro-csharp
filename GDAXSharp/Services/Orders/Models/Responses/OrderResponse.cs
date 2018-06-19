@@ -1,10 +1,10 @@
 ﻿using System;
-using GDAXSharp.Services.Orders.Types;
-using GDAXSharp.Shared.Types;
+using CoinbasePro.Services.Orders.Types;
+using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GDAXSharp.Services.Orders.Models.Responses
+namespace CoinbasePro.Services.Orders.Models.Responses
 {
     public class OrderResponse
     {

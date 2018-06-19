@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
-using GDAXSharp.Services;
+using CoinbasePro.Services;
 
-namespace GDAXSharp.Exceptions
+namespace CoinbasePro.Exceptions
 {
     public class GDAXSharpHttpException : HttpRequestException
     {

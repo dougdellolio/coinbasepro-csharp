@@ -1,11 +1,11 @@
 ﻿using System;
-using GDAXSharp.Services.Fills.Types;
-using GDAXSharp.Services.Orders.Types;
-using GDAXSharp.Shared.Types;
+using CoinbasePro.Services.Fills.Types;
+using CoinbasePro.Services.Orders.Types;
+using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GDAXSharp.Services.Fills.Models.Responses
+namespace CoinbasePro.Services.Fills.Models.Responses
 {
     public class FillResponse
     {

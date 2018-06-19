@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Specs.JsonFixtures.Services.Fundings
+﻿namespace CoinbasePro.Specs.JsonFixtures.Services.Fundings
 {
     class FundingsResponseFixture
     {

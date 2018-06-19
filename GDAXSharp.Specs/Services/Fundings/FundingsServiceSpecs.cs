@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Services.Fundings;
-using GDAXSharp.Services.Fundings.Models;
-using GDAXSharp.Services.Fundings.Types;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Specs.JsonFixtures.Network.HttpResponseMessage;
-using GDAXSharp.Specs.JsonFixtures.Services.Fundings;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Services.Fundings;
+using CoinbasePro.Services.Fundings.Models;
+using CoinbasePro.Services.Fundings.Types;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Specs.JsonFixtures.Network.HttpResponseMessage;
+using CoinbasePro.Specs.JsonFixtures.Services.Fundings;
 using Machine.Fakes;
 using Machine.Specifications;
 
-namespace GDAXSharp.Specs.Services.Fundings
+namespace CoinbasePro.Specs.Services.Fundings
 {
     [Subject("FundingsService")]
     public class FundingsServiceSpecs : WithSubject<FundingsService>

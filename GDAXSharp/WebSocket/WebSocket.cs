@@ -1,12 +1,4 @@
-﻿using GDAXSharp.Exceptions;
-using GDAXSharp.Network.Authentication;
-using GDAXSharp.Shared.Types;
-using GDAXSharp.Shared.Utilities;
-using GDAXSharp.Shared.Utilities.Clock;
-using GDAXSharp.Shared.Utilities.Extensions;
-using GDAXSharp.WebSocket.Models.Request;
-using GDAXSharp.WebSocket.Models.Response;
-using GDAXSharp.WebSocket.Types;
+﻿using CoinbasePro.Shared.Utilities.Extensions;
 using Serilog;
 using SuperSocket.ClientEngine;
 using System;
@@ -14,9 +6,17 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
+using CoinbasePro.Exceptions;
+using CoinbasePro.Network.Authentication;
+using CoinbasePro.Shared.Types;
+using CoinbasePro.Shared.Utilities;
+using CoinbasePro.Shared.Utilities.Clock;
+using CoinbasePro.WebSocket.Models.Request;
+using CoinbasePro.WebSocket.Models.Response;
+using CoinbasePro.WebSocket.Types;
 using WebSocket4Net;
 
-namespace GDAXSharp.WebSocket
+namespace CoinbasePro.WebSocket
 {
     public class WebSocket
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GDAXSharp.Services.Orders.Models.Responses
+namespace CoinbasePro.Services.Orders.Models.Responses
 {
     public class CancelOrderResponse
     {

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GDAXSharp.Network.HttpClient;
-using GDAXSharp.Network.HttpRequest;
-using GDAXSharp.Services.Fundings.Models;
-using GDAXSharp.Services.Fundings.Types;
-using GDAXSharp.Shared.Utilities.Queries;
+using CoinbasePro.Network.HttpClient;
+using CoinbasePro.Network.HttpRequest;
+using CoinbasePro.Services.Fundings.Models;
+using CoinbasePro.Services.Fundings.Types;
+using CoinbasePro.Shared.Utilities.Queries;
 
-namespace GDAXSharp.Services.Fundings
+namespace CoinbasePro.Services.Fundings
 {
     public class FundingsService : AbstractService
     {

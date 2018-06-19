@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Specs.JsonFixtures.Websocket
+﻿namespace CoinbasePro.Specs.JsonFixtures.Websocket
 {
     public static class WebSocketTypeResponseFixture
     {

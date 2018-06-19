@@ -1,4 +1,4 @@
-﻿namespace GDAXSharp.Specs.JsonFixtures.Services.Deposits
+﻿namespace CoinbasePro.Specs.JsonFixtures.Services.Deposits
 {
     public static class CoinbaseDepositResponseFixture
     {

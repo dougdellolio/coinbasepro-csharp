@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace GDAXSharp.Specs.JsonFixtures.Network.HttpResponseMessage
+namespace CoinbasePro.Specs.JsonFixtures.Network.HttpResponseMessage
 {
     public static class HttpResponseMessageFixture
     {
