@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GDAXSharp\CoinbasePro.csproj" />
+    <ProjectReference Include="..\CoinbasePro\CoinbasePro.csproj" />
   </ItemGroup>
 
   <ItemGroup>
