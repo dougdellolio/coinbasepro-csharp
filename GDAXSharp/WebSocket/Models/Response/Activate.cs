@@ -20,7 +20,7 @@ namespace GDAXSharp.WebSocket.Models.Response
 
         public decimal StopPrice { get; set; }
 
-        public decimal UserId { get; set; }
+        public string UserId { get; set; }
 
         public Guid ProfileId { get; set; }
 
