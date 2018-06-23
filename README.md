@@ -1,4 +1,4 @@
-# gdax-csharp
+# coinbasepro-csharp
 CoinbasePro API C# Client Library - https://docs.gdax.com/
 
 
