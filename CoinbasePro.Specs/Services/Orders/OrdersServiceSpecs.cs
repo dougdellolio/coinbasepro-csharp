@@ -239,8 +239,8 @@ namespace CoinbasePro.Specs.Services.Orders
 
             It should_have_correct_error_response_message = () =>
             {
-                exception.InnerException.ShouldBeOfExactType<GDAXSharpHttpException>();
-                ((GDAXSharpHttpException)exception.InnerException)?.StatusCode.ShouldEqual(HttpStatusCode.NotFound);
+                exception.InnerException.ShouldBeOfExactType<CoinbaseProHttpException>();
+                ((CoinbaseProHttpException)exception.InnerException)?.StatusCode.ShouldEqual(HttpStatusCode.NotFound);
                 exception.InnerException.ShouldContainErrorMessage("order not found");
             };
         }

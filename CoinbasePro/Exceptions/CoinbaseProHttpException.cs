@@ -5,7 +5,7 @@ using CoinbasePro.Services;
 
 namespace CoinbasePro.Exceptions
 {
-    public class GDAXSharpHttpException : HttpRequestException
+    public class CoinbaseProHttpException : HttpRequestException
     {
         public HttpStatusCode StatusCode { get; set; }
 
@@ -15,15 +15,15 @@ namespace CoinbasePro.Exceptions
 
         public HttpResponseMessage ResponseMessage { get; set; }
 
-        public GDAXSharpHttpException()
+        public CoinbaseProHttpException()
         {
         }
 
-        public GDAXSharpHttpException(string message) : base(message)
+        public CoinbaseProHttpException(string message) : base(message)
         {
         }
 
-        public GDAXSharpHttpException(string message, Exception inner) : base(message, inner)
+        public CoinbaseProHttpException(string message, Exception inner) : base(message, inner)
         {
         }
     }

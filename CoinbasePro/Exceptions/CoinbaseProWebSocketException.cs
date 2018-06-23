@@ -4,7 +4,7 @@ using CoinbasePro.WebSocket;
 
 namespace CoinbasePro.Exceptions
 {
-    public class GDAXSharpWebSocketException : Exception
+    public class CoinbaseProWebSocketException : Exception
     {
         public WebSocket4Net.WebSocketState StatusCode { get; set; }
 
@@ -12,16 +12,16 @@ namespace CoinbasePro.Exceptions
 
         public ErrorEventArgs ErrorEvent { get; set; }
 
-        public GDAXSharpWebSocketException()
+        public CoinbaseProWebSocketException()
         {
         }
 
-        public GDAXSharpWebSocketException(string message)
+        public CoinbaseProWebSocketException(string message)
             : base(message)
         {
         }
 
-        public GDAXSharpWebSocketException(string message, Exception inner)
+        public CoinbaseProWebSocketException(string message, Exception inner)
             : base(message, inner)
         {
         }

@@ -35,7 +35,7 @@ namespace CoinbasePro.Network.HttpRequest
         {
             if (authenticator == null)
             {
-                throw new GDAXSharpHttpException($"Please provide an authenticator to the client to request \"{requestUri}\"");
+                throw new CoinbaseProHttpException($"Please provide an authenticator to the client to request \"{requestUri}\"");
             }
 
             var apiUri = sandBox

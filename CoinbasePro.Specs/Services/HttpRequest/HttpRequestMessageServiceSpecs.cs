@@ -81,7 +81,7 @@ namespace CoinbasePro.Specs.Services.HttpRequest
                 exception = Catch.Exception(() => Subject.CreateHttpRequestMessage(HttpMethod.Get, "/accounts"));
 
             It should_throw_an_error = () =>
-                exception.ShouldBeOfExactType<GDAXSharpHttpException>();
+                exception.ShouldBeOfExactType<CoinbaseProHttpException>();
 
             It should_contain_a_message = () =>
                 exception.Message.ShouldContain("Please provide an authenticator to the client to request");

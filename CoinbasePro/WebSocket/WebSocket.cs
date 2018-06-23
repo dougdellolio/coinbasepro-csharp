@@ -80,7 +80,7 @@ namespace CoinbasePro.WebSocket
         {
             if (webSocketFeed.State != WebSocketState.Open)
             {
-                throw new GDAXSharpWebSocketException(
+                throw new CoinbaseProWebSocketException(
                     $"Websocket needs to be in the opened state. The current state is {webSocketFeed.State}")
                 {
                     WebSocketFeed = webSocketFeed,
@@ -202,7 +202,7 @@ namespace CoinbasePro.WebSocket
             }
             else
             {
-                throw new GDAXSharpWebSocketException($"WebSocket Feed Error: {e.Exception.Message}")
+                throw new CoinbaseProWebSocketException($"WebSocket Feed Error: {e.Exception.Message}")
                 {
                     WebSocketFeed = webSocketFeed,
                     StatusCode = webSocketFeed.State,

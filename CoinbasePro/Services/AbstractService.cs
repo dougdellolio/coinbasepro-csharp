@@ -48,7 +48,7 @@ namespace CoinbasePro.Services
 
             try
             {
-                var jsonMsg = JsonConfig.DeserializeObject<GDAXErrorMessage>(contentBody);
+                var jsonMsg = JsonConfig.DeserializeObject<CoinbaseProErrorMessage>(contentBody);
                 errorMessage = jsonMsg.Message;
             }
             catch
@@ -56,7 +56,7 @@ namespace CoinbasePro.Services
                 errorMessage = contentBody;
             }
 
-            var ex = new GDAXSharpHttpException(errorMessage)
+            var ex = new CoinbaseProHttpException(errorMessage)
             {
                 StatusCode = httpResponseMessage.StatusCode,
                 RequestMessage = httpRequestMessage,
@@ -64,7 +64,7 @@ namespace CoinbasePro.Services
                 EndPoint = new EndPoint(httpMethod, uri, content)
             };
 
-            Log.Error("REST request about to throw {@GDAXSharpHttpException}", ex);
+            Log.Error("REST request about to throw {@CoinbaseProHttpException}", ex);
 
             throw ex;
         }

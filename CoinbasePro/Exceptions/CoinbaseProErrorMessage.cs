@@ -1,6 +1,6 @@
 ﻿namespace CoinbasePro.Exceptions
 {
-    public class GDAXErrorMessage
+    public class CoinbaseProErrorMessage
     {
         public string Message { get; set; }
     }
