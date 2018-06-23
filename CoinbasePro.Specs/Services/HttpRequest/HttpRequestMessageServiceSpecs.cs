@@ -33,7 +33,7 @@ namespace CoinbasePro.Specs.Services.HttpRequest
                 result_http_request_message.ShouldNotBeNull();
 
             It should_have_correct_request_uri = () =>
-                result_http_request_message.RequestUri.ToString().ShouldEqual("https://api.gdax.com/accounts");
+                result_http_request_message.RequestUri.ToString().ShouldEqual("https://api.pro.coinbase.com/accounts");
 
             It should_have_the_required_headers = () =>
             {
