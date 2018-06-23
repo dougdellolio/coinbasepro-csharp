@@ -84,7 +84,7 @@ var allAccounts = await gdaxClient.AccountsService.GetAllAccountsAsync();
 ###### User Account ######
 - GetTrailingVolumeAsync() - get 30-day trailing volume for all products
 
-<h1>WebSocket Feed</h1>
+<h1>Websocket Feed</h1>
 <h2>How to use with authentication</h2>
 
 ````
