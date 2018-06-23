@@ -148,8 +148,13 @@ The following methods are EventHandlers:
 - OnOpenReceived - EventHandler for data with response type `open`
 - OnDoneReceived - EventHandler for data with response type `done`
 - OnMatchReceived - EventHandler for data with response type `match`
+- OnChangeReceived - EventHandler for data with response type `change`
 - OnLastMatchReceived - EventHandler for data with response type `last match`
 - OnErrorReceived - EventHandler for data with response type `error`
+- OnActivateReceived - Eventhandler for data with response type `activate`
+- OnWebSocketError - EventHandler for web socket error
+- OnWebSocketClose- EventHandler for web socket closing
+- OnWebSocketOpenAndSubscribed - EventHandler for web socket being opened and subscribed
 
 <h1>Sandbox Support</h1>
 
