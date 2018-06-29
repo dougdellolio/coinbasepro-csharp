@@ -11,7 +11,7 @@ CoinbasePro API C# Client Library - https://docs.gdax.com/
 
 <h1>How to Use</h1>
 
-<i>Generate your key at https://www.gdax.com/settings/api</i>
+<i>Generate your key at https://pro.coinbase.com/profile/api</i>
 
 ````
 //create an authenticator with your apiKey, apiSecret and passphrase
@@ -158,7 +158,7 @@ The following methods are EventHandlers:
 
 <h1>Sandbox Support</h1>
 
-<i>Generate your key at https://public.sandbox.gdax.com/settings/api</i>
+<i>Generate your key at https://public.sandbox.pro.coinbase.com/profile/api</i>
 
 ````
 //create an authenticator with your apiKey, signature and passphrase
