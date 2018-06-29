@@ -4,11 +4,11 @@ configuration: Release
 platform: Any CPU
 before_build:
 - ps: >-
-    nuget.exe restore GDAXSharp.sln
+    nuget.exe restore CoinbasePro.sln
 
     GitVersion.exe /output buildserver
 build:
-  project: GDAXSharp.sln
+  project: CoinbasePro.sln
   verbosity: normal
 test:
   assemblies:
