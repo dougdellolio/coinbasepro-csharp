@@ -226,7 +226,7 @@ namespace CoinbasePro.WebSocket
         private List<Channel> GetChannels()
         {
             var channels = new List<Channel>();
-            if (channelTypes == null || channelTypes.Any())
+            if (channelTypes == null || channelTypes.Count == 0)
             {
                 foreach (ChannelType channelType in Enum.GetValues(typeof(ChannelType)))
                 {
