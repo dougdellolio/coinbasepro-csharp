@@ -31,7 +31,6 @@ namespace CoinbasePro.Specs.WebSocket
             product_type_inputs = new List<ProductType>();
             channel_type_inputs = new List<ChannelType>();
             product_type_inputs.Add(ProductType.BtcUsd);
-            channel_type_inputs.Add(ChannelType.Level2);
         };
 
         class when_creating_a_websocket_feed
