@@ -24,22 +24,31 @@ namespace CoinbasePro.Specs.WebSocket
 
         static List<ProductType> product_type_inputs;
 
-        static List<ChannelType> channel_type_inputs;
-
+        static List<ChannelType> no_channel_type_inputs;
+        static List<ChannelType> specified_channel_type_inputs;
         Establish context = () =>
         {
             product_type_inputs = new List<ProductType>();
-            channel_type_inputs = new List<ChannelType>();
+            no_channel_type_inputs = new List<ChannelType>();
+            specified_channel_type_inputs = new List<ChannelType>(new[] { ChannelType.Level2, ChannelType.User });
             product_type_inputs.Add(ProductType.BtcUsd);
-            channel_type_inputs.Add(ChannelType.Level2);
         };
 
         class when_creating_a_websocket_feed
         {
-            class when_calling_start_with_channels_and_product_types
+            class when_calling_start_with_product_type_and_not_providing_channels
             {
                 Because of = () =>
-                    Subject.Start(product_type_inputs, channel_type_inputs);
+                    Subject.Start(product_type_inputs, no_channel_type_inputs);
+
+                It should_have_opened_the_feed = () =>
+                    The<IWebSocketFeed>().
+                        WasToldTo(p => p.Open());
+            }
+            class when_calling_start_with_product_type_and_providing_channels
+            {
+                Because of = () =>
+                    Subject.Start(product_type_inputs, specified_channel_type_inputs);
 
                 It should_have_opened_the_feed = () =>
                     The<IWebSocketFeed>().
@@ -49,7 +58,7 @@ namespace CoinbasePro.Specs.WebSocket
             class when_calling_start_and_not_providing_product_types
             {
                 Because of = () =>
-                    exception = Catch.Exception(() => Subject.Start(new List<ProductType>(), channel_type_inputs));
+                    exception = Catch.Exception(() => Subject.Start(new List<ProductType>(), no_channel_type_inputs));
 
                 It should_have_thrown_an_error = () =>
                     exception.ShouldBeOfExactType<ArgumentException>();
@@ -83,11 +92,11 @@ namespace CoinbasePro.Specs.WebSocket
 
             class when_opened_is_called
             {
-                class with_authentication
+                class with_authentication_with_no_channels
                 {
                     Because of = () =>
                     {
-                        Subject.Start(product_type_inputs, channel_type_inputs);
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                         websocket_feed.Raise(e => e.Opened += null, EventArgs.Empty);
                     };
@@ -97,6 +106,20 @@ namespace CoinbasePro.Specs.WebSocket
                             WasToldTo(p => p.Send(@"{""type"":""subscribe"",""product_ids"":[""BTC-USD""],""channels"":[{""name"":""full"",""product_ids"":[""BTC-USD""]},{""name"":""heartbeat"",""product_ids"":[""BTC-USD""]},{""name"":""level2"",""product_ids"":[""BTC-USD""]},{""name"":""matches"",""product_ids"":[""BTC-USD""]},{""name"":""ticker"",""product_ids"":[""BTC-USD""]},{""name"":""user"",""product_ids"":[""BTC-USD""]}],""key"":""key"",""passphrase"":""passphrase"",""timestamp"":""-62135596800""}"));
                 }
 
+                class with_authentication_with_specified_channels
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, specified_channel_type_inputs);
+
+                        websocket_feed.Raise(e => e.Opened += null, EventArgs.Empty);
+                    };
+
+                    It should_have_called_send_with_authentication_properties = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Send(@"{""type"":""subscribe"",""product_ids"":[""BTC-USD""],""channels"":[{""name"":""level2"",""product_ids"":[""BTC-USD""]},{""name"":""user"",""product_ids"":[""BTC-USD""]}],""key"":""key"",""passphrase"":""passphrase"",""timestamp"":""-62135596800""}"));
+                }
+
                 class without_authentication
                 {
                     Establish context = () =>
@@ -104,7 +127,7 @@ namespace CoinbasePro.Specs.WebSocket
 
                     Because of = () =>
                     {
-                        Subject.Start(product_type_inputs, channel_type_inputs);
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                         websocket_feed.Raise(e => e.Opened += null, EventArgs.Empty);
                     };
@@ -119,7 +142,7 @@ namespace CoinbasePro.Specs.WebSocket
             {
                 Because of = () =>
                 {
-                    Subject.Start(product_type_inputs, channel_type_inputs);
+                    Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                     websocket_feed.Raise(e => e.Closed += null, EventArgs.Empty);
                 };
@@ -135,7 +158,7 @@ namespace CoinbasePro.Specs.WebSocket
                 {
                     Because of = () =>
                     {
-                        Subject.Start(product_type_inputs, channel_type_inputs);
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                         websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateSnapshotResponse()));
                     };
@@ -149,7 +172,7 @@ namespace CoinbasePro.Specs.WebSocket
                 {
                     Because of = () =>
                     {
-                        Subject.Start(product_type_inputs, channel_type_inputs);
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                         websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateSubscriptionResponse()));
                     };
@@ -163,7 +186,7 @@ namespace CoinbasePro.Specs.WebSocket
                 {
                     Because of = () =>
                     {
-                        Subject.Start(product_type_inputs, channel_type_inputs);
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                         websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateTickerResponse()));
                     };
@@ -177,7 +200,7 @@ namespace CoinbasePro.Specs.WebSocket
                 {
                     Because of = () =>
                     {
-                        Subject.Start(product_type_inputs, channel_type_inputs);
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                         websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateLevel2Response()));
                     };
@@ -191,7 +214,7 @@ namespace CoinbasePro.Specs.WebSocket
                 {
                     Because of = () =>
                     {
-                        Subject.Start(product_type_inputs, channel_type_inputs);
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                         websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateHeartbeatResponse()));
                     };
@@ -206,7 +229,7 @@ namespace CoinbasePro.Specs.WebSocket
                 {
                     Because of = () =>
                     {
-                        Subject.Start(product_type_inputs, channel_type_inputs);
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                         websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateReceivedResponse()));
                     };
@@ -220,7 +243,7 @@ namespace CoinbasePro.Specs.WebSocket
                 {
                     Because of = () =>
                     {
-                        Subject.Start(product_type_inputs, channel_type_inputs);
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                         websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateOpenResponse()));
                     };
@@ -234,7 +257,7 @@ namespace CoinbasePro.Specs.WebSocket
                 {
                     Because of = () =>
                     {
-                        Subject.Start(product_type_inputs, channel_type_inputs);
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                         websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateDoneResponse()));
                     };
@@ -250,7 +273,7 @@ namespace CoinbasePro.Specs.WebSocket
                     {
                         Because of = () =>
                         {
-                            Subject.Start(product_type_inputs, channel_type_inputs);
+                            Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                             websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateChangeResponse(true)));
                         };
@@ -264,7 +287,7 @@ namespace CoinbasePro.Specs.WebSocket
                     {
                         Because of = () =>
                         {
-                            Subject.Start(product_type_inputs, channel_type_inputs);
+                            Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                             websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateChangeResponse(false)));
                         };
@@ -279,7 +302,7 @@ namespace CoinbasePro.Specs.WebSocket
                 {
                     Because of = () =>
                     {
-                        Subject.Start(product_type_inputs, channel_type_inputs);
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                         websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateActivateResponse()));
                     };
@@ -293,7 +316,7 @@ namespace CoinbasePro.Specs.WebSocket
                 {
                     Because of = () =>
                     {
-                        Subject.Start(product_type_inputs, channel_type_inputs);
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
 
                         websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateRandomResponse()));
                     };
