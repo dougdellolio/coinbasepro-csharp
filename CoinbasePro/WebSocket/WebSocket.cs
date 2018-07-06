@@ -106,6 +106,7 @@ namespace CoinbasePro.WebSocket
 
         public void ChangeChannels(List<ChannelType> channelTypes)
         {
+
             if (channelTypes == null || !channelTypes.Any())
             {
                 throw new ArgumentException($"You must specify at least one {nameof(channelTypes)}");
