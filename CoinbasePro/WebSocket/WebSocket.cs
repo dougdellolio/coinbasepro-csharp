@@ -166,7 +166,6 @@ namespace CoinbasePro.WebSocket
             {
                 case ResponseType.Subscriptions:
                     var subscription = JsonConfig.DeserializeObject<Subscription>(json);
-                    Console.WriteLine(json);
                     if (subscription.Channels == null || !subscription.Channels.Any())
                     {
                         Subscribe();
