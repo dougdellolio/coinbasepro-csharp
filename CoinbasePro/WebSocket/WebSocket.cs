@@ -102,25 +102,22 @@ namespace CoinbasePro.WebSocket
             Log.Information("WebSocket stopped");
         }
 
-
-
-        public void ChangeChannels(List<ChannelType> channelTypes)
+        public void ChangeChannels(List<ChannelType> channels)
         {
-
             if (channelTypes == null || !channelTypes.Any())
             {
                 throw new ArgumentException($"You must specify at least one {nameof(channelTypes)}");
             }
+
             var json = JsonConfig.SerializeObject(new
             {
                 type = "unsubscribe",
-                channels = this.channelTypes.Select(x => x.ToString().ToLower()).ToArray(),
+                channels = this.channelTypes.Select(x => x.ToString().ToLower()).ToArray()
             });
 
-            this.channelTypes = channelTypes;
+            channelTypes = channels;
 
             webSocketFeed.Send(json);
-
         }
 
         public void WebSocket_Opened(object sender, EventArgs e)
@@ -137,7 +134,6 @@ namespace CoinbasePro.WebSocket
 
         private void Subscribe()
         {
-
             var channels = GetChannels();
 
             var timeStamp = clock.GetTime().ToTimeStamp();
@@ -261,7 +257,8 @@ namespace CoinbasePro.WebSocket
         private List<Channel> GetChannels()
         {
             var channels = new List<Channel>();
-            if (channelTypes == null || channelTypes.Count == 0)
+
+            if (channelTypes == null || !channelTypes.Any())
             {
                 foreach (ChannelType channelType in Enum.GetValues(typeof(ChannelType)))
                 {
