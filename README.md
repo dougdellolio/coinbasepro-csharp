@@ -274,6 +274,7 @@ Thanks for contributing!
 - @BradForsythe
 - @zaccharles
 - @BraveSirAndrew
+- @alexhiggins732
 
 <h1>Bugs or questions?</h1>
 
