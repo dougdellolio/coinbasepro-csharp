@@ -1,5 +1,5 @@
 # coinbasepro-csharp
-CoinbasePro API C# Client Library - https://docs.gdax.com/
+Coinbase Pro API C# Client Library - https://docs.pro.coinbase.com/
 
 
 [![Build status](https://ci.appveyor.com/api/projects/status/maqa3anaaxhcwamt?svg=true)](https://ci.appveyor.com/project/dougdellolio/gdax-csharp)
