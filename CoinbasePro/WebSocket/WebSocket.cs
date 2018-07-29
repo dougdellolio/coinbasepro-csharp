@@ -102,6 +102,24 @@ namespace CoinbasePro.WebSocket
             Log.Information("WebSocket stopped");
         }
 
+        public void ChangeChannels(List<ChannelType> channels)
+        {
+            if (channelTypes == null || !channelTypes.Any())
+            {
+                throw new ArgumentException($"You must specify at least one {nameof(channelTypes)}");
+            }
+
+            var json = JsonConfig.SerializeObject(new
+            {
+                type = "unsubscribe",
+                channels = this.channelTypes.Select(x => x.ToString().ToLower()).ToArray()
+            });
+
+            channelTypes = channels;
+
+            webSocketFeed.Send(json);
+        }
+
         public void WebSocket_Opened(object sender, EventArgs e)
         {
             if (productTypes.Count == 0)
@@ -109,16 +127,22 @@ namespace CoinbasePro.WebSocket
                 throw new ArgumentException($"You must specify at least one {nameof(productTypes)}");
             }
 
+            Subscribe();
+
+            webSocketFeed.Invoke(OnWebSocketOpenAndSubscribed, sender, new WebfeedEventArgs<EventArgs>(e));
+        }
+
+        private void Subscribe()
+        {
             var channels = GetChannels();
 
             var timeStamp = clock.GetTime().ToTimeStamp();
+
             var withAuthentication = authenticator != null;
 
             var json = SubscribeMessage(withAuthentication, channels, timeStamp);
 
             webSocketFeed.Send(json);
-
-            webSocketFeed.Invoke(OnWebSocketOpenAndSubscribed, sender, new WebfeedEventArgs<EventArgs>(e));
         }
 
         public void WebSocket_MessageReceived(object sender, MessageReceivedEventArgs e)
@@ -138,7 +162,14 @@ namespace CoinbasePro.WebSocket
             {
                 case ResponseType.Subscriptions:
                     var subscription = JsonConfig.DeserializeObject<Subscription>(json);
-                    webSocketFeed.Invoke(OnSubscriptionReceived, sender, new WebfeedEventArgs<Subscription>(subscription));
+                    if (subscription.Channels == null || !subscription.Channels.Any())
+                    {
+                        Subscribe();
+                    }
+                    else
+                    {
+                        webSocketFeed.Invoke(OnSubscriptionReceived, sender, new WebfeedEventArgs<Subscription>(subscription));
+                    }
                     break;
                 case ResponseType.Ticker:
                     var ticker = JsonConfig.DeserializeObject<Ticker>(json);
@@ -226,7 +257,8 @@ namespace CoinbasePro.WebSocket
         private List<Channel> GetChannels()
         {
             var channels = new List<Channel>();
-            if (channelTypes == null || channelTypes.Any())
+
+            if (channelTypes == null || !channelTypes.Any())
             {
                 foreach (ChannelType channelType in Enum.GetValues(typeof(ChannelType)))
                 {
