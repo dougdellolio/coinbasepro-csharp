@@ -27,6 +27,12 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "BCH-EUR")]
         BchEur,
         [EnumMember(Value = "BCH-BTC")]
-        BchBtc
+        BchBtc,
+        [EnumMember(Value = "ETC-USD")]
+        EtcUsd,
+        [EnumMember(Value = "ETC-EUR")]
+        EtcEur,
+        [EnumMember(Value = "ETC-BTC")]
+        EtcBtc
     }
 }
