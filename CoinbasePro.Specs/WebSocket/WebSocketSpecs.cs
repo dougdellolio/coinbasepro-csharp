@@ -17,8 +17,8 @@ using It = Machine.Specifications.It;
 
 namespace CoinbasePro.Specs.WebSocket
 {
-    [Subject(typeof(global::CoinbasePro.WebSocket.WebSocket))]
-    class WebSocketSpecs : WithSubject<global::CoinbasePro.WebSocket.WebSocket>
+    [Subject(typeof(CoinbasePro.WebSocket.WebSocket))]
+    class WebSocketSpecs : WithSubject<CoinbasePro.WebSocket.WebSocket>
     {
         static Exception exception;
 

@@ -112,7 +112,7 @@ namespace CoinbasePro.WebSocket
             var json = JsonConfig.SerializeObject(new
             {
                 type = "unsubscribe",
-                channels = this.channelTypes.Select(x => x.ToString().ToLower()).ToArray()
+                channels = channelTypes.Select(x => x.ToString().ToLower()).ToArray()
             });
 
             channelTypes = channels;

@@ -8,6 +8,7 @@
         BTC,
         LTC,
         ETH,
-        BCH
+        BCH,
+        ETC
     }
 }
