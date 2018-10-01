@@ -13,7 +13,7 @@ Coinbase Pro API C# Client Library - https://docs.pro.coinbase.com/
 
 <i>Generate your key at https://pro.coinbase.com/profile/api</i>
 
-````
+````csharp
 //create an authenticator with your apiKey, apiSecret and passphrase
 var authenticator = new Authenticator("<apiKey>", "<apiSecret>", "<passphrase>");
 
@@ -87,7 +87,7 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 <h1>Websocket Feed</h1>
 <h2>How to use with authentication</h2>
 
-````
+````csharp
 //create an authenticator with your apiKey, apiSecret and passphrase
 var authenticator = new Authenticator("<apiKey>", "<apiSecret>", "<passphrase>");
 
@@ -112,7 +112,7 @@ private static void WebSocket_OnHeartbeatReceived(object sender, WebfeedEventArg
 
 <h2>How to use without authentication</h2>
 
-````
+````csharp
 //create the CoinbasePro client without an authenticator
 var coinbaseProClient = new CoinbasePro.CoinbaseProClient();
 
@@ -160,7 +160,7 @@ The following methods are EventHandlers:
 
 <i>Generate your key at https://public.sandbox.pro.coinbase.com/profile/api</i>
 
-````
+````csharp
 //create an authenticator with your apiKey, signature and passphrase
 var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>");
 
@@ -175,7 +175,7 @@ var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(Order
 
 ###### Place a market order ######
 
-````
+````csharp
 //by size
 var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
 
@@ -193,7 +193,7 @@ var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(Order
 
 ###### Getting account history (<i>paged response</i>) ######
 
-````
+````csharp
 //the limit is the amount of items per page - in this case it would be 2 items (default is 100)
 //you can also specify the number of pages to request - in this case it would be the first 5 pages (default is 0 which will request all pages)
 //some routes may require the number of pages to be specified as there are rate limits
@@ -211,7 +211,7 @@ var secondAccountHistoryOnFirstPage = firstPage.ToList()[1];
 
 ###### Generate and email a report ######
 
-````
+````csharp
 var reportDateFrom = new DateTime(2017, 1, 1);
 var reportDateTo = new DateTime(2018, 1, 1);
 var accountId = "29318029382";
@@ -227,7 +227,7 @@ var fillsResponse = coinbaseProClient.ReportsService.CreateNewFillsReportAsync(r
 
 You can gain greater control of the http requests by implementing CoinbasePro.HttpClient.IHttpClient and passing that into the CoinbasePro constructor.
 
-````
+````csharp
 var myWay = new MyNamespace.MyHttpClient();
 
 //create an authenticator with your apiKey, signature and passphrase
@@ -241,7 +241,7 @@ var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator, myWay);
 
 Logging is provided by Serilog - https://github.com/serilog/serilog
 
-````
+````csharp
 //configure the application logging to output to console and a file called log.txt
 Serilog.Log.Logger = new LoggerConfiguration()
 				.MinimumLevel.Debug()
