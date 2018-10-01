@@ -13,7 +13,7 @@ Coinbase Pro API C# Client Library - https://docs.pro.coinbase.com/
 
 <i>Generate your key at https://pro.coinbase.com/profile/api</i>
 
-````csharp
+```csharp
 //create an authenticator with your apiKey, apiSecret and passphrase
 var authenticator = new Authenticator("<apiKey>", "<apiSecret>", "<passphrase>");
 
@@ -22,7 +22,7 @@ var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator);
 
 //use one of the services 
 var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
-````
+```
 
 <h1>What services are provided?</h1>
 
@@ -87,7 +87,7 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 <h1>Websocket Feed</h1>
 <h2>How to use with authentication</h2>
 
-````csharp
+```csharp
 //create an authenticator with your apiKey, apiSecret and passphrase
 var authenticator = new Authenticator("<apiKey>", "<apiSecret>", "<passphrase>");
 
@@ -96,9 +96,9 @@ var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator);
 
 //use the websocket feed
 var productTypes = new List<ProductType>() { ProductType.BtcEur, ProductType.BtcUsd };
-var channels = new List<ChannelType>() { ChannelType.Full, ChannelType.Use r} // When not providing any channels, the socket will subscribe to all channels
+var channels = new List<ChannelType>() { ChannelType.Full, ChannelType.User} // When not providing any channels, the socket will subscribe to all channels
 
-var webSocket = coinbaseProClient .WebSocket;
+var webSocket = coinbaseProClient.WebSocket;
 webSocket.Start(productTypes, channels);
 
 // EventHandler for the heartbeat response type
@@ -108,11 +108,11 @@ private static void WebSocket_OnHeartbeatReceived(object sender, WebfeedEventArg
 {
   throw new NotImplementedException();
 }
-````
+```
 
 <h2>How to use without authentication</h2>
 
-````csharp
+```csharp
 //create the CoinbasePro client without an authenticator
 var coinbaseProClient = new CoinbasePro.CoinbaseProClient();
 
@@ -130,7 +130,7 @@ private static void WebSocket_OnHeartbeatReceived(object sender, WebfeedEventArg
 {
   throw new NotImplementedException();
 }
-````
+```
 
 <h2>Available functions</h2>
 These are the starting and stopping methods:
@@ -160,7 +160,7 @@ The following methods are EventHandlers:
 
 <i>Generate your key at https://public.sandbox.pro.coinbase.com/profile/api</i>
 
-````csharp
+```csharp
 //create an authenticator with your apiKey, signature and passphrase
 var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>");
 
@@ -169,31 +169,35 @@ var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator, true);
 
 //use one of the services 
 var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
-````
+```
 
 <h1>Examples</h1>
 
 ###### Place a market order ######
 
-````csharp
+```csharp
 //by size
 var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
 
 //by funds
 var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 50, MarketOrderAmountType.Funds);
-````
+```
 
 ###### Place a limit order ######
 
-`var response = await coinbaseProClient.OrdersService.PlaceLimitOrderAsync(OrderSide.Sell, ProductType.EthUsd, 1, 400.0M);`
+```csharp
+var response = await coinbaseProClient.OrdersService.PlaceLimitOrderAsync(OrderSide.Sell, ProductType.EthUsd, 1, 400.0M);
+```
 
 ###### Cancel all open or un-settled orders ######
 
-`var response = await coinbaseProClient.OrdersService.CancelAllOrdersAsync();`
+```csharp
+var response = await coinbaseProClient.OrdersService.CancelAllOrdersAsync();
+```
 
 ###### Getting account history (<i>paged response</i>) ######
 
-````csharp
+```csharp
 //the limit is the amount of items per page - in this case it would be 2 items (default is 100)
 //you can also specify the number of pages to request - in this case it would be the first 5 pages (default is 0 which will request all pages)
 //some routes may require the number of pages to be specified as there are rate limits
@@ -207,11 +211,11 @@ var firstAccountHistoryOnFirstPage = firstPage.ToList()[0];
 
 //get the second item on the page
 var secondAccountHistoryOnFirstPage = firstPage.ToList()[1];
-````
+```
 
 ###### Generate and email a report ######
 
-````csharp
+```csharp
 var reportDateFrom = new DateTime(2017, 1, 1);
 var reportDateTo = new DateTime(2018, 1, 1);
 var accountId = "29318029382";
@@ -221,13 +225,13 @@ var accountResponse = coinbaseProClient.ReportsService.CreateNewAccountReportAsy
 
 //generate and email fills report pdf
 var fillsResponse = coinbaseProClient.ReportsService.CreateNewFillsReportAsync(reportDateFrom, reportDateTo, ProductType.BtcUsd, accountId, "me@email.com", FileFormat.Pdf);
-````
+```
 
 ###### Overriding the HttpClient behavior ######
 
 You can gain greater control of the http requests by implementing CoinbasePro.HttpClient.IHttpClient and passing that into the CoinbasePro constructor.
 
-````csharp
+```csharp
 var myWay = new MyNamespace.MyHttpClient();
 
 //create an authenticator with your apiKey, signature and passphrase
@@ -235,13 +239,13 @@ var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>")
 
 //create the CoinbasePro client and set the httpClient to my way of behaving
 var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator, myWay);
-````
+```
 
 <h1>Logging</h1>
 
 Logging is provided by Serilog - https://github.com/serilog/serilog
 
-````csharp
+```csharp
 //configure the application logging to output to console and a file called log.txt
 Serilog.Log.Logger = new LoggerConfiguration()
 				.MinimumLevel.Debug()
@@ -259,7 +263,7 @@ var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator);
 
 //use one of the services 
 var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
-````
+```
 
 <h1>Contributors</h1>
 
