@@ -9,6 +9,7 @@
         LTC,
         ETH,
         BCH,
-        ETC
+        ETC,
+        ZRX
     }
 }
