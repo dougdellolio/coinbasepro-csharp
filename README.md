@@ -279,6 +279,7 @@ Thanks for contributing!
 - @zaccharles
 - @BraveSirAndrew
 - @alexhiggins732
+- @kudobyte
 
 <h1>Bugs or questions?</h1>
 
