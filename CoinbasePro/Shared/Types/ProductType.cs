@@ -41,6 +41,12 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "ETC-BTC")]
         EtcBtc,
         [EnumMember(Value = "ETC-GBP")]
-        EtcGbp
+        EtcGbp,
+        [EnumMember(Value = "ZRX-USD")]
+        ZrxUsd,
+        [EnumMember(Value = "ZRX-EUR")]
+        ZrxEur,
+        [EnumMember(Value = "ZRX-BTC")]
+        ZrxBtc
     }
 }
