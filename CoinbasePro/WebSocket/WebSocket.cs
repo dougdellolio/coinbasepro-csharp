@@ -18,7 +18,7 @@ using WebSocket4Net;
 
 namespace CoinbasePro.WebSocket
 {
-    public class WebSocket
+    public class WebSocket : IWebSocket
     {
         private readonly Func<IWebSocketFeed> createWebSocketFeed;
 
