@@ -18,5 +18,22 @@
 
             return json;
         }
+
+        public static string CreateWithUnknownProduct()
+        {
+            var json = @"
+[
+    {
+        'id': 'UNKNOWN-USD',
+        'base_currency': 'unknown',
+        'quote_currency': 'unknown',
+        'base_min_size': '0.01',
+        'base_max_size': '10000.00',
+        'quote_increment': '0.01'
+    }
+]";
+
+            return json;
+        }
     }
 }

@@ -39,25 +39,51 @@ namespace CoinbasePro.Specs.Services.Products
 
         class when_getting_all_products
         {
-            Establish context = () =>
-                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(ProductsResponseFixture.Create()));
-
-            Because of = () =>
-                products_result = Subject.GetAllProductsAsync().Result;
-
-            It should_have_correct_products_response_count = () =>
-                products_result.Count().ShouldEqual(1);
-
-            It should_have_correct_products = () =>
+            class with_known_products
             {
-                products_result.First().Id.ShouldEqual(ProductType.BtcUsd);
-                products_result.First().BaseCurrency.ShouldEqual(Currency.BTC);
-                products_result.First().QuoteCurrency.ShouldEqual(Currency.USD);
-                products_result.First().BaseMinSize.ShouldEqual(0.01M);
-                products_result.First().BaseMaxSize.ShouldEqual(10000.00M);
-                products_result.First().QuoteIncrement.ShouldEqual(0.01M);
-            };
+                Establish context = () =>
+                    The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                        .Return(Task.FromResult(ProductsResponseFixture.Create()));
+
+                Because of = () =>
+                    products_result = Subject.GetAllProductsAsync().Result;
+
+                It should_have_correct_products_response_count = () =>
+                    products_result.Count().ShouldEqual(1);
+
+                It should_have_correct_products = () =>
+                {
+                    products_result.First().Id.ShouldEqual(ProductType.BtcUsd);
+                    products_result.First().BaseCurrency.ShouldEqual(Currency.BTC);
+                    products_result.First().QuoteCurrency.ShouldEqual(Currency.USD);
+                    products_result.First().BaseMinSize.ShouldEqual(0.01M);
+                    products_result.First().BaseMaxSize.ShouldEqual(10000.00M);
+                    products_result.First().QuoteIncrement.ShouldEqual(0.01M);
+                };
+            }
+
+            class with_unknown_products
+            {
+                Establish context = () =>
+                    The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                        .Return(Task.FromResult(ProductsResponseFixture.CreateWithUnknownProduct()));
+
+                Because of = () =>
+                    products_result = Subject.GetAllProductsAsync().Result;
+
+                It should_have_correct_products_response_count = () =>
+                    products_result.Count().ShouldEqual(1);
+
+                It should_have_correct_products = () =>
+                {
+                    products_result.First().Id.ShouldEqual(ProductType.Unknown);
+                    products_result.First().BaseCurrency.ShouldEqual(Currency.Unknown);
+                    products_result.First().QuoteCurrency.ShouldEqual(Currency.Unknown);
+                    products_result.First().BaseMinSize.ShouldEqual(0.01M);
+                    products_result.First().BaseMaxSize.ShouldEqual(10000.00M);
+                    products_result.First().QuoteIncrement.ShouldEqual(0.01M);
+                };
+            }
         }
 
         class when_getting_a_product_order_book_for_level_one

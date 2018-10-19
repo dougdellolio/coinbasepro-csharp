@@ -62,5 +62,25 @@ namespace CoinbasePro.Specs.Services.Currencies
                 result.First().MinSize.ShouldEqual(0.00000001M);
             };
         }
+
+        class when_getting_an_unknown_currency
+        {
+            Establish context = () =>
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(CurrenciesResponseFixture.CreateUnknown()));
+
+            Because of = () =>
+                result = Subject.GetAllCurrenciesAsync().Result;
+
+            It should_return_a_correct_number_of_currencies = () =>
+                result.Count().ShouldEqual(1);
+
+            It should_return_a_correct_response = () =>
+            {
+                result.First().Id.ShouldEqual(CoinbasePro.Shared.Types.Currency.Unknown);
+                result.First().Name.ShouldEqual("Unknown Currency");
+                result.First().MinSize.ShouldEqual(0.00000001M);
+            };
+        }
     }
 }
