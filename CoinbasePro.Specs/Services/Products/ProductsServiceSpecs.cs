@@ -66,7 +66,7 @@ namespace CoinbasePro.Specs.Services.Products
             {
                 Establish context = () =>
                     The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                        .Return(Task.FromResult(ProductsResponseFixture.CreateWithUnknownProduct()));
+                        .Return(Task.FromResult(ProductsResponseFixture.CreateUnknown()));
 
                 Because of = () =>
                     products_result = Subject.GetAllProductsAsync().Result;

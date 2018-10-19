@@ -19,7 +19,7 @@
             return json;
         }
 
-        public static string CreateWithUnknownProduct()
+        public static string CreateUnknown()
         {
             var json = @"
 [
