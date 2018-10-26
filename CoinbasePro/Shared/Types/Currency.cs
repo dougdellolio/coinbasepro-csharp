@@ -10,6 +10,7 @@
         ETH,
         BCH,
         ETC,
-        ZRX
+        ZRX,
+        USDC
     }
 }
