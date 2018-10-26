@@ -10,6 +10,8 @@ namespace CoinbasePro.Shared.Types
         BtcEur,
         [EnumMember(Value = "BTC-GBP")]
         BtcGbp,
+        [EnumMember(Value = "BTC-USDC")]
+        BtcUsdc,
         [EnumMember(Value = "ETH-USD")]
         EthUsd,
         [EnumMember(Value = "ETH-EUR")]
@@ -18,6 +20,8 @@ namespace CoinbasePro.Shared.Types
         EthBtc,
         [EnumMember(Value = "ETH-GBP")]
         EthGbp,
+        [EnumMember(Value = "ETH-USDC")]
+        EthUsdc,
         [EnumMember(Value = "LTC-USD")]
         LtcUsd,
         [EnumMember(Value = "LTC-EUR")]
