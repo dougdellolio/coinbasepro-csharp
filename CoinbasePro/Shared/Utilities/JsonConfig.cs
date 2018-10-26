@@ -16,8 +16,6 @@ namespace CoinbasePro.Shared.Utilities
             },
             Error = delegate(object sender, ErrorEventArgs args)
             {
-                args.ErrorContext.Handled = true;
-
                 if (args.CurrentObject == args.ErrorContext.OriginalObject)
                 {
                     Log.Error("Json serialization error {@OriginalObject} {@Member} {@ErrorMessage}"

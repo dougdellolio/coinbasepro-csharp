@@ -42,7 +42,6 @@ namespace CoinbasePro.Specs.Services.Orders
                 Return(Task.FromResult(new HttpResponseMessage()));
         };
         
-
         class when_placing_a_market_order
         {
             Establish context = () =>

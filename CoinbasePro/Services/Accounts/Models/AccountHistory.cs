@@ -1,5 +1,6 @@
 ﻿using System;
 using CoinbasePro.Services.Accounts.Types;
+using CoinbasePro.Shared;
 using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -29,7 +30,7 @@ namespace CoinbasePro.Services.Accounts.Models
 
         public string TradeId { get; set; }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
         public ProductType ProductId { get; set; }
     }
 }

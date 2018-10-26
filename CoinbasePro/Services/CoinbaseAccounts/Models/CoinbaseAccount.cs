@@ -1,5 +1,6 @@
 ﻿using System;
 using CoinbasePro.Services.CoinbaseAccounts.Types;
+using CoinbasePro.Shared;
 using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -14,6 +15,7 @@ namespace CoinbasePro.Services.CoinbaseAccounts.Models
 
         public decimal Balance { get; set; }
 
+        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
         public Currency Currency { get; set; }
 
         [JsonProperty("type")]
