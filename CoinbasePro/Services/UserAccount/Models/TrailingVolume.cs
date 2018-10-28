@@ -1,13 +1,13 @@
 ﻿using System;
+using CoinbasePro.Shared;
 using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace CoinbasePro.Services.UserAccount.Models
 {
     public class TrailingVolume
     {
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
         public ProductType ProductId { get; set; }
 
         public decimal ExchangeVolume{ get; set; }

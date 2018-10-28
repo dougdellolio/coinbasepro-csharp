@@ -24,27 +24,55 @@ namespace CoinbasePro.Specs.Services.Accounts
 
         class when_getting_all_accounts
         {
-            static IEnumerable<Account> result;
-
-            Establish context = () =>
-                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(AllAccountsResponseFixture.Create()));
-
-            Because of = () =>
-                result = Subject.GetAllAccountsAsync().Result;
-
-            It should_have_correct_count = () =>
-                result.Count().ShouldEqual(1);
-
-            It should_have_correct_account_information = () =>
+            class with_known_currency
             {
-                result.First().Id.ShouldEqual(new Guid("e316cb9a-0808-4fd7-8914-97829c1925de"));
-                result.First().Currency.ShouldEqual(Currency.USD);
-                result.First().Balance.ShouldEqual(80.2301373066930000M);
-                result.First().Available.ShouldEqual(79.2266348066930000M);
-                result.First().Hold.ShouldEqual(1.0035025000000000M);
-                result.First().ProfileId.ShouldEqual(new Guid("75da88c5-05bf-4f54-bc85-5c775bd68254"));
-            };
+                static IEnumerable<Account> result;
+
+                Establish context = () =>
+                    The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                        .Return(Task.FromResult(AllAccountsResponseFixture.Create()));
+
+                Because of = () =>
+                    result = Subject.GetAllAccountsAsync().Result;
+
+                It should_have_correct_count = () =>
+                    result.Count().ShouldEqual(1);
+
+                It should_have_correct_account_information = () =>
+                {
+                    result.First().Id.ShouldEqual(new Guid("e316cb9a-0808-4fd7-8914-97829c1925de"));
+                    result.First().Currency.ShouldEqual(Currency.USD);
+                    result.First().Balance.ShouldEqual(80.2301373066930000M);
+                    result.First().Available.ShouldEqual(79.2266348066930000M);
+                    result.First().Hold.ShouldEqual(1.0035025000000000M);
+                    result.First().ProfileId.ShouldEqual(new Guid("75da88c5-05bf-4f54-bc85-5c775bd68254"));
+                };
+            }
+
+            class with_unknown_currency
+            {
+                static IEnumerable<Account> result;
+
+                Establish context = () =>
+                    The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                        .Return(Task.FromResult(AllAccountsResponseFixture.CreateWithUnknownCurrency()));
+
+                Because of = () =>
+                    result = Subject.GetAllAccountsAsync().Result;
+
+                It should_have_correct_count = () =>
+                    result.Count().ShouldEqual(1);
+
+                It should_have_correct_account_information = () =>
+                {
+                    result.First().Id.ShouldEqual(new Guid("e316cb9a-0808-4fd7-8914-97829c1925de"));
+                    result.First().Currency.ShouldEqual(Currency.Unknown);
+                    result.First().Balance.ShouldEqual(80.2301373066930000M);
+                    result.First().Available.ShouldEqual(79.2266348066930000M);
+                    result.First().Hold.ShouldEqual(1.0035025000000000M);
+                    result.First().ProfileId.ShouldEqual(new Guid("75da88c5-05bf-4f54-bc85-5c775bd68254"));
+                };
+            }
         }
 
         class when_getting_account_by_id

@@ -1,5 +1,6 @@
 ﻿using System;
 using CoinbasePro.Services.Fundings.Types;
+using CoinbasePro.Shared;
 using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -21,7 +22,7 @@ namespace CoinbasePro.Services.Fundings.Models
 
         public DateTime CreatedAt { get; set; }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
         public Currency Currency { get; set; }
 
         public decimal RepaidAmount { get; set; }

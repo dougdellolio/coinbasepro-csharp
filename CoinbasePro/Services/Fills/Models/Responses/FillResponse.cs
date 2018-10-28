@@ -1,6 +1,7 @@
 ﻿using System;
 using CoinbasePro.Services.Fills.Types;
 using CoinbasePro.Services.Orders.Types;
+using CoinbasePro.Shared;
 using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -11,7 +12,7 @@ namespace CoinbasePro.Services.Fills.Models.Responses
     {
         public int TradeId { get; set; }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
         public ProductType ProductId { get; set; }
 
         public decimal Price { get; set; }

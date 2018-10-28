@@ -4,6 +4,8 @@ namespace CoinbasePro.Shared.Types
 {
     public enum ProductType
     {
+        [EnumMember(Value = "Unknown-Unknown")]
+        Unknown,
         [EnumMember(Value = "BTC-USD")]
         BtcUsd,
         [EnumMember(Value = "BTC-EUR")]
