@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using CoinbasePro.Shared;
+using CoinbasePro.Shared.JsonConverters;
 using CoinbasePro.Shared.Types;
 
 namespace CoinbasePro.Services.Accounts.Models

@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using CoinbasePro.Shared.JsonConverters;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Serilog;
 
@@ -13,6 +15,10 @@ namespace CoinbasePro.Shared.Utilities
             ContractResolver = new DefaultContractResolver
             {
                 NamingStrategy = new SnakeCaseNamingStrategy()
+            },
+            Converters = new List<JsonConverter>
+            {
+                new DecimalJsonConverter()
             },
             Error = delegate(object sender, ErrorEventArgs args)
             {

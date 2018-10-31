@@ -1,7 +1,7 @@
 ﻿using System;
 using CoinbasePro.Services.Fills.Types;
 using CoinbasePro.Services.Orders.Types;
-using CoinbasePro.Shared;
+using CoinbasePro.Shared.JsonConverters;
 using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;

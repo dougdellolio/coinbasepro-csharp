@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Converters;
 using System;
 using CoinbasePro.Services.Orders.Types;
-using CoinbasePro.Shared;
+using CoinbasePro.Shared.JsonConverters;
 using CoinbasePro.Shared.Types;
 
 namespace CoinbasePro.Services.Orders.Models

@@ -1,5 +1,5 @@
 ﻿using System;
-using CoinbasePro.Shared;
+using CoinbasePro.Shared.JsonConverters;
 using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 

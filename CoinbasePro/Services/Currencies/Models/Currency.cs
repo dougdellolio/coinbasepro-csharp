@@ -1,4 +1,4 @@
-﻿using CoinbasePro.Shared;
+﻿using CoinbasePro.Shared.JsonConverters;
 using Newtonsoft.Json;
 
 namespace CoinbasePro.Services.Currencies.Models

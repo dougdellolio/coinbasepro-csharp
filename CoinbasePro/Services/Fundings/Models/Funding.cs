@@ -1,6 +1,6 @@
 ﻿using System;
 using CoinbasePro.Services.Fundings.Types;
-using CoinbasePro.Shared;
+using CoinbasePro.Shared.JsonConverters;
 using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;

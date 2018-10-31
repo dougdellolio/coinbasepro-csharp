@@ -13,6 +13,17 @@
 }";
         }
 
+        public static string CreateSnapshotResponseWithScientificNotation()
+        {
+            return @"
+{
+    ""type"": ""snapshot"",
+    ""product_id"": ""BTC-EUR"",
+    ""bids"": [[""1e-7"", ""2""]],
+    ""asks"": [[""2"", ""3""]]
+}";
+        }
+
         public static string CreateSubscriptionResponse()
         {
             return @"

@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Serilog;
 
-namespace CoinbasePro.Shared
+namespace CoinbasePro.Shared.JsonConverters
 {
     public class StringEnumWithDefaultConverter : JsonConverter
     {
