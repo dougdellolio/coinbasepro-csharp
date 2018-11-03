@@ -12,6 +12,7 @@
         BCH,
         ETC,
         ZRX,
-        USDC
+        USDC,
+        BAT
     }
 }
