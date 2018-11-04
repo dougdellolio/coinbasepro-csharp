@@ -53,6 +53,8 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "ZRX-EUR")]
         ZrxEur,
         [EnumMember(Value = "ZRX-BTC")]
-        ZrxBtc
+        ZrxBtc,
+        [EnumMember(Value = "BAT-USDC")]
+        BatUsdc
     }
 }
