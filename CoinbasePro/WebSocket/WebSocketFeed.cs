@@ -21,6 +21,11 @@ namespace CoinbasePro.WebSocket
 
         public WebSocketState State => webSocketFeed.State;
 
+        public void SetAutoSendPingInterval(int interval)
+        {
+            webSocketFeed.AutoSendPingInterval = interval;
+        }
+
         public void Stop()
         {
             Close();

@@ -12,6 +12,7 @@ namespace CoinbasePro.WebSocket
     {
         WebSocketState State { get; }
 
+        void SetAutoSendPingInterval(int interval);
         void ChangeChannels(List<ChannelType> channels);
         void Start(List<ProductType> productTypes, List<ChannelType> channelTypes = null);
         void Stop();
