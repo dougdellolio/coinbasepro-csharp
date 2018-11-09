@@ -28,6 +28,8 @@ namespace CoinbasePro.WebSocket
 
         private bool stopWebSocket;
 
+        private int? AutoSendPingInterval;
+
         private List<ProductType> productTypes;
 
         private List<ChannelType> channelTypes;
@@ -52,14 +54,10 @@ namespace CoinbasePro.WebSocket
             webSocketFeed?.Dispose();
         }
 
-        public void SetAutoSendPingInterval(int interval)
-        {
-            webSocketFeed.SetAutoSendPingInterval(interval);
-        }
-
         public void Start(
             List<ProductType> productTypes,
-            List<ChannelType> channelTypes = null)
+            List<ChannelType> channelTypes = null,
+            int? autoSendPingInterval = null)
         {
             if (productTypes.Count == 0)
             {
@@ -72,6 +70,17 @@ namespace CoinbasePro.WebSocket
             this.channelTypes = channelTypes;
 
             webSocketFeed = createWebSocketFeed();
+
+            if (autoSendPingInterval.HasValue && autoSendPingInterval >= 0)
+            {
+                AutoSendPingInterval = autoSendPingInterval;
+            }
+
+            if (AutoSendPingInterval.HasValue)
+            {
+                webSocketFeed.SetAutoSendPingInterval(AutoSendPingInterval.Value);
+            }
+
             webSocketFeed.Closed += WebSocket_Closed;
             webSocketFeed.Error += WebSocket_Error;
             webSocketFeed.MessageReceived += WebSocket_MessageReceived;
@@ -255,7 +264,7 @@ namespace CoinbasePro.WebSocket
 
             if (!stopWebSocket)
             {
-                Start(productTypes, channelTypes);
+                Start(productTypes, channelTypes, AutoSendPingInterval);
             }
         }
 

@@ -25,7 +25,9 @@ namespace CoinbasePro.Specs.WebSocket
         static List<ProductType> product_type_inputs;
 
         static List<ChannelType> no_channel_type_inputs;
+
         static List<ChannelType> specified_channel_type_inputs;
+
         Establish context = () =>
         {
             product_type_inputs = new List<ProductType>();
@@ -45,6 +47,7 @@ namespace CoinbasePro.Specs.WebSocket
                     The<IWebSocketFeed>().
                         WasToldTo(p => p.Open());
             }
+
             class when_calling_start_with_product_type_and_providing_channels
             {
                 Because of = () =>
@@ -62,6 +65,32 @@ namespace CoinbasePro.Specs.WebSocket
 
                 It should_have_thrown_an_error = () =>
                     exception.ShouldBeOfExactType<ArgumentException>();
+            }
+
+            class when_setting_the_auto_send_ping_interval
+            {
+                class when_the_websocket_closes
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, autoSendPingInterval: 30);
+                        Subject.WebSocket_Closed(Param.IsAny<object>(), Param.IsAny<EventArgs>());
+                    };
+
+                    It should_have_used_the_existing_interval = () =>
+                        The<IWebSocketFeed>()
+                            .WasToldTo(p => p.SetAutoSendPingInterval(30)).Twice();
+                }
+
+                class when_the_websocket_stays_open
+                {
+                    Because of = () =>
+                        Subject.Start(product_type_inputs, autoSendPingInterval: 30);
+
+                    It should_have_set_the_interval = () =>
+                        The<IWebSocketFeed>()
+                            .WasToldTo(p => p.SetAutoSendPingInterval(30));
+                }
             }
         }
 
