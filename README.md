@@ -2,7 +2,7 @@
 Coinbase Pro API C# Client Library - https://docs.pro.coinbase.com/
 
 
-[![Build status](https://ci.appveyor.com/api/projects/status/maqa3anaaxhcwamt?svg=true)](https://ci.appveyor.com/project/dougdellolio/gdax-csharp)
+[![Build status](https://ci.appveyor.com/api/projects/status/mdn0y9cu7dqsambv/branch/master?svg=true)](https://ci.appveyor.com/project/dougdellolio/coinbasepro-csharp/branch/master)
 [![NuGet](https://img.shields.io/nuget/v/GDAX.Api.ClientLibrary.svg)](https://www.nuget.org/packages/GDAX.Api.ClientLibrary/)
 [![NuGet](https://img.shields.io/nuget/dt/GDAX.Api.ClientLibrary.svg)](https://www.nuget.org/packages/GDAX.Api.ClientLibrary/)
 <h1>How to Install</h1>
