@@ -135,7 +135,7 @@ private static void WebSocket_OnHeartbeatReceived(object sender, WebfeedEventArg
 <h2>Available functions</h2>
 These are the starting and stopping methods:
 
-- Start(productTypes, channelTypes) - Starts the websocket feed based on product(s) and channel(s)
+- Start(productTypes, channelTypes, autoSendPingInterval) - Starts the websocket feed based on product(s) and channel(s). Optionally set an auto send ping interval to prevent websocket from closing if idle more than 1 minute
 - Stop() - Stops the websocket feed
 
 The following methods are EventHandlers:
