@@ -69,7 +69,7 @@ namespace CoinbasePro.Specs.WebSocket
 
             class when_setting_the_auto_send_ping_interval
             {
-                class when_the_websocket_closes
+                class when_the_websocket_closes_and_restarts
                 {
                     Because of = () =>
                     {
