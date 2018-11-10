@@ -19,11 +19,13 @@ namespace CoinbasePro.Exceptions
         {
         }
 
-        public CoinbaseProHttpException(string message) : base(message)
+        public CoinbaseProHttpException(string message) 
+            : base(message)
         {
         }
 
-        public CoinbaseProHttpException(string message, Exception inner) : base(message, inner)
+        public CoinbaseProHttpException(string message, Exception inner) 
+            : base(message, inner)
         {
         }
     }
