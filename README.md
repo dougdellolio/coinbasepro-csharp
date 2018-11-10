@@ -2,7 +2,7 @@
 Coinbase Pro API C# Client Library - https://docs.pro.coinbase.com/
 
 
-[![Build status](https://ci.appveyor.com/api/projects/status/maqa3anaaxhcwamt?svg=true)](https://ci.appveyor.com/project/dougdellolio/gdax-csharp)
+[![Build status](https://ci.appveyor.com/api/projects/status/mdn0y9cu7dqsambv/branch/master?svg=true)](https://ci.appveyor.com/project/dougdellolio/coinbasepro-csharp/branch/master)
 [![NuGet](https://img.shields.io/nuget/v/GDAX.Api.ClientLibrary.svg)](https://www.nuget.org/packages/GDAX.Api.ClientLibrary/)
 [![NuGet](https://img.shields.io/nuget/dt/GDAX.Api.ClientLibrary.svg)](https://www.nuget.org/packages/GDAX.Api.ClientLibrary/)
 <h1>How to Install</h1>
@@ -138,7 +138,7 @@ private static void WebSocket_OnHeartbeatReceived(object sender, WebfeedEventArg
 <h2>Available functions</h2>
 These are the starting and stopping methods:
 
-- Start(productTypes, channelTypes) - Starts the websocket feed based on product(s) and channel(s)
+- Start(productTypes, channelTypes, autoSendPingInterval) - Starts the websocket feed based on product(s) and channel(s). Optionally set an auto send ping interval to prevent websocket from closing if idle more than 1 minute
 - Stop() - Stops the websocket feed
 
 The following methods are EventHandlers:

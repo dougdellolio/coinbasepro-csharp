@@ -9,6 +9,8 @@ namespace CoinbasePro.WebSocket
     {
         WebSocketState State { get; }
 
+        void SetAutoSendPingInterval(int interval);
+
         void Stop();
 
         void Close();

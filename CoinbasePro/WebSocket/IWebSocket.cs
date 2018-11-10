@@ -13,7 +13,7 @@ namespace CoinbasePro.WebSocket
         WebSocketState State { get; }
 
         void ChangeChannels(List<ChannelType> channels);
-        void Start(List<ProductType> productTypes, List<ChannelType> channelTypes = null);
+        void Start(List<ProductType> productTypes, List<ChannelType> channelTypes = null, int? autoSendPingInterval = null);
         void Stop();
 
         event EventHandler<WebfeedEventArgs<Ticker>> OnTickerReceived;
