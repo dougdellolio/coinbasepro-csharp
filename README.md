@@ -84,6 +84,9 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 ###### User Account ######
 - GetTrailingVolumeAsync() - get 30-day trailing volume for all products
 
+###### Stablecoin Conversions ######
+- CreateConversion(currencyFrom, currencyTo, amount) - convert bank-based dollars to blockchain-based digital dollars
+
 <h1>Websocket Feed</h1>
 <h2>How to use with authentication</h2>
 

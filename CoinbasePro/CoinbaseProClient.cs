@@ -12,6 +12,7 @@ using CoinbasePro.Services.Orders;
 using CoinbasePro.Services.Payments;
 using CoinbasePro.Services.Products;
 using CoinbasePro.Services.Reports;
+using CoinbasePro.Services.StablecoinConversions;
 using CoinbasePro.Services.UserAccount;
 using CoinbasePro.Services.Withdrawals;
 using CoinbasePro.Shared.Utilities.Clock;
@@ -58,6 +59,7 @@ namespace CoinbasePro
             FundingsService = new FundingsService(httpClient, httpRequestMessageService, queryBuilder);
             ReportsService = new ReportsService(httpClient, httpRequestMessageService);
             UserAccountService = new UserAccountService(httpClient, httpRequestMessageService);
+            StablecoinConversionsService = new StablecoinConversionsService(httpClient, httpRequestMessageService);
             WebSocket = new WebSocket.WebSocket(createWebSocketFeed, authenticator, clock);
 
             Log.Information("CoinbaseProClient constructed");
@@ -86,6 +88,8 @@ namespace CoinbasePro
         public ReportsService ReportsService { get; }
 
         public UserAccountService UserAccountService { get; }
+
+        public StablecoinConversionsService StablecoinConversionsService { get; }
 
         public WebSocket.WebSocket WebSocket { get; }
     }
