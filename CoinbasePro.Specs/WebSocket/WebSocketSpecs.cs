@@ -14,6 +14,7 @@ using Serilog;
 using Serilog.Sinks.TestCorrelator;
 using WebSocket4Net;
 using It = Machine.Specifications.It;
+using Match = CoinbasePro.WebSocket.Models.Response.Match;
 
 namespace CoinbasePro.Specs.WebSocket
 {
@@ -296,6 +297,19 @@ namespace CoinbasePro.Specs.WebSocket
                             WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Done>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Done>>()));
                 }
 
+                class when_response_type_is_match
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateMatchResponse()));
+                    };
+
+                    It should_have_invoked_match_response = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Match>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Match>>()));
+                }
+
                 class when_response_type_is_change
                 {
                     class with_size
@@ -357,6 +371,19 @@ namespace CoinbasePro.Specs.WebSocket
                     It should_not_have_called_invoke = () =>
                         The<IWebSocketFeed>().
                             WasNotToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<BaseMessage>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<BaseMessage>>()));
+                }
+
+                class when_response_contains_scientific_notation
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateSnapshotResponseWithScientificNotation()));
+                    };
+
+                    It should_return_a_response = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Snapshot>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Snapshot>>()));
                 }
             }
         }
