@@ -13,6 +13,7 @@
         ETC,
         ZRX,
         USDC,
-        BAT
+        BAT,
+        ZEC
     }
 }
