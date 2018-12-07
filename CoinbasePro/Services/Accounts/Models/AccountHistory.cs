@@ -3,7 +3,6 @@ using CoinbasePro.Services.Accounts.Types;
 using CoinbasePro.Shared;
 using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace CoinbasePro.Services.Accounts.Models
 {
@@ -18,7 +17,7 @@ namespace CoinbasePro.Services.Accounts.Models
         public decimal Balance { get; set; }
 
         [JsonProperty("type")]
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
         public AccountEntryType AccountEntryType { get; set; }
 
         public Details Details { get; set; }
