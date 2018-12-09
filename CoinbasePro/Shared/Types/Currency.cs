@@ -2,18 +2,22 @@
 {
     public enum Currency
     {
-        Unknown,
-        USD,
+        BAT,
+        BCH,
+        BTC,
+        CVC,
+        DNT,
+        ETC,
+        ETH,
         EUR,
         GBP,
-        BTC,
+        LOOM,
         LTC,
-        ETH,
-        BCH,
-        ETC,
-        ZRX,
+        MANA,
+        USD,
         USDC,
-        BAT,
-        ZEC
+        Unknown,
+        ZEC,
+        ZRX
     }
 }

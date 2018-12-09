@@ -57,6 +57,14 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "BAT-USDC")]
         BatUsdc,
         [EnumMember(Value = "ZEC-USDC")]
-        ZecUsdc
+        ZecUsdc,
+        [EnumMember(Value = "MANA-USDC")]
+        ManaUsdc,
+        [EnumMember(Value = "DNT-USDC")]
+        DntUsdc,
+        [EnumMember(Value = "CVC-USDC")]
+        CvcUsdc,
+        [EnumMember(Value = "LOOM-USDC")]
+        LoomUsdc
     }
 }
