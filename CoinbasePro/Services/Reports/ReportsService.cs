@@ -64,6 +64,11 @@ namespace CoinbasePro.Services.Reports
             return await CreateReport(newReport);
         }
 
+        public async Task<ReportResponse> GetReportStatus(string id)
+        {
+            return await SendServiceCall<ReportResponse>(HttpMethod.Get, $"/reports/{id}").ConfigureAwait(false);
+        }
+
         private async Task<ReportResponse> CreateReport(string newReport)
         {
             return await SendServiceCall<ReportResponse>(HttpMethod.Post, "/reports", newReport);
