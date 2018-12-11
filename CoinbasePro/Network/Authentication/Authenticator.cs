@@ -36,7 +36,7 @@ namespace CoinbasePro.Network.Authentication
             return HashString(prehash, convertedString);
         }
 
-        public string HashString(string str, byte[] secret)
+        private string HashString(string str, byte[] secret)
         {
             var bytes = Encoding.UTF8.GetBytes(str);
             using (var hmaccsha = new HMACSHA256(secret))
