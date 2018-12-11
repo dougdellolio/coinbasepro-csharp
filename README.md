@@ -44,6 +44,7 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 - CancelAllOrdersAsync() - cancel all orders
 - CancelOrderByIdAsync(id) - cancel order by id
 - GetAllOrdersAsync(orderStatus, limit, numberOfPages) - get all, active or pending orders (paged response)
+- GetAllOrdersAsync(orderStatus[], limit, numberOfPages) - get orders by multiple statuses (paged response)
 - GetOrderByIdAsync(id) - get order by id
 
 ###### Payments ######
