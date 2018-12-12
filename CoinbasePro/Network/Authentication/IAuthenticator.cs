@@ -16,8 +16,5 @@ namespace CoinbasePro.Network.Authentication
             double timestamp, 
             string requestUri, 
             string contentBody = "");
-
-        string HashString(string str, byte[] secret);
-
     }
 }

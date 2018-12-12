@@ -1,6 +1,7 @@
 ﻿using CoinbasePro.Shared.Utilities.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CoinbasePro.Network.HttpClient;
@@ -10,16 +11,21 @@ using CoinbasePro.Services.Orders.Models.Responses;
 using CoinbasePro.Services.Orders.Types;
 using CoinbasePro.Shared.Types;
 using CoinbasePro.Shared.Utilities;
+using CoinbasePro.Shared.Utilities.Queries;
 
 namespace CoinbasePro.Services.Orders
 {
     public class OrdersService : AbstractService
     {
+        private readonly QueryBuilder queryBuilder;
+
         public OrdersService(
             IHttpClient httpClient,
-            IHttpRequestMessageService httpRequestMessageService)
+            IHttpRequestMessageService httpRequestMessageService,
+            QueryBuilder queryBuilder)
                 : base(httpClient, httpRequestMessageService)
         {
+            this.queryBuilder = queryBuilder;
         }
 
         public async Task<OrderResponse> PlaceMarketOrderAsync(
@@ -167,6 +173,19 @@ namespace CoinbasePro.Services.Orders
             int numberOfPages = 0)
         {
             var httpResponseMessage = await SendHttpRequestMessagePagedAsync<OrderResponse>(HttpMethod.Get, $"/orders?limit={limit}&status={orderStatus.GetEnumMemberValue()}", numberOfPages: numberOfPages);
+
+            return httpResponseMessage;
+        }
+
+        public async Task<IList<IList<OrderResponse>>> GetAllOrdersAsync(
+            OrderStatus[] orderStatus,
+            int limit = 100,
+            int numberOfPages = 0)
+        {
+            var queryKeyValuePairs = orderStatus.Select(p => new KeyValuePair<string, string>("status", p.GetEnumMemberValue())).ToArray();
+            var query = queryBuilder.BuildQuery(queryKeyValuePairs);
+
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<OrderResponse>(HttpMethod.Get, $"/orders{query}&limit={limit}", numberOfPages: numberOfPages);
 
             return httpResponseMessage;
         }
