@@ -257,16 +257,33 @@ namespace CoinbasePro.Specs.WebSocket
 
                 class when_response_type_is_received
                 {
-                    Because of = () =>
+                    class with_client_oid
                     {
-                        Subject.Start(product_type_inputs, no_channel_type_inputs);
+                        Because of = () =>
+                        {
+                            Subject.Start(product_type_inputs, no_channel_type_inputs);
 
-                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateReceivedResponse()));
-                    };
+                            websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateReceivedResponse("d0c5340b-6d6c-49d9-b567-48c4bfca13d2")));
+                        };
 
-                    It should_have_invoked_received_response = () =>
-                        The<IWebSocketFeed>().
-                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Received>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Received>>()));
+                        It should_have_invoked_received_response = () =>
+                            The<IWebSocketFeed>().
+                                WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Received>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Received>>()));
+                    }
+
+                    class with_blank_client_oid
+                    {
+                        Because of = () =>
+                        {
+                            Subject.Start(product_type_inputs, no_channel_type_inputs);
+
+                            websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateReceivedResponse(string.Empty)));
+                        };
+
+                        It should_have_invoked_received_response = () =>
+                            The<IWebSocketFeed>().
+                                WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Received>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Received>>()));
+                    }
                 }
 
                 class when_response_type_is_open
