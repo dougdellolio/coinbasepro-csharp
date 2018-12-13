@@ -16,7 +16,7 @@ namespace CoinbasePro.WebSocket.Models.Response
 
         public OrderSide Side { get; set; }
 
-        public Guid ClientOid { get; set; }
+        public Guid? ClientOid { get; set; }
 
         public ProductType ProductId { get; set; }
 
