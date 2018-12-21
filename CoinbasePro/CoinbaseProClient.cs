@@ -49,7 +49,7 @@ namespace CoinbasePro
 
             AccountsService = new AccountsService(httpClient, httpRequestMessageService);
             CoinbaseAccountsService = new CoinbaseAccountsService(httpClient, httpRequestMessageService);
-            OrdersService = new OrdersService(httpClient, httpRequestMessageService);
+            OrdersService = new OrdersService(httpClient, httpRequestMessageService, queryBuilder);
             PaymentsService = new PaymentsService(httpClient, httpRequestMessageService);
             WithdrawalsService = new WithdrawalsService(httpClient, httpRequestMessageService);
             DepositsService = new DepositsService(httpClient, httpRequestMessageService);
