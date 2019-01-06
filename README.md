@@ -81,6 +81,7 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 ###### Reports ######
 - CreateNewAccountReportAsync(startDate, endDate, accountId, productType, email, fileFormat) - generate new account report
 - CreateNewFillsReportAsync(startDate, endDate, productType, accountId, email, fileFormat) - generate new fills report
+- GetReportStatus(id) - gets report status
 
 ###### User Account ######
 - GetTrailingVolumeAsync() - get 30-day trailing volume for all products
