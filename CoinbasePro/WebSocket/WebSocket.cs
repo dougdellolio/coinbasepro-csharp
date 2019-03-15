@@ -94,7 +94,7 @@ namespace CoinbasePro.WebSocket
         {
             if (webSocketFeed == null)
             {
-                Log.Information("WebSocket stopped with no inner webSocketFeed");
+                Log.Warning("Websocket did not attempt to stop as the feed has not been started yet");
                 return;
             }
 
