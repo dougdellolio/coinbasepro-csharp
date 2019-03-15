@@ -36,7 +36,7 @@ namespace CoinbasePro.WebSocket
 
         private IWebSocketFeed webSocketFeed;
 
-        public WebSocketState State => webSocketFeed.State;
+        public WebSocketState State => webSocketFeed?.State ?? WebSocketState.None;
 
         public WebSocket(
             Func<IWebSocketFeed> createWebSocketFeed,
@@ -92,6 +92,12 @@ namespace CoinbasePro.WebSocket
 
         public void Stop()
         {
+            if (webSocketFeed == null)
+            {
+                Log.Information("WebSocket stopped with no inner webSocketFeed");
+                return;
+            }
+
             if (webSocketFeed.State != WebSocketState.Open)
             {
                 throw new CoinbaseProWebSocketException(

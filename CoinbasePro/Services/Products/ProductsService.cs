@@ -89,7 +89,12 @@ namespace CoinbasePro.Services.Products
 
                 candleList.AddRange(await GetHistoricRatesAsync(productPair, batchStart, batchEnd.Value, (int)granularity));
 
+                var previousBatchEnd = batchEnd;
                 batchEnd = candleList.LastOrDefault()?.Time;
+
+                if (previousBatchEnd == batchEnd) {
+                    break;
+                }
 
             } while (batchStart > start);
 
