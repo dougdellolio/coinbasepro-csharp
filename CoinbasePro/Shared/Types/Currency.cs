@@ -20,6 +20,7 @@
         USD,
         USDC,
         Unknown,
+        XLM,
         XRP,
         ZEC,
         ZIL,

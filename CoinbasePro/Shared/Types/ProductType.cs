@@ -79,6 +79,12 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "XRP-BTC")]
         XrpBtc,
         [EnumMember(Value = "XRP-USD")]
-        XrpUsd
+        XrpUsd,
+        [EnumMember(Value = "XLM-USD")]
+        XlmUsd,
+        [EnumMember(Value = "XLM-BTC")]
+        XlmBtc,
+        [EnumMember(Value = "XLM-EUR")]
+        XlmEur
     }
 }

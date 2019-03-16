@@ -68,6 +68,20 @@ namespace CoinbasePro.Specs.WebSocket
                     exception.ShouldBeOfExactType<ArgumentException>();
             }
 
+            class when_calling_stop
+            {
+                class before_calling_start
+                {
+                    Because of = () =>
+                        Subject.Stop();
+
+                    It should_not_have_attempted_to_close_the_feed = () =>
+                        The<IWebSocketFeed>().
+                            WasNotToldTo(p =>
+                                p.Close());
+                }
+            }
+
             class when_setting_the_auto_send_ping_interval
             {
                 class when_the_websocket_closes_and_restarts
@@ -252,7 +266,6 @@ namespace CoinbasePro.Specs.WebSocket
                     It should_have_invoked_heartbeat_response = () =>
                         The<IWebSocketFeed>().
                             WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Heartbeat>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Heartbeat>>()));
-
                 }
 
                 class when_response_type_is_received
