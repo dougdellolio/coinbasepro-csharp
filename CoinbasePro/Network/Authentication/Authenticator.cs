@@ -13,6 +13,13 @@ namespace CoinbasePro.Network.Authentication
             string unsignedSignature,
             string passphrase)
         {
+            if (string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(unsignedSignature) ||
+                string.IsNullOrEmpty(passphrase))
+            {
+                throw new ArgumentException(
+                    $"{nameof(Authenticator)} requires parameters {nameof(apiKey)}, {nameof(unsignedSignature)} and {nameof(passphrase)} to be populated.");
+            }
+
             ApiKey = apiKey;
             UnsignedSignature = unsignedSignature;
             Passphrase = passphrase;
