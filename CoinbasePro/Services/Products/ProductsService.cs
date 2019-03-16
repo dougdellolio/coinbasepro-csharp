@@ -95,7 +95,6 @@ namespace CoinbasePro.Services.Products
                 if (previousBatchEnd == batchEnd) {
                     break;
                 }
-
             } while (batchStart > start);
 
             return candleList;
