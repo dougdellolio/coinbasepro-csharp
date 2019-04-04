@@ -11,7 +11,7 @@ using CoinbasePro.Shared.Utilities;
 
 namespace CoinbasePro.Services.Reports
 {
-    public class ReportsService : AbstractService
+    public class ReportsService : AbstractService, IReportsService
     {
         public ReportsService(
             IHttpClient httpClient,

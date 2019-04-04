@@ -9,7 +9,7 @@ using CoinbasePro.Shared.Utilities.Queries;
 
 namespace CoinbasePro.Services.Fundings
 {
-    public class FundingsService : AbstractService
+    public class FundingsService : AbstractService, IFundingsService
     {
         private readonly IQueryBuilder queryBuilder;
 

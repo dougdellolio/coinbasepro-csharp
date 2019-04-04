@@ -16,6 +16,11 @@ namespace CoinbasePro.WebSocket
         void Start(List<ProductType> productTypes, List<ChannelType> channelTypes = null, int? autoSendPingInterval = null);
         void Stop();
 
+        void WebSocket_Opened(object sender, EventArgs e);
+        void WebSocket_MessageReceived(object sender, MessageReceivedEventArgs e);
+        void WebSocket_Error(object sender, ErrorEventArgs e);
+        void WebSocket_Closed(object sender, EventArgs e);
+
         event EventHandler<WebfeedEventArgs<Ticker>> OnTickerReceived;
         event EventHandler<WebfeedEventArgs<Subscription>> OnSubscriptionReceived;
         event EventHandler<WebfeedEventArgs<Snapshot>> OnSnapShotReceived;

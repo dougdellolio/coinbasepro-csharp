@@ -9,7 +9,7 @@ using CoinbasePro.Shared.Utilities;
 
 namespace CoinbasePro.Services.Withdrawals
 {
-    public class WithdrawalsService : AbstractService
+    public class WithdrawalsService : AbstractService, IWithdrawalsService
     {
         public WithdrawalsService(
             IHttpClient httpClient,

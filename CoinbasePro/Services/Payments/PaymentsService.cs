@@ -7,7 +7,7 @@ using CoinbasePro.Services.Payments.Models;
 
 namespace CoinbasePro.Services.Payments
 {
-    public class PaymentsService : AbstractService
+    public class PaymentsService : AbstractService, IPaymentsService
     {
         public PaymentsService(
             IHttpClient httpClient,

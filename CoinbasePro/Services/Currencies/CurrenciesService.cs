@@ -6,7 +6,7 @@ using CoinbasePro.Network.HttpRequest;
 
 namespace CoinbasePro.Services.Currencies
 {
-    public class CurrenciesService : AbstractService
+    public class CurrenciesService : AbstractService, ICurrenciesService
     {
         public CurrenciesService(
             IHttpClient httpClient,

@@ -15,7 +15,7 @@ using CoinbasePro.Shared.Utilities.Queries;
 
 namespace CoinbasePro.Services.Orders
 {
-    public class OrdersService : AbstractService
+    public class OrdersService : AbstractService, IOrdersService
     {
         private readonly QueryBuilder queryBuilder;
 

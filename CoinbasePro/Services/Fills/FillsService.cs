@@ -10,7 +10,7 @@ using CoinbasePro.Shared.Utilities.Extensions;
 
 namespace CoinbasePro.Services.Fills
 {
-    public class FillsService : AbstractService
+    public class FillsService : AbstractService, IFillsService
     {
         public FillsService(
             IHttpClient httpClient,

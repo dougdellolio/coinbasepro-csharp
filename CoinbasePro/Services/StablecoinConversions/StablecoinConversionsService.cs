@@ -8,7 +8,7 @@ using CoinbasePro.Shared.Utilities;
 
 namespace CoinbasePro.Services.StablecoinConversions
 {
-    public class StablecoinConversionsService : AbstractService
+    public class StablecoinConversionsService : AbstractService, IStablecoinConversionsService
     {
         public StablecoinConversionsService(
             IHttpClient httpClient,
