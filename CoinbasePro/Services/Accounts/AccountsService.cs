@@ -7,7 +7,7 @@ using CoinbasePro.Services.Accounts.Models;
 
 namespace CoinbasePro.Services.Accounts
 {
-    public class AccountsService : AbstractService
+    public class AccountsService : AbstractService, IAccountsService
     {
         public AccountsService(
             IHttpClient httpClient,

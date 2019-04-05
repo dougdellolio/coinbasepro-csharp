@@ -12,7 +12,7 @@ using CoinbasePro.Shared.Utilities;
 
 namespace CoinbasePro.Services.Deposits
 {
-    public class DepositsService : AbstractService
+    public class DepositsService : AbstractService, IDepositsService
     {
         public DepositsService(
             IHttpClient httpClient,

@@ -15,7 +15,7 @@ using CoinbasePro.Shared.Utilities.Extensions;
 
 namespace CoinbasePro.Services.Products
 {
-    public class ProductsService : AbstractService
+    public class ProductsService : AbstractService, IProductsService
     {
         private readonly IQueryBuilder queryBuilder;
 

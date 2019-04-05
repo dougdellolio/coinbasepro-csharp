@@ -22,7 +22,7 @@ using Serilog;
 
 namespace CoinbasePro
 {
-    public class CoinbaseProClient
+    public class CoinbaseProClient : ICoinbaseProClient
     {
         public CoinbaseProClient(
             bool sandBox = false)
@@ -65,32 +65,32 @@ namespace CoinbasePro
             Log.Information("CoinbaseProClient constructed");
         }
 
-        public AccountsService AccountsService { get; }
+        public IAccountsService AccountsService { get; }
 
-        public CoinbaseAccountsService CoinbaseAccountsService { get; }
+        public ICoinbaseAccountsService CoinbaseAccountsService { get; }
 
-        public OrdersService OrdersService { get; }
+        public IOrdersService OrdersService { get; }
 
-        public PaymentsService PaymentsService { get; }
+        public IPaymentsService PaymentsService { get; }
 
-        public WithdrawalsService WithdrawalsService { get; }
+        public IWithdrawalsService WithdrawalsService { get; }
 
-        public DepositsService DepositsService { get; }
+        public IDepositsService DepositsService { get; }
 
-        public ProductsService ProductsService { get; }
+        public IProductsService ProductsService { get; }
 
-        public CurrenciesService CurrenciesService { get; }
+        public ICurrenciesService CurrenciesService { get; }
 
-        public FillsService FillsService { get; }
+        public IFillsService FillsService { get; }
 
-        public FundingsService FundingsService { get; }
+        public IFundingsService FundingsService { get; }
 
-        public ReportsService ReportsService { get; }
+        public IReportsService ReportsService { get; }
 
-        public UserAccountService UserAccountService { get; }
+        public IUserAccountService UserAccountService { get; }
 
-        public StablecoinConversionsService StablecoinConversionsService { get; }
+        public IStablecoinConversionsService StablecoinConversionsService { get; }
 
-        public WebSocket.WebSocket WebSocket { get; }
+        public IWebSocket WebSocket { get; }
     }
 }
