@@ -50,9 +50,6 @@ namespace CoinbasePro.Services.Orders
             decimal stopPrice,
             Guid? clientOid = null);
 
-        Task<CancelOrderResponse> CancelAllOrdersAsync();
-        Task<CancelOrderResponse> CancelOrderByIdAsync(string id);
-
         Task<IList<IList<OrderResponse>>> GetAllOrdersAsync(
             OrderStatus orderStatus = OrderStatus.All,
             int limit = 100,
@@ -64,5 +61,9 @@ namespace CoinbasePro.Services.Orders
             int numberOfPages = 0);
 
         Task<OrderResponse> GetOrderByIdAsync(string id);
+
+        Task<CancelOrderResponse> CancelAllOrdersAsync();
+
+        Task<CancelOrderResponse> CancelOrderByIdAsync(string id);
     }
 }

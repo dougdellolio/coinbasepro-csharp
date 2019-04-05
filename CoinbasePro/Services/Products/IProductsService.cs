@@ -16,9 +16,6 @@ namespace CoinbasePro.Services.Products
             ProductType productId,
             ProductLevel productLevel = ProductLevel.One);
 
-        Task<ProductTicker> GetProductTickerAsync(ProductType productId);
-        Task<ProductStats> GetProductStatsAsync(ProductType productId);
-
         Task<IList<IList<ProductTrade>>> GetTradesAsync(
             ProductType productId,
             int limit = 100,
@@ -29,5 +26,9 @@ namespace CoinbasePro.Services.Products
             DateTime start,
             DateTime end,
             CandleGranularity granularity);
+
+        Task<ProductTicker> GetProductTickerAsync(ProductType productId);
+
+        Task<ProductStats> GetProductStatsAsync(ProductType productId);
     }
 }
