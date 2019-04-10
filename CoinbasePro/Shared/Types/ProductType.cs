@@ -72,6 +72,8 @@ namespace CoinbasePro.Shared.Types
         DaiUsdc,
         [EnumMember(Value = "MKR-USDC")]
         MkrUsdc,
+        [EnumMember(Value = "MKR-BTC")]
+        MkrBtc,
         [EnumMember(Value = "ZIL-USDC")]
         ZilUsdc,
         [EnumMember(Value = "XRP-EUR")]
@@ -85,6 +87,18 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "XLM-BTC")]
         XlmBtc,
         [EnumMember(Value = "XLM-EUR")]
-        XlmEur
+        XlmEur,
+        [EnumMember(Value = "EOS-USD")]
+        EosUsd,
+        [EnumMember(Value = "EOS-EUR")]
+        EosEur,
+        [EnumMember(Value = "EOS-BTC")]
+        EosBtc,
+        [EnumMember(Value = "REP-USD")]
+        RepUsd,
+        [EnumMember(Value = "REP-EUR")]
+        RepEur,
+        [EnumMember(Value = "REP-BTC")]
+        RepBtc,
     }
 }
