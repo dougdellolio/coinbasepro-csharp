@@ -24,6 +24,7 @@
         Unknown,
         XLM,
         XRP,
+        XTZ,
         ZEC,
         ZIL,
         ZRX

@@ -88,6 +88,10 @@ namespace CoinbasePro.Shared.Types
         XlmBtc,
         [EnumMember(Value = "XLM-EUR")]
         XlmEur,
+        [EnumMember(Value = "XTZ-USD")]
+        XtzUsd,
+        [EnumMember(Value = "XTZ-BTC")]
+        XtzBtc,
         [EnumMember(Value = "EOS-USD")]
         EosUsd,
         [EnumMember(Value = "EOS-EUR")]
