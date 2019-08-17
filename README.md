@@ -86,6 +86,9 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 ###### User Account ######
 - GetTrailingVolumeAsync() - get 30-day trailing volume for all products
 
+###### Fees ######
+- GetCurrentFeesAsync() - get your current maker & taker fee rates, as well as your 30-day trailing volume
+
 ###### Stablecoin Conversions ######
 - CreateConversion(currencyFrom, currencyTo, amount) - convert bank-based dollars to blockchain-based digital dollars
 
