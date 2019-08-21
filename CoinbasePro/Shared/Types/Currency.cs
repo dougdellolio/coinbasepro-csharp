@@ -27,6 +27,8 @@
         XTZ,
         ZEC,
         ZIL,
-        ZRX
+        ZRX,
+        ALGO,
+        LINK,
     }
 }
