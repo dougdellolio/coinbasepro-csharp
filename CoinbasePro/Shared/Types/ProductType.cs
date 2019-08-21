@@ -104,5 +104,17 @@ namespace CoinbasePro.Shared.Types
         RepEur,
         [EnumMember(Value = "REP-BTC")]
         RepBtc,
+        [EnumMember(Value = "ALGO-USD")]
+        AlgoUsd,
+        [EnumMember(Value = "BAT-ETH")]
+        BatEth,
+        [EnumMember(Value = "ETH-DAI")]
+        EthDai,
+        [EnumMember(Value = "LINK-ETH")]
+        LinkEth,
+        [EnumMember(Value = "LINK-USD")]
+        LinkUsd,
+        [EnumMember(Value = "ZEC-BTC")]
+        ZecBtc,
     }
 }
