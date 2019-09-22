@@ -116,5 +116,9 @@ namespace CoinbasePro.Shared.Types
         LinkUsd,
         [EnumMember(Value = "ZEC-BTC")]
         ZecBtc,
+        [EnumMember(Value = "DASH-USD")]
+        DashUsd,
+        [EnumMember(Value = "DASH-BTC")]
+        DashBtc
     }
 }

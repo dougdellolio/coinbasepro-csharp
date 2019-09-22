@@ -30,5 +30,6 @@
         ZRX,
         ALGO,
         LINK,
+        DASH
     }
 }
