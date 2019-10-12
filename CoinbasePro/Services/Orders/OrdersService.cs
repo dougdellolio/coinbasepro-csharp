@@ -163,7 +163,7 @@ namespace CoinbasePro.Services.Orders
         {
             return new CancelOrderResponse
             {
-                OrderIds = await SendServiceCall<IEnumerable<Guid>>(HttpMethod.Delete, $"/orders/{id}")
+                OrderIds = new[] { await SendServiceCall<Guid>(HttpMethod.Delete, $"/orders/{id}") }
             };
         }
 
