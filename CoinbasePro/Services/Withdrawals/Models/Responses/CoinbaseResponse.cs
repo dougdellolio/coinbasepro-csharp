@@ -1,7 +1,7 @@
 ﻿using System;
+using CoinbasePro.Shared;
 using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace CoinbasePro.Services.Withdrawals.Models.Responses
 {
@@ -11,7 +11,7 @@ namespace CoinbasePro.Services.Withdrawals.Models.Responses
 
         public decimal Amount { get; set; }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
         public Currency Currency { get; set; }
     }
 }

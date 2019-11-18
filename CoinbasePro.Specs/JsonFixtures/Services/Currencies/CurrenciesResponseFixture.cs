@@ -17,5 +17,29 @@
 
             return json;
         }
+
+        public static string CreateEthereumClassic()
+        {
+            var json = @"
+[{
+    ""id"": ""ETC"",
+    ""name"": ""Ether Classic"",
+    ""min_size"": ""0.00000001""
+}]";
+
+            return json;
+        }
+
+        public static string CreateUnknown()
+        {
+            var json = @"
+[{
+    ""id"": ""UNK"",
+    ""name"": ""Unknown Currency"",
+    ""min_size"": ""0.00000001""
+}]";
+
+            return json;
+        }
     }
 }

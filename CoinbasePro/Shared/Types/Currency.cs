@@ -2,12 +2,34 @@
 {
     public enum Currency
     {
-        USD,
+        BAT,
+        BCH,
+        BTC,
+        CVC,
+        DAI,
+        DNT,
+        EOS,
+        ETC,
+        ETH,
         EUR,
         GBP,
-        BTC,
+        GNT,
+        LOOM,
         LTC,
-        ETH,
-        BCH
+        MANA,
+        MKR,
+        REP,
+        USD,
+        USDC,
+        Unknown,
+        XLM,
+        XRP,
+        XTZ,
+        ZEC,
+        ZIL,
+        ZRX,
+        ALGO,
+        LINK,
+        DASH
     }
 }

@@ -6,12 +6,14 @@ using CoinbasePro.Services.Accounts;
 using CoinbasePro.Services.CoinbaseAccounts;
 using CoinbasePro.Services.Currencies;
 using CoinbasePro.Services.Deposits;
+using CoinbasePro.Services.Fees;
 using CoinbasePro.Services.Fills;
 using CoinbasePro.Services.Fundings;
 using CoinbasePro.Services.Orders;
 using CoinbasePro.Services.Payments;
 using CoinbasePro.Services.Products;
 using CoinbasePro.Services.Reports;
+using CoinbasePro.Services.StablecoinConversions;
 using CoinbasePro.Services.UserAccount;
 using CoinbasePro.Services.Withdrawals;
 using CoinbasePro.Shared.Utilities.Clock;
@@ -21,7 +23,7 @@ using Serilog;
 
 namespace CoinbasePro
 {
-    public class CoinbaseProClient
+    public class CoinbaseProClient : ICoinbaseProClient
     {
         public CoinbaseProClient(
             bool sandBox = false)
@@ -48,7 +50,7 @@ namespace CoinbasePro
 
             AccountsService = new AccountsService(httpClient, httpRequestMessageService);
             CoinbaseAccountsService = new CoinbaseAccountsService(httpClient, httpRequestMessageService);
-            OrdersService = new OrdersService(httpClient, httpRequestMessageService);
+            OrdersService = new OrdersService(httpClient, httpRequestMessageService, queryBuilder);
             PaymentsService = new PaymentsService(httpClient, httpRequestMessageService);
             WithdrawalsService = new WithdrawalsService(httpClient, httpRequestMessageService);
             DepositsService = new DepositsService(httpClient, httpRequestMessageService);
@@ -58,35 +60,41 @@ namespace CoinbasePro
             FundingsService = new FundingsService(httpClient, httpRequestMessageService, queryBuilder);
             ReportsService = new ReportsService(httpClient, httpRequestMessageService);
             UserAccountService = new UserAccountService(httpClient, httpRequestMessageService);
+            StablecoinConversionsService = new StablecoinConversionsService(httpClient, httpRequestMessageService);
+            FeesService = new FeesService(httpClient, httpRequestMessageService);
             WebSocket = new WebSocket.WebSocket(createWebSocketFeed, authenticator, clock);
 
             Log.Information("CoinbaseProClient constructed");
         }
 
-        public AccountsService AccountsService { get; }
+        public IAccountsService AccountsService { get; }
 
-        public CoinbaseAccountsService CoinbaseAccountsService { get; }
+        public ICoinbaseAccountsService CoinbaseAccountsService { get; }
 
-        public OrdersService OrdersService { get; }
+        public IOrdersService OrdersService { get; }
 
-        public PaymentsService PaymentsService { get; }
+        public IPaymentsService PaymentsService { get; }
 
-        public WithdrawalsService WithdrawalsService { get; }
+        public IWithdrawalsService WithdrawalsService { get; }
 
-        public DepositsService DepositsService { get; }
+        public IDepositsService DepositsService { get; }
 
-        public ProductsService ProductsService { get; }
+        public IProductsService ProductsService { get; }
 
-        public CurrenciesService CurrenciesService { get; }
+        public ICurrenciesService CurrenciesService { get; }
 
-        public FillsService FillsService { get; }
+        public IFillsService FillsService { get; }
 
-        public FundingsService FundingsService { get; }
+        public IFundingsService FundingsService { get; }
 
-        public ReportsService ReportsService { get; }
+        public IFeesService FeesService { get; }
 
-        public UserAccountService UserAccountService { get; }
+        public IReportsService ReportsService { get; }
 
-        public WebSocket.WebSocket WebSocket { get; }
+        public IUserAccountService UserAccountService { get; }
+
+        public IStablecoinConversionsService StablecoinConversionsService { get; }
+
+        public IWebSocket WebSocket { get; }
     }
 }

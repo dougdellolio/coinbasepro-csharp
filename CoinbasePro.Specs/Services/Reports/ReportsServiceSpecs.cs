@@ -71,5 +71,29 @@ namespace CoinbasePro.Specs.Services.Reports
                 fills_report_response.Params.EndDate.ShouldEqual(new DateTime(2016, 12, 9));
             };
         }
+
+        class when_requesting_report_status
+        {
+            Establish context = () =>
+                The<IHttpClient>().
+                    WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).
+                    Return(Task.FromResult(ReportStatusFixture.Create()));
+
+            Because of = () =>
+                fills_report_response = Subject.GetReportStatus("0428b97b-bec1-429e-a94c-59232926778d").Result;
+
+            It should_return_correct_response = () =>
+            {
+                fills_report_response.Id.ShouldEqual(new Guid("0428b97b-bec1-429e-a94c-59232926778d"));
+                fills_report_response.Type.ShouldEqual(ReportType.Fills);
+                fills_report_response.Status.ShouldEqual(ReportStatus.Creating);
+                fills_report_response.CreatedAt.ShouldEqual(new DateTime(2016, 12, 9));
+                fills_report_response.CompletedAt.ShouldBeNull();
+                fills_report_response.ExpiresAt.ShouldEqual(new DateTime(2016, 12, 9));
+                fills_report_response.FileUrl.ShouldBeNull();
+                fills_report_response.Params.StartDate.ShouldEqual(new DateTime(2016, 12, 9));
+                fills_report_response.Params.EndDate.ShouldEqual(new DateTime(2016, 12, 9));
+            };
+        }
     }
 }

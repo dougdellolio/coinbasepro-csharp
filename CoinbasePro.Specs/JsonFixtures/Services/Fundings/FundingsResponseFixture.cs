@@ -1,6 +1,6 @@
 ﻿namespace CoinbasePro.Specs.JsonFixtures.Services.Fundings
 {
-    class FundingsResponseFixture
+    public static class FundingsResponseFixture
     {
         public static string Create()
         {

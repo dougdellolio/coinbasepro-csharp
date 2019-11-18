@@ -4,6 +4,8 @@ namespace CoinbasePro.Services.Accounts.Types
 {
     public enum AccountEntryType
     {
+        [EnumMember(Value = "Unknown")]
+        Unknown,
         [EnumMember(Value = "transfer")]
         Transfer,
         [EnumMember(Value = "match")]
@@ -11,6 +13,8 @@ namespace CoinbasePro.Services.Accounts.Types
         [EnumMember(Value = "fee")]
         Fee,
         [EnumMember(Value = "rebate")]
-        Rebate
+        Rebate,
+        [EnumMember(Value = "conversion")]
+        Conversion
     }
 }

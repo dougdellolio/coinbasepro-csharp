@@ -15,7 +15,7 @@ using CoinbasePro.Shared.Utilities.Extensions;
 
 namespace CoinbasePro.Services.Products
 {
-    public class ProductsService : AbstractService
+    public class ProductsService : AbstractService, IProductsService
     {
         private readonly IQueryBuilder queryBuilder;
 
@@ -89,8 +89,12 @@ namespace CoinbasePro.Services.Products
 
                 candleList.AddRange(await GetHistoricRatesAsync(productPair, batchStart, batchEnd.Value, (int)granularity));
 
+                var previousBatchEnd = batchEnd;
                 batchEnd = candleList.LastOrDefault()?.Time;
 
+                if (previousBatchEnd == batchEnd) {
+                    break;
+                }
             } while (batchStart > start);
 
             return candleList;

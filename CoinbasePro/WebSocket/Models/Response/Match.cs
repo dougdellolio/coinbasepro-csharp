@@ -12,6 +12,14 @@ namespace CoinbasePro.WebSocket.Models.Response
 
         public Guid TakerOrderId { get; set; }
 
+        public string TakerUserId { get; set; }
+
+        public string UserId { get; set; }
+
+        public Guid TakerProfileId { get; set; }
+
+        public Guid ProfileId { get; set; }
+
         public OrderSide Side { get; set; }
 
         public decimal Size { get; set; }

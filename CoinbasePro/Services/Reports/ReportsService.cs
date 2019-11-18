@@ -11,7 +11,7 @@ using CoinbasePro.Shared.Utilities;
 
 namespace CoinbasePro.Services.Reports
 {
-    public class ReportsService : AbstractService
+    public class ReportsService : AbstractService, IReportsService
     {
         public ReportsService(
             IHttpClient httpClient,
@@ -62,6 +62,11 @@ namespace CoinbasePro.Services.Reports
             });
 
             return await CreateReport(newReport);
+        }
+
+        public async Task<ReportResponse> GetReportStatus(string id)
+        {
+            return await SendServiceCall<ReportResponse>(HttpMethod.Get, $"/reports/{id}").ConfigureAwait(false);
         }
 
         private async Task<ReportResponse> CreateReport(string newReport)

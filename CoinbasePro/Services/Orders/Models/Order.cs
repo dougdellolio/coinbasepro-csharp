@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Converters;
 using System;
 using CoinbasePro.Services.Orders.Types;
+using CoinbasePro.Shared;
 using CoinbasePro.Shared.Types;
 
 namespace CoinbasePro.Services.Orders.Models
@@ -28,7 +29,7 @@ namespace CoinbasePro.Services.Orders.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public OrderType OrderType { get; set; }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
         public ProductType ProductId { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]

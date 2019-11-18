@@ -14,18 +14,21 @@ using Serilog;
 using Serilog.Sinks.TestCorrelator;
 using WebSocket4Net;
 using It = Machine.Specifications.It;
+using Match = CoinbasePro.WebSocket.Models.Response.Match;
 
 namespace CoinbasePro.Specs.WebSocket
 {
-    [Subject(typeof(global::CoinbasePro.WebSocket.WebSocket))]
-    class WebSocketSpecs : WithSubject<global::CoinbasePro.WebSocket.WebSocket>
+    [Subject(typeof(CoinbasePro.WebSocket.WebSocket))]
+    class WebSocketSpecs : WithSubject<CoinbasePro.WebSocket.WebSocket>
     {
         static Exception exception;
 
         static List<ProductType> product_type_inputs;
 
         static List<ChannelType> no_channel_type_inputs;
+
         static List<ChannelType> specified_channel_type_inputs;
+
         Establish context = () =>
         {
             product_type_inputs = new List<ProductType>();
@@ -45,6 +48,7 @@ namespace CoinbasePro.Specs.WebSocket
                     The<IWebSocketFeed>().
                         WasToldTo(p => p.Open());
             }
+
             class when_calling_start_with_product_type_and_providing_channels
             {
                 Because of = () =>
@@ -62,6 +66,46 @@ namespace CoinbasePro.Specs.WebSocket
 
                 It should_have_thrown_an_error = () =>
                     exception.ShouldBeOfExactType<ArgumentException>();
+            }
+
+            class when_calling_stop
+            {
+                class before_calling_start
+                {
+                    Because of = () =>
+                        Subject.Stop();
+
+                    It should_not_have_attempted_to_close_the_feed = () =>
+                        The<IWebSocketFeed>().
+                            WasNotToldTo(p =>
+                                p.Close());
+                }
+            }
+
+            class when_setting_the_auto_send_ping_interval
+            {
+                class when_the_websocket_closes_and_restarts
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, autoSendPingInterval: 30);
+                        Subject.WebSocket_Closed(Param.IsAny<object>(), Param.IsAny<EventArgs>());
+                    };
+
+                    It should_have_used_the_existing_interval = () =>
+                        The<IWebSocketFeed>()
+                            .WasToldTo(p => p.SetAutoSendPingInterval(30)).Twice();
+                }
+
+                class when_the_websocket_stays_open
+                {
+                    Because of = () =>
+                        Subject.Start(product_type_inputs, autoSendPingInterval: 30);
+
+                    It should_have_set_the_interval = () =>
+                        The<IWebSocketFeed>()
+                            .WasToldTo(p => p.SetAutoSendPingInterval(30));
+                }
             }
         }
 
@@ -222,21 +266,37 @@ namespace CoinbasePro.Specs.WebSocket
                     It should_have_invoked_heartbeat_response = () =>
                         The<IWebSocketFeed>().
                             WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Heartbeat>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Heartbeat>>()));
-
                 }
 
                 class when_response_type_is_received
                 {
-                    Because of = () =>
+                    class with_client_oid
                     {
-                        Subject.Start(product_type_inputs, no_channel_type_inputs);
+                        Because of = () =>
+                        {
+                            Subject.Start(product_type_inputs, no_channel_type_inputs);
 
-                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateReceivedResponse()));
-                    };
+                            websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateReceivedResponse("d0c5340b-6d6c-49d9-b567-48c4bfca13d2")));
+                        };
 
-                    It should_have_invoked_received_response = () =>
-                        The<IWebSocketFeed>().
-                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Received>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Received>>()));
+                        It should_have_invoked_received_response = () =>
+                            The<IWebSocketFeed>().
+                                WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Received>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Received>>()));
+                    }
+
+                    class with_blank_client_oid
+                    {
+                        Because of = () =>
+                        {
+                            Subject.Start(product_type_inputs, no_channel_type_inputs);
+
+                            websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateReceivedResponse(string.Empty)));
+                        };
+
+                        It should_have_invoked_received_response = () =>
+                            The<IWebSocketFeed>().
+                                WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Received>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Received>>()));
+                    }
                 }
 
                 class when_response_type_is_open
@@ -265,6 +325,19 @@ namespace CoinbasePro.Specs.WebSocket
                     It should_have_invoked_done_response = () =>
                         The<IWebSocketFeed>().
                             WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Done>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Done>>()));
+                }
+
+                class when_response_type_is_match
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateMatchResponse()));
+                    };
+
+                    It should_have_invoked_match_response = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Match>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Match>>()));
                 }
 
                 class when_response_type_is_change
@@ -328,6 +401,19 @@ namespace CoinbasePro.Specs.WebSocket
                     It should_not_have_called_invoke = () =>
                         The<IWebSocketFeed>().
                             WasNotToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<BaseMessage>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<BaseMessage>>()));
+                }
+
+                class when_response_contains_scientific_notation
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateSnapshotResponseWithScientificNotation()));
+                    };
+
+                    It should_return_a_response = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Snapshot>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Snapshot>>()));
                 }
             }
         }

@@ -6,19 +6,19 @@
     <RepositoryUrl>git://github.com/dougdellolio/coinbasepro-csharp</RepositoryUrl>
     <Authors>Doug Dellolio</Authors>
     <LangVersion>latest</LangVersion>
-    <Version>1.0.20</Version>
-    <PackageId>CoinbasePro.Api.ClientLibrary</PackageId>
-    <Description>The unofficial .NET/C# client for the CoinbasePro/GDAX API</Description>
+    <Version>1.0.30</Version>
+    <PackageId>GDAX.Api.ClientLibrary</PackageId>
+    <Description>The unofficial .NET/C# client for the Coinbase Pro / GDAX API</Description>
     <PackageLicenseUrl>https://github.com/dougdellolio/coinbasepro-csharp/blob/master/LICENSE</PackageLicenseUrl>
-    <Copyright>Copyright 2018</Copyright>
+    <Copyright>Copyright 2019</Copyright>
     <PackageProjectUrl>https://github.com/dougdellolio/coinbasepro-csharp</PackageProjectUrl>
-    <PackageTags>coinbasepro gdax c# client library api coinbase rest ethereum bitcoin</PackageTags>
-    <PackageReleaseNotes>CoinbasePro API C# Client Library</PackageReleaseNotes>    
+    <PackageTags>coinbase pro gdax c# client library api coinbase rest ethereum bitcoin coinbasepro</PackageTags>
+    <PackageReleaseNotes>Coinbase Pro API C# Client Library</PackageReleaseNotes>    
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.3.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Serilog" Version="2.7.1" />
     <PackageReference Include="WebSocket4Net" Version="0.15.2" />
   </ItemGroup>
@@ -29,6 +29,10 @@
 
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Reports\Models\Responses\" />
   </ItemGroup>
 
 </Project>

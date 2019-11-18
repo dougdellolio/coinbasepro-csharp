@@ -18,7 +18,7 @@ using WebSocket4Net;
 
 namespace CoinbasePro.WebSocket
 {
-    public class WebSocket
+    public class WebSocket : IWebSocket
     {
         private readonly Func<IWebSocketFeed> createWebSocketFeed;
 
@@ -28,13 +28,15 @@ namespace CoinbasePro.WebSocket
 
         private bool stopWebSocket;
 
+        private int? AutoSendPingInterval;
+
         private List<ProductType> productTypes;
 
         private List<ChannelType> channelTypes;
 
         private IWebSocketFeed webSocketFeed;
 
-        public WebSocketState State => webSocketFeed.State;
+        public WebSocketState State => webSocketFeed?.State ?? WebSocketState.None;
 
         public WebSocket(
             Func<IWebSocketFeed> createWebSocketFeed,
@@ -54,7 +56,8 @@ namespace CoinbasePro.WebSocket
 
         public void Start(
             List<ProductType> productTypes,
-            List<ChannelType> channelTypes = null)
+            List<ChannelType> channelTypes = null,
+            int? autoSendPingInterval = null)
         {
             if (productTypes.Count == 0)
             {
@@ -67,6 +70,17 @@ namespace CoinbasePro.WebSocket
             this.channelTypes = channelTypes;
 
             webSocketFeed = createWebSocketFeed();
+
+            if (autoSendPingInterval.HasValue && autoSendPingInterval >= 0)
+            {
+                AutoSendPingInterval = autoSendPingInterval;
+            }
+
+            if (AutoSendPingInterval.HasValue)
+            {
+                webSocketFeed.SetAutoSendPingInterval(AutoSendPingInterval.Value);
+            }
+
             webSocketFeed.Closed += WebSocket_Closed;
             webSocketFeed.Error += WebSocket_Error;
             webSocketFeed.MessageReceived += WebSocket_MessageReceived;
@@ -78,6 +92,12 @@ namespace CoinbasePro.WebSocket
 
         public void Stop()
         {
+            if (webSocketFeed == null)
+            {
+                Log.Warning("Websocket did not attempt to stop as the feed has not been started yet");
+                return;
+            }
+
             if (webSocketFeed.State != WebSocketState.Open)
             {
                 throw new CoinbaseProWebSocketException(
@@ -112,7 +132,7 @@ namespace CoinbasePro.WebSocket
             var json = JsonConfig.SerializeObject(new
             {
                 type = "unsubscribe",
-                channels = this.channelTypes.Select(x => x.ToString().ToLower()).ToArray()
+                channels = channelTypes.Select(x => x.ToString().ToLower()).ToArray()
             });
 
             channelTypes = channels;
@@ -250,7 +270,7 @@ namespace CoinbasePro.WebSocket
 
             if (!stopWebSocket)
             {
-                Start(productTypes, channelTypes);
+                Start(productTypes, channelTypes, AutoSendPingInterval);
             }
         }
 

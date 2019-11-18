@@ -13,6 +13,13 @@ namespace CoinbasePro.Network.Authentication
             string unsignedSignature,
             string passphrase)
         {
+            if (string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(unsignedSignature) ||
+                string.IsNullOrEmpty(passphrase))
+            {
+                throw new ArgumentException(
+                    $"{nameof(Authenticator)} requires parameters {nameof(apiKey)}, {nameof(unsignedSignature)} and {nameof(passphrase)} to be populated.");
+            }
+
             ApiKey = apiKey;
             UnsignedSignature = unsignedSignature;
             Passphrase = passphrase;
@@ -36,7 +43,7 @@ namespace CoinbasePro.Network.Authentication
             return HashString(prehash, convertedString);
         }
 
-        public string HashString(string str, byte[] secret)
+        private string HashString(string str, byte[] secret)
         {
             var bytes = Encoding.UTF8.GetBytes(str);
             using (var hmaccsha = new HMACSHA256(secret))

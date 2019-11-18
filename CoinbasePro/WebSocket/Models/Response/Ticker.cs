@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using CoinbasePro.Services.Orders.Types;
+using CoinbasePro.Shared.Types;
 
 namespace CoinbasePro.WebSocket.Models.Response
 {
@@ -8,7 +9,7 @@ namespace CoinbasePro.WebSocket.Models.Response
     {
         public long Sequence { get; set; }
 
-        public string ProductId { get; set; }
+        public ProductType ProductId { get; set; }
 
         public decimal Price { get; set; }
 

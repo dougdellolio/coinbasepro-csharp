@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CoinbasePro.Network.HttpClient;
@@ -9,7 +10,7 @@ using CoinbasePro.Shared.Utilities.Extensions;
 
 namespace CoinbasePro.Services.Fills
 {
-    public class FillsService : AbstractService
+    public class FillsService : AbstractService, IFillsService
     {
         public FillsService(
             IHttpClient httpClient,
@@ -18,6 +19,7 @@ namespace CoinbasePro.Services.Fills
         {
         }
 
+        [Obsolete("Requests without either order_id or product_id will be rejected after 8/23/18.")]
         public async Task<IList<IList<FillResponse>>> GetAllFillsAsync(
             int limit = 100,
             int numberOfPages = 0)

@@ -42,7 +42,6 @@ namespace CoinbasePro.Specs.Services.Orders
                 Return(Task.FromResult(new HttpResponseMessage()));
         };
         
-
         class when_placing_a_market_order
         {
             Establish context = () =>
@@ -295,50 +294,101 @@ namespace CoinbasePro.Specs.Services.Orders
 
         class when_getting_all_orders_and_specifying_order_status
         {
-            Establish context = () =>
-                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(OrderResponseFixture.CreateLimitOrderMany(OrderStatus.Active)));
-
-            Because of = () =>
-                order_many_response_result = Subject.GetAllOrdersAsync(OrderStatus.Active).Result;
-
-            It should_have_correct_number_of_orders = () =>
-                order_many_response_result.First().Count.ShouldEqual(2);
-
-            It should_have_correct_orders = () =>
+            class with_single_status
             {
-                order_many_response_result.First().First().Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
-                order_many_response_result.First().First().Price.ShouldEqual(0.10000000M);
-                order_many_response_result.First().First().Size.ShouldEqual(0.01000000M);
-                order_many_response_result.First().First().ProductId.ShouldEqual(ProductType.BtcUsd);
-                order_many_response_result.First().First().Side.ShouldEqual(OrderSide.Buy);
-                order_many_response_result.First().First().Stp.ShouldEqual("dc");
-                order_many_response_result.First().First().OrderType.ShouldEqual(OrderType.Limit);
-                order_many_response_result.First().First().TimeInForce.ShouldEqual(TimeInForce.Gtc);
-                order_many_response_result.First().First().PostOnly.ShouldBeFalse();
-                order_many_response_result.First().First().CreatedAt.ShouldEqual(new DateTime(2016, 12, 9));
-                order_many_response_result.First().First().FillFees.ShouldEqual(0.0000000000000000M);
-                order_many_response_result.First().First().FilledSize.ShouldEqual(0.00000000M);
-                order_many_response_result.First().First().ExecutedValue.ShouldEqual(0.0000000000000000M);
-                order_many_response_result.First().First().Status.ShouldEqual(OrderStatus.Active);
-                order_many_response_result.First().First().Settled.ShouldBeFalse();
+                Establish context = () =>
+                    The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                        .Return(Task.FromResult(OrderResponseFixture.CreateLimitOrderMany(OrderStatus.Active)));
 
-                order_many_response_result.First().Skip(1).First().Id.ShouldEqual(new Guid("8b99b139-58f2-4ab2-8e7a-c11c846e3022"));
-                order_many_response_result.First().Skip(1).First().Price.ShouldEqual(0.10000000M);
-                order_many_response_result.First().Skip(1).First().Size.ShouldEqual(0.01000000M);
-                order_many_response_result.First().Skip(1).First().ProductId.ShouldEqual(ProductType.EthUsd);
-                order_many_response_result.First().Skip(1).First().Side.ShouldEqual(OrderSide.Buy);
-                order_many_response_result.First().Skip(1).First().Stp.ShouldEqual("dc");
-                order_many_response_result.First().Skip(1).First().OrderType.ShouldEqual(OrderType.Limit);
-                order_many_response_result.First().Skip(1).First().TimeInForce.ShouldEqual(TimeInForce.Gtc);
-                order_many_response_result.First().Skip(1).First().PostOnly.ShouldBeFalse();
-                order_many_response_result.First().Skip(1).First().CreatedAt.ShouldEqual(new DateTime(2016, 12, 9));
-                order_many_response_result.First().Skip(1).First().FillFees.ShouldEqual(0.0000000000000000M);
-                order_many_response_result.First().Skip(1).First().FilledSize.ShouldEqual(0.00000000M);
-                order_many_response_result.First().Skip(1).First().ExecutedValue.ShouldEqual(0.0000000000000000M);
-                order_many_response_result.First().Skip(1).First().Status.ShouldEqual(OrderStatus.Active);
-                order_many_response_result.First().Skip(1).First().Settled.ShouldBeFalse();
-            };
+                Because of = () =>
+                    order_many_response_result = Subject.GetAllOrdersAsync(OrderStatus.Active).Result;
+
+                It should_have_correct_number_of_orders = () =>
+                    order_many_response_result.First().Count.ShouldEqual(2);
+
+                It should_have_correct_orders = () =>
+                {
+                    order_many_response_result.First().First().Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
+                    order_many_response_result.First().First().Price.ShouldEqual(0.10000000M);
+                    order_many_response_result.First().First().Size.ShouldEqual(0.01000000M);
+                    order_many_response_result.First().First().ProductId.ShouldEqual(ProductType.BtcUsd);
+                    order_many_response_result.First().First().Side.ShouldEqual(OrderSide.Buy);
+                    order_many_response_result.First().First().Stp.ShouldEqual("dc");
+                    order_many_response_result.First().First().OrderType.ShouldEqual(OrderType.Limit);
+                    order_many_response_result.First().First().TimeInForce.ShouldEqual(TimeInForce.Gtc);
+                    order_many_response_result.First().First().PostOnly.ShouldBeFalse();
+                    order_many_response_result.First().First().CreatedAt.ShouldEqual(new DateTime(2016, 12, 9));
+                    order_many_response_result.First().First().FillFees.ShouldEqual(0.0000000000000000M);
+                    order_many_response_result.First().First().FilledSize.ShouldEqual(0.00000000M);
+                    order_many_response_result.First().First().ExecutedValue.ShouldEqual(0.0000000000000000M);
+                    order_many_response_result.First().First().Status.ShouldEqual(OrderStatus.Active);
+                    order_many_response_result.First().First().Settled.ShouldBeFalse();
+
+                    order_many_response_result.First().Skip(1).First().Id.ShouldEqual(new Guid("8b99b139-58f2-4ab2-8e7a-c11c846e3022"));
+                    order_many_response_result.First().Skip(1).First().Price.ShouldEqual(0.10000000M);
+                    order_many_response_result.First().Skip(1).First().Size.ShouldEqual(0.01000000M);
+                    order_many_response_result.First().Skip(1).First().ProductId.ShouldEqual(ProductType.EthUsd);
+                    order_many_response_result.First().Skip(1).First().Side.ShouldEqual(OrderSide.Buy);
+                    order_many_response_result.First().Skip(1).First().Stp.ShouldEqual("dc");
+                    order_many_response_result.First().Skip(1).First().OrderType.ShouldEqual(OrderType.Limit);
+                    order_many_response_result.First().Skip(1).First().TimeInForce.ShouldEqual(TimeInForce.Gtc);
+                    order_many_response_result.First().Skip(1).First().PostOnly.ShouldBeFalse();
+                    order_many_response_result.First().Skip(1).First().CreatedAt.ShouldEqual(new DateTime(2016, 12, 9));
+                    order_many_response_result.First().Skip(1).First().FillFees.ShouldEqual(0.0000000000000000M);
+                    order_many_response_result.First().Skip(1).First().FilledSize.ShouldEqual(0.00000000M);
+                    order_many_response_result.First().Skip(1).First().ExecutedValue.ShouldEqual(0.0000000000000000M);
+                    order_many_response_result.First().Skip(1).First().Status.ShouldEqual(OrderStatus.Active);
+                    order_many_response_result.First().Skip(1).First().Settled.ShouldBeFalse();
+                };
+            }
+
+            class with_multiple_statuses
+            {
+                Establish context = () =>
+                    The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                        .Return(Task.FromResult(OrderResponseFixture.CreateLimitOrderMany(OrderStatus.Active)));
+
+                Because of = () =>
+                    order_many_response_result = Subject.GetAllOrdersAsync(new [] { OrderStatus.Active, OrderStatus.Done }).Result;
+
+                It should_have_correct_number_of_orders = () =>
+                    order_many_response_result.First().Count.ShouldEqual(2);
+
+                It should_have_correct_orders = () =>
+                {
+                    order_many_response_result.First().First().Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
+                    order_many_response_result.First().First().Price.ShouldEqual(0.10000000M);
+                    order_many_response_result.First().First().Size.ShouldEqual(0.01000000M);
+                    order_many_response_result.First().First().ProductId.ShouldEqual(ProductType.BtcUsd);
+                    order_many_response_result.First().First().Side.ShouldEqual(OrderSide.Buy);
+                    order_many_response_result.First().First().Stp.ShouldEqual("dc");
+                    order_many_response_result.First().First().OrderType.ShouldEqual(OrderType.Limit);
+                    order_many_response_result.First().First().TimeInForce.ShouldEqual(TimeInForce.Gtc);
+                    order_many_response_result.First().First().PostOnly.ShouldBeFalse();
+                    order_many_response_result.First().First().CreatedAt.ShouldEqual(new DateTime(2016, 12, 9));
+                    order_many_response_result.First().First().FillFees.ShouldEqual(0.0000000000000000M);
+                    order_many_response_result.First().First().FilledSize.ShouldEqual(0.00000000M);
+                    order_many_response_result.First().First().ExecutedValue.ShouldEqual(0.0000000000000000M);
+                    order_many_response_result.First().First().Status.ShouldEqual(OrderStatus.Active);
+                    order_many_response_result.First().First().Settled.ShouldBeFalse();
+
+                    order_many_response_result.First().Skip(1).First().Id.ShouldEqual(new Guid("8b99b139-58f2-4ab2-8e7a-c11c846e3022"));
+                    order_many_response_result.First().Skip(1).First().Price.ShouldEqual(0.10000000M);
+                    order_many_response_result.First().Skip(1).First().Size.ShouldEqual(0.01000000M);
+                    order_many_response_result.First().Skip(1).First().ProductId.ShouldEqual(ProductType.EthUsd);
+                    order_many_response_result.First().Skip(1).First().Side.ShouldEqual(OrderSide.Buy);
+                    order_many_response_result.First().Skip(1).First().Stp.ShouldEqual("dc");
+                    order_many_response_result.First().Skip(1).First().OrderType.ShouldEqual(OrderType.Limit);
+                    order_many_response_result.First().Skip(1).First().TimeInForce.ShouldEqual(TimeInForce.Gtc);
+                    order_many_response_result.First().Skip(1).First().PostOnly.ShouldBeFalse();
+                    order_many_response_result.First().Skip(1).First().CreatedAt.ShouldEqual(new DateTime(2016, 12, 9));
+                    order_many_response_result.First().Skip(1).First().FillFees.ShouldEqual(0.0000000000000000M);
+                    order_many_response_result.First().Skip(1).First().FilledSize.ShouldEqual(0.00000000M);
+                    order_many_response_result.First().Skip(1).First().ExecutedValue.ShouldEqual(0.0000000000000000M);
+                    order_many_response_result.First().Skip(1).First().Status.ShouldEqual(OrderStatus.Active);
+                    order_many_response_result.First().Skip(1).First().Settled.ShouldBeFalse();
+                };
+            }
         }
 
         class when_getting_order_by_id

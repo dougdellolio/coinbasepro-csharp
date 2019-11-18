@@ -24,27 +24,55 @@ namespace CoinbasePro.Specs.Services.Accounts
 
         class when_getting_all_accounts
         {
-            static IEnumerable<Account> result;
-
-            Establish context = () =>
-                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(AllAccountsResponseFixture.Create()));
-
-            Because of = () =>
-                result = Subject.GetAllAccountsAsync().Result;
-
-            It should_have_correct_count = () =>
-                result.Count().ShouldEqual(1);
-
-            It should_have_correct_account_information = () =>
+            class with_known_currency
             {
-                result.First().Id.ShouldEqual(new Guid("e316cb9a-0808-4fd7-8914-97829c1925de"));
-                result.First().Currency.ShouldEqual(Currency.USD);
-                result.First().Balance.ShouldEqual(80.2301373066930000M);
-                result.First().Available.ShouldEqual(79.2266348066930000M);
-                result.First().Hold.ShouldEqual(1.0035025000000000M);
-                result.First().ProfileId.ShouldEqual(new Guid("75da88c5-05bf-4f54-bc85-5c775bd68254"));
-            };
+                static IEnumerable<Account> result;
+
+                Establish context = () =>
+                    The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                        .Return(Task.FromResult(AllAccountsResponseFixture.Create()));
+
+                Because of = () =>
+                    result = Subject.GetAllAccountsAsync().Result;
+
+                It should_have_correct_count = () =>
+                    result.Count().ShouldEqual(1);
+
+                It should_have_correct_account_information = () =>
+                {
+                    result.First().Id.ShouldEqual(new Guid("e316cb9a-0808-4fd7-8914-97829c1925de"));
+                    result.First().Currency.ShouldEqual(Currency.USD);
+                    result.First().Balance.ShouldEqual(80.2301373066930000M);
+                    result.First().Available.ShouldEqual(79.2266348066930000M);
+                    result.First().Hold.ShouldEqual(1.0035025000000000M);
+                    result.First().ProfileId.ShouldEqual(new Guid("75da88c5-05bf-4f54-bc85-5c775bd68254"));
+                };
+            }
+
+            class with_unknown_currency
+            {
+                static IEnumerable<Account> result;
+
+                Establish context = () =>
+                    The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                        .Return(Task.FromResult(AllAccountsResponseFixture.CreateWithUnknownCurrency()));
+
+                Because of = () =>
+                    result = Subject.GetAllAccountsAsync().Result;
+
+                It should_have_correct_count = () =>
+                    result.Count().ShouldEqual(1);
+
+                It should_have_correct_account_information = () =>
+                {
+                    result.First().Id.ShouldEqual(new Guid("e316cb9a-0808-4fd7-8914-97829c1925de"));
+                    result.First().Currency.ShouldEqual(Currency.Unknown);
+                    result.First().Balance.ShouldEqual(80.2301373066930000M);
+                    result.First().Available.ShouldEqual(79.2266348066930000M);
+                    result.First().Hold.ShouldEqual(1.0035025000000000M);
+                    result.First().ProfileId.ShouldEqual(new Guid("75da88c5-05bf-4f54-bc85-5c775bd68254"));
+                };
+            }
         }
 
         class when_getting_account_by_id
@@ -70,30 +98,61 @@ namespace CoinbasePro.Specs.Services.Accounts
 
         class when_getting_account_history
         {
-            static IList<IList<AccountHistory>> result;
-
-            Establish context = () =>
+            class with_conversion_account_entry_type
             {
-                The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
-                       .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
+                static IList<IList<AccountHistory>> result;
 
-                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(AccountsHistoryResponseFixture.Create()));
-            };
+                Establish context = () =>
+                {
+                    The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
+                        .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
 
-            Because of = () =>
-                result = Subject.GetAccountHistoryAsync("a1b2c3d4", 1).Result;
+                    The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                        .Return(Task.FromResult(AccountsHistoryResponseFixture.Create(AccountEntryType.Conversion.ToString())));
+                };
 
-            It should_have_correct_account_information = () =>
+                Because of = () =>
+                    result = Subject.GetAccountHistoryAsync("a1b2c3d4", 1).Result;
+
+                It should_have_correct_account_information = () =>
+                {
+                    result.First().First().Id.ShouldEqual("100");
+                    result.First().First().Amount.ShouldEqual(0.001M);
+                    result.First().First().Balance.ShouldEqual(239.669M);
+                    result.First().First().AccountEntryType.ShouldEqual(AccountEntryType.Conversion);
+                    result.First().First().Details.OrderId.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));
+                    result.First().First().Details.TradeId.ShouldEqual("74");
+                    result.First().First().Details.ProductId.ShouldEqual(ProductType.BtcUsd);
+                };
+            }
+
+            class with_unknown_conversion_account_entry_type
             {
-                result.First().First().Id.ShouldEqual("100");
-                result.First().First().Amount.ShouldEqual(0.001M);
-                result.First().First().Balance.ShouldEqual(239.669M);
-                result.First().First().AccountEntryType.ShouldEqual(AccountEntryType.Fee);
-                result.First().First().Details.OrderId.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));
-                result.First().First().Details.TradeId.ShouldEqual("74");
-                result.First().First().Details.ProductId.ShouldEqual(ProductType.BtcUsd);
-            };
+                static IList<IList<AccountHistory>> result;
+
+                Establish context = () =>
+                {
+                    The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
+                        .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
+
+                    The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                        .Return(Task.FromResult(AccountsHistoryResponseFixture.Create("UNKNOWNTYPE")));
+                };
+
+                Because of = () =>
+                    result = Subject.GetAccountHistoryAsync("a1b2c3d4", 1).Result;
+
+                It should_have_correct_account_information = () =>
+                {
+                    result.First().First().Id.ShouldEqual("100");
+                    result.First().First().Amount.ShouldEqual(0.001M);
+                    result.First().First().Balance.ShouldEqual(239.669M);
+                    result.First().First().AccountEntryType.ShouldEqual(AccountEntryType.Unknown);
+                    result.First().First().Details.OrderId.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));
+                    result.First().First().Details.TradeId.ShouldEqual("74");
+                    result.First().First().Details.ProductId.ShouldEqual(ProductType.BtcUsd);
+                };
+            }
         }
 
         class when_getting_account_holds
