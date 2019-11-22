@@ -288,6 +288,7 @@ Thanks for contributing!
 - @BraveSirAndrew
 - @alexhiggins732
 - @kudobyte
+- @mailgerigk
 
 <h1>Bugs or questions?</h1>
 
