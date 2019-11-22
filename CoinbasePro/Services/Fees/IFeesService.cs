@@ -6,6 +6,6 @@ namespace CoinbasePro.Services.Fees
 {
     public interface IFeesService
     {
-        Task<IEnumerable<Fee>> GetCurrentFeesAsync();
+        Task<Fee> GetCurrentFeesAsync();
     }
 }
