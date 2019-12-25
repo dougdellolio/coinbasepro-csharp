@@ -119,6 +119,8 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "DASH-USD")]
         DashUsd,
         [EnumMember(Value = "DASH-BTC")]
-        DashBtc
+        DashBtc,
+        [EnumMember(Value = "OXT-USD")]
+        OxtUsd
     }
 }
