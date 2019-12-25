@@ -30,6 +30,7 @@
         ZRX,
         ALGO,
         LINK,
-        DASH
+        DASH,
+        OXT
     }
 }
