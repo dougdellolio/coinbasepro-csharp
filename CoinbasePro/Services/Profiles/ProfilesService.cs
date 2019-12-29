@@ -1,7 +1,6 @@
 ﻿using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Network.HttpRequest;
 using CoinbasePro.Services.Profiles.Models;
-using CoinbasePro.Services.Profiles.Models.Responses;
 using CoinbasePro.Shared.Types;
 using CoinbasePro.Shared.Utilities;
 using System;
