@@ -92,6 +92,11 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 ###### Stablecoin Conversions ######
 - CreateConversion(currencyFrom, currencyTo, amount) - convert bank-based dollars to blockchain-based digital dollars
 
+###### Profiles ######
+- GetAllProfilesAsync() - list your profiles
+- GetProfileByIdAsync(id) - get a single profile by profile id
+- CreateProfileTransferAsync(from, to, currency, amount) - transfer funds from API key’s profile to another user owned profile
+
 <h1>Websocket Feed</h1>
 <h2>How to use with authentication</h2>
 
