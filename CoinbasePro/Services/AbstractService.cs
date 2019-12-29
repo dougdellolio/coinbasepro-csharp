@@ -143,6 +143,11 @@ namespace CoinbasePro.Services
             var httpResponseMessage = await SendHttpRequestMessageAsync(httpMethod, uri, content);
             var contentBody = await httpClient.ReadAsStringAsync(httpResponseMessage).ConfigureAwait(false);
 
+            if (typeof(T) == typeof(string))
+            {
+                return (T)(object)contentBody;
+            }
+
             return JsonConfig.DeserializeObject<T>(contentBody);
         }
     }
