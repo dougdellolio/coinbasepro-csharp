@@ -31,6 +31,7 @@
         ALGO,
         LINK,
         DASH,
-        OXT
+        OXT,
+        ATOM
     }
 }
