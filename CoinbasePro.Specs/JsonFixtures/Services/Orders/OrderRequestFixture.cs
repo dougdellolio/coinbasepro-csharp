@@ -14,7 +14,7 @@ namespace CoinbasePro.Specs.JsonFixtures.Services.Orders
 
         public static string CreateMarketOrderRequest()
         {
-            var json = "{\"side\":\"buy\",\"size\":0.01,\"price\":0.0,\"type\":\"market\",\"product_id\":\"BTC-USD\",\"time_in_force\":\"GTC\",\"cancel_after\":\"min\",\"post_only\":false}";
+            var json = "{\"side\":\"buy\",\"size\":0.01,\"type\":\"market\",\"product_id\":\"BTC-USD\",\"time_in_force\":\"GTC\",\"cancel_after\":\"min\",\"post_only\":false}";
 
             return json;
         }
