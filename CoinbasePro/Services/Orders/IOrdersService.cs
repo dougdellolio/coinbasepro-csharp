@@ -34,19 +34,11 @@ namespace CoinbasePro.Services.Orders
             bool postOnly = true,
             Guid? clientOid = null);
 
-        Task<OrderResponse> PlaceStopLimitOrderAsync(
-            OrderSide side,
-            ProductType productId,
-            decimal size,
-            decimal stopPrice,
-            decimal limitPrice,
-            bool postOnly = false,
-            Guid? clientOid = null);
-
         Task<OrderResponse> PlaceStopOrderAsync(
             OrderSide side,
             ProductType productId,
             decimal size,
+            decimal limitPrice,
             decimal stopPrice,
             Guid? clientOid = null);
 
