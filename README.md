@@ -293,6 +293,7 @@ Thanks for contributing!
 - @alexhiggins732
 - @kudobyte
 - @mailgerigk
+- @joshua211
 
 <h1>Bugs or questions?</h1>
 
