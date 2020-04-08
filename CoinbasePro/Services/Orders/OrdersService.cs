@@ -99,46 +99,24 @@ namespace CoinbasePro.Services.Orders
             return await PlaceOrderAsync(order);
         }
 
-        public async Task<OrderResponse> PlaceStopLimitOrderAsync(
-            OrderSide side,
-            ProductType productId,
-            decimal size,
-            decimal stopPrice,
-            decimal limitPrice,
-            bool postOnly = false,
-            Guid? clientOid = null)
-        {
-            var order = new Order
-            {
-                Side = side,
-                ProductId = productId,
-                OrderType = OrderType.Limit,
-                Price = limitPrice,
-                Size = size,
-                Stop = side == OrderSide.Buy
-                    ? StopType.Entry
-                    : StopType.Loss,
-                StopPrice = stopPrice,
-                ClientOid = clientOid,
-                PostOnly = postOnly
-            };
-
-            return await PlaceOrderAsync(order);
-        }
-
         public async Task<OrderResponse> PlaceStopOrderAsync(
             OrderSide side,
             ProductType productId,
             decimal size,
+            decimal limitPrice,
             decimal stopPrice,
             Guid? clientOid = null)
         {
             var order = new Order
             {
                 Side = side,
+                OrderType = OrderType.Limit,
                 ProductId = productId,
-                OrderType = OrderType.Stop,
-                Price = stopPrice,
+                Price = limitPrice,
+                Stop = side == OrderSide.Buy
+                    ? StopType.Entry
+                    : StopType.Loss,
+                StopPrice = stopPrice,
                 Size = size,
                 ClientOid = clientOid
             };
