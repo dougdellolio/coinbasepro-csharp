@@ -287,6 +287,8 @@ namespace CoinbasePro.Specs.Services.Orders
                     order_many_response_result.First().First().ExecutedValue.ShouldEqual(0.0000000000000000M);
                     order_many_response_result.First().First().Status.ShouldEqual(OrderStatus.Active);
                     order_many_response_result.First().First().Settled.ShouldBeFalse();
+                    order_many_response_result.First().First().Stop.ShouldEqual(StopType.Entry);
+                    order_many_response_result.First().First().StopPrice.ShouldEqual(100.0M);
 
                     order_many_response_result.First().Skip(1).First().Id.ShouldEqual(new Guid("8b99b139-58f2-4ab2-8e7a-c11c846e3022"));
                     order_many_response_result.First().Skip(1).First().Price.ShouldEqual(0.10000000M);

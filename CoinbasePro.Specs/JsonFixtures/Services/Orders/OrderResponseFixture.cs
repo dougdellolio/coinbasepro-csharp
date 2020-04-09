@@ -95,6 +95,8 @@ namespace CoinbasePro.Specs.JsonFixtures.Services.Orders
         ""fill_fees"": ""0.0000000000000000"",
         ""filled_size"": ""0.00000000"",
         ""executed_value"": ""0.0000000000000000"",
+        ""stop"": ""Entry"",
+        ""stop_price"": ""100.0"",
         ""status"": ""{orderStatus.ToString().ToLower()}"",
         ""settled"": false
     }},
