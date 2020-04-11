@@ -1,10 +1,21 @@
-# coinbasepro-csharp
-Coinbase Pro API C# Client Library - https://docs.pro.coinbase.com/
+<p align="center">
+  <a href="http://pro.coinbase.com">
+    <img width="200" src="https://pbs.twimg.com/profile_images/1012800930356473856/nzSdDA1C_400x400.jpg">
+  </a>
+</p>
+
+<h1 align="center">coinbasepro-csharp</h1>
+
+<div align="center">
+
+https://docs.pro.coinbase.com/
 
 
 [![Build status](https://ci.appveyor.com/api/projects/status/mdn0y9cu7dqsambv/branch/master?svg=true)](https://ci.appveyor.com/project/dougdellolio/coinbasepro-csharp/branch/master)
 [![NuGet](https://img.shields.io/nuget/v/GDAX.Api.ClientLibrary.svg)](https://www.nuget.org/packages/GDAX.Api.ClientLibrary/)
 [![NuGet](https://img.shields.io/nuget/dt/GDAX.Api.ClientLibrary.svg)](https://www.nuget.org/packages/GDAX.Api.ClientLibrary/)
+
+</div>
 <h1>How to Install</h1>
 
 `PM> Install-Package GDAX.Api.ClientLibrary`
