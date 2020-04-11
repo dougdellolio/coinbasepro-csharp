@@ -1,9 +1,3 @@
-<p align="center">
-  <a href="http://pro.coinbase.com">
-    <img width="200" src="https://pbs.twimg.com/profile_images/1012800930356473856/nzSdDA1C_400x400.jpg">
-  </a>
-</p>
-
 <h1 align="center">coinbasepro-csharp</h1>
 
 <div align="center">
