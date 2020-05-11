@@ -3,6 +3,7 @@ using CoinbasePro.Shared;
 using CoinbasePro.WebSocket.Models.Response;
 using WebSocket4Net;
 using SuperSocket.ClientEngine;
+using System.Security.Authentication;
 
 namespace CoinbasePro.WebSocket
 {
@@ -16,7 +17,7 @@ namespace CoinbasePro.WebSocket
                 ? ApiUris.WebsocketUriSandbox
                 : ApiUris.WebsocketUri;
 
-            webSocketFeed = new WebSocket4Net.WebSocket(socketUrl);
+            webSocketFeed = new WebSocket4Net.WebSocket(socketUrl, sslProtocols: SslProtocols.Tls11 | SslProtocols.Tls12);
         }
 
         public WebSocketState State => webSocketFeed.State;
