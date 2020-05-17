@@ -22,7 +22,7 @@ namespace CoinbasePro.WebSocket.Models.Response
         [JsonProperty("low_24h")]
         public decimal Low24H { get; set; }
 
-        [JsonProperty("high)24h")]
+        [JsonProperty("high_24h")]
         public decimal High24H { get; set; }
 
         [JsonProperty("volume_30d")]
