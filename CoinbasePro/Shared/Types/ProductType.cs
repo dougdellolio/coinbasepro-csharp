@@ -125,6 +125,14 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "ATOM-USD")]
         AtomUsd,
         [EnumMember(Value = "ATOM-BTC")]
-        AtomBtc
+        AtomBtc,
+        [EnumMember(Value = "OMG-USD")]
+        OmgUsd,
+        [EnumMember(Value = "OMG-EUR")]
+        OmgEur,
+        [EnumMember(Value = "OMG-GBP")]
+        OmgGbp,
+        [EnumMember(Value = "OMG-BTC")]
+        OmgBtc
     }
 }

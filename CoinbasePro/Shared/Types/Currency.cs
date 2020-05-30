@@ -32,6 +32,7 @@
         LINK,
         DASH,
         OXT,
-        ATOM
+        ATOM,
+        OMG
     }
 }
