@@ -70,8 +70,8 @@ namespace CoinbasePro.Shared.Types
         GntUsdc,
         [EnumMember(Value = "DAI-USDC")]
         DaiUsdc,
-        [EnumMember(Value = "MKR-USDC")]
-        MkrUsdc,
+        [EnumMember(Value = "MKR-USD")]
+        MkrUsd,
         [EnumMember(Value = "MKR-BTC")]
         MkrBtc,
         [EnumMember(Value = "ZIL-USDC")]
