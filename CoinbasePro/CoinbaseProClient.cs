@@ -10,6 +10,7 @@ using CoinbasePro.Services.Fees;
 using CoinbasePro.Services.Fills;
 using CoinbasePro.Services.Fundings;
 using CoinbasePro.Services.Limits;
+using CoinbasePro.Services.Margin;
 using CoinbasePro.Services.Orders;
 using CoinbasePro.Services.Payments;
 using CoinbasePro.Services.Products;
@@ -66,6 +67,7 @@ namespace CoinbasePro
             StablecoinConversionsService = new StablecoinConversionsService(httpClient, httpRequestMessageService);
             FeesService = new FeesService(httpClient, httpRequestMessageService);
             ProfilesService = new ProfilesService(httpClient, httpRequestMessageService);
+            MarginService = new MarginService(httpClient, httpRequestMessageService);
             WebSocket = new WebSocket.WebSocket(createWebSocketFeed, authenticator, clock);
 
             Log.Information("CoinbaseProClient constructed");
@@ -102,6 +104,8 @@ namespace CoinbasePro
         public IStablecoinConversionsService StablecoinConversionsService { get; }
 
         public IProfilesService ProfilesService { get; }
+
+        public IMarginService MarginService { get; }
 
         public IWebSocket WebSocket { get; }
     }
