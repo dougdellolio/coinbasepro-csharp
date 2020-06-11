@@ -33,6 +33,7 @@
         DASH,
         OXT,
         ATOM,
-        OMG
+        OMG,
+        KNC
     }
 }

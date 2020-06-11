@@ -133,6 +133,10 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "OMG-GBP")]
         OmgGbp,
         [EnumMember(Value = "OMG-BTC")]
-        OmgBtc
+        OmgBtc,
+        [EnumMember(Value = "KNC-USD")]
+        KncUsd,
+        [EnumMember(Value = "KNC-BTC")]
+        KncBtc
     }
 }
