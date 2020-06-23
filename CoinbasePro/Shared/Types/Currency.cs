@@ -34,6 +34,7 @@
         OXT,
         ATOM,
         OMG,
-        KNC
+        KNC,
+        COMP
     }
 }

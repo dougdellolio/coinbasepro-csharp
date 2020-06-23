@@ -137,6 +137,10 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "KNC-USD")]
         KncUsd,
         [EnumMember(Value = "KNC-BTC")]
-        KncBtc
+        KncBtc,
+        [EnumMember(Value = "COMP-BTC")]
+        CompBtc,
+        [EnumMember(Value = "COMP-USD")]
+        CompUsd
     }
 }
