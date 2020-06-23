@@ -59,6 +59,15 @@ namespace CoinbasePro.Specs.Services.Products
                     products_result.First().BaseMinSize.ShouldEqual(0.01M);
                     products_result.First().BaseMaxSize.ShouldEqual(10000.00M);
                     products_result.First().QuoteIncrement.ShouldEqual(0.01M);
+                    products_result.First().MinMarketFunds.ShouldEqual(5M);
+                    products_result.First().MaxMarketFunds.ShouldEqual(1000000M);
+                    products_result.First().BaseIncrement.ShouldEqual(0.00000001M);
+                    products_result.First().PostOnly.ShouldEqual(true);
+                    products_result.First().LimitOnly.ShouldEqual(false);
+                    products_result.First().CancelOnly.ShouldEqual(false);
+                    products_result.First().TradingDisabled.ShouldEqual(false);
+                    products_result.First().Status.ShouldEqual("online");
+                    products_result.First().StatusMessage.ShouldBeEmpty();
                 };
             }
 
@@ -225,7 +234,7 @@ namespace CoinbasePro.Specs.Services.Products
 
             Because of = () =>
                 product_history_response = Subject.GetHistoricRatesAsync(ProductType.BtcUsd, DateTime.Now.AddDays(-1), DateTime.Now, CandleGranularity.Minutes1).Result;
-            
+
             It should_have_correct_product_stats = () =>
             {
                 product_history_response[0].Time.ShouldEqual(UnixEpoch.AddSeconds(1512691200));
