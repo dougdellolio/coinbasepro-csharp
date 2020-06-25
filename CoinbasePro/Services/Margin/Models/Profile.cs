@@ -1,4 +1,7 @@
 ﻿
+using CoinbasePro.Shared;
+using CoinbasePro.Shared.Types;
+using Newtonsoft.Json;
 using System;
 
 namespace CoinbasePro.Services.Margin.Models
@@ -7,25 +10,26 @@ namespace CoinbasePro.Services.Margin.Models
     {
         public Guid ProfileId { get; set; }
 
-        //public string MarginInitialEquity { get; set; }
+        public decimal MarginInitialEquity { get; set; }
 
-        //public string MarginWarningEquity { get; set; }
+        public decimal MarginWarningEquity { get; set; }
 
-        //public string MarginCallEquity { get; set; }
+        public decimal MarginCallEquity { get; set; }
 
-        //public double EquityPercentage { get; set; }
+        public decimal EquityPercentage { get; set; }
 
-        //public double SellingPower { get; set; }
+        public decimal SellingPower { get; set; }
 
-        //public double BuyingPower { get; set; }
+        public decimal BuyingPower { get; set; }
 
-        //public double BorrowPower { get; set; }
+        public decimal BorrowPower { get; set; }
 
-        //public decimal InterestRate { get; set; }
+        public decimal InterestRate { get; set; }
 
-        //public string InterestPaid { get; set; }
+        public decimal InterestPaid { get; set; }
 
-        //public string[] CollateralCurrencies { get; set; }
+        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
+        public Currency[] CollateralCurrencies { get; set; }
 
         //public string CollateralHoldValue { get; set; }
 
