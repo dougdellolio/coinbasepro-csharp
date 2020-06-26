@@ -50,7 +50,7 @@
             return @"
 {
     ""buying_power"": 23.53,
-    ""selling_power"": 0.00221896,
+    ""selling_power"": 0.0022,
     ""buying_power_explanation"": ""This is the line of credit available to you on the BTC-USD market, given how much collateral assets you currently have in your portfolio.""
 }";
         }
@@ -61,7 +61,7 @@
 [
     {
         ""profile_id"": ""8058d771-2d88-4f0f-ab6e-299c153d4308"",
-        ""withdrawal_power"": ""7.77569088416849750000""
+        ""withdrawal_power"": ""7.775""
     }
 ]";
         }
@@ -71,11 +71,11 @@
             return @"
 [
     {
-        ""profile_id"": ""8058d771 - 2d88 - 4f0f - ab6e - 299c153d4308"",
+        ""profile_id"": ""8058d771-2d88-4f0f-ab6e-299c153d4308"",
         ""marginable_withdrawal_powers"": [
             {
                 ""currency"": ""ETH"",
-                ""withdrawal_power"": ""0.0000000000000000""
+                ""withdrawal_power"": ""0.01""
             },
             {
                 ""currency"": ""BTC"",
@@ -96,7 +96,43 @@
 
         public static string CreateExitPlanResponse()
         {
-            return null;
+            return @"
+{
+    ""id"": ""239f4dc6-72b6-11ea-b311-168e5016c449"",
+    ""userId"": ""5cf6e115aaf44503db300f1e"",
+    ""profileId"": ""8058d771-2d88-4f0f-ab6e-299c153d4308"",
+    ""accountsList"": [
+        {
+            ""id"": ""434e1152-8eb5-4bfa-89a1-92bb1dcaf0c3"",
+            ""currency"": ""BTC"",
+            ""amount"": ""0.00221897""
+        },
+        {
+            ""id"": ""6d326768-71f2-4068-99dc-7075c78f6402"",
+            ""currency"": ""USD"",
+            ""amount"": ""-1.9004458409934425""
+        },
+        {
+                ""id"": ""120c8fcf-94da-4b45-9c43-18f114880f7a"",
+            ""currency"": ""USDC"",
+            ""amount"": ""1.003328032382""
+        }
+    ],
+    ""equityPercentage"": ""0.8744507743595747"",
+    ""totalAssetsUsd"": ""15.137057447382"",
+    ""totalLiabilitiesUsd"": ""1.9004458409934425"",
+    ""strategiesList"": [
+         {
+             ""type"": """",
+             ""amount"": """",
+             ""product"": """",
+             ""strategy"": """",
+             ""accountId"": """",
+             ""orderId"": """"
+         }
+    ],
+    ""createdAt"": ""2020-03-30""
+}";
         }
 
         public static string CreateLiquidationHistoryResponse()

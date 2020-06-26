@@ -60,7 +60,9 @@ namespace CoinbasePro.Specs.Services.Margin
 
             It should_return_a_correct_response = () =>
             {
-
+                result.BuyingPower.ShouldEqual(23.53m);
+                result.SellingPower.ShouldEqual(0.0022m);
+                result.BuyingPowerExplanation.ShouldEqual("This is the line of credit available to you on the BTC-USD market, given how much collateral assets you currently have in your portfolio.");
             };
         }
 
@@ -73,13 +75,12 @@ namespace CoinbasePro.Specs.Services.Margin
                     .Return(Task.FromResult(MarginResponseFixture.CreateWithdrawalPowerResponse()));
 
             Because of = () =>
-            {
                 result = Subject.GetWithdrawalPowerAsync(Currency.BTC).Result;
-            };
 
             It should_return_a_correct_response = () =>
             {
-
+                result.First().ProfileId.ShouldEqual(new Guid("8058d771-2d88-4f0f-ab6e-299c153d4308"));
+                result.First().WithdrawalPower.ShouldEqual(7.775m);
             };
         }
 
@@ -96,7 +97,9 @@ namespace CoinbasePro.Specs.Services.Margin
 
             It should_return_a_correct_response = () =>
             {
-
+                result.First().ProfileId.ShouldEqual(new Guid("8058d771-2d88-4f0f-ab6e-299c153d4308"));
+                result.First().MarginableWithdrawalPowers.Count.ShouldEqual(4);
+                result.First().MarginableWithdrawalPowers.First().Currency.Equals(Currency.ETH);
             };
         }
 
@@ -113,7 +116,7 @@ namespace CoinbasePro.Specs.Services.Margin
 
             It should_return_a_correct_response = () =>
             {
-
+                result.ShouldNotBeNull();
             };
         }
 
@@ -130,7 +133,7 @@ namespace CoinbasePro.Specs.Services.Margin
 
             It should_return_a_correct_response = () =>
             {
-
+                result.ShouldNotBeNull();
             };
         }
 
@@ -147,7 +150,7 @@ namespace CoinbasePro.Specs.Services.Margin
 
             It should_return_a_correct_response = () =>
             {
-
+                result.ShouldNotBeNull();
             };
         }
 
@@ -160,9 +163,7 @@ namespace CoinbasePro.Specs.Services.Margin
                     .Return(Task.FromResult(MarginResponseFixture.CreateMarginStatusResponse()));
 
             Because of = () =>
-            {
                 result = Subject.GetMarginStatusAsync().Result;
-            };
 
             It should_return_a_correct_response = () =>
             {
