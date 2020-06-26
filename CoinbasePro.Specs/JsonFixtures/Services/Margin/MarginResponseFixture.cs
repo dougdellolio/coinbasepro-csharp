@@ -31,7 +31,7 @@
         ""USD"",
         ""USDC""
     ],
-    ""collateral_hold_value"": ""1.0050000000000000"",
+    ""collateral_hold_value"": ""1.005"",
     ""last_liquidation_at"": ""2019-11-21T14:58:49.879Z"",
     ""available_borrow_limits"": {
             ""marginable_limit"": 23.51,
@@ -39,8 +39,8 @@
     },
     ""borrow_limit"": ""5000"",
     ""top_up_amounts"": {
-                ""borrowable_usd"": ""0"",
-        ""non_borrowable_usd"": ""0""
+                ""borrowable_usd"": ""0.6"",
+        ""non_borrowable_usd"": ""0.9""
     }
 }]";
         }
@@ -99,13 +99,13 @@
             return @"
 {
     ""id"": ""239f4dc6-72b6-11ea-b311-168e5016c449"",
-    ""userId"": ""5cf6e115aaf44503db300f1e"",
-    ""profileId"": ""8058d771-2d88-4f0f-ab6e-299c153d4308"",
-    ""accountsList"": [
+    ""user_id"": ""5cf6e115aaf44503db300f1e"",
+    ""profile_id"": ""8058d771-2d88-4f0f-ab6e-299c153d4308"",
+    ""accounts_list"": [
         {
             ""id"": ""434e1152-8eb5-4bfa-89a1-92bb1dcaf0c3"",
             ""currency"": ""BTC"",
-            ""amount"": ""0.00221897""
+            ""amount"": ""0.0022""
         },
         {
             ""id"": ""6d326768-71f2-4068-99dc-7075c78f6402"",
@@ -118,10 +118,10 @@
             ""amount"": ""1.003328032382""
         }
     ],
-    ""equityPercentage"": ""0.8744507743595747"",
-    ""totalAssetsUsd"": ""15.137057447382"",
-    ""totalLiabilitiesUsd"": ""1.9004458409934425"",
-    ""strategiesList"": [
+    ""equity_percentage"": ""0.87"",
+    ""total_assets_usd"": ""15.13"",
+    ""total_liabilities_usd"": ""1.90"",
+    ""strategies_list"": [
          {
              ""type"": """",
              ""amount"": """",
@@ -131,7 +131,7 @@
              ""orderId"": """"
          }
     ],
-    ""createdAt"": ""2020-03-30""
+    ""created_at"": ""2020-03-30""
 }";
         }
 
@@ -141,7 +141,7 @@
 [
     {
         ""event_id"": ""6d0edaf1-0c6f-11ea-a88c-0a04debd8c33"",
-        ""event_time"": ""2019-11-21T14:58:49.879Z"",
+        ""event_time"": ""2019-11-21T00:00:00.000Z"",
         ""orders"": [
             {
                 ""id"": ""6c8d0d4e-0c6f-11ea-947d-0a04debd8c33"",
@@ -169,8 +169,8 @@
         {
             return @"
 {
-    ""oneDayRenewalAmount"": ""0"",
-    ""twoDayRenewalAmount"": ""417.93""
+    ""one_day_renewal_amount"": ""0.5"",
+    ""two_day_renewal_amount"": ""417.93""
 }";
         }
     }

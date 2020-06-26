@@ -28,18 +28,18 @@ namespace CoinbasePro.Services.Margin.Models
 
         public decimal InterestPaid { get; set; }
 
-        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
+        [JsonProperty(ItemConverterType = typeof(StringEnumWithDefaultConverter))]
         public Currency[] CollateralCurrencies { get; set; }
 
-        //public string CollateralHoldValue { get; set; }
+        public decimal CollateralHoldValue { get; set; }
 
-        //public DateTime LastLiquidationAt { get; set; }
+        public DateTime LastLiquidationAt { get; set; }
 
-        //public AvailableBorrowLimits AvailableBorrowLimits { get; set; }
+        public AvailableBorrowLimits AvailableBorrowLimits { get; set; }
 
-        //public decimal BorrowLimit { get; set; }
+        public decimal BorrowLimit { get; set; }
 
-        //public TopUpAmounts TopUpAmounts { get; set; }
+        public TopUpAmounts TopUpAmounts { get; set; }
     }
 
     public class AvailableBorrowLimits
