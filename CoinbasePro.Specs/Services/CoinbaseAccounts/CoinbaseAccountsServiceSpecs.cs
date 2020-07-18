@@ -32,11 +32,11 @@ namespace CoinbasePro.Specs.Services.CoinbaseAccounts
                 result = Subject.GetAllAccountsAsync().Result;
 
             It should_have_correct_count = () =>
-                result.Count().ShouldEqual(4);
+                result.Count().ShouldEqual(5);
 
             It should_have_correct_ETH_account_information = () =>
             {
-                result.First().Id.ShouldEqual(new Guid("fc3a8a57-7142-542d-8436-95a3d82e1622"));
+                result.First().Id.ShouldEqual("fc3a8a57-7142-542d-8436-95a3d82e1622");
                 result.First().Name.ShouldEqual("ETH Wallet");
                 result.First().Balance.ShouldEqual(0.00000000M);
                 result.First().Currency.ShouldEqual(Currency.ETH);
@@ -49,7 +49,7 @@ namespace CoinbasePro.Specs.Services.CoinbaseAccounts
             {
                 var usAccount = result.Skip(1).First();
 
-                usAccount.Id.ShouldEqual(new Guid("2ae3354e-f1c3-5771-8a37-6228e9d239db"));
+                usAccount.Id.ShouldEqual("2ae3354e-f1c3-5771-8a37-6228e9d239db");
                 usAccount.Name.ShouldEqual("USD Wallet");
                 usAccount.Balance.ShouldEqual(0.00M);
                 usAccount.CoinbaseAccountType.ShouldEqual(CoinbaseAccountType.Fiat);
@@ -71,7 +71,7 @@ namespace CoinbasePro.Specs.Services.CoinbaseAccounts
             {
                 var btcAccount = result.Skip(2).First();
 
-                btcAccount.Id.ShouldEqual(new Guid("1bfad868-5223-5d3c-8a22-b5ed371e55cb"));
+                btcAccount.Id.ShouldEqual("1bfad868-5223-5d3c-8a22-b5ed371e55cb");
                 btcAccount.Name.ShouldEqual("BTC Wallet");
                 btcAccount.Balance.ShouldEqual(0.00000000M);
                 btcAccount.Currency.ShouldEqual(Currency.BTC);
@@ -82,9 +82,9 @@ namespace CoinbasePro.Specs.Services.CoinbaseAccounts
 
             It should_have_correct_EU_account_information = () =>
             {
-                var euAccount = result.Last();
+                var euAccount = result.Skip(3).First();
 
-                euAccount.Id.ShouldEqual(new Guid("2a11354e-f133-5771-8a37-622be9b239db"));
+                euAccount.Id.ShouldEqual("2a11354e-f133-5771-8a37-622be9b239db");
                 euAccount.Name.ShouldEqual("EUR Wallet");
                 euAccount.Balance.ShouldEqual(0.00M);
                 euAccount.CoinbaseAccountType.ShouldEqual(CoinbaseAccountType.Fiat);
@@ -99,6 +99,18 @@ namespace CoinbasePro.Specs.Services.CoinbaseAccounts
                 euAccount.SepaDepositInformation.AccountAddress.ShouldEqual(
                     "9th Floor, 107 Cheapside, London, EC2V 6DN, United Kingdom");
                 euAccount.SepaDepositInformation.Reference.ShouldEqual("CBAEUXOVFXOXYX");
+            };
+
+            It should_have_correct_LINK_account_information = () =>
+            {
+                var linkAccount = result.Last();
+
+                linkAccount.Id.ShouldEqual("LINK");
+                linkAccount.Name.ShouldEqual("LINK Wallet");
+                linkAccount.Balance.ShouldEqual(0.00M);
+                linkAccount.CoinbaseAccountType.ShouldEqual(CoinbaseAccountType.Wallet);
+                linkAccount.Primary.ShouldBeFalse();
+                linkAccount.Active.ShouldBeTrue();
             };
         }
     }

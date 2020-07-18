@@ -21,7 +21,7 @@ namespace CoinbasePro.Specs.Services.Fees
 
         class when_getting_current_fees
         {
-            static IEnumerable<Fee> fee_response;
+            static Fee fee_response;
 
             Establish context = () =>
                 The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
@@ -35,9 +35,9 @@ namespace CoinbasePro.Specs.Services.Fees
 
             It should_return_a_correct_response = () =>
             {
-                fee_response.First().MakerFeeRate.ShouldEqual(0.0015m);
-                fee_response.First().TakerFeeRate.ShouldEqual(0.0025m);
-                fee_response.First().UsdVolume.ShouldEqual(25000);
+                fee_response.MakerFeeRate.ShouldEqual(0.0015m);
+                fee_response.TakerFeeRate.ShouldEqual(0.0025m);
+                fee_response.UsdVolume.ShouldEqual(25000);
             };
         }
     }

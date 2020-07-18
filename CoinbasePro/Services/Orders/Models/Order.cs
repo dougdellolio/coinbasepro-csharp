@@ -18,7 +18,7 @@ namespace CoinbasePro.Services.Orders.Models
 
         public decimal? Funds { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public StopType? Stop { get; set; }

@@ -253,7 +253,7 @@ namespace CoinbasePro.WebSocket
             }
             else
             {
-                throw new CoinbaseProWebSocketException($"WebSocket Feed Error: {e.Exception.Message}")
+                throw new CoinbaseProWebSocketException($"WebSocket Feed Error: {e.Exception.Message} Please check https://status.pro.coinbase.com/ for more details as there may be an outage.")
                 {
                     WebSocketFeed = webSocketFeed,
                     StatusCode = webSocketFeed.State,

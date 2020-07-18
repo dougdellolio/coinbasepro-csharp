@@ -46,7 +46,7 @@
         ""primary"": true,
         ""active"": true
     },
-     {
+    {
         ""id"": ""2a11354e-f133-5771-8a37-622be9b239db"",
         ""name"": ""EUR Wallet"",
         ""balance"": ""0.00"",
@@ -64,6 +64,18 @@
             ""account_address"": ""9th Floor, 107 Cheapside, London, EC2V 6DN, United Kingdom"",
             ""reference"": ""CBAEUXOVFXOXYX""
         }
+    },
+    {
+        ""id"": ""LINK"",
+        ""name"": ""LINK Wallet"",
+        ""balance"": ""0.00"",
+        ""currency"": ""LINK"",
+        ""type"": ""wallet"",
+        ""primary"": false,
+        ""active"": true,
+        ""available_on_consumer"": true,
+        ""hold_balance"": ""0.00"",
+        ""hold_currency"": ""USD""
     }
 ]";
 

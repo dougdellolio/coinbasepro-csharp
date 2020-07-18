@@ -120,7 +120,7 @@ namespace CoinbasePro.Specs.Services.Orders
                     Return(Task.FromResult(OrderResponseFixture.CreateStopOrder()));
 
             Because of = () =>
-                order_response_result = Subject.PlaceStopOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, .1M).Result;
+                order_response_result = Subject.PlaceStopOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, 200M, 100M).Result;
 
             It should_send_the_correct_request = () =>
                 The<IHttpClient>().
@@ -130,42 +130,7 @@ namespace CoinbasePro.Specs.Services.Orders
             It should_have_correct_order_information = () =>
             {
                 order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
-                order_response_result.Price.ShouldEqual(0.10000000M);
-                order_response_result.Size.ShouldEqual(0.01000000M);
-                order_response_result.ProductId.ShouldEqual(ProductType.BtcUsd);
-                order_response_result.Side.ShouldEqual(OrderSide.Buy);
-                order_response_result.Stp.ShouldEqual("dc");
-                order_response_result.OrderType.ShouldEqual(OrderType.Stop);
-                order_response_result.TimeInForce.ShouldEqual(TimeInForce.Gtc);
-                order_response_result.PostOnly.ShouldBeFalse();
-                order_response_result.CreatedAt.ShouldEqual(new DateTime(2016, 12, 9));
-                order_response_result.FillFees.ShouldEqual(0.0000000000000000M);
-                order_response_result.FilledSize.ShouldEqual(0.00000000M);
-                order_response_result.ExecutedValue.ShouldEqual(0.0000000000000000M);
-                order_response_result.Status.ShouldEqual(OrderStatus.Pending);
-                order_response_result.Settled.ShouldBeFalse();
-            };
-        }
-
-        class when_placing_a_stop_limit_order
-        {
-            Establish context = () =>
-                The<IHttpClient>().
-                    WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).
-                    Return(Task.FromResult(OrderResponseFixture.CreateStopLimitOrder()));
-
-            Because of = () =>
-                order_response_result = Subject.PlaceStopLimitOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, .1M, .1M).Result;
-
-            It should_send_the_correct_request = () =>
-                The<IHttpClient>().
-                    WasToldTo(p => p.SendAsync(Param<HttpRequestMessage>.Matches(r =>
-                        r.Content.ReadAsStringAsync().Result == OrderRequestFixture.CreateStopLimitOrderRequest())));
-
-            It should_have_correct_order_information = () =>
-            {
-                order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
-                order_response_result.Price.ShouldEqual(0.10000000M);
+                order_response_result.Price.ShouldEqual(200M);
                 order_response_result.Size.ShouldEqual(0.01000000M);
                 order_response_result.ProductId.ShouldEqual(ProductType.BtcUsd);
                 order_response_result.Side.ShouldEqual(OrderSide.Buy);
@@ -173,7 +138,6 @@ namespace CoinbasePro.Specs.Services.Orders
                 order_response_result.OrderType.ShouldEqual(OrderType.Limit);
                 order_response_result.TimeInForce.ShouldEqual(TimeInForce.Gtc);
                 order_response_result.PostOnly.ShouldBeFalse();
-                order_response_result.CreatedAt.ShouldEqual(new DateTime(2016, 12, 9));
                 order_response_result.FillFees.ShouldEqual(0.0000000000000000M);
                 order_response_result.FilledSize.ShouldEqual(0.00000000M);
                 order_response_result.ExecutedValue.ShouldEqual(0.0000000000000000M);
@@ -323,6 +287,8 @@ namespace CoinbasePro.Specs.Services.Orders
                     order_many_response_result.First().First().ExecutedValue.ShouldEqual(0.0000000000000000M);
                     order_many_response_result.First().First().Status.ShouldEqual(OrderStatus.Active);
                     order_many_response_result.First().First().Settled.ShouldBeFalse();
+                    order_many_response_result.First().First().Stop.ShouldEqual(StopType.Entry);
+                    order_many_response_result.First().First().StopPrice.ShouldEqual(100.0M);
 
                     order_many_response_result.First().Skip(1).First().Id.ShouldEqual(new Guid("8b99b139-58f2-4ab2-8e7a-c11c846e3022"));
                     order_many_response_result.First().Skip(1).First().Price.ShouldEqual(0.10000000M);

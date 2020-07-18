@@ -36,7 +36,7 @@ namespace CoinbasePro.Specs.Services.Payments
 
             It should_have_correct_payment_methods = () =>
             {
-                payment_methods.First().Id.ShouldEqual(new Guid("bc6d7162-d984-5ffa-963c-a493b1c1370b"));
+                payment_methods.First().Id.ShouldEqual("bc6d7162-d984-5ffa-963c-a493b1c1370b");
                 payment_methods.First().Name.ShouldEqual("Bank of America - eBan... ********7134");
                 payment_methods.First().Currency.ShouldEqual(Currency.USD);
                 payment_methods.First().AllowBuy.ShouldBeTrue();

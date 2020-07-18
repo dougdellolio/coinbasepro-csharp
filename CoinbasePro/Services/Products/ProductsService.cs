@@ -34,10 +34,10 @@ namespace CoinbasePro.Services.Products
         }
 
         public async Task<ProductsOrderBookResponse> GetProductOrderBookAsync(
-			ProductType productId,
-			ProductLevel productLevel = ProductLevel.One)
+            ProductType productId,
+            ProductLevel productLevel = ProductLevel.One)
         {
-            var productsOrderBookJsonResponse = await SendServiceCall<ProductsOrderBookJsonResponse>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/book/?level={(int) productLevel}").ConfigureAwait(false);
+            var productsOrderBookJsonResponse = await SendServiceCall<ProductsOrderBookJsonResponse>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/book/?level={(int)productLevel}").ConfigureAwait(false);
             var productOrderBookResponse = ConvertProductOrderBookResponse(productsOrderBookJsonResponse, productLevel);
 
             return productOrderBookResponse;
@@ -64,10 +64,10 @@ namespace CoinbasePro.Services.Products
         }
 
         public async Task<IList<Candle>> GetHistoricRatesAsync(
-			ProductType productPair,
-			DateTime start,
-			DateTime end,
-			CandleGranularity granularity)
+            ProductType productPair,
+            DateTime start,
+            DateTime end,
+            CandleGranularity granularity)
         {
             const int maxPeriods = 300;
 
@@ -77,22 +77,32 @@ namespace CoinbasePro.Services.Products
             DateTime batchStart;
 
             var maxBatchPeriod = (int)granularity * maxPeriods;
+            var requests = 0;
 
             do
             {
-                if (batchEnd == null) {
+                if (batchEnd == null)
+                {
                     break;
                 }
 
                 batchStart = batchEnd.Value.AddSeconds(-maxBatchPeriod);
                 if (batchStart < start) batchStart = start;
 
+
+                if (requests >= 3)
+                {
+                    await Task.Delay(1000);
+                    requests = 0;
+                }
                 candleList.AddRange(await GetHistoricRatesAsync(productPair, batchStart, batchEnd.Value, (int)granularity));
+                requests++;
 
                 var previousBatchEnd = batchEnd;
                 batchEnd = candleList.LastOrDefault()?.Time;
 
-                if (previousBatchEnd == batchEnd) {
+                if (previousBatchEnd == batchEnd)
+                {
                     break;
                 }
             } while (batchStart > start);
@@ -101,10 +111,10 @@ namespace CoinbasePro.Services.Products
         }
 
         private async Task<IList<Candle>> GetHistoricRatesAsync(
-			ProductType productId,
-			DateTime start,
-			DateTime end,
-			int granularity)
+            ProductType productId,
+            DateTime start,
+            DateTime end,
+            int granularity)
         {
             var isoStart = start.ToString("s");
             var isoEnd = end.ToString("s");

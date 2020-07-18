@@ -50,5 +50,10 @@ namespace CoinbasePro.Services.Orders.Models.Responses
         public bool Settled { get; set; }
 
         public decimal SpecifiedFunds { get; set; }
+
+        public decimal StopPrice { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public StopType Stop { get; set; }
     }
 }

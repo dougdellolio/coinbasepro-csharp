@@ -6,14 +6,15 @@
     <RepositoryUrl>git://github.com/dougdellolio/coinbasepro-csharp</RepositoryUrl>
     <Authors>Doug Dellolio</Authors>
     <LangVersion>latest</LangVersion>
-    <Version>1.0.30</Version>
+    <Version>1.0.37</Version>
     <PackageId>GDAX.Api.ClientLibrary</PackageId>
     <Description>The unofficial .NET/C# client for the Coinbase Pro / GDAX API</Description>
     <PackageLicenseUrl>https://github.com/dougdellolio/coinbasepro-csharp/blob/master/LICENSE</PackageLicenseUrl>
-    <Copyright>Copyright 2019</Copyright>
+    <Copyright>Copyright 2020</Copyright>
     <PackageProjectUrl>https://github.com/dougdellolio/coinbasepro-csharp</PackageProjectUrl>
     <PackageTags>coinbase pro gdax c# client library api coinbase rest ethereum bitcoin coinbasepro</PackageTags>
-    <PackageReleaseNotes>Coinbase Pro API C# Client Library</PackageReleaseNotes>    
+    <PackageReleaseNotes>Coinbase Pro API C# Client Library</PackageReleaseNotes>
+    <PackageIcon>coinbasepro.jpg</PackageIcon>    
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,6 +34,13 @@
 
   <ItemGroup>
     <Folder Include="Services\Reports\Models\Responses\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\coinbasepro.jpg">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

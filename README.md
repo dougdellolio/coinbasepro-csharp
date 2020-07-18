@@ -1,10 +1,15 @@
-# coinbasepro-csharp
-Coinbase Pro API C# Client Library - https://docs.pro.coinbase.com/
+<h1 align="center">coinbasepro-csharp</h1>
+
+<div align="center">
+
+https://docs.pro.coinbase.com/
 
 
 [![Build status](https://ci.appveyor.com/api/projects/status/mdn0y9cu7dqsambv/branch/master?svg=true)](https://ci.appveyor.com/project/dougdellolio/coinbasepro-csharp/branch/master)
 [![NuGet](https://img.shields.io/nuget/v/GDAX.Api.ClientLibrary.svg)](https://www.nuget.org/packages/GDAX.Api.ClientLibrary/)
 [![NuGet](https://img.shields.io/nuget/dt/GDAX.Api.ClientLibrary.svg)](https://www.nuget.org/packages/GDAX.Api.ClientLibrary/)
+
+</div>
 <h1>How to Install</h1>
 
 `PM> Install-Package GDAX.Api.ClientLibrary`
@@ -39,8 +44,7 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 - PlaceMarketOrderAsync(orderSide, productPair, amount, MarketOrderAmountType, clientOId) - place market order by size or funds
 - PlaceLimitOrderAsync(orderSide, productPair, size, price, timeInForce, postOnly, clientOId) - place limit order with time in force
 - PlaceLimitOrderAsync(orderSide, productPair, size, price, cancelAfter, postOnly, clientOId) - place limit order with cancel after date
-- PlaceStopOrderAsync(orderSide, productPair, size, stopPrice, clientOId) - place stop order with stop price
-- PlaceStopLimitOrderAsync(orderSide, productPair, size, stopPrice, limitPrice, postOnly, clientOId) - place stop limit order
+- PlaceStopOrderAsync(orderSide, productPair, size, limitPrice, stopPrice, clientOId) - place stop order with stop and limit price
 - CancelAllOrdersAsync() - cancel all orders
 - CancelOrderByIdAsync(id) - cancel order by id
 - GetAllOrdersAsync(orderStatus, limit, numberOfPages) - get all, active or pending orders (paged response)
@@ -91,6 +95,11 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 
 ###### Stablecoin Conversions ######
 - CreateConversion(currencyFrom, currencyTo, amount) - convert bank-based dollars to blockchain-based digital dollars
+
+###### Profiles ######
+- GetAllProfilesAsync() - list your profiles
+- GetProfileByIdAsync(id) - get a single profile by profile id
+- CreateProfileTransferAsync(from, to, currency, amount) - transfer funds from API key’s profile to another user owned profile
 
 <h1>Websocket Feed</h1>
 <h2>How to use with authentication</h2>
@@ -288,6 +297,9 @@ Thanks for contributing!
 - @BraveSirAndrew
 - @alexhiggins732
 - @kudobyte
+- @mailgerigk
+- @joshua211
+- @nscheibe
 
 <h1>Bugs or questions?</h1>
 

@@ -8,7 +8,7 @@ namespace CoinbasePro.Services.Payments.Models
 {
     public class PaymentMethod
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         [JsonProperty("type")]
         public string PaymentMethodType { get; set; }
