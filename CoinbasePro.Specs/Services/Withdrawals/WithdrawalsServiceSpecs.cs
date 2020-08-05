@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Services.Withdrawals;
+using CoinbasePro.Services.Withdrawals.Models;
 using CoinbasePro.Services.Withdrawals.Models.Responses;
 using CoinbasePro.Shared.Types;
 using CoinbasePro.Specs.JsonFixtures.Withdrawals;
@@ -80,6 +83,49 @@ namespace CoinbasePro.Specs.Services.Withdrawals
                 crypto_response.Id.ShouldNotBeTheSameAs(Guid.Empty);
                 crypto_response.Amount.ShouldEqual(10.00M);
                 crypto_response.Currency.ShouldEqual(Currency.BTC);
+            };
+        }
+
+        class when_requesting_all_withdrawals
+        {
+            static IEnumerable<Transfer> all_withdrawals_response;
+
+            Establish context = () =>
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).Return(Task.FromResult(CryptoWithdrawalResponseFixture.CreateAll()));
+
+            Because of = () =>
+                all_withdrawals_response = Subject.GetAllWithdrawals().Result;
+
+            It should_return_a_response = () =>
+                all_withdrawals_response.ShouldNotBeNull();
+
+            It should_return_a_correct_response = () =>
+            {
+                all_withdrawals_response.Count().ShouldEqual(1);
+                all_withdrawals_response.First().Id.ShouldEqual(new Guid("6b09bf5e-c94c-405b-b7dc-ad2b27749ce5"));
+                all_withdrawals_response.First().Amount.ShouldEqual(22.00M);
+                all_withdrawals_response.First().Details.DestinationTag.ShouldEqual("567148403");
+            };
+        }
+
+        class when_requesting_withdrawal_by_transfer_id
+        {
+            static Transfer withdrawal_response;
+
+            Establish context = () =>
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).Return(Task.FromResult(CryptoWithdrawalResponseFixture.CreateTransferById()));
+
+            Because of = () =>
+                withdrawal_response = Subject.GetWithdrawalById("1").Result;
+
+            It should_return_a_response = () =>
+                withdrawal_response.ShouldNotBeNull();
+
+            It should_return_a_correct_response = () =>
+            {
+                withdrawal_response.Id.ShouldEqual(new Guid("6b09bf5e-c94c-405b-b7dc-ad2b27749ce5"));
+                withdrawal_response.Amount.ShouldEqual(22.00M);
+                withdrawal_response.Details.DestinationTag.ShouldEqual("567148403");
             };
         }
     }

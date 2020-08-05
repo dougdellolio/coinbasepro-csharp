@@ -12,5 +12,9 @@ namespace CoinbasePro.Services.Withdrawals.Models
         public Currency Currency { get; set; }
 
         public string CryptoAddress { get; set; }
+
+        public string DestinationTag { get; set; }
+
+        public bool NoDestinationTag { get; set; }
     }
 }
