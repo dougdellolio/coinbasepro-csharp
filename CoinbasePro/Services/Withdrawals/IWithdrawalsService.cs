@@ -32,6 +32,5 @@ namespace CoinbasePro.Services.Withdrawals
             int limit = 100);
 
         Task<Transfer> GetWithdrawalById(string transferId);
-
     }
 }

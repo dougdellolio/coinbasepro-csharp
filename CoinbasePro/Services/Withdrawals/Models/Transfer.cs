@@ -27,7 +27,7 @@ namespace CoinbasePro.Services.Withdrawals.Models
         public Details Details { get; set; }
     }
 
-    public partial class Details
+    public class Details
     {
         public string DestinationTag { get; set; }
 
