@@ -57,7 +57,9 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 ###### Withdrawals ######
 - WithdrawFundsAsync(paymentMethodId, amount, currency) - withdraw funds to a payment method
 - WithdrawToCoinbaseAsync(coinbaseAccountId, amount, currency) - withdraw funds to a coinbase account
-- WithdrawToCryptoAsync(cryptoAddress, amount, currency) - withdraw funds to a crypto address
+- WithdrawToCryptoAsync(cryptoAddress, amount, currency, destinationTag) - withdraw funds to a crypto address
+- GetAllWithdrawals(profileId, before, after, limit) - list of withdrawals from the profile of the API key, in descending order by created time
+- GetWithdrawalById(transferId) - get information on a single withdrawal
 
 ###### Deposits ######
 - DepositFundsAsync(paymentMethodId, amount, currency) - deposits funds from a payment method
