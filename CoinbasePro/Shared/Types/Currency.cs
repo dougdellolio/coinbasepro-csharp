@@ -35,6 +35,7 @@
         ATOM,
         OMG,
         KNC,
-        COMP
+        COMP,
+        BAND
     }
 }

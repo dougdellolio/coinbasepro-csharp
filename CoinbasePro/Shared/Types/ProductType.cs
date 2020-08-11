@@ -155,6 +155,14 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "COMP-BTC")]
         CompBtc,
         [EnumMember(Value = "COMP-USD")]
-        CompUsd
+        CompUsd,
+        [EnumMember(Value = "BAND-USD")]
+        BandUsd,
+        [EnumMember(Value = "BAND-EUR")]
+        BandEur,
+        [EnumMember(Value = "BAND-GBP")]
+        BandGbp,
+        [EnumMember(Value = "BAND-BTC")]
+        BandBtc
     }
 }
