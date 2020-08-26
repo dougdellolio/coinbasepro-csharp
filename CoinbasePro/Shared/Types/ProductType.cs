@@ -163,6 +163,22 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "BAND-GBP")]
         BandGbp,
         [EnumMember(Value = "BAND-BTC")]
-        BandBtc
+        BandBtc,
+        [EnumMember(Value = "CELO-USD")]
+        CeloUsd,
+        [EnumMember(Value = "CELO-BTC")]
+        CeloBtc,
+        [EnumMember(Value = "CELO-EUR")]
+        CeloEur,
+        [EnumMember(Value = "CELO-GBP")]
+        CeloGbp,
+        [EnumMember(Value = "NMR-USD")]
+        NmrUsd,
+        [EnumMember(Value = "NMR-EUR")]
+        NmrEur,
+        [EnumMember(Value = "NMR-GBP")]
+        NmrGbp,
+        [EnumMember(Value = "NMR-BTC")]
+        NmrBtc
     }
 }

@@ -36,6 +36,8 @@
         OMG,
         KNC,
         COMP,
-        BAND
+        BAND,
+        CELO,
+        NMR
     }
 }
