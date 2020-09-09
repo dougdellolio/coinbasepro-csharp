@@ -179,6 +179,10 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "NMR-GBP")]
         NmrGbp,
         [EnumMember(Value = "NMR-BTC")]
-        NmrBtc
+        NmrBtc,
+        [EnumMember(Value = "UMA-USD")]
+        UmaUsd,
+        [EnumMember(Value = "UMA-BTC")]
+        UmaBtc
     }
 }

@@ -38,6 +38,7 @@
         COMP,
         BAND,
         CELO,
-        NMR
+        NMR,
+        UMA
     }
 }
