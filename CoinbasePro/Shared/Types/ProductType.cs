@@ -183,6 +183,10 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "UMA-USD")]
         UmaUsd,
         [EnumMember(Value = "UMA-BTC")]
-        UmaBtc
+        UmaBtc,
+        [EnumMember(Value = "UMA-EUR")]
+        UmaEur,
+        [EnumMember(Value = "UMA-GBP")]
+        UmaGbp
     }
 }
