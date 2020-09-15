@@ -39,6 +39,8 @@
         BAND,
         CELO,
         NMR,
-        UMA
+        UMA,
+        LRC,
+        YFI
     }
 }
