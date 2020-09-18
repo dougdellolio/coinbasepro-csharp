@@ -191,6 +191,8 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "LRC-USD")]
         LrcUsd,
         [EnumMember(Value = "YFI-USD")]
-        YfiUsd
+        YfiUsd,
+        [EnumMember(Value = "UNI-USD")]
+        UniUsd
     }
 }

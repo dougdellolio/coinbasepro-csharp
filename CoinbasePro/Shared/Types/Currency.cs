@@ -41,6 +41,7 @@
         NMR,
         UMA,
         LRC,
-        YFI
+        YFI,
+        UNI
     }
 }
