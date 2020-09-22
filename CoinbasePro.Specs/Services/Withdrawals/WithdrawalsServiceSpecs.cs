@@ -128,5 +128,22 @@ namespace CoinbasePro.Specs.Services.Withdrawals
                 withdrawal_response.Details.DestinationTag.ShouldEqual("567148403");
             };
         }
+
+        class when_requesting_withdrawal_fee_estimate
+        {
+            static FeeEstimateResponse response;
+
+            Establish context = () =>
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>())).Return(Task.FromResult(CryptoWithdrawalResponseFixture.GetFeeEstimateResponse()));
+
+            Because of = () =>
+                response = Subject.GetFeeEstimateAsync(Currency.ALGO, "crypto_address_123").Result;
+
+            It should_return_a_response = () =>
+                response.ShouldNotBeNull();
+
+            It should_return_a_correct_response = () =>
+                response.Fee.ShouldEqual(0.01);
+        }
     }
 }

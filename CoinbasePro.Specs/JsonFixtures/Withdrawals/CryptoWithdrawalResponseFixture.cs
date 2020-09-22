@@ -72,5 +72,15 @@
 
             return json;
         }
+
+        public static string GetFeeEstimateResponse()
+        {
+            var json = @"
+{
+    ""fee"":"".01""
+}";
+
+            return json;
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -9,6 +8,7 @@ using CoinbasePro.Services.Withdrawals.Models;
 using CoinbasePro.Services.Withdrawals.Models.Responses;
 using CoinbasePro.Shared.Types;
 using CoinbasePro.Shared.Utilities;
+using CoinbasePro.Shared.Utilities.Extensions;
 using CoinbasePro.Shared.Utilities.Queries;
 
 namespace CoinbasePro.Services.Withdrawals
@@ -99,6 +99,17 @@ namespace CoinbasePro.Services.Withdrawals
             };
 
             return await SendServiceCall<CryptoResponse>(HttpMethod.Post, "/withdrawals/crypto", JsonConfig.SerializeObject(newCryptoWithdrawal)).ConfigureAwait(false);
+        }
+
+        public async Task<FeeEstimateResponse> GetFeeEstimateAsync(
+            Currency currency,
+            string cryptoAddress)
+        {
+            var queryString = queryBuilder.BuildQuery(
+               new KeyValuePair<string, string>("currency", currency.ToString()),
+               new KeyValuePair<string, string>("crypto_address", cryptoAddress));
+
+            return await SendServiceCall<FeeEstimateResponse>(HttpMethod.Get, "/withdrawals/fee-estimate" + queryString).ConfigureAwait(false);
         }
     }
 }
