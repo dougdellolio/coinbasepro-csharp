@@ -42,6 +42,8 @@
         UMA,
         LRC,
         YFI,
-        UNI
+        UNI,
+        BAL,
+        REN
     }
 }

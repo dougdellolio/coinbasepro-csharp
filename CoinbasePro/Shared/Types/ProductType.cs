@@ -193,6 +193,14 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "YFI-USD")]
         YfiUsd,
         [EnumMember(Value = "UNI-USD")]
-        UniUsd
+        UniUsd,
+        [EnumMember(Value = "BAL-USD")]
+        BalUsd,
+        [EnumMember(Value = "BAL-BTC")]
+        BalBtc,
+        [EnumMember(Value = "REN-USD")]
+        RenUsd,
+        [EnumMember(Value = "REN-BTC")]
+        RenBtc
     }
 }
