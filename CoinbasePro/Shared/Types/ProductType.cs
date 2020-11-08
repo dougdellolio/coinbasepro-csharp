@@ -68,6 +68,8 @@ namespace CoinbasePro.Shared.Types
         LoomUsdc,
         [EnumMember(Value = "GNT-USDC")]
         GntUsdc,
+        [EnumMember(Value = "DAI-USD")]
+        DaiUsd,
         [EnumMember(Value = "DAI-USDC")]
         DaiUsdc,
         [EnumMember(Value = "MKR-USD")]
@@ -201,6 +203,18 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "REN-USD")]
         RenUsd,
         [EnumMember(Value = "REN-BTC")]
-        RenBtc
+        RenBtc,
+        [EnumMember(Value = "CGLD-BTC")]
+        CgldBtc,
+        [EnumMember(Value = "CGLD-USD")]
+        CgldUsd,
+        [EnumMember(Value = "CGLD-EUR")]
+        CgldEur,
+        [EnumMember(Value = "CGLD-GBP")]
+        CgldGbp,
+        [EnumMember(Value = "WBTC-BTC")]
+        WbtcBtc,
+        [EnumMember(Value = "WBTC-USD")]
+        WbtcUsd
     }
 }
