@@ -76,8 +76,6 @@ namespace CoinbasePro.Shared.Types
         MkrUsd,
         [EnumMember(Value = "MKR-BTC")]
         MkrBtc,
-        [EnumMember(Value = "ZIL-USDC")]
-        ZilUsdc,
         [EnumMember(Value = "XRP-EUR")]
         XrpEur,
         [EnumMember(Value = "XRP-BTC")]
@@ -108,8 +106,6 @@ namespace CoinbasePro.Shared.Types
         EosBtc,
         [EnumMember(Value = "REP-USD")]
         RepUsd,
-        [EnumMember(Value = "REP-EUR")]
-        RepEur,
         [EnumMember(Value = "REP-BTC")]
         RepBtc,
         [EnumMember(Value = "ALGO-USD")]
@@ -166,14 +162,6 @@ namespace CoinbasePro.Shared.Types
         BandGbp,
         [EnumMember(Value = "BAND-BTC")]
         BandBtc,
-        [EnumMember(Value = "CELO-USD")]
-        CeloUsd,
-        [EnumMember(Value = "CELO-BTC")]
-        CeloBtc,
-        [EnumMember(Value = "CELO-EUR")]
-        CeloEur,
-        [EnumMember(Value = "CELO-GBP")]
-        CeloGbp,
         [EnumMember(Value = "NMR-USD")]
         NmrUsd,
         [EnumMember(Value = "NMR-EUR")]
