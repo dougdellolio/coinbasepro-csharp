@@ -44,6 +44,8 @@
         YFI,
         UNI,
         BAL,
-        REN
+        REN,
+        CGLD,
+        WBTC
     }
 }
