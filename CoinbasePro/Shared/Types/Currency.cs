@@ -44,6 +44,7 @@
         BAL,
         REN,
         CGLD,
-        WBTC
+        WBTC,
+        NU
     }
 }

@@ -203,6 +203,14 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "WBTC-BTC")]
         WbtcBtc,
         [EnumMember(Value = "WBTC-USD")]
-        WbtcUsd
+        WbtcUsd,
+        [EnumMember(Value = "NU-USD")]
+        NuUsd,
+        [EnumMember(Value = "NU-EUR")]
+        NuEur,
+        [EnumMember(Value = "NU-GBP")]
+        NuGbp,
+        [EnumMember(Value = "NU-BTC")]
+        NuBtc
     }
 }
