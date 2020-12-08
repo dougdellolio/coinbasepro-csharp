@@ -58,6 +58,10 @@ namespace CoinbasePro.Shared.Types
         BatUsdc,
         [EnumMember(Value = "ZEC-USDC")]
         ZecUsdc,
+        [EnumMember(Value = "ZEC-BTC")]
+        ZecBtc,
+        [EnumMember(Value = "ZEC-USD")]
+        ZecUsd,
         [EnumMember(Value = "MANA-USDC")]
         ManaUsdc,
         [EnumMember(Value = "DNT-USDC")]
@@ -114,10 +118,14 @@ namespace CoinbasePro.Shared.Types
         AlgoEur,
         [EnumMember(Value = "ALGO-GBP")]
         AlgoGbp,
+        [EnumMember(Value = "ALGO-BTC")]
+        AlgoBtc,
         [EnumMember(Value = "BAT-ETH")]
         BatEth,
         [EnumMember(Value = "ETH-DAI")]
         EthDai,
+        [EnumMember(Value = "LINK-BTC")]
+        LinkBtc,
         [EnumMember(Value = "LINK-ETH")]
         LinkEth,
         [EnumMember(Value = "LINK-USD")]
@@ -126,8 +134,6 @@ namespace CoinbasePro.Shared.Types
         LinkEur,
         [EnumMember(Value = "LINK-GBP")]
         LinkGbp,
-        [EnumMember(Value = "ZEC-BTC")]
-        ZecBtc,
         [EnumMember(Value = "DASH-USD")]
         DashUsd,
         [EnumMember(Value = "DASH-BTC")]
@@ -180,10 +186,16 @@ namespace CoinbasePro.Shared.Types
         UmaGbp,
         [EnumMember(Value = "LRC-USD")]
         LrcUsd,
+        [EnumMember(Value = "LRC-BTC")]
+        LrcBtc,
         [EnumMember(Value = "YFI-USD")]
         YfiUsd,
+        [EnumMember(Value = "YFI-BTC")]
+        YfiBtc,
         [EnumMember(Value = "UNI-USD")]
         UniUsd,
+        [EnumMember(Value = "UNI-BTC")]
+        UniBtc,
         [EnumMember(Value = "BAL-USD")]
         BalUsd,
         [EnumMember(Value = "BAL-BTC")]
