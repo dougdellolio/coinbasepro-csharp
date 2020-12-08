@@ -45,6 +45,7 @@
         REN,
         CGLD,
         WBTC,
-        NU
+        NU,
+        FIL
     }
 }

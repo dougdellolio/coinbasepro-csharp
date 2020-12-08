@@ -211,6 +211,14 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "NU-GBP")]
         NuGbp,
         [EnumMember(Value = "NU-BTC")]
-        NuBtc
+        NuBtc,
+        [EnumMember(Value = "FIL-USD")]
+        FilUsd,
+        [EnumMember(Value = "FIL-EUR")]
+        FilEur,
+        [EnumMember(Value = "FIL-GBP")]
+        FilGbp,
+        [EnumMember(Value = "FIL-BTC")]
+        FilBtc
     }
 }
