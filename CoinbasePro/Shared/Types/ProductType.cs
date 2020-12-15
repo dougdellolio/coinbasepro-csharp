@@ -231,6 +231,30 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "FIL-GBP")]
         FilGbp,
         [EnumMember(Value = "FIL-BTC")]
-        FilBtc
+        FilBtc,
+        [EnumMember(Value = "AAVE-USD")]
+        AaveUsd,
+        [EnumMember(Value = "AAVE-BTC")]
+        AaveBtc,
+        [EnumMember(Value = "AAVE-EUR")]
+        AaveEur,
+        [EnumMember(Value = "AAVE-GBP")]
+        AaveGbp,
+        [EnumMember(Value = "BNT-USD")]
+        BntUsd,
+        [EnumMember(Value = "BNT-BTC")]
+        BntBtc,
+        [EnumMember(Value = "BNT-EUR")]
+        BntEur,
+        [EnumMember(Value = "BNT-GBP")]
+        BntGbp,
+        [EnumMember(Value = "SNX-USD")]
+        SnxUsd,
+        [EnumMember(Value = "SNX-BTC")]
+        SnxBtc,
+        [EnumMember(Value = "SNX-EUR")]
+        SnxEur,
+        [EnumMember(Value = "SNX-GBP")]
+        SnxGbp
     }
 }

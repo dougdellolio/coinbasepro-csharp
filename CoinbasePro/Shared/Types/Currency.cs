@@ -46,6 +46,9 @@
         CGLD,
         WBTC,
         NU,
-        FIL
+        FIL,
+        AAVE,
+        BNT,
+        SNX
     }
 }
