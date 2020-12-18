@@ -49,6 +49,7 @@
         FIL,
         AAVE,
         BNT,
-        SNX
+        SNX,
+        GRT
     }
 }

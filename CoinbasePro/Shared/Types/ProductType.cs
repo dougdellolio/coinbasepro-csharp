@@ -255,6 +255,14 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "SNX-EUR")]
         SnxEur,
         [EnumMember(Value = "SNX-GBP")]
-        SnxGbp
+        SnxGbp,
+        [EnumMember(Value = "GRT-USD")]
+        GrtUsd,
+        [EnumMember(Value = "GRT-BTC")]
+        GrtBtc,
+        [EnumMember(Value = "GRT-EUR")]
+        GrtEur,
+        [EnumMember(Value = "GRT-GBP")]
+        GrtGbp
     }
 }
