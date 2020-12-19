@@ -43,6 +43,11 @@ namespace CoinbasePro.Services.Products
             return productOrderBookResponse;
         }
 
+        public async Task<Product> GetSingleProductAsync(ProductType productId)
+        {
+            return await SendServiceCall<Product>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}");
+        }
+
         public async Task<ProductTicker> GetProductTickerAsync(ProductType productId)
         {
             return await SendServiceCall<ProductTicker>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/ticker").ConfigureAwait(false);

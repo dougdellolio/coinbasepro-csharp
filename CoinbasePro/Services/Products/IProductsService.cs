@@ -12,6 +12,8 @@ namespace CoinbasePro.Services.Products
     {
         Task<IEnumerable<Product>> GetAllProductsAsync();
 
+        Task<Product> GetSingleProductAsync(ProductType productId);
+
         Task<ProductsOrderBookResponse> GetProductOrderBookAsync(
             ProductType productId,
             ProductLevel productLevel = ProductLevel.One);

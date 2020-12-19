@@ -68,6 +68,7 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 
 ###### Products ######
 - GetAllProductsAsync() - get a list of available currency pairs for trading
+- GetSingleProductAsync(productType) - get market data for a specific currency pair
 - GetProductOrderBookAsync(productType, productLevel) - get a list of open orders for a product (specify level 1, 2, or 3)
 - GetProductTickerAsync(productType) - get information about the last trade (tick), best bid/ask and 24h volume
 - GetTradesAsync(productType, limit, numberOfPages) - get latest trades for a product (paged response)

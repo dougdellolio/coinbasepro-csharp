@@ -15,6 +15,8 @@ namespace CoinbasePro.Services.Products.Models
         [JsonConverter(typeof(StringEnumWithDefaultConverter))]
         public Currency QuoteCurrency { get; set; }
 
+        public string DisplayName { get; set; }
+
         public decimal BaseMinSize { get; set; }
 
         public decimal BaseMaxSize { get; set; }
