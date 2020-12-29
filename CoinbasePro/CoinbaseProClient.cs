@@ -54,7 +54,7 @@ namespace CoinbasePro
             OrdersService = new OrdersService(httpClient, httpRequestMessageService, queryBuilder);
             PaymentsService = new PaymentsService(httpClient, httpRequestMessageService);
             WithdrawalsService = new WithdrawalsService(httpClient, httpRequestMessageService, queryBuilder);
-            DepositsService = new DepositsService(httpClient, httpRequestMessageService);
+            DepositsService = new DepositsService(httpClient, httpRequestMessageService, queryBuilder);
             ProductsService = new ProductsService(httpClient, httpRequestMessageService, queryBuilder);
             CurrenciesService = new CurrenciesService(httpClient, httpRequestMessageService);
             FillsService = new FillsService(httpClient, httpRequestMessageService);

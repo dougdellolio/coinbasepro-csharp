@@ -63,8 +63,11 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 - GetFeeEstimateAsync(currency, cryptoAddress) - gets the network fee estimate when sending to the given address
 
 ###### Deposits ######
+- GetAllDeposits(profileId, before, after, limit) - list of deposits from the profile of the API key, in descending order by created time
+- GetDepositById(transferId) - get information on a single deposit.
 - DepositFundsAsync(paymentMethodId, amount, currency) - deposits funds from a payment method
 - DepositCoinbaseFundsAsync(coinbaseAccountId, amount, currency) - deposits funds from a coinbase account
+- GenerateCryptoDepositAddressAsync(string coinbaseAccountId) - generate an address for crypto deposits
 
 ###### Products ######
 - GetAllProductsAsync() - get a list of available currency pairs for trading

@@ -8,7 +8,6 @@ using CoinbasePro.Services.Withdrawals.Models;
 using CoinbasePro.Services.Withdrawals.Models.Responses;
 using CoinbasePro.Shared.Types;
 using CoinbasePro.Shared.Utilities;
-using CoinbasePro.Shared.Utilities.Extensions;
 using CoinbasePro.Shared.Utilities.Queries;
 
 namespace CoinbasePro.Services.Withdrawals
