@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Services.Deposits;
 using CoinbasePro.Services.Deposits.Models.Responses;
-using CoinbasePro.Services.Withdrawals.Models.Responses;
 using CoinbasePro.Shared.Types;
 using CoinbasePro.Specs.JsonFixtures.Services.Deposits;
 using Machine.Fakes;

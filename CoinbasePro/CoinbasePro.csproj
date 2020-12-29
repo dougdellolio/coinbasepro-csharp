@@ -6,11 +6,11 @@
     <RepositoryUrl>git://github.com/dougdellolio/coinbasepro-csharp</RepositoryUrl>
     <Authors>Doug Dellolio</Authors>
     <LangVersion>latest</LangVersion>
-    <Version>1.0.42</Version>
+    <Version>1.0.43</Version>
     <PackageId>GDAX.Api.ClientLibrary</PackageId>
     <Description>The unofficial .NET/C# client for the Coinbase Pro / GDAX API</Description>
     <PackageLicenseUrl>https://github.com/dougdellolio/coinbasepro-csharp/blob/master/LICENSE</PackageLicenseUrl>
-    <Copyright>Copyright 2020</Copyright>
+    <Copyright>Copyright 2021</Copyright>
     <PackageProjectUrl>https://github.com/dougdellolio/coinbasepro-csharp</PackageProjectUrl>
     <PackageTags>coinbase pro gdax c# client library api coinbase rest ethereum bitcoin coinbasepro</PackageTags>
     <PackageReleaseNotes>Coinbase Pro API C# Client Library</PackageReleaseNotes>
