@@ -44,5 +44,9 @@ namespace CoinbasePro.Services.Withdrawals.Models
         public string CryptoTransactionHash { get; set; }
 
         public string CoinbasePaymentMethodId { get; set; }
+
+        public decimal Fee { get; set; }
+
+        public decimal Subtotal { get; set; }
     }
 }

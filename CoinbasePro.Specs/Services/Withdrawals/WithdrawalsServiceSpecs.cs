@@ -105,6 +105,8 @@ namespace CoinbasePro.Specs.Services.Withdrawals
                 all_withdrawals_response.First().Id.ShouldEqual(new Guid("6b09bf5e-c94c-405b-b7dc-ad2b27749ce5"));
                 all_withdrawals_response.First().Amount.ShouldEqual(22.00M);
                 all_withdrawals_response.First().Details.DestinationTag.ShouldEqual("567148403");
+                all_withdrawals_response.First().Details.Fee.ShouldEqual(.01M);
+                all_withdrawals_response.First().Details.Subtotal.ShouldEqual(22.0M);
             };
         }
 
@@ -126,6 +128,8 @@ namespace CoinbasePro.Specs.Services.Withdrawals
                 withdrawal_response.Id.ShouldEqual(new Guid("6b09bf5e-c94c-405b-b7dc-ad2b27749ce5"));
                 withdrawal_response.Amount.ShouldEqual(22.00M);
                 withdrawal_response.Details.DestinationTag.ShouldEqual("567148403");
+                withdrawal_response.Details.Fee.ShouldEqual(.01M);
+                withdrawal_response.Details.Subtotal.ShouldEqual(22.0M);
             };
         }
 

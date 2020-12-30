@@ -37,6 +37,8 @@
       ""coinbase_withdrawal_id"": ""935107c5-b443-4cf4-b9ef-e49f856c4de8"",
       ""coinbase_transaction_id"": ""5eeace0cfe2410af68891bcb"",
       ""crypto_transaction_hash"": ""217AF4782DFB632121F1EAEF33DBAEC0539A77E5CBFCBA4AA71925ADB2B15D13"",
+      ""fee"": "".01"",
+      ""subtotal"": ""22.00"",
       ""coinbase_payment_method_id"": """" }
     }
 ]";
@@ -66,6 +68,8 @@
       ""coinbase_withdrawal_id"": ""935107c5-b443-4cf4-b9ef-e49f856c4de8"",
       ""coinbase_transaction_id"": ""5eeace0cfe2410af68891bcb"",
       ""crypto_transaction_hash"": ""217AF4782DFB632121F1EAEF33DBAEC0539A77E5CBFCBA4AA71925ADB2B15D13"",
+      ""fee"": "".01"",
+      ""subtotal"": ""22.00"",
       ""coinbase_payment_method_id"": """"
     }
 }";
