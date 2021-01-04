@@ -237,7 +237,10 @@ namespace CoinbasePro.Specs.Services.Products
                 product_stats_result.Open.ShouldEqual(34.19000000M);
                 product_stats_result.High.ShouldEqual(95.70000000M);
                 product_stats_result.Low.ShouldEqual(7.06000000M);
+                product_stats_result.Last.ShouldEqual(6813.19M);
                 product_stats_result.Volume.ShouldEqual(2.41000000M);
+                product_stats_result.Last.ShouldEqual(6813.19000000M);
+                product_stats_result.Volume30Day.ShouldEqual(1019451.11188405M);
             };
         }
 

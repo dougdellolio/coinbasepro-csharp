@@ -2,6 +2,7 @@
 using CoinbasePro.Services.CoinbaseAccounts;
 using CoinbasePro.Services.Currencies;
 using CoinbasePro.Services.Deposits;
+using CoinbasePro.Services.Fees;
 using CoinbasePro.Services.Fills;
 using CoinbasePro.Services.Fundings;
 using CoinbasePro.Services.Orders;
@@ -34,6 +35,8 @@ namespace CoinbasePro
         ICurrenciesService CurrenciesService { get; }
 
         IFillsService FillsService { get; }
+
+        IFeesService FeesService { get; }
 
         IFundingsService FundingsService { get; }
 

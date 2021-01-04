@@ -1,4 +1,6 @@
-﻿namespace CoinbasePro.Services.Products.Types
+﻿using Newtonsoft.Json;
+
+namespace CoinbasePro.Services.Products.Types
 {
     public class ProductStats
     {
@@ -8,6 +10,11 @@
 
         public decimal Low { get; set; }
 
+        public decimal Last { get; set; }
+
         public decimal Volume { get; set; }
+
+        [JsonProperty("volume_30day")]
+        public decimal Volume30Day { get; set; }
     }
 }
