@@ -37,8 +37,6 @@ namespace CoinbasePro.Services.Deposits.Models
 
         public string DestinationTagName { get; set; }
 
-        public Guid CoinbaseWithdrawalId { get; set; }
-
         public string CoinbaseTransactionId { get; set; }
 
         public string CryptoTransactionHash { get; set; }
