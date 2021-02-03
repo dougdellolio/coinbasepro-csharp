@@ -161,6 +161,7 @@ These are the starting and stopping methods:
 
 - Start(productTypes, channelTypes, autoSendPingInterval) - Starts the websocket feed based on product(s) and channel(s). Optionally set an auto send ping interval to prevent websocket from closing if idle more than 1 minute
 - Stop() - Stops the websocket feed
+- ChangeChannels(productTypes) - Add or remove channel subscriptions to the current websocket
 
 The following methods are EventHandlers:
 
