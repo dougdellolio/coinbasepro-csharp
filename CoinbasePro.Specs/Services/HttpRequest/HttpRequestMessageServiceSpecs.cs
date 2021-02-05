@@ -81,10 +81,7 @@ namespace CoinbasePro.Specs.Services.HttpRequest
             It should_have_a_result = () =>
                 result_http_request_message.ShouldNotBeNull();
 
-            It should_have_correct_request_uri = () =>
-                result_http_request_message.RequestUri.ToString().ShouldEqual("https://api-public.sandbox.pro.coinbase.com/accounts");
-
-            It should_have_the_required_headers = () =>
+            It should_not_have_the_signed_headers = () =>
             {
                 result_http_request_message.Headers.ToString().ShouldNotContain("CB-ACCESS-KEY");
                 result_http_request_message.Headers.ToString().ShouldNotContain("CB-ACCESS-SIGN");
