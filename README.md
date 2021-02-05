@@ -86,6 +86,9 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 - GetFillsByOrderIdAsync(orderId, limit, numberOfPages) - gets a list of all recent fills by order id (paged response)
 - GetFillsByProductIdAsync(productType, limit, numberOfPages) - gets a list of all recent fills by product type (paged response)
 
+###### Limits ######
+- GetCurrentExchangeLimitsAsync() - returns information on your payment method transfer limits, as well as buy/sell limits per currency
+
 ###### Fundings ######
 - GetAllFundingsAsync(limit, fundingStatus, numberOfPages) - gets a list of all orders placed with a margin profile that draws funding (paged response)
 
