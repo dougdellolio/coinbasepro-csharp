@@ -31,5 +31,13 @@ namespace CoinbasePro.WebSocket.Models.Response
         public long Sequence { get; set; }
 
         public DateTimeOffset Time { get; set; }
+
+        public string MakerUserId { get; set; }
+
+        public Guid MakerProfileId { get; set; }
+
+        public decimal MakerFeeRate { get; set; }
+
+        public decimal TakerFeeRate { get; set; }
     }
 }
