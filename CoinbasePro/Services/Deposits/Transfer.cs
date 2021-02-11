@@ -29,18 +29,18 @@ namespace CoinbasePro.Services.Deposits.Models
 
     public class Details
     {
-        public string DestinationTag { get; set; }
+        public string CryptoAddress { get; set; }
 
-        public string SentToAddress { get; set; }
+        public string DestinationTag { get; set; }
 
         public Guid CoinbaseAccountId { get; set; }
 
         public string DestinationTagName { get; set; }
 
+        public string CryptoTransactionId { get; set; }
+
         public string CoinbaseTransactionId { get; set; }
 
         public string CryptoTransactionHash { get; set; }
-
-        public string CoinbasePaymentMethodId { get; set; }
     }
 }
