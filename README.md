@@ -80,6 +80,7 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 
 ###### Currencies ######
 - GetAllCurrenciesAsync() - gets a list of known currencies
+- GetCurrencyByIdAsync(currency) - list the currency for the specified id
 
 ###### Fills ######
 - GetAllFillsAsync(limit, numberOfPages) - gets a list of all recent fills (paged response)

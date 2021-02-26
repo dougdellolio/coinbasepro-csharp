@@ -16,6 +16,8 @@ namespace CoinbasePro.Specs.Services.Currencies
     {
         static IEnumerable<Currency> result;
 
+        static Currency single_result;
+
         Establish context = () =>
             The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
                 .Return(Task.FromResult(new HttpResponseMessage()));
@@ -40,6 +42,35 @@ namespace CoinbasePro.Specs.Services.Currencies
                 result.Skip(1).First().Id.ShouldEqual(CoinbasePro.Shared.Types.Currency.USD);
                 result.Skip(1).First().Name.ShouldEqual("United States Dollar");
                 result.Skip(1).First().MinSize.ShouldEqual(0.01000000M);
+                result.Skip(1).First().Details.Type.ShouldEqual("fiat");
+                result.Skip(1).First().Details.NetworkConfirmations.ShouldEqual(0);
+                result.Skip(1).First().Details.MinWithdrawalAmount.ShouldEqual(0);
+                result.Skip(1).First().Details.MaxWithdrawalAmount.ShouldEqual(0);
+                result.Skip(1).First().Details.PushPaymentMethods.ShouldContain("bank_wire");
+            };
+        }
+
+        class when_getting_a_currency_by_id
+        {
+            Establish context = () =>
+                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                    .Return(Task.FromResult(CurrenciesResponseFixture.CreateSingleCurrency()));
+
+            Because of = () =>
+                single_result = Subject.GetCurrencyByIdAsync(CoinbasePro.Shared.Types.Currency.BTC).Result;
+
+            It should_return_a_correct_response = () =>
+            {
+                single_result.Id.ShouldEqual(CoinbasePro.Shared.Types.Currency.BTC);
+                single_result.Name.ShouldEqual("Bitcoin");
+                single_result.MinSize.ShouldEqual(0.00000001M);
+                single_result.MaxPrecision.ShouldEqual(0.01M);
+                single_result.Status.ShouldEqual("online");
+                single_result.Details.Type.ShouldEqual("crypto");
+                single_result.Details.NetworkConfirmations.ShouldEqual(3);
+                single_result.Details.MinWithdrawalAmount.ShouldEqual(0);
+                single_result.Details.MaxWithdrawalAmount.ShouldEqual(0);
+                single_result.Details.PushPaymentMethods.ShouldContain("crypto");
             };
         }
 
