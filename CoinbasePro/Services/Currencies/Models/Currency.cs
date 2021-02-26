@@ -18,7 +18,7 @@ namespace CoinbasePro.Services.Currencies.Models
 
         public decimal MaxPrecision { get; set; }
 
-        public object[] ConvertibleTo { get; set; }
+        public string[] ConvertibleTo { get; set; }
 
         public Details Details { get; set; }
     }
