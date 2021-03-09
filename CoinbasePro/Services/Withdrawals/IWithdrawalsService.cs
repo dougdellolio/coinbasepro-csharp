@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using CoinbasePro.Services.Withdrawals.Models;
 using CoinbasePro.Services.Withdrawals.Models.Responses;
 using CoinbasePro.Shared.Types;
 
@@ -19,6 +22,19 @@ namespace CoinbasePro.Services.Withdrawals
         Task<CryptoResponse> WithdrawToCryptoAsync(
             string cryptoAddress,
             decimal amount,
-            Currency currency);
+            Currency currency,
+            string destinationTag = null);
+
+        Task<IList<Transfer>> GetAllWithdrawals(
+            string profileId = null,
+            DateTime? before = null,
+            DateTime? after = null,
+            int limit = 100);
+
+        Task<Transfer> GetWithdrawalById(string transferId);
+
+        Task<FeeEstimateResponse> GetFeeEstimateAsync(
+            Currency currency,
+            string cryptoAddress);
     }
 }

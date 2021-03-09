@@ -26,7 +26,6 @@
         XRP,
         XTZ,
         ZEC,
-        ZIL,
         ZRX,
         ALGO,
         LINK,
@@ -35,6 +34,22 @@
         ATOM,
         OMG,
         KNC,
-        COMP
+        COMP,
+        BAND,
+        NMR,
+        UMA,
+        LRC,
+        YFI,
+        UNI,
+        BAL,
+        REN,
+        CGLD,
+        WBTC,
+        NU,
+        FIL,
+        AAVE,
+        BNT,
+        SNX,
+        GRT
     }
 }

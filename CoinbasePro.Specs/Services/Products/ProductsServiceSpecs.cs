@@ -21,6 +21,8 @@ namespace CoinbasePro.Specs.Services.Products
     {
         static IEnumerable<Product> products_result;
 
+        static Product product_result;
+
         static ProductsOrderBookResponse product_order_books_response;
 
         static IList<Candle> product_history_response;
@@ -91,6 +93,42 @@ namespace CoinbasePro.Specs.Services.Products
                     products_result.First().BaseMinSize.ShouldEqual(0.01M);
                     products_result.First().BaseMaxSize.ShouldEqual(10000.00M);
                     products_result.First().QuoteIncrement.ShouldEqual(0.01M);
+                };
+            }
+        }
+
+        class when_getting_a_single_product
+        {
+            class with_known_products
+            {
+                Establish context = () =>
+                    The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
+                        .Return(Task.FromResult(ProductsResponseFixture.CreateSingle()));
+
+                Because of = () =>
+                    product_result = Subject.GetSingleProductAsync(ProductType.BtcUsd).Result;
+
+                It should_have_a_product_response = () =>
+                    product_result.ShouldNotBeNull();
+
+                It should_have_correct_product = () =>
+                {
+                    product_result.Id.ShouldEqual(ProductType.BtcUsd);
+                    product_result.DisplayName.ShouldEqual("BTC/USD");
+                    product_result.BaseCurrency.ShouldEqual(Currency.BTC);
+                    product_result.QuoteCurrency.ShouldEqual(Currency.USD);
+                    product_result.BaseMinSize.ShouldEqual(0.00100000M);
+                    product_result.BaseMaxSize.ShouldEqual(280.00000000M);
+                    product_result.QuoteIncrement.ShouldEqual(0.01M);
+                    product_result.MinMarketFunds.ShouldEqual(5M);
+                    product_result.MaxMarketFunds.ShouldEqual(1000000M);
+                    product_result.BaseIncrement.ShouldEqual(0.00000001M);
+                    product_result.PostOnly.ShouldEqual(false);
+                    product_result.LimitOnly.ShouldEqual(false);
+                    product_result.CancelOnly.ShouldEqual(false);
+                    product_result.TradingDisabled.ShouldEqual(false);
+                    product_result.Status.ShouldEqual("online");
+                    product_result.StatusMessage.ShouldBeEmpty();
                 };
             }
         }
@@ -199,7 +237,10 @@ namespace CoinbasePro.Specs.Services.Products
                 product_stats_result.Open.ShouldEqual(34.19000000M);
                 product_stats_result.High.ShouldEqual(95.70000000M);
                 product_stats_result.Low.ShouldEqual(7.06000000M);
+                product_stats_result.Last.ShouldEqual(6813.19M);
                 product_stats_result.Volume.ShouldEqual(2.41000000M);
+                product_stats_result.Last.ShouldEqual(6813.19000000M);
+                product_stats_result.Volume30Day.ShouldEqual(1019451.11188405M);
             };
         }
 

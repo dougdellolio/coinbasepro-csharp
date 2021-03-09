@@ -57,14 +57,21 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 ###### Withdrawals ######
 - WithdrawFundsAsync(paymentMethodId, amount, currency) - withdraw funds to a payment method
 - WithdrawToCoinbaseAsync(coinbaseAccountId, amount, currency) - withdraw funds to a coinbase account
-- WithdrawToCryptoAsync(cryptoAddress, amount, currency) - withdraw funds to a crypto address
+- WithdrawToCryptoAsync(cryptoAddress, amount, currency, destinationTag) - withdraw funds to a crypto address
+- GetAllWithdrawals(profileId, before, after, limit) - list of withdrawals from the profile of the API key, in descending order by created time
+- GetWithdrawalById(transferId) - get information on a single withdrawal
+- GetFeeEstimateAsync(currency, cryptoAddress) - gets the network fee estimate when sending to the given address
 
 ###### Deposits ######
+- GetAllDeposits(profileId, before, after, limit) - list of deposits from the profile of the API key, in descending order by created time
+- GetDepositById(transferId) - get information on a single deposit.
 - DepositFundsAsync(paymentMethodId, amount, currency) - deposits funds from a payment method
 - DepositCoinbaseFundsAsync(coinbaseAccountId, amount, currency) - deposits funds from a coinbase account
+- GenerateCryptoDepositAddressAsync(string coinbaseAccountId) - generate an address for crypto deposits
 
 ###### Products ######
 - GetAllProductsAsync() - get a list of available currency pairs for trading
+- GetSingleProductAsync(productType) - get market data for a specific currency pair
 - GetProductOrderBookAsync(productType, productLevel) - get a list of open orders for a product (specify level 1, 2, or 3)
 - GetProductTickerAsync(productType) - get information about the last trade (tick), best bid/ask and 24h volume
 - GetTradesAsync(productType, limit, numberOfPages) - get latest trades for a product (paged response)
@@ -73,11 +80,15 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 
 ###### Currencies ######
 - GetAllCurrenciesAsync() - gets a list of known currencies
+- GetCurrencyByIdAsync(currency) - list the currency for the specified id
 
 ###### Fills ######
 - GetAllFillsAsync(limit, numberOfPages) - gets a list of all recent fills (paged response)
 - GetFillsByOrderIdAsync(orderId, limit, numberOfPages) - gets a list of all recent fills by order id (paged response)
 - GetFillsByProductIdAsync(productType, limit, numberOfPages) - gets a list of all recent fills by product type (paged response)
+
+###### Limits ######
+- GetCurrentExchangeLimitsAsync() - returns information on your payment method transfer limits, as well as buy/sell limits per currency
 
 ###### Fundings ######
 - GetAllFundingsAsync(limit, fundingStatus, numberOfPages) - gets a list of all orders placed with a margin profile that draws funding (paged response)
@@ -154,6 +165,7 @@ These are the starting and stopping methods:
 
 - Start(productTypes, channelTypes, autoSendPingInterval) - Starts the websocket feed based on product(s) and channel(s). Optionally set an auto send ping interval to prevent websocket from closing if idle more than 1 minute
 - Stop() - Stops the websocket feed
+- ChangeChannels(productTypes) - Change channel subscriptions to the current websocket
 
 The following methods are EventHandlers:
 

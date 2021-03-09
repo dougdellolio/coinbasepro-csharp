@@ -69,8 +69,6 @@ namespace CoinbasePro.Specs.Services.HttpRequest
 
         class when_making_a_request_without_authenticator_from_service
         {
-            static Exception exception;
-
             Establish context = () =>
             {
                 Configure(x => x.For<bool>().Use(false));
@@ -78,30 +76,18 @@ namespace CoinbasePro.Specs.Services.HttpRequest
             };
 
             Because of = () =>
-                exception = Catch.Exception(() => Subject.CreateHttpRequestMessage(HttpMethod.Get, "/accounts"));
+                result_http_request_message = Subject.CreateHttpRequestMessage(HttpMethod.Get, "/accounts");
 
-            It should_throw_an_error = () =>
-                exception.ShouldBeOfExactType<CoinbaseProHttpException>();
+            It should_have_a_result = () =>
+                result_http_request_message.ShouldNotBeNull();
 
-            It should_contain_a_message = () =>
-                exception.Message.ShouldContain("Please provide an authenticator to the client to request");
-        }
-
-        class when_making_a_request_with_authenticator_from_service
-        {
-            static Exception exception;
-
-            Establish context = () =>
+            It should_not_have_the_signed_headers = () =>
             {
-                Configure(x => x.For<bool>().Use(false));
-                Configure(x => x.For<IAuthenticator>().Use((IAuthenticator)null));
+                result_http_request_message.Headers.ToString().ShouldNotContain("CB-ACCESS-KEY");
+                result_http_request_message.Headers.ToString().ShouldNotContain("CB-ACCESS-SIGN");
+                result_http_request_message.Headers.ToString().ShouldNotContain("CB-ACCESS-TIMESTAMP");
+                result_http_request_message.Headers.ToString().ShouldNotContain("CB-ACCESS-PASSPHRASE");
             };
-
-            Because of = () =>
-                exception = Catch.Exception(() => Subject.CreateHttpRequestMessage(HttpMethod.Get, "/accounts"));
-
-            It should_not_throw_an_error = () =>
-                exception.ShouldNotBeNull();
         }
     }
 }

@@ -33,11 +33,6 @@ namespace CoinbasePro.Network.HttpRequest
             string requestUri,
             string contentBody = "")
         {
-            if (authenticator == null)
-            {
-                throw new CoinbaseProHttpException($"Please provide an authenticator to the client to request \"{requestUri}\"");
-            }
-
             var apiUri = sandBox
                 ? ApiUris.ApiUriSandbox
                 : ApiUris.ApiUri;
@@ -50,18 +45,33 @@ namespace CoinbasePro.Network.HttpRequest
             };
 
             var timeStamp = clock.GetTime().ToTimeStamp();
+
+            if (authenticator == null)
+            {
+                AddHeaders(requestMessage, null, timeStamp, false);
+
+                return requestMessage;
+            }
+
             var signedSignature = authenticator.ComputeSignature(httpMethod, authenticator.UnsignedSignature, timeStamp, requestUri, contentBody);
 
-            AddHeaders(requestMessage, signedSignature, timeStamp);
+            AddHeaders(requestMessage, signedSignature, timeStamp, true);
             return requestMessage;
         }
 
         private void AddHeaders(
             HttpRequestMessage httpRequestMessage,
             string signedSignature,
-            double timeStamp)
+            double timeStamp,
+            bool includeAuthentication)
         {
             httpRequestMessage.Headers.Add("User-Agent", "CoinbaseProClient");
+
+            if (!includeAuthentication)
+            {
+                return;
+            }
+
             httpRequestMessage.Headers.Add("CB-ACCESS-KEY", authenticator.ApiKey);
             httpRequestMessage.Headers.Add("CB-ACCESS-TIMESTAMP", timeStamp.ToString("F0", CultureInfo.InvariantCulture));
             httpRequestMessage.Headers.Add("CB-ACCESS-SIGN", signedSignature);
