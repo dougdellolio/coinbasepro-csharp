@@ -263,6 +263,30 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "GRT-EUR")]
         GrtEur,
         [EnumMember(Value = "GRT-GBP")]
-        GrtGbp
+        GrtGbp,
+        [EnumMember(Value = "SUSHI-USD")]
+        SushiUsd,
+        [EnumMember(Value = "SUSHI-BTC")]
+        SushiBtc,
+        [EnumMember(Value = "SUSHI-EUR")]
+        SushiEur,
+        [EnumMember(Value = "SUSHI-GBP")]
+        SushiGbp,
+        [EnumMember(Value = "MATIC-USD")]
+        MaticUsd,
+        [EnumMember(Value = "MATIC-BTC")]
+        MaticBtc,
+        [EnumMember(Value = "MATIC-EUR")]
+        MaticEur,
+        [EnumMember(Value = "MATIC-GBP")]
+        MaticGbp,
+        [EnumMember(Value = "SKL-USD")]
+        SklUsd,
+        [EnumMember(Value = "SKL-BTC")]
+        SklBtc,
+        [EnumMember(Value = "SKL-EUR")]
+        SklEur,
+        [EnumMember(Value = "SKL-GBP")]
+        SklGbp
     }
 }
