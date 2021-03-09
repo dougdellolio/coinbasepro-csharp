@@ -270,6 +270,8 @@ namespace CoinbasePro.Shared.Types
         SushiBtc,
         [EnumMember(Value = "SUSHI-EUR")]
         SushiEur,
+        [EnumMember(Value = "SUSHI-EUR")]
+        SushiEth,
         [EnumMember(Value = "SUSHI-GBP")]
         SushiGbp,
         [EnumMember(Value = "MATIC-USD")]
