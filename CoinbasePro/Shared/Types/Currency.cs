@@ -50,6 +50,9 @@
         AAVE,
         BNT,
         SNX,
-        GRT
+        GRT,
+        SUSHI,
+        MATIC,
+        SKL
     }
 }
