@@ -15,6 +15,8 @@ namespace CoinbasePro.WebSocket.Types
         [EnumMember(Value = "ticker")]
         Ticker,
         [EnumMember(Value = "user")]
-        User
+        User,
+        [EnumMember(Value = "status")]
+        Status
     }
 }

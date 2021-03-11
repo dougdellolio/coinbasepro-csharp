@@ -175,6 +175,7 @@ The following methods are EventHandlers:
 - OnHeartbeatReceived - EventHandler for data with response type `heartbeat`
 - OnReceivedReceived - EventHandler for data with response type `received`
 - OnOpenReceived - EventHandler for data with response type `open`
+- OnStatusReceived - EventHandler for data with response type `status`
 - OnDoneReceived - EventHandler for data with response type `done`
 - OnMatchReceived - EventHandler for data with response type `match`
 - OnChangeReceived - EventHandler for data with response type `change`

@@ -147,7 +147,7 @@ namespace CoinbasePro.Specs.WebSocket
 
                     It should_have_called_send_with_authentication_properties = () =>
                         The<IWebSocketFeed>().
-                            WasToldTo(p => p.Send(@"{""type"":""subscribe"",""product_ids"":[""BTC-USD""],""channels"":[{""name"":""full"",""product_ids"":[""BTC-USD""]},{""name"":""heartbeat"",""product_ids"":[""BTC-USD""]},{""name"":""level2"",""product_ids"":[""BTC-USD""]},{""name"":""matches"",""product_ids"":[""BTC-USD""]},{""name"":""ticker"",""product_ids"":[""BTC-USD""]},{""name"":""user"",""product_ids"":[""BTC-USD""]}],""key"":""key"",""passphrase"":""passphrase"",""timestamp"":""-62135596800""}"));
+                            WasToldTo(p => p.Send(@"{""type"":""subscribe"",""product_ids"":[""BTC-USD""],""channels"":[{""name"":""full"",""product_ids"":[""BTC-USD""]},{""name"":""heartbeat"",""product_ids"":[""BTC-USD""]},{""name"":""level2"",""product_ids"":[""BTC-USD""]},{""name"":""matches"",""product_ids"":[""BTC-USD""]},{""name"":""ticker"",""product_ids"":[""BTC-USD""]},{""name"":""user"",""product_ids"":[""BTC-USD""]},{""name"":""status"",""product_ids"":[""BTC-USD""]}],""key"":""key"",""passphrase"":""passphrase"",""timestamp"":""-62135596800""}"));
                 }
 
                 class with_authentication_with_specified_channels
@@ -178,7 +178,7 @@ namespace CoinbasePro.Specs.WebSocket
 
                     It should_have_called_send_without_authentication_properties = () =>
                         The<IWebSocketFeed>().
-                            WasToldTo(p => p.Send(@"{""type"":""subscribe"",""product_ids"":[""BTC-USD""],""channels"":[{""name"":""full"",""product_ids"":[""BTC-USD""]},{""name"":""heartbeat"",""product_ids"":[""BTC-USD""]},{""name"":""level2"",""product_ids"":[""BTC-USD""]},{""name"":""matches"",""product_ids"":[""BTC-USD""]},{""name"":""ticker"",""product_ids"":[""BTC-USD""]},{""name"":""user"",""product_ids"":[""BTC-USD""]}],""timestamp"":""-62135596800""}"));
+                            WasToldTo(p => p.Send(@"{""type"":""subscribe"",""product_ids"":[""BTC-USD""],""channels"":[{""name"":""full"",""product_ids"":[""BTC-USD""]},{""name"":""heartbeat"",""product_ids"":[""BTC-USD""]},{""name"":""level2"",""product_ids"":[""BTC-USD""]},{""name"":""matches"",""product_ids"":[""BTC-USD""]},{""name"":""ticker"",""product_ids"":[""BTC-USD""]},{""name"":""user"",""product_ids"":[""BTC-USD""]},{""name"":""status"",""product_ids"":[""BTC-USD""]}],""timestamp"":""-62135596800""}"));
                 }
             }
 
@@ -325,6 +325,20 @@ namespace CoinbasePro.Specs.WebSocket
                     It should_have_invoked_done_response = () =>
                         The<IWebSocketFeed>().
                             WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<Done>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<Done>>()));
+                }
+
+                class when_response_type_is_status
+                {
+                    Because of = () =>
+                    {
+                        Subject.Start(product_type_inputs, no_channel_type_inputs);
+
+                        websocket_feed.Raise(e => e.MessageReceived += null, new MessageReceivedEventArgs(WebSocketTypeResponseFixture.CreateStatusResponse()));
+                    };
+
+                    It should_have_invoked_status_response = () =>
+                        The<IWebSocketFeed>().
+                            WasToldTo(p => p.Invoke(Param.IsAny<EventHandler<WebfeedEventArgs<CoinbasePro.WebSocket.Models.Response.Status>>>(), Param.IsAny<object>(), Param.IsAny<WebfeedEventArgs<CoinbasePro.WebSocket.Models.Response.Status>>()));
                 }
 
                 class when_response_type_is_match

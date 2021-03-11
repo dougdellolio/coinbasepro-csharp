@@ -239,6 +239,10 @@ namespace CoinbasePro.WebSocket
                     var activate = JsonConfig.DeserializeObject<Activate>(json);
                     webSocketFeed.Invoke(OnActivateReceived, sender, new WebfeedEventArgs<Activate>(activate));
                     break;
+                case ResponseType.Status:
+                    var status = JsonConfig.DeserializeObject<Status>(json);
+                    webSocketFeed.Invoke(OnStatusReceived, sender, new WebfeedEventArgs<Status>(status));
+                    break;
                 default:
                     Log.Error("Unknown ResponseType {@ResponseJson}. Ignoring message received.", json);
                     break;
@@ -323,6 +327,7 @@ namespace CoinbasePro.WebSocket
         }
 
         public event EventHandler<WebfeedEventArgs<Ticker>> OnTickerReceived;
+        public event EventHandler<WebfeedEventArgs<Status>> OnStatusReceived;
         public event EventHandler<WebfeedEventArgs<Subscription>> OnSubscriptionReceived;
         public event EventHandler<WebfeedEventArgs<Snapshot>> OnSnapShotReceived;
         public event EventHandler<WebfeedEventArgs<Level2>> OnLevel2UpdateReceived;

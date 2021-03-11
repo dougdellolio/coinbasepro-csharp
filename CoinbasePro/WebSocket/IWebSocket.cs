@@ -22,6 +22,7 @@ namespace CoinbasePro.WebSocket
         void WebSocket_Closed(object sender, EventArgs e);
 
         event EventHandler<WebfeedEventArgs<Ticker>> OnTickerReceived;
+        event EventHandler<WebfeedEventArgs<Status>> OnStatusReceived;
         event EventHandler<WebfeedEventArgs<Subscription>> OnSubscriptionReceived;
         event EventHandler<WebfeedEventArgs<Snapshot>> OnSnapShotReceived;
         event EventHandler<WebfeedEventArgs<Level2>> OnLevel2UpdateReceived;

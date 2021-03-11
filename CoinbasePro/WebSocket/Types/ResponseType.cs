@@ -18,6 +18,7 @@ namespace CoinbasePro.WebSocket.Types
         LastMatch,
         Change,
         Activate,
-        Error
+        Error,
+        Status
     }
 }
