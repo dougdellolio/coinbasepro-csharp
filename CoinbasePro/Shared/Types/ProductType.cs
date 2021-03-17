@@ -289,6 +289,14 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "SKL-EUR")]
         SklEur,
         [EnumMember(Value = "SKL-GBP")]
-        SklGbp
+        SklGbp,
+        [EnumMember(Value = "ADA-USD")]
+        AdaUsd,
+        [EnumMember(Value = "ADA-BTC")]
+        AdaBtc,
+        [EnumMember(Value = "ADA-EUR")]
+        AdaEur,
+        [EnumMember(Value = "ADA-GBP")]
+        AdaGbp
     }
 }

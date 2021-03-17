@@ -53,6 +53,7 @@
         GRT,
         SUSHI,
         MATIC,
-        SKL
+        SKL,
+        ADA
     }
 }
