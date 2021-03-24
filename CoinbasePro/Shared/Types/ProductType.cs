@@ -297,6 +297,25 @@ namespace CoinbasePro.Shared.Types
         [EnumMember(Value = "ADA-EUR")]
         AdaEur,
         [EnumMember(Value = "ADA-GBP")]
-        AdaGbp
+        AdaGbp,
+        [EnumMember(Value = "ANKR-USD")]
+        AnkrUsd,
+        [EnumMember(Value = "ANKR-BTC")]
+        AnkrBtc,
+        [EnumMember(Value = "ANKR-GBP")]
+        AnkrGbp,
+        [EnumMember(Value = "CRV-USD")]
+        CrvUsd,
+        [EnumMember(Value = "CRV-BTC")]
+        CrvBtc,
+        [EnumMember(Value = "CRV-EUR")]
+        CrvEur,
+        [EnumMember(Value = "CRV-GBP")]
+        CrvGbp,
+        [EnumMember(Value = "STORJ-USD")]
+        StorjUsd,
+        [EnumMember(Value = "STORJ-BTC")]
+        StorjBtc
+
     }
 }

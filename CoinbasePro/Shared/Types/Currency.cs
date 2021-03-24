@@ -54,6 +54,9 @@
         SUSHI,
         MATIC,
         SKL,
-        ADA
+        ADA,
+        STORJ,
+        CRV,
+        ANKR
     }
 }
