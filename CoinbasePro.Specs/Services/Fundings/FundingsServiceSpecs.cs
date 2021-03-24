@@ -7,7 +7,6 @@ using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Services.Fundings;
 using CoinbasePro.Services.Fundings.Models;
 using CoinbasePro.Services.Fundings.Types;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Specs.JsonFixtures.Network.HttpResponseMessage;
 using CoinbasePro.Specs.JsonFixtures.Services.Fundings;
 using Machine.Fakes;
@@ -43,7 +42,7 @@ namespace CoinbasePro.Specs.Services.Fundings
                 fundings_response.First().First().ProfileId.ShouldEqual("d881e5a6-58eb-47cd-b8e2-8d9f2e3ec6f6");
                 fundings_response.First().First().Amount.ShouldEqual(1057.6519956381537500M);
                 fundings_response.First().First().Status.ShouldEqual(FundingStatus.Settled);
-                fundings_response.First().First().Currency.ShouldEqual(Currency.USD);
+                fundings_response.First().First().Currency.ShouldEqual("USD");
                 fundings_response.First().First().RepaidAmount.ShouldEqual(1057.6519956381537500M);
                 fundings_response.First().First().DefaultAmount.ShouldEqual(0);
                 fundings_response.First().First().RepaidDefault.ShouldBeFalse();
@@ -53,7 +52,7 @@ namespace CoinbasePro.Specs.Services.Fundings
                 fundings_response.First().Skip(1).First().ProfileId.ShouldEqual("d881e5a6-58eb-47cd-b8e2-8d9f2e3ec6f6");
                 fundings_response.First().Skip(1).First().Amount.ShouldEqual(545.2400000000000000M);
                 fundings_response.First().Skip(1).First().Status.ShouldEqual(FundingStatus.Outstanding);
-                fundings_response.First().Skip(1).First().Currency.ShouldEqual(Currency.USD);
+                fundings_response.First().Skip(1).First().Currency.ShouldEqual("USD");
                 fundings_response.First().Skip(1).First().RepaidAmount.ShouldEqual(532.7580047716682500M);
             };
         }

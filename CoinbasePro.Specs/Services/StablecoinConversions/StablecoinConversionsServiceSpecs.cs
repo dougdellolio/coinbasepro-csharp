@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Services.StablecoinConversions;
 using CoinbasePro.Services.StablecoinConversions.Models;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Specs.JsonFixtures.Services.StablecoinConversions;
 using Machine.Fakes;
 using Machine.Specifications;
@@ -27,7 +26,7 @@ namespace CoinbasePro.Specs.Services.StablecoinConversions
                     .Return(Task.FromResult(StablecoinConversionsResponseFixture.Create()));
 
             Because of = () =>
-                stablecoin_conversion_response = Subject.CreateConversion(Currency.USD, Currency.USDC, 1000m).Result;
+                stablecoin_conversion_response = Subject.CreateConversion("USD", "USDC", 1000m).Result;
 
             It should_return_correct_response = () =>
             {
@@ -35,8 +34,8 @@ namespace CoinbasePro.Specs.Services.StablecoinConversions
                 stablecoin_conversion_response.Amount.ShouldEqual(10000M);
                 stablecoin_conversion_response.FromAccountId.ShouldEqual("7849cc79-8b01-4793-9345-bc6b5f08acce");
                 stablecoin_conversion_response.ToAccountId.ShouldEqual("105c3e58-0898-4106-8283-dc5781cda07b");
-                stablecoin_conversion_response.FromCurrency.ShouldEqual(Currency.USD);
-                stablecoin_conversion_response.ToCurrency.ShouldEqual(Currency.USDC);
+                stablecoin_conversion_response.FromCurrency.ShouldEqual("USD");
+                stablecoin_conversion_response.ToCurrency.ShouldEqual("USDC");
             };
         }
     }

@@ -8,7 +8,6 @@ using System.Linq;
 using System.Net.Http;
 using CoinbasePro.Exceptions;
 using CoinbasePro.Network.Authentication;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Shared.Utilities;
 using CoinbasePro.Shared.Utilities.Clock;
 using CoinbasePro.WebSocket.Models.Request;
@@ -30,7 +29,7 @@ namespace CoinbasePro.WebSocket
 
         private int? AutoSendPingInterval;
 
-        private List<ProductType> productTypes;
+        private List<string> productTypes;
 
         private List<ChannelType> channelTypes;
 
@@ -55,13 +54,13 @@ namespace CoinbasePro.WebSocket
         }
 
         public void Start(
-            List<ProductType> productTypes,
+            List<string> productTypes,
             List<ChannelType> channelTypes = null,
             int? autoSendPingInterval = null)
         {
             if (productTypes.Count == 0)
             {
-                throw new ArgumentException($"You must specify at least one {nameof(productTypes)}");
+                throw new ArgumentException($"You must specify at least one product type");
             }
 
             stopWebSocket = false;

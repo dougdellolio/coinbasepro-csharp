@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoinbasePro.Services.Orders.Models.Responses;
 using CoinbasePro.Services.Orders.Types;
-using CoinbasePro.Shared.Types;
 
 namespace CoinbasePro.Services.Orders
 {
@@ -11,14 +10,14 @@ namespace CoinbasePro.Services.Orders
     {
         Task<OrderResponse> PlaceMarketOrderAsync(
             OrderSide side,
-            ProductType productId,
+            string productId,
             decimal amount,
             MarketOrderAmountType amountType = MarketOrderAmountType.Size,
             Guid? clientOid = null);
 
         Task<OrderResponse> PlaceLimitOrderAsync(
             OrderSide side,
-            ProductType productId,
+            string productId,
             decimal size,
             decimal price,
             TimeInForce timeInForce = TimeInForce.Gtc,
@@ -27,7 +26,7 @@ namespace CoinbasePro.Services.Orders
 
         Task<OrderResponse> PlaceLimitOrderAsync(
             OrderSide side,
-            ProductType productId,
+            string productId,
             decimal size,
             decimal price,
             GoodTillTime cancelAfter,
@@ -36,7 +35,7 @@ namespace CoinbasePro.Services.Orders
 
         Task<OrderResponse> PlaceStopOrderAsync(
             OrderSide side,
-            ProductType productId,
+            string productId,
             decimal size,
             decimal limitPrice,
             decimal stopPrice,

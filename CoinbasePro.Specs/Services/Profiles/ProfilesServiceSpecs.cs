@@ -9,7 +9,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System;
-using CoinbasePro.Shared.Types;
 
 namespace CoinbasePro.Specs.Services.Profiles
 {
@@ -79,7 +78,7 @@ namespace CoinbasePro.Specs.Services.Profiles
                 result = Subject.CreateProfileTransferAsync(
                     new Guid("53f58772-76e7-40d7-86bc-8155b80d7b20"),
                     new Guid("53f58772-76e7-40d7-86bc-8155b80d7b20"),
-                    Currency.BTC,
+                    "BTC",
                     100).Result;
 
             It should_have_returned_an_ok_response = () =>

@@ -1,19 +1,12 @@
-﻿using CoinbasePro.Shared;
-using CoinbasePro.Shared.Types;
-using Newtonsoft.Json;
-
-namespace CoinbasePro.Services.Products.Models
+﻿namespace CoinbasePro.Services.Products.Models
 {
     public class Product
     {
-        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
-        public ProductType Id { get; set; }
+        public string Id { get; set; }
 
-        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
-        public Currency BaseCurrency { get; set; }
+        public string BaseCurrency { get; set; }
 
-        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
-        public Currency QuoteCurrency { get; set; }
+        public string QuoteCurrency { get; set; }
 
         public string DisplayName { get; set; }
 

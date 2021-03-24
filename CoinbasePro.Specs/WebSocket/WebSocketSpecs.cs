@@ -4,7 +4,6 @@ using Machine.Specifications;
 using System;
 using System.Net.Http;
 using CoinbasePro.Network.Authentication;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Specs.JsonFixtures.Websocket;
 using CoinbasePro.WebSocket;
 using CoinbasePro.WebSocket.Models.Response;
@@ -23,7 +22,7 @@ namespace CoinbasePro.Specs.WebSocket
     {
         static Exception exception;
 
-        static List<ProductType> product_type_inputs;
+        static List<string> product_type_inputs;
 
         static List<ChannelType> no_channel_type_inputs;
 
@@ -31,10 +30,10 @@ namespace CoinbasePro.Specs.WebSocket
 
         Establish context = () =>
         {
-            product_type_inputs = new List<ProductType>();
+            product_type_inputs = new List<string>();
             no_channel_type_inputs = new List<ChannelType>();
             specified_channel_type_inputs = new List<ChannelType>(new[] { ChannelType.Level2, ChannelType.User });
-            product_type_inputs.Add(ProductType.BtcUsd);
+            product_type_inputs.Add("BTC-USD");
         };
 
         class when_creating_a_websocket_feed
@@ -62,7 +61,7 @@ namespace CoinbasePro.Specs.WebSocket
             class when_calling_start_and_not_providing_product_types
             {
                 Because of = () =>
-                    exception = Catch.Exception(() => Subject.Start(new List<ProductType>(), no_channel_type_inputs));
+                    exception = Catch.Exception(() => Subject.Start(new List<string>(), no_channel_type_inputs));
 
                 It should_have_thrown_an_error = () =>
                     exception.ShouldBeOfExactType<ArgumentException>();

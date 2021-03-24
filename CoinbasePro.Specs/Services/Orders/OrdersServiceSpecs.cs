@@ -10,7 +10,6 @@ using CoinbasePro.Network.HttpRequest;
 using CoinbasePro.Services.Orders;
 using CoinbasePro.Services.Orders.Models.Responses;
 using CoinbasePro.Services.Orders.Types;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Specs.JsonFixtures.Services.Orders;
 using Machine.Fakes;
 using Machine.Specifications;
@@ -50,7 +49,7 @@ namespace CoinbasePro.Specs.Services.Orders
                     Return(Task.FromResult(OrderResponseFixture.CreateMarketOrder()));
 
             Because of = () =>
-                order_response_result = Subject.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M).Result;
+                order_response_result = Subject.PlaceMarketOrderAsync(OrderSide.Buy, "BTC-USD", .01M).Result;
 
             It should_send_the_correct_request = () =>
                    The<IHttpClient>().
@@ -62,7 +61,7 @@ namespace CoinbasePro.Specs.Services.Orders
                 order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
                 order_response_result.Price.ShouldEqual(0.10000000M);
                 order_response_result.Size.ShouldEqual(0.01000000M);
-                order_response_result.ProductId.ShouldEqual(ProductType.BtcUsd);
+                order_response_result.ProductId.ShouldEqual("BTC-USD");
                 order_response_result.Side.ShouldEqual(OrderSide.Buy);
                 order_response_result.Stp.ShouldEqual("dc");
                 order_response_result.OrderType.ShouldEqual(OrderType.Market);
@@ -85,7 +84,7 @@ namespace CoinbasePro.Specs.Services.Orders
                     Return(Task.FromResult(OrderResponseFixture.CreateLimitOrder()));
 
             Because of = () =>
-                order_response_result = Subject.PlaceLimitOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, 0.1M, GoodTillTime.Min).Result;
+                order_response_result = Subject.PlaceLimitOrderAsync(OrderSide.Buy, "BTC-USD", .01M, 0.1M, GoodTillTime.Min).Result;
 
             It should_send_the_correct_request = () =>
                 The<IHttpClient>().
@@ -97,7 +96,7 @@ namespace CoinbasePro.Specs.Services.Orders
                 order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
                 order_response_result.Price.ShouldEqual(0.10000000M);
                 order_response_result.Size.ShouldEqual(0.01000000M);
-                order_response_result.ProductId.ShouldEqual(ProductType.BtcUsd);
+                order_response_result.ProductId.ShouldEqual("BTC-USD");
                 order_response_result.Side.ShouldEqual(OrderSide.Buy);
                 order_response_result.Stp.ShouldEqual("dc");
                 order_response_result.OrderType.ShouldEqual(OrderType.Limit);
@@ -120,7 +119,7 @@ namespace CoinbasePro.Specs.Services.Orders
                     Return(Task.FromResult(OrderResponseFixture.CreateStopOrder()));
 
             Because of = () =>
-                order_response_result = Subject.PlaceStopOrderAsync(OrderSide.Buy, ProductType.BtcUsd, .01M, 200M, 100M).Result;
+                order_response_result = Subject.PlaceStopOrderAsync(OrderSide.Buy, "BTC-USD", .01M, 200M, 100M).Result;
 
             It should_send_the_correct_request = () =>
                 The<IHttpClient>().
@@ -132,7 +131,7 @@ namespace CoinbasePro.Specs.Services.Orders
                 order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
                 order_response_result.Price.ShouldEqual(200M);
                 order_response_result.Size.ShouldEqual(0.01000000M);
-                order_response_result.ProductId.ShouldEqual(ProductType.BtcUsd);
+                order_response_result.ProductId.ShouldEqual("BTC-USD");
                 order_response_result.Side.ShouldEqual(OrderSide.Buy);
                 order_response_result.Stp.ShouldEqual("dc");
                 order_response_result.OrderType.ShouldEqual(OrderType.Limit);
@@ -225,7 +224,7 @@ namespace CoinbasePro.Specs.Services.Orders
                 order_many_response_result.First().First().Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
                 order_many_response_result.First().First().Price.ShouldEqual(0.10000000M);
                 order_many_response_result.First().First().Size.ShouldEqual(0.01000000M);
-                order_many_response_result.First().First().ProductId.ShouldEqual(ProductType.BtcUsd);
+                order_many_response_result.First().First().ProductId.ShouldEqual("BTC-USD");
                 order_many_response_result.First().First().Side.ShouldEqual(OrderSide.Buy);
                 order_many_response_result.First().First().Stp.ShouldEqual("dc");
                 order_many_response_result.First().First().OrderType.ShouldEqual(OrderType.Limit);
@@ -241,7 +240,7 @@ namespace CoinbasePro.Specs.Services.Orders
                 order_many_response_result.First().Skip(1).First().Id.ShouldEqual(new Guid("8b99b139-58f2-4ab2-8e7a-c11c846e3022"));
                 order_many_response_result.First().Skip(1).First().Price.ShouldEqual(0.10000000M);
                 order_many_response_result.First().Skip(1).First().Size.ShouldEqual(0.01000000M);
-                order_many_response_result.First().Skip(1).First().ProductId.ShouldEqual(ProductType.EthUsd);
+                order_many_response_result.First().Skip(1).First().ProductId.ShouldEqual("ETH-USD");
                 order_many_response_result.First().Skip(1).First().Side.ShouldEqual(OrderSide.Buy);
                 order_many_response_result.First().Skip(1).First().Stp.ShouldEqual("dc");
                 order_many_response_result.First().Skip(1).First().OrderType.ShouldEqual(OrderType.Limit);
@@ -275,7 +274,7 @@ namespace CoinbasePro.Specs.Services.Orders
                     order_many_response_result.First().First().Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
                     order_many_response_result.First().First().Price.ShouldEqual(0.10000000M);
                     order_many_response_result.First().First().Size.ShouldEqual(0.01000000M);
-                    order_many_response_result.First().First().ProductId.ShouldEqual(ProductType.BtcUsd);
+                    order_many_response_result.First().First().ProductId.ShouldEqual("BTC-USD");
                     order_many_response_result.First().First().Side.ShouldEqual(OrderSide.Buy);
                     order_many_response_result.First().First().Stp.ShouldEqual("dc");
                     order_many_response_result.First().First().OrderType.ShouldEqual(OrderType.Limit);
@@ -293,7 +292,7 @@ namespace CoinbasePro.Specs.Services.Orders
                     order_many_response_result.First().Skip(1).First().Id.ShouldEqual(new Guid("8b99b139-58f2-4ab2-8e7a-c11c846e3022"));
                     order_many_response_result.First().Skip(1).First().Price.ShouldEqual(0.10000000M);
                     order_many_response_result.First().Skip(1).First().Size.ShouldEqual(0.01000000M);
-                    order_many_response_result.First().Skip(1).First().ProductId.ShouldEqual(ProductType.EthUsd);
+                    order_many_response_result.First().Skip(1).First().ProductId.ShouldEqual("ETH-USD");
                     order_many_response_result.First().Skip(1).First().Side.ShouldEqual(OrderSide.Buy);
                     order_many_response_result.First().Skip(1).First().Stp.ShouldEqual("dc");
                     order_many_response_result.First().Skip(1).First().OrderType.ShouldEqual(OrderType.Limit);
@@ -325,7 +324,7 @@ namespace CoinbasePro.Specs.Services.Orders
                     order_many_response_result.First().First().Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
                     order_many_response_result.First().First().Price.ShouldEqual(0.10000000M);
                     order_many_response_result.First().First().Size.ShouldEqual(0.01000000M);
-                    order_many_response_result.First().First().ProductId.ShouldEqual(ProductType.BtcUsd);
+                    order_many_response_result.First().First().ProductId.ShouldEqual("BTC-USD");
                     order_many_response_result.First().First().Side.ShouldEqual(OrderSide.Buy);
                     order_many_response_result.First().First().Stp.ShouldEqual("dc");
                     order_many_response_result.First().First().OrderType.ShouldEqual(OrderType.Limit);
@@ -341,7 +340,7 @@ namespace CoinbasePro.Specs.Services.Orders
                     order_many_response_result.First().Skip(1).First().Id.ShouldEqual(new Guid("8b99b139-58f2-4ab2-8e7a-c11c846e3022"));
                     order_many_response_result.First().Skip(1).First().Price.ShouldEqual(0.10000000M);
                     order_many_response_result.First().Skip(1).First().Size.ShouldEqual(0.01000000M);
-                    order_many_response_result.First().Skip(1).First().ProductId.ShouldEqual(ProductType.EthUsd);
+                    order_many_response_result.First().Skip(1).First().ProductId.ShouldEqual("ETH-USD");
                     order_many_response_result.First().Skip(1).First().Side.ShouldEqual(OrderSide.Buy);
                     order_many_response_result.First().Skip(1).First().Stp.ShouldEqual("dc");
                     order_many_response_result.First().Skip(1).First().OrderType.ShouldEqual(OrderType.Limit);
@@ -371,7 +370,7 @@ namespace CoinbasePro.Specs.Services.Orders
                 order_response_result.Id.ShouldEqual(new Guid("d0c5340b-6d6c-49d9-b567-48c4bfca13d2"));
                 order_response_result.Price.ShouldEqual(0.10000000M);
                 order_response_result.Size.ShouldEqual(0.01000000M);
-                order_response_result.ProductId.ShouldEqual(ProductType.BtcUsd);
+                order_response_result.ProductId.ShouldEqual("BTC-USD");
                 order_response_result.Side.ShouldEqual(OrderSide.Buy);
                 order_response_result.Stp.ShouldEqual("dc");
                 order_response_result.OrderType.ShouldEqual(OrderType.Limit);

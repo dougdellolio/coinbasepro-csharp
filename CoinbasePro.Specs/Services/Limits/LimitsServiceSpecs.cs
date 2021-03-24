@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Services.Limits;
@@ -34,7 +33,7 @@ namespace CoinbasePro.Specs.Services.Limits
 
             It should_return_a_correct_response = () =>
             {
-                limit_response.LimitCurrency.ShouldEqual(CoinbasePro.Shared.Types.Currency.USD);
+                limit_response.LimitCurrency.ShouldEqual("USD");
                 limit_response.TransferLimits.Count.ShouldEqual(3);
 
                 limit_response.TransferLimits["ach"]["BAT"].Max.ShouldEqual(21267.54M);

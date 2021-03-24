@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Services.Fills;
 using CoinbasePro.Services.Fills.Models.Responses;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Specs.JsonFixtures.Network.HttpResponseMessage;
 using CoinbasePro.Specs.JsonFixtures.Services.Fills;
 using Machine.Fakes;
@@ -38,7 +37,7 @@ namespace CoinbasePro.Specs.Services.Fills
             It should_return_a_correct_response = () =>
             {
                 fill_response.First().First().TradeId.ShouldEqual(74);
-                fill_response.First().First().ProductId.ShouldEqual(ProductType.BtcUsd);
+                fill_response.First().First().ProductId.ShouldEqual("BTC-USD");
                 fill_response.First().First().Price.ShouldEqual(10.00M);
                 fill_response.First().First().Size.ShouldEqual(0.01M);
                 fill_response.First().First().OrderId.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));
@@ -60,7 +59,7 @@ namespace CoinbasePro.Specs.Services.Fills
             It should_return_a_correct_response = () =>
             {
                 fill_response.First().First().TradeId.ShouldEqual(74);
-                fill_response.First().First().ProductId.ShouldEqual(ProductType.BtcUsd);
+                fill_response.First().First().ProductId.ShouldEqual("BTC-USD");
                 fill_response.First().First().Price.ShouldEqual(10.00M);
                 fill_response.First().First().Size.ShouldEqual(0.01M);
                 fill_response.First().First().OrderId.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));
@@ -74,7 +73,7 @@ namespace CoinbasePro.Specs.Services.Fills
                     .Return(Task.FromResult(FillsResponseFixture.Create()));
 
             Because of = () =>
-                fill_response = Subject.GetFillsByProductIdAsync(ProductType.BtcUsd, 1).Result;
+                fill_response = Subject.GetFillsByProductIdAsync("BTC-USD", 1).Result;
 
             It should_return_a_response = () =>
                 fill_response.ShouldNotBeNull();
@@ -82,7 +81,7 @@ namespace CoinbasePro.Specs.Services.Fills
             It should_return_a_correct_response = () =>
             {
                 fill_response.First().First().TradeId.ShouldEqual(74);
-                fill_response.First().First().ProductId.ShouldEqual(ProductType.BtcUsd);
+                fill_response.First().First().ProductId.ShouldEqual("BTC-USD");
                 fill_response.First().First().Price.ShouldEqual(10.00M);
                 fill_response.First().First().Size.ShouldEqual(0.01M);
                 fill_response.First().First().OrderId.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Network.HttpRequest;
 using CoinbasePro.Services.StablecoinConversions.Models;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Shared.Utilities;
 
 namespace CoinbasePro.Services.StablecoinConversions
@@ -18,14 +17,14 @@ namespace CoinbasePro.Services.StablecoinConversions
         }
 
         public async Task<StablecoinConversionResponse> CreateConversion(
-            Currency from,
-            Currency to,
+            string fromCurrency,
+            string toCurrency,
             decimal amount)
         {
             var newConversion = JsonConfig.SerializeObject(new StablecoinConversion
             {
-                From = from,
-                To = to,
+                FromCurrency = fromCurrency,
+                ToCurrency = toCurrency,
                 Amount = amount
             });
 

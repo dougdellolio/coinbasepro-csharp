@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using CoinbasePro.Shared;
-using CoinbasePro.Shared.Types;
+﻿using System;
 
 namespace CoinbasePro.Services.Accounts.Models
 {
@@ -11,8 +8,7 @@ namespace CoinbasePro.Services.Accounts.Models
 
         public Guid ProfileId { get; set; }
 
-        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
-        public Currency Currency { get; set; }
+        public string Currency { get; set; }
 
         public decimal Balance { get; set; }
 

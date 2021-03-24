@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Services.Deposits;
 using CoinbasePro.Services.Deposits.Models.Responses;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Specs.JsonFixtures.Services.Deposits;
 using Machine.Fakes;
 using Machine.Specifications;
@@ -29,7 +28,7 @@ namespace CoinbasePro.Specs.Services.Deposits
                     .Return(Task.FromResult(DepositsResponseFixture.Create()));
 
             Because of = () =>
-                deposit_response = Subject.DepositFundsAsync("593533d2-ff31-46e0-b22e-ca754147a96a", 10, Currency.USD).Result;
+                deposit_response = Subject.DepositFundsAsync("593533d2-ff31-46e0-b22e-ca754147a96a", 10, "USD").Result;
 
             It should_return_a_response = () =>
                 deposit_response.ShouldNotBeNull();
@@ -38,7 +37,7 @@ namespace CoinbasePro.Specs.Services.Deposits
             {
                 deposit_response.Id.ShouldEqual(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"));
                 deposit_response.Amount.ShouldEqual(10.00M);
-                deposit_response.Currency.ShouldEqual(Currency.USD);
+                deposit_response.Currency.ShouldEqual("USD");
                 deposit_response.PayoutAt.ShouldEqual(new DateTime(2016, 08, 20, 0, 31, 09));
             };
         }
@@ -50,7 +49,7 @@ namespace CoinbasePro.Specs.Services.Deposits
                     .Return(Task.FromResult(CoinbaseDepositResponseFixture.Create()));
 
             Because of = () =>
-                coinbase_response = Subject.DepositCoinbaseFundsAsync("593533d2-ff31-46e0-b22e-ca754147a96a", 10, Currency.BTC).Result;
+                coinbase_response = Subject.DepositCoinbaseFundsAsync("593533d2-ff31-46e0-b22e-ca754147a96a", 10, "BTC").Result;
 
             It should_return_a_response = () =>
                 coinbase_response.ShouldNotBeNull();
@@ -59,7 +58,7 @@ namespace CoinbasePro.Specs.Services.Deposits
             {
                 coinbase_response.Id.ShouldEqual(new Guid("593533d2-ff31-46e0-b22e-ca754147a96a"));
                 coinbase_response.Amount.ShouldEqual(10.00M);
-                coinbase_response.Currency.ShouldEqual(Currency.BTC);
+                coinbase_response.Currency.ShouldEqual("BTC");
             };
         }
     }

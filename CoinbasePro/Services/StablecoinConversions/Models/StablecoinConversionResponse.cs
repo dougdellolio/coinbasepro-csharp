@@ -1,5 +1,4 @@
-﻿using CoinbasePro.Shared.Types;
-using System;
+﻿using System;
 using Newtonsoft.Json;
 
 namespace CoinbasePro.Services.StablecoinConversions.Models
@@ -15,9 +14,9 @@ namespace CoinbasePro.Services.StablecoinConversions.Models
         public string ToAccountId { get; set; }
 
         [JsonProperty("from")]
-        public Currency FromCurrency { get; set; }
+        public string FromCurrency { get; set; }
 
         [JsonProperty("to")]
-        public Currency ToCurrency { get; set; }
+        public string ToCurrency { get; set; }
     }
 }

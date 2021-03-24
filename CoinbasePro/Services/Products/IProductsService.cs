@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using CoinbasePro.Services.Products.Models;
 using CoinbasePro.Services.Products.Models.Responses;
 using CoinbasePro.Services.Products.Types;
-using CoinbasePro.Shared.Types;
 
 namespace CoinbasePro.Services.Products
 {
@@ -12,25 +11,25 @@ namespace CoinbasePro.Services.Products
     {
         Task<IEnumerable<Product>> GetAllProductsAsync();
 
-        Task<Product> GetSingleProductAsync(ProductType productId);
+        Task<Product> GetSingleProductAsync(string productId);
 
         Task<ProductsOrderBookResponse> GetProductOrderBookAsync(
-            ProductType productId,
+            string productId,
             ProductLevel productLevel = ProductLevel.One);
 
         Task<IList<IList<ProductTrade>>> GetTradesAsync(
-            ProductType productId,
+            string productId,
             int limit = 100,
             int numberOfPages = 0);
 
         Task<IList<Candle>> GetHistoricRatesAsync(
-            ProductType productPair,
+            string productPair,
             DateTime start,
             DateTime end,
             CandleGranularity granularity);
 
-        Task<ProductTicker> GetProductTickerAsync(ProductType productId);
+        Task<ProductTicker> GetProductTickerAsync(string productId);
 
-        Task<ProductStats> GetProductStatsAsync(ProductType productId);
+        Task<ProductStats> GetProductStatsAsync(string productId);
     }
 }

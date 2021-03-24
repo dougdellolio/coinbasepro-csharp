@@ -1,6 +1,5 @@
 ﻿using System;
 using CoinbasePro.Services.Orders.Types;
-using CoinbasePro.Shared.Types;
 
 namespace CoinbasePro.WebSocket.Models.Response
 {
@@ -14,7 +13,7 @@ namespace CoinbasePro.WebSocket.Models.Response
 
         public decimal RemainingSize { get; set; }
 
-        public ProductType ProductId { get; set; }
+        public string ProductId { get; set; }
 
         public long Sequence { get; set; }
 

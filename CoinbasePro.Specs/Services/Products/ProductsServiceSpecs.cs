@@ -9,7 +9,6 @@ using CoinbasePro.Services.Products;
 using CoinbasePro.Services.Products.Models;
 using CoinbasePro.Services.Products.Models.Responses;
 using CoinbasePro.Services.Products.Types;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Specs.JsonFixtures.Services.Products;
 using Machine.Fakes;
 using Machine.Specifications;
@@ -55,9 +54,9 @@ namespace CoinbasePro.Specs.Services.Products
 
                 It should_have_correct_products = () =>
                 {
-                    products_result.First().Id.ShouldEqual(ProductType.BtcUsd);
-                    products_result.First().BaseCurrency.ShouldEqual(Currency.BTC);
-                    products_result.First().QuoteCurrency.ShouldEqual(Currency.USD);
+                    products_result.First().Id.ShouldEqual("BTC-USD");
+                    products_result.First().BaseCurrency.ShouldEqual("BTC");
+                    products_result.First().QuoteCurrency.ShouldEqual("USD");
                     products_result.First().BaseMinSize.ShouldEqual(0.01M);
                     products_result.First().BaseMaxSize.ShouldEqual(10000.00M);
                     products_result.First().QuoteIncrement.ShouldEqual(0.01M);
@@ -87,9 +86,9 @@ namespace CoinbasePro.Specs.Services.Products
 
                 It should_have_correct_products = () =>
                 {
-                    products_result.First().Id.ShouldEqual(ProductType.Unknown);
-                    products_result.First().BaseCurrency.ShouldEqual(Currency.Unknown);
-                    products_result.First().QuoteCurrency.ShouldEqual(Currency.Unknown);
+                    products_result.First().Id.ShouldEqual("UNKNOWN-USD");
+                    products_result.First().BaseCurrency.ShouldEqual("unknown");
+                    products_result.First().QuoteCurrency.ShouldEqual("unknown");
                     products_result.First().BaseMinSize.ShouldEqual(0.01M);
                     products_result.First().BaseMaxSize.ShouldEqual(10000.00M);
                     products_result.First().QuoteIncrement.ShouldEqual(0.01M);
@@ -106,17 +105,17 @@ namespace CoinbasePro.Specs.Services.Products
                         .Return(Task.FromResult(ProductsResponseFixture.CreateSingle()));
 
                 Because of = () =>
-                    product_result = Subject.GetSingleProductAsync(ProductType.BtcUsd).Result;
+                    product_result = Subject.GetSingleProductAsync("BTC-USD").Result;
 
                 It should_have_a_product_response = () =>
                     product_result.ShouldNotBeNull();
 
                 It should_have_correct_product = () =>
                 {
-                    product_result.Id.ShouldEqual(ProductType.BtcUsd);
+                    product_result.Id.ShouldEqual("BTC-USD");
                     product_result.DisplayName.ShouldEqual("BTC/USD");
-                    product_result.BaseCurrency.ShouldEqual(Currency.BTC);
-                    product_result.QuoteCurrency.ShouldEqual(Currency.USD);
+                    product_result.BaseCurrency.ShouldEqual("BTC");
+                    product_result.QuoteCurrency.ShouldEqual("USD");
                     product_result.BaseMinSize.ShouldEqual(0.00100000M);
                     product_result.BaseMaxSize.ShouldEqual(280.00000000M);
                     product_result.QuoteIncrement.ShouldEqual(0.01M);
@@ -140,7 +139,7 @@ namespace CoinbasePro.Specs.Services.Products
                     .Return(Task.FromResult(ProductsOrderBookResponseFixture.Create()));
 
             Because of = () =>
-                product_order_books_response = Subject.GetProductOrderBookAsync(ProductType.BtcUsd).Result;
+                product_order_books_response = Subject.GetProductOrderBookAsync("BTC-USD").Result;
 
             It should_have_correct_product_order_book_response = () =>
             {
@@ -163,7 +162,7 @@ namespace CoinbasePro.Specs.Services.Products
                     .Return(Task.FromResult(ProductsOrderBookResponseFixture.Create()));
 
             Because of = () =>
-                product_order_books_response = Subject.GetProductOrderBookAsync(ProductType.BtcUsd, ProductLevel.Two).Result;
+                product_order_books_response = Subject.GetProductOrderBookAsync("BTC-USD", ProductLevel.Two).Result;
 
             It should_have_correct_product_order_book_response = () =>
             {
@@ -186,7 +185,7 @@ namespace CoinbasePro.Specs.Services.Products
                     .Return(Task.FromResult(ProductsOrderBookResponseFixture.CreateWithLevelThree()));
 
             Because of = () =>
-                product_order_books_response = Subject.GetProductOrderBookAsync(ProductType.BtcUsd, ProductLevel.Three).Result;
+                product_order_books_response = Subject.GetProductOrderBookAsync("BTC-USD", ProductLevel.Three).Result;
 
             It should_have_correct_product_order_book_response = () =>
             {
@@ -209,7 +208,7 @@ namespace CoinbasePro.Specs.Services.Products
                     .Return(Task.FromResult(ProductTickerFixture.Create()));
 
             Because of = () =>
-                product_ticker_result = Subject.GetProductTickerAsync(ProductType.BtcUsd).Result;
+                product_ticker_result = Subject.GetProductTickerAsync("BTC-USD").Result;
 
             It should_have_correct_product_ticker = () =>
             {
@@ -230,7 +229,7 @@ namespace CoinbasePro.Specs.Services.Products
                     .Return(Task.FromResult(ProductStatsFixture.Create()));
 
             Because of = () =>
-                product_stats_result = Subject.GetProductStatsAsync(ProductType.BtcUsd).Result;
+                product_stats_result = Subject.GetProductStatsAsync("BTC-USD").Result;
 
             It should_have_correct_product_stats = () =>
             {
@@ -251,7 +250,7 @@ namespace CoinbasePro.Specs.Services.Products
                     .Return(Task.FromResult(ProductTradesFixture.Create()));
 
             Because of = () =>
-                product_trades_result = Subject.GetTradesAsync(ProductType.BtcUsd).Result;
+                product_trades_result = Subject.GetTradesAsync("BTC-USD").Result;
 
             It should_have_correct_product_trades = () =>
             {
@@ -274,7 +273,7 @@ namespace CoinbasePro.Specs.Services.Products
                     .Return(Task.FromResult(ProductHistoryFixture.Create()));
 
             Because of = () =>
-                product_history_response = Subject.GetHistoricRatesAsync(ProductType.BtcUsd, DateTime.Now.AddDays(-1), DateTime.Now, CandleGranularity.Minutes1).Result;
+                product_history_response = Subject.GetHistoricRatesAsync("BTC-USD", DateTime.Now.AddDays(-1), DateTime.Now, CandleGranularity.Minutes1).Result;
 
             It should_have_correct_product_stats = () =>
             {

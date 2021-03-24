@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.WebSocket.Models.Response;
 using CoinbasePro.WebSocket.Types;
 using SuperSocket.ClientEngine;
@@ -13,7 +12,7 @@ namespace CoinbasePro.WebSocket
         WebSocketState State { get; }
 
         void ChangeChannels(List<ChannelType> channels);
-        void Start(List<ProductType> productTypes, List<ChannelType> channelTypes = null, int? autoSendPingInterval = null);
+        void Start(List<string> productTypes, List<ChannelType> channelTypes = null, int? autoSendPingInterval = null);
         void Stop();
 
         void WebSocket_Opened(object sender, EventArgs e);

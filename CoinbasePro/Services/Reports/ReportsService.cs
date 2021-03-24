@@ -6,7 +6,6 @@ using CoinbasePro.Network.HttpRequest;
 using CoinbasePro.Services.Reports.Models;
 using CoinbasePro.Services.Reports.Models.Responses;
 using CoinbasePro.Services.Reports.Types;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Shared.Utilities;
 
 namespace CoinbasePro.Services.Reports
@@ -24,7 +23,7 @@ namespace CoinbasePro.Services.Reports
             DateTime startDate,
             DateTime endDate,
             string accountId,
-            ProductType? productType = null,
+            string productType = null,
             string email = null,
             FileFormat fileFormat = FileFormat.Pdf)
         {
@@ -45,7 +44,7 @@ namespace CoinbasePro.Services.Reports
         public async Task<ReportResponse> CreateNewFillsReportAsync(
             DateTime startDate,
             DateTime endDate,
-            ProductType productType,
+            string productType,
             string accountId = null,
             string email = null,
             FileFormat fileFormat = FileFormat.Pdf)
