@@ -304,6 +304,8 @@ namespace CoinbasePro.Shared.Types
         AnkrBtc,
         [EnumMember(Value = "ANKR-GBP")]
         AnkrGbp,
+        [EnumMember(Value = "ANKR-EUR")]
+        AnkrEur,
         [EnumMember(Value = "CRV-USD")]
         CrvUsd,
         [EnumMember(Value = "CRV-BTC")]
@@ -316,6 +318,5 @@ namespace CoinbasePro.Shared.Types
         StorjUsd,
         [EnumMember(Value = "STORJ-BTC")]
         StorjBtc
-
     }
 }
