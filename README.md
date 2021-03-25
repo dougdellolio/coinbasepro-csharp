@@ -123,7 +123,7 @@ var authenticator = new Authenticator("<apiKey>", "<apiSecret>", "<passphrase>")
 var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator);
 
 //use the websocket feed
-var productTypes = new List<ProductType>() { ProductType.BtcEur, ProductType.BtcUsd };
+var productTypes = new List<string>() { "BTC-EUR", "BTC-USD" };
 var channels = new List<ChannelType>() { ChannelType.Full, ChannelType.User} // When not providing any channels, the socket will subscribe to all channels
 
 var webSocket = coinbaseProClient.WebSocket;
@@ -145,7 +145,7 @@ private static void WebSocket_OnHeartbeatReceived(object sender, WebfeedEventArg
 var coinbaseProClient = new CoinbasePro.CoinbaseProClient();
 
 //use the websocket feed
-var productTypes = new List<ProductType>() { ProductType.BtcEur, ProductType.BtcUsd };
+var productTypes = new List<string>() { "BTC-EUR", "BTC-USD" };
 var channels = new List<ChannelType>() { ChannelType.Full, ChannelType.User }; // When not providing any channels, the socket will subscribe to all channels
 
 var webSocket = coinbaseProClient.WebSocket;
@@ -198,7 +198,7 @@ var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>")
 var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator, true);
 
 //use one of the services 
-var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
+var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, "BTC-USD", 1);
 ```
 
 <h1>Examples</h1>
@@ -207,16 +207,16 @@ var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(Order
 
 ```csharp
 //by size
-var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
+var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, "BTC-USD", 1);
 
 //by funds
-var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 50, MarketOrderAmountType.Funds);
+var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, "BTC-USD", 50, MarketOrderAmountType.Funds);
 ```
 
 ###### Place a limit order ######
 
 ```csharp
-var response = await coinbaseProClient.OrdersService.PlaceLimitOrderAsync(OrderSide.Sell, ProductType.EthUsd, 1, 400.0M);
+var response = await coinbaseProClient.OrdersService.PlaceLimitOrderAsync(OrderSide.Sell, "ETH-USD", 1, 400.0M);
 ```
 
 ###### Cancel all open or un-settled orders ######
@@ -251,10 +251,10 @@ var reportDateTo = new DateTime(2018, 1, 1);
 var accountId = "29318029382";
 
 //generate and email accounts report csv
-var accountResponse = coinbaseProClient.ReportsService.CreateNewAccountReportAsync(reportDateFrom, reportDateTo, accountId, ProductType.BtcUsd, "me@email.com", FileFormat.Csv);
+var accountResponse = coinbaseProClient.ReportsService.CreateNewAccountReportAsync(reportDateFrom, reportDateTo, accountId, "BTC-USD", "me@email.com", FileFormat.Csv);
 
 //generate and email fills report pdf
-var fillsResponse = coinbaseProClient.ReportsService.CreateNewFillsReportAsync(reportDateFrom, reportDateTo, ProductType.BtcUsd, accountId, "me@email.com", FileFormat.Pdf);
+var fillsResponse = coinbaseProClient.ReportsService.CreateNewFillsReportAsync(reportDateFrom, reportDateTo, "BTC-USD", accountId, "me@email.com", FileFormat.Pdf);
 ```
 
 ###### Overriding the HttpClient behavior ######
@@ -292,7 +292,7 @@ var authenticator = new Authenticator("<apiKey>", "<signature>", "<passphrase>")
 var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator);
 
 //use one of the services 
-var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, ProductType.BtcUsd, 1);
+var response = await coinbaseProClient.OrdersService.PlaceMarketOrderAsync(OrderSide.Buy, "BTC-USD", 1);
 ```
 
 <h1>Contributors</h1>
