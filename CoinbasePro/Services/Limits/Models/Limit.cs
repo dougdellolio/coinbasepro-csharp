@@ -1,14 +1,10 @@
-﻿using CoinbasePro.Shared;
-using CoinbasePro.Shared.Types;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace CoinbasePro.Services.Limits.Models
 {
     public class Limit
     {
-        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
-        public Currency LimitCurrency { get; set; }
+        public string LimitCurrency { get; set; }
 
         public Dictionary<string, Dictionary<string, Details>> TransferLimits { get; set; }
     }

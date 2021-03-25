@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoinbasePro.Services.Deposits.Models;
 using CoinbasePro.Services.Deposits.Models.Responses;
-using CoinbasePro.Shared.Types;
 
 namespace CoinbasePro.Services.Deposits
 {
@@ -20,12 +19,12 @@ namespace CoinbasePro.Services.Deposits
         Task<DepositResponse> DepositFundsAsync(
             string paymentMethodId,
             decimal amount,
-            Currency currency);
+            string currency);
 
         Task<CoinbaseResponse> DepositCoinbaseFundsAsync(
             string coinbaseAccountId,
             decimal amount,
-            Currency currency);
+            string currency);
 
         Task<CryptoDepositAddressResponse> GenerateCryptoDepositAddressAsync(string coinbaseAccountId);
     }

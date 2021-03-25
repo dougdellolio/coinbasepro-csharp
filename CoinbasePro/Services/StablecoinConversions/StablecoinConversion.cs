@@ -1,16 +1,10 @@
-﻿using CoinbasePro.Shared.Types;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
-namespace CoinbasePro.Services.StablecoinConversions
+﻿namespace CoinbasePro.Services.StablecoinConversions
 {
     public class StablecoinConversion
     {
-        [JsonConverter(typeof(StringEnumConverter))]
-        public Currency From { get; set; }
+        public string FromCurrency { get; set; }
 
-        [JsonConverter(typeof(StringEnumConverter))]
-        public Currency To { get; set; }
+        public string ToCurrency { get; set; }
 
         public decimal Amount { get; set; }
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -7,7 +6,6 @@ using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Services.CoinbaseAccounts;
 using CoinbasePro.Services.CoinbaseAccounts.Models;
 using CoinbasePro.Services.CoinbaseAccounts.Types;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Specs.JsonFixtures.Services.CoinbaseAccounts;
 using Machine.Fakes;
 using Machine.Specifications;
@@ -39,7 +37,7 @@ namespace CoinbasePro.Specs.Services.CoinbaseAccounts
                 result.First().Id.ShouldEqual("fc3a8a57-7142-542d-8436-95a3d82e1622");
                 result.First().Name.ShouldEqual("ETH Wallet");
                 result.First().Balance.ShouldEqual(0.00000000M);
-                result.First().Currency.ShouldEqual(Currency.ETH);
+                result.First().Currency.ShouldEqual("ETH");
                 result.First().CoinbaseAccountType.ShouldEqual(CoinbaseAccountType.Wallet);
                 result.First().Primary.ShouldBeFalse();
                 result.First().Active.ShouldBeTrue();
@@ -74,7 +72,7 @@ namespace CoinbasePro.Specs.Services.CoinbaseAccounts
                 btcAccount.Id.ShouldEqual("1bfad868-5223-5d3c-8a22-b5ed371e55cb");
                 btcAccount.Name.ShouldEqual("BTC Wallet");
                 btcAccount.Balance.ShouldEqual(0.00000000M);
-                btcAccount.Currency.ShouldEqual(Currency.BTC);
+                btcAccount.Currency.ShouldEqual("BTC");
                 btcAccount.CoinbaseAccountType.ShouldEqual(CoinbaseAccountType.Wallet);
                 btcAccount.Primary.ShouldBeTrue();
                 btcAccount.Active.ShouldBeTrue();

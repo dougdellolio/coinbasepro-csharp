@@ -9,7 +9,6 @@ using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Services.Accounts;
 using CoinbasePro.Services.Accounts.Models;
 using CoinbasePro.Services.Accounts.Types;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Specs.JsonFixtures.Network.HttpResponseMessage;
 using CoinbasePro.Specs.JsonFixtures.Services.Accounts;
 
@@ -41,7 +40,7 @@ namespace CoinbasePro.Specs.Services.Accounts
                 It should_have_correct_account_information = () =>
                 {
                     result.First().Id.ShouldEqual(new Guid("e316cb9a-0808-4fd7-8914-97829c1925de"));
-                    result.First().Currency.ShouldEqual(Currency.USD);
+                    result.First().Currency.ShouldEqual("USD");
                     result.First().Balance.ShouldEqual(80.2301373066930000M);
                     result.First().Available.ShouldEqual(79.2266348066930000M);
                     result.First().Hold.ShouldEqual(1.0035025000000000M);
@@ -66,7 +65,7 @@ namespace CoinbasePro.Specs.Services.Accounts
                 It should_have_correct_account_information = () =>
                 {
                     result.First().Id.ShouldEqual(new Guid("e316cb9a-0808-4fd7-8914-97829c1925de"));
-                    result.First().Currency.ShouldEqual(Currency.Unknown);
+                    result.First().Currency.ShouldEqual("RANDOM");
                     result.First().Balance.ShouldEqual(80.2301373066930000M);
                     result.First().Available.ShouldEqual(79.2266348066930000M);
                     result.First().Hold.ShouldEqual(1.0035025000000000M);
@@ -89,7 +88,7 @@ namespace CoinbasePro.Specs.Services.Accounts
             It should_have_correct_account_information = () =>
             {
                 result.Id.ShouldEqual(new Guid("e316cb9a-0808-4fd7-8914-97829c1925de"));
-                result.Currency.ShouldEqual(Currency.USD);
+                result.Currency.ShouldEqual("USD");
                 result.Balance.ShouldEqual(1.100M);
                 result.Available.ShouldEqual(1.00M);
                 result.ProfileId.ShouldEqual(new Guid("75da88c5-05bf-4f54-bc85-5c775bd68254"));
@@ -122,7 +121,7 @@ namespace CoinbasePro.Specs.Services.Accounts
                     result.First().First().AccountEntryType.ShouldEqual(AccountEntryType.Conversion);
                     result.First().First().Details.OrderId.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));
                     result.First().First().Details.TradeId.ShouldEqual("74");
-                    result.First().First().Details.ProductId.ShouldEqual(ProductType.BtcUsd);
+                    result.First().First().Details.ProductId.ShouldEqual("BTC-USD");
                 };
             }
 
@@ -150,7 +149,7 @@ namespace CoinbasePro.Specs.Services.Accounts
                     result.First().First().AccountEntryType.ShouldEqual(AccountEntryType.Unknown);
                     result.First().First().Details.OrderId.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));
                     result.First().First().Details.TradeId.ShouldEqual("74");
-                    result.First().First().Details.ProductId.ShouldEqual(ProductType.BtcUsd);
+                    result.First().First().Details.ProductId.ShouldEqual("BTC-USD");
                 };
             }
         }

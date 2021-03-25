@@ -1,5 +1,4 @@
 ﻿using CoinbasePro.Services.Profiles.Models;
-using CoinbasePro.Shared.Types;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,7 +14,7 @@ namespace CoinbasePro.Services.Profiles
         Task<string> CreateProfileTransferAsync(
             Guid from,
             Guid to,
-            Currency currency,
+            string currency,
             decimal amount);
     }
 }

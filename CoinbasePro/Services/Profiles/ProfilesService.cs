@@ -1,7 +1,6 @@
 ﻿using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Network.HttpRequest;
 using CoinbasePro.Services.Profiles.Models;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Shared.Utilities;
 using System;
 using System.Collections.Generic;
@@ -32,7 +31,7 @@ namespace CoinbasePro.Services.Profiles
         public async Task<string> CreateProfileTransferAsync(
             Guid from,
             Guid to,
-            Currency currency,
+            string currency,
             decimal amount)
         {
             var newProfileTransfer = new ProfileTransfer

@@ -36,10 +36,10 @@ namespace CoinbasePro.Specs.Services.Currencies
 
             It should_return_a_correct_response = () =>
             {
-                result.First().Id.ShouldEqual(CoinbasePro.Shared.Types.Currency.BTC);
+                result.First().Id.ShouldEqual("BTC");
                 result.First().Name.ShouldEqual("Bitcoin");
                 result.First().MinSize.ShouldEqual(0.00000001M);
-                result.Skip(1).First().Id.ShouldEqual(CoinbasePro.Shared.Types.Currency.USD);
+                result.Skip(1).First().Id.ShouldEqual("USD");
                 result.Skip(1).First().Name.ShouldEqual("United States Dollar");
                 result.Skip(1).First().MinSize.ShouldEqual(0.01000000M);
                 result.Skip(1).First().Details.Type.ShouldEqual("fiat");
@@ -57,11 +57,11 @@ namespace CoinbasePro.Specs.Services.Currencies
                     .Return(Task.FromResult(CurrenciesResponseFixture.CreateSingleCurrency()));
 
             Because of = () =>
-                single_result = Subject.GetCurrencyByIdAsync(CoinbasePro.Shared.Types.Currency.BTC).Result;
+                single_result = Subject.GetCurrencyByIdAsync("BTC").Result;
 
             It should_return_a_correct_response = () =>
             {
-                single_result.Id.ShouldEqual(CoinbasePro.Shared.Types.Currency.BTC);
+                single_result.Id.ShouldEqual("BTC");
                 single_result.Name.ShouldEqual("Bitcoin");
                 single_result.MinSize.ShouldEqual(0.00000001M);
                 single_result.MaxPrecision.ShouldEqual(0.01M);
@@ -88,7 +88,7 @@ namespace CoinbasePro.Specs.Services.Currencies
 
             It should_return_a_correct_response = () =>
             {
-                result.First().Id.ShouldEqual(CoinbasePro.Shared.Types.Currency.ETC);
+                result.First().Id.ShouldEqual("ETC");
                 result.First().Name.ShouldEqual("Ether Classic");
                 result.First().MinSize.ShouldEqual(0.00000001M);
             };
@@ -108,7 +108,7 @@ namespace CoinbasePro.Specs.Services.Currencies
 
             It should_return_a_correct_response = () =>
             {
-                result.First().Id.ShouldEqual(CoinbasePro.Shared.Types.Currency.Unknown);
+                result.First().Id.ShouldEqual("UNK");
                 result.First().Name.ShouldEqual("Unknown Currency");
                 result.First().MinSize.ShouldEqual(0.00000001M);
             };

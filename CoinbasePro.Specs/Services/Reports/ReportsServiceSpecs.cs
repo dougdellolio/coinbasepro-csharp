@@ -5,7 +5,6 @@ using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Services.Reports;
 using CoinbasePro.Services.Reports.Models.Responses;
 using CoinbasePro.Services.Reports.Types;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Specs.JsonFixtures.Services.Reports;
 using Machine.Fakes;
 using Machine.Specifications;
@@ -31,7 +30,7 @@ namespace CoinbasePro.Specs.Services.Reports
 
             Because of = () =>
                 account_report_response = Subject.CreateNewAccountReportAsync(DateTime.MinValue, DateTime.MaxValue,
-                    "555", ProductType.BtcUsd, "myemail", FileFormat.Csv).Result;
+                    "555", "BTC-USD", "myemail", FileFormat.Csv).Result;
 
             It should_return_correct_response = () =>
             {
@@ -56,7 +55,7 @@ namespace CoinbasePro.Specs.Services.Reports
 
             Because of = () =>
                 fills_report_response = Subject.CreateNewFillsReportAsync(DateTime.MinValue, DateTime.MaxValue,
-                    ProductType.BtcUsd, "555", "myemail", FileFormat.Csv).Result;
+                   "BTC-USD", "555", "myemail", FileFormat.Csv).Result;
 
             It should_return_correct_response = () =>
             {

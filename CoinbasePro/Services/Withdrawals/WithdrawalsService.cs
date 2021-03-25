@@ -7,7 +7,6 @@ using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Network.HttpRequest;
 using CoinbasePro.Services.Withdrawals.Models;
 using CoinbasePro.Services.Withdrawals.Models.Responses;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Shared.Utilities;
 using CoinbasePro.Shared.Utilities.Queries;
 
@@ -51,7 +50,7 @@ namespace CoinbasePro.Services.Withdrawals
         public async Task<WithdrawalResponse> WithdrawFundsAsync(
             string paymentMethodId,
             decimal amount,
-            Currency currency)
+            string currency)
         {
             var newWithdrawal = new Withdrawal
             {
@@ -66,7 +65,7 @@ namespace CoinbasePro.Services.Withdrawals
         public async Task<CoinbaseResponse> WithdrawToCoinbaseAsync(
             string coinbaseAccountId,
             decimal amount,
-            Currency currency)
+            string currency)
         {
             var newCoinbaseWithdrawal = new Coinbase
             {
@@ -81,7 +80,7 @@ namespace CoinbasePro.Services.Withdrawals
         public async Task<CryptoResponse> WithdrawToCryptoAsync(
             string cryptoAddress,
             decimal amount,
-            Currency currency,
+            string currency,
             string destinationTag = null)
         {
             var newCryptoWithdrawal = destinationTag == null ? new Crypto
@@ -102,7 +101,7 @@ namespace CoinbasePro.Services.Withdrawals
         }
 
         public async Task<FeeEstimateResponse> GetFeeEstimateAsync(
-            Currency currency,
+            string currency,
             string cryptoAddress)
         {
             var queryString = queryBuilder.BuildQuery(

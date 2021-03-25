@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoinbasePro.Services.Fills.Models.Responses;
-using CoinbasePro.Shared.Types;
 
 namespace CoinbasePro.Services.Fills
 {
@@ -17,7 +16,7 @@ namespace CoinbasePro.Services.Fills
             int numberOfPages = 0);
 
         Task<IList<IList<FillResponse>>> GetFillsByProductIdAsync(
-            ProductType productId,
+            string productId,
             int limit = 100,
             int numberOfPages = 0);
     }

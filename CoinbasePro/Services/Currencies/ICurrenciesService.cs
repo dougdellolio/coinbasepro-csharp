@@ -7,6 +7,6 @@ namespace CoinbasePro.Services.Currencies
     {
         Task<IEnumerable<Models.Currency>> GetAllCurrenciesAsync();
 
-        Task<Models.Currency> GetCurrencyByIdAsync(Shared.Types.Currency currency);
+        Task<Models.Currency> GetCurrencyByIdAsync(string currency);
     }
 }

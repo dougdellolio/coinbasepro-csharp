@@ -9,7 +9,6 @@ using CoinbasePro.Network.HttpRequest;
 using CoinbasePro.Services.Products.Models;
 using CoinbasePro.Services.Products.Models.Responses;
 using CoinbasePro.Services.Products.Types;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Shared.Utilities.Queries;
 using CoinbasePro.Shared.Utilities.Extensions;
 
@@ -34,42 +33,42 @@ namespace CoinbasePro.Services.Products
         }
 
         public async Task<ProductsOrderBookResponse> GetProductOrderBookAsync(
-            ProductType productId,
+            string productId,
             ProductLevel productLevel = ProductLevel.One)
         {
-            var productsOrderBookJsonResponse = await SendServiceCall<ProductsOrderBookJsonResponse>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/book/?level={(int)productLevel}").ConfigureAwait(false);
+            var productsOrderBookJsonResponse = await SendServiceCall<ProductsOrderBookJsonResponse>(HttpMethod.Get, $"/products/{productId}/book/?level={(int)productLevel}").ConfigureAwait(false);
             var productOrderBookResponse = ConvertProductOrderBookResponse(productsOrderBookJsonResponse, productLevel);
 
             return productOrderBookResponse;
         }
 
-        public async Task<Product> GetSingleProductAsync(ProductType productId)
+        public async Task<Product> GetSingleProductAsync(string productId)
         {
-            return await SendServiceCall<Product>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}");
+            return await SendServiceCall<Product>(HttpMethod.Get, $"/products/{productId}");
         }
 
-        public async Task<ProductTicker> GetProductTickerAsync(ProductType productId)
+        public async Task<ProductTicker> GetProductTickerAsync(string productId)
         {
-            return await SendServiceCall<ProductTicker>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/ticker").ConfigureAwait(false);
+            return await SendServiceCall<ProductTicker>(HttpMethod.Get, $"/products/{productId}/ticker").ConfigureAwait(false);
         }
 
-        public async Task<ProductStats> GetProductStatsAsync(ProductType productId)
+        public async Task<ProductStats> GetProductStatsAsync(string productId)
         {
-            return await SendServiceCall<ProductStats>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/stats").ConfigureAwait(false);
+            return await SendServiceCall<ProductStats>(HttpMethod.Get, $"/products/{productId}/stats").ConfigureAwait(false);
         }
 
         public async Task<IList<IList<ProductTrade>>> GetTradesAsync(
-            ProductType productId,
+            string productId,
             int limit = 100,
             int numberOfPages = 0)
         {
-            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<ProductTrade>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/trades?limit={limit}", numberOfPages: numberOfPages);
+            var httpResponseMessage = await SendHttpRequestMessagePagedAsync<ProductTrade>(HttpMethod.Get, $"/products/{productId}/trades?limit={limit}", numberOfPages: numberOfPages);
 
             return httpResponseMessage;
         }
 
         public async Task<IList<Candle>> GetHistoricRatesAsync(
-            ProductType productPair,
+            string productPair,
             DateTime start,
             DateTime end,
             CandleGranularity granularity)
@@ -116,7 +115,7 @@ namespace CoinbasePro.Services.Products
         }
 
         private async Task<IList<Candle>> GetHistoricRatesAsync(
-            ProductType productId,
+            string productId,
             DateTime start,
             DateTime end,
             int granularity)
@@ -129,7 +128,7 @@ namespace CoinbasePro.Services.Products
                 new KeyValuePair<string, string>("end", isoEnd),
                 new KeyValuePair<string, string>("granularity", granularity.ToString()));
 
-            return await SendServiceCall<IList<Candle>>(HttpMethod.Get, $"/products/{productId.GetEnumMemberValue()}/candles" + queryString).ConfigureAwait(false);
+            return await SendServiceCall<IList<Candle>>(HttpMethod.Get, $"/products/{productId}/candles" + queryString).ConfigureAwait(false);
         }
 
         private ProductsOrderBookResponse ConvertProductOrderBookResponse(

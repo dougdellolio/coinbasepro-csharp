@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Services.UserAccount;
 using CoinbasePro.Services.UserAccount.Models;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Specs.JsonFixtures.Services.UserAccount;
 using Machine.Fakes;
 using Machine.Specifications;
@@ -36,12 +35,12 @@ namespace CoinbasePro.Specs.Services.UserAccount
 
             It should_return_a_correct_response = () =>
             {
-                result.First().ProductId.ShouldEqual(ProductType.BtcUsd);
+                result.First().ProductId.ShouldEqual("BTC-USD");
                 result.First().ExchangeVolume.ShouldEqual(11800M);
                 result.First().Volume.ShouldEqual(100M);
                 result.First().RecordedAt.ShouldEqual(new DateTime(2016, 12, 9));
 
-                result.Skip(1).First().ProductId.ShouldEqual(ProductType.LtcUsd);
+                result.Skip(1).First().ProductId.ShouldEqual("LTC-USD");
                 result.Skip(1).First().ExchangeVolume.ShouldEqual(51010.041M);
                 result.Skip(1).First().Volume.ShouldEqual(2010.041M);
                 result.Skip(1).First().RecordedAt.ShouldEqual(new DateTime(2016, 12, 9));

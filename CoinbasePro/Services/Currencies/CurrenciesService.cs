@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Network.HttpRequest;
-using CoinbasePro.Shared.Utilities.Extensions;
 
 namespace CoinbasePro.Services.Currencies
 {
@@ -21,7 +20,7 @@ namespace CoinbasePro.Services.Currencies
             return await SendServiceCall<List<Models.Currency>>(HttpMethod.Get, "/currencies").ConfigureAwait(false);
         }
 
-        public async Task<Models.Currency> GetCurrencyByIdAsync(Shared.Types.Currency currency)
+        public async Task<Models.Currency> GetCurrencyByIdAsync(string currency)
         {
             return await SendServiceCall<Models.Currency>(HttpMethod.Get, $"/currencies/{currency.ToString().ToUpper()}").ConfigureAwait(false);
         }

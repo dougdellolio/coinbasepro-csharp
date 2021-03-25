@@ -7,7 +7,6 @@ using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Network.HttpRequest;
 using CoinbasePro.Services.Deposits.Models;
 using CoinbasePro.Services.Deposits.Models.Responses;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.Shared.Utilities;
 using CoinbasePro.Shared.Utilities.Queries;
 
@@ -51,7 +50,7 @@ namespace CoinbasePro.Services.Deposits
         public async Task<DepositResponse> DepositFundsAsync(
             string paymentMethodId,
             decimal amount,
-            Currency currency)
+            string currency)
         {
             var newDeposit = new Deposit
             {
@@ -66,7 +65,7 @@ namespace CoinbasePro.Services.Deposits
         public async Task<CoinbaseResponse> DepositCoinbaseFundsAsync(
             string coinbaseAccountId,
             decimal amount,
-            Currency currency)
+            string currency)
         {
             var newCoinbaseDeposit = new Coinbase
             {

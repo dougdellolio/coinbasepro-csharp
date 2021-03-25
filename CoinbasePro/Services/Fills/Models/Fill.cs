@@ -1,5 +1,4 @@
 ﻿using System;
-using CoinbasePro.Shared.Types;
 
 namespace CoinbasePro.Services.Fills.Models
 {
@@ -7,6 +6,6 @@ namespace CoinbasePro.Services.Fills.Models
     {
         public Guid OrderId { get; set; }
 
-        public ProductType ProductId { get; set; }
+        public string ProductId { get; set; }
     }
 }

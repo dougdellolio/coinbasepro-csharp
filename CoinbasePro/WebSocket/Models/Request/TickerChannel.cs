@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
-using CoinbasePro.Shared.Types;
 using CoinbasePro.WebSocket.Types;
 
 
@@ -12,8 +11,7 @@ namespace CoinbasePro.WebSocket.Models.Request
         [JsonConverter(typeof(StringEnumConverter))]
         public ActionType Type { get; set; }
 
-        [JsonProperty("product_ids", ItemConverterType = typeof(StringEnumConverter))]
-        public List<ProductType> ProductIds { get; set; }
+        public List<string> ProductIds { get; set; }
 
         public List<Channel> Channels { get; set; }
 
@@ -31,10 +29,9 @@ namespace CoinbasePro.WebSocket.Models.Request
         [JsonConverter(typeof(StringEnumConverter))]
         public ChannelType Name { get; set; }
 
-        [JsonProperty("product_ids", ItemConverterType = typeof(StringEnumConverter))]
-        public List<ProductType> ProductIds { get; set; }
+        public List<string> ProductIds { get; set; }
 
-        public Channel(ChannelType name, List<ProductType> productIds)
+        public Channel(ChannelType name, List<string> productIds)
         {
             Name = name;
             ProductIds = productIds;
