@@ -124,7 +124,7 @@ var coinbaseProClient = new CoinbasePro.CoinbaseProClient(authenticator);
 
 //use the websocket feed
 var productTypes = new List<string>() { "BTC-EUR", "BTC-USD" };
-var channels = new List<ChannelType>() { ChannelType.Full, ChannelType.User} // When not providing any channels, the socket will subscribe to all channels
+var channels = new List<ChannelType>() { ChannelType.Full, ChannelType.User } // When not providing any channels, the socket will subscribe to all channels
 
 var webSocket = coinbaseProClient.WebSocket;
 webSocket.Start(productTypes, channels);
