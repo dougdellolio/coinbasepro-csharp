@@ -5,9 +5,11 @@ using CoinbasePro.Services.Deposits;
 using CoinbasePro.Services.Fees;
 using CoinbasePro.Services.Fills;
 using CoinbasePro.Services.Fundings;
+using CoinbasePro.Services.Limits;
 using CoinbasePro.Services.Orders;
 using CoinbasePro.Services.Payments;
 using CoinbasePro.Services.Products;
+using CoinbasePro.Services.Profiles;
 using CoinbasePro.Services.Reports;
 using CoinbasePro.Services.StablecoinConversions;
 using CoinbasePro.Services.UserAccount;
@@ -47,5 +49,9 @@ namespace CoinbasePro
         IStablecoinConversionsService StablecoinConversionsService { get; }
 
         IWebSocket WebSocket { get; }
+
+        IProfilesService ProfilesService { get; }
+
+        ILimitsService LimitsService { get; }
     }
 }
