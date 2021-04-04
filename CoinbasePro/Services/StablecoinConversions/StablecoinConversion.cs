@@ -2,9 +2,9 @@
 {
     public class StablecoinConversion
     {
-        public string FromCurrency { get; set; }
+        public string From { get; set; }
 
-        public string ToCurrency { get; set; }
+        public string To { get; set; }
 
         public decimal Amount { get; set; }
     }

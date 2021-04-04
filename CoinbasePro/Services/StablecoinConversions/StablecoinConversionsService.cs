@@ -23,8 +23,8 @@ namespace CoinbasePro.Services.StablecoinConversions
         {
             var newConversion = JsonConfig.SerializeObject(new StablecoinConversion
             {
-                FromCurrency = fromCurrency,
-                ToCurrency = toCurrency,
+                From = fromCurrency,
+                To = toCurrency,
                 Amount = amount
             });
 
