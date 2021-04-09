@@ -83,7 +83,6 @@ var allAccounts = await coinbaseProClient.AccountsService.GetAllAccountsAsync();
 - GetCurrencyByIdAsync(currency) - list the currency for the specified id
 
 ###### Fills ######
-- GetAllFillsAsync(limit, numberOfPages) - gets a list of all recent fills (paged response)
 - GetFillsByOrderIdAsync(orderId, limit, numberOfPages) - gets a list of all recent fills by order id (paged response)
 - GetFillsByProductIdAsync(productType, limit, numberOfPages) - gets a list of all recent fills by product type (paged response)
 

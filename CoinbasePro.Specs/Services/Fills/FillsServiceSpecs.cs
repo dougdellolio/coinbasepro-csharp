@@ -22,28 +22,6 @@ namespace CoinbasePro.Specs.Services.Fills
             The<IHttpClient>().WhenToldTo(p => p.SendAsync(Param.IsAny<HttpRequestMessage>()))
                 .Return(Task.FromResult(HttpResponseMessageFixture.CreateWithEmptyValue()));
 
-        class when_requesting_all_fills
-        {
-            Establish context = () =>
-                The<IHttpClient>().WhenToldTo(p => p.ReadAsStringAsync(Param.IsAny<HttpResponseMessage>()))
-                    .Return(Task.FromResult(FillsResponseFixture.Create()));
-
-            Because of = () =>
-                fill_response = Subject.GetAllFillsAsync(1).Result;
-
-            It should_return_a_response = () =>
-                fill_response.ShouldNotBeNull();
-
-            It should_return_a_correct_response = () =>
-            {
-                fill_response.First().First().TradeId.ShouldEqual(74);
-                fill_response.First().First().ProductId.ShouldEqual("BTC-USD");
-                fill_response.First().First().Price.ShouldEqual(10.00M);
-                fill_response.First().First().Size.ShouldEqual(0.01M);
-                fill_response.First().First().OrderId.ShouldEqual(new Guid("d50ec984-77a8-460a-b958-66f114b0de9b"));
-            };
-        }
-
         class when_requesting_fills_by_order_id
         {
             Establish context = () =>
