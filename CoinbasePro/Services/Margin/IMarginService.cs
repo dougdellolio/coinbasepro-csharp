@@ -1,5 +1,4 @@
 ﻿using CoinbasePro.Services.Margin.Models;
-using CoinbasePro.Shared.Types;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,11 +7,11 @@ namespace CoinbasePro.Services.Margin
 {
     public interface IMarginService
     {
-        Task<List<Profile>> GetProfileInformationAsync(ProductType productId);
+        Task<List<Profile>> GetProfileInformationAsync(string productId);
 
-        Task<BuyingSellingPower> GetBuyingPowerAsync(ProductType productId);
+        Task<BuyingSellingPower> GetBuyingPowerAsync(string productId);
 
-        Task<List<WithdrawalPowers>> GetWithdrawalPowerAsync(Currency currency);
+        Task<List<WithdrawalPowers>> GetWithdrawalPowerAsync(string currency);
 
         Task<List<WithdrawalPowersAll>> GetAllWithdrawalPowersAsync();
 

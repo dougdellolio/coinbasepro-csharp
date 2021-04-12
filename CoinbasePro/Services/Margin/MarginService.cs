@@ -1,8 +1,6 @@
 ﻿using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Network.HttpRequest;
 using CoinbasePro.Services.Margin.Models;
-using CoinbasePro.Shared.Types;
-using CoinbasePro.Shared.Utilities.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -19,17 +17,17 @@ namespace CoinbasePro.Services.Margin
         {
         }
 
-        public async Task<List<Profile>> GetProfileInformationAsync(ProductType productId)
+        public async Task<List<Profile>> GetProfileInformationAsync(string productId)
         {
-            return await SendServiceCall<List<Profile>>(HttpMethod.Get, $"/margin/profile_information?product_id={productId.GetEnumMemberValue()}").ConfigureAwait(false);
+            return await SendServiceCall<List<Profile>>(HttpMethod.Get, $"/margin/profile_information?product_id={productId}").ConfigureAwait(false);
         }
 
-        public async Task<BuyingSellingPower> GetBuyingPowerAsync(ProductType productId)
+        public async Task<BuyingSellingPower> GetBuyingPowerAsync(string productId)
         {
-            return await SendServiceCall<BuyingSellingPower>(HttpMethod.Get, $"/margin/buying_power?product_id={productId.GetEnumMemberValue()}").ConfigureAwait(false);
+            return await SendServiceCall<BuyingSellingPower>(HttpMethod.Get, $"/margin/buying_power?product_id={productId}").ConfigureAwait(false);
         }
 
-        public async Task<List<WithdrawalPowers>> GetWithdrawalPowerAsync(Currency currency)
+        public async Task<List<WithdrawalPowers>> GetWithdrawalPowerAsync(string currency)
         {
             return await SendServiceCall<List<WithdrawalPowers>>(HttpMethod.Get, $"/margin/withdrawal_power?currency={currency}").ConfigureAwait(false);
         }
