@@ -1,6 +1,4 @@
 ﻿using CoinbasePro.Services.Orders.Types;
-using CoinbasePro.Shared;
-using CoinbasePro.Shared.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
@@ -23,8 +21,7 @@ namespace CoinbasePro.Services.Margin.Models
 
         public decimal Size { get; set; }
 
-        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
-        public ProductType ProductId { get; set; }
+        public string ProductId { get; set; }
 
         public Guid ProfileId { get; set; }
 

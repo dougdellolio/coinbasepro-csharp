@@ -1,8 +1,4 @@
-﻿
-using CoinbasePro.Shared;
-using CoinbasePro.Shared.Types;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 
 namespace CoinbasePro.Services.Margin.Models
 {
@@ -28,8 +24,7 @@ namespace CoinbasePro.Services.Margin.Models
 
         public decimal InterestPaid { get; set; }
 
-        [JsonProperty(ItemConverterType = typeof(StringEnumWithDefaultConverter))]
-        public Currency[] CollateralCurrencies { get; set; }
+        public string[] CollateralCurrencies { get; set; }
 
         public decimal CollateralHoldValue { get; set; }
 

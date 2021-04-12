@@ -5,7 +5,6 @@ using CoinbasePro.Network.HttpClient;
 using CoinbasePro.Services.Margin;
 using CoinbasePro.Services.Margin.Models;
 using CoinbasePro.Specs.JsonFixtures.Services.Margin;
-using CoinbasePro.Shared.Types;
 using Machine.Fakes;
 using Machine.Specifications;
 using System.Linq;
@@ -30,7 +29,7 @@ namespace CoinbasePro.Specs.Services.Margin
                     .Return(Task.FromResult(MarginResponseFixture.CreateMarginProfileInformationResponse()));
 
             Because of = () =>
-                result = Subject.GetProfileInformationAsync(ProductType.BtcUsd).Result;
+                result = Subject.GetProfileInformationAsync("BTC-USD").Result;
 
             It should_return_a_correct_response = () =>
             {
@@ -46,9 +45,9 @@ namespace CoinbasePro.Specs.Services.Margin
                 result.First().InterestPaid.ShouldEqual(0.32m);
 
                 result.First().CollateralCurrencies.Length.ShouldEqual(3);
-                result.First().CollateralCurrencies.First().ShouldEqual(Currency.BTC);
-                result.First().CollateralCurrencies.Skip(1).First().ShouldEqual(Currency.USD);
-                result.First().CollateralCurrencies.Skip(2).First().ShouldEqual(Currency.USDC);
+                result.First().CollateralCurrencies.First().ShouldEqual("BTC");
+                result.First().CollateralCurrencies.Skip(1).First().ShouldEqual("USD");
+                result.First().CollateralCurrencies.Skip(2).First().ShouldEqual("USDC");
 
                 result.First().CollateralHoldValue.ShouldEqual(1.005m);
                 result.First().AvailableBorrowLimits.MarginableLimit.ShouldEqual(23.51m);
@@ -69,7 +68,7 @@ namespace CoinbasePro.Specs.Services.Margin
                     .Return(Task.FromResult(MarginResponseFixture.CreateBuyingPowerResponse()));
 
             Because of = () =>
-                result = Subject.GetBuyingPowerAsync(ProductType.BtcUsd).Result;
+                result = Subject.GetBuyingPowerAsync("BTC-USD").Result;
 
             It should_return_a_correct_response = () =>
             {
@@ -88,7 +87,7 @@ namespace CoinbasePro.Specs.Services.Margin
                     .Return(Task.FromResult(MarginResponseFixture.CreateWithdrawalPowerResponse()));
 
             Because of = () =>
-                result = Subject.GetWithdrawalPowerAsync(Currency.BTC).Result;
+                result = Subject.GetWithdrawalPowerAsync("BTC").Result;
 
             It should_return_a_correct_response = () =>
             {
@@ -112,7 +111,7 @@ namespace CoinbasePro.Specs.Services.Margin
             {
                 result.First().ProfileId.ShouldEqual(new Guid("8058d771-2d88-4f0f-ab6e-299c153d4308"));
                 result.First().MarginableWithdrawalPowers.Count.ShouldEqual(4);
-                result.First().MarginableWithdrawalPowers.First().Currency.Equals(Currency.ETH);
+                result.First().MarginableWithdrawalPowers.First().Currency.Equals("ETH");
             };
         }
 
@@ -135,7 +134,7 @@ namespace CoinbasePro.Specs.Services.Margin
 
                 result.AccountsList.Count.ShouldEqual(3);
                 result.AccountsList.First().Id.ShouldEqual(new Guid("434e1152-8eb5-4bfa-89a1-92bb1dcaf0c3"));
-                result.AccountsList.First().Currency.ShouldEqual(Currency.BTC);
+                result.AccountsList.First().Currency.ShouldEqual("BTC");
                 result.AccountsList.First().Amount.ShouldEqual(0.0022m);
 
                 result.EquityPercentage.ShouldEqual(0.87m);
@@ -161,7 +160,7 @@ namespace CoinbasePro.Specs.Services.Margin
                 result.First().EventTime.ShouldEqual(new DateTime(2019, 11, 21));
                 result.First().Orders.Count.ShouldEqual(1);
 
-                result.First().Orders.First().ProductId.ShouldEqual(ProductType.BtcUsd);
+                result.First().Orders.First().ProductId.ShouldEqual("BTC-USD");
                 result.First().Orders.First().Status.ShouldEqual(OrderStatus.Done);
             };
         }

@@ -1,7 +1,4 @@
-﻿using CoinbasePro.Shared;
-using CoinbasePro.Shared.Types;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace CoinbasePro.Services.Margin.Models
@@ -31,8 +28,7 @@ namespace CoinbasePro.Services.Margin.Models
     {
         public Guid Id { get; set; }
 
-        [JsonConverter(typeof(StringEnumWithDefaultConverter))]
-        public Currency Currency { get; set; }
+        public string Currency { get; set; }
 
         public decimal Amount { get; set; }
     }
