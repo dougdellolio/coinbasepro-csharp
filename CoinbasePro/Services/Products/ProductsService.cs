@@ -120,8 +120,8 @@ namespace CoinbasePro.Services.Products
             DateTime end,
             int granularity)
         {
-            var isoStart = start.ToString("s");
-            var isoEnd = end.ToString("s");
+            var isoStart = start.ToString("yyyy-MM-ddTHH:mm:ss.fffK");
+            var isoEnd = end.ToString("yyyy-MM-ddTHH:mm:ss.fffK");
 
             var queryString = queryBuilder.BuildQuery(
                 new KeyValuePair<string, string>("start", isoStart),
